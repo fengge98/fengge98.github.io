@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2015 | FengGe</title>
+  <title>反射型xss | FengGe</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -221,55 +221,61 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/10/反射型xss/">反射型xss</a></h4>
-                            
-                            <p><time datetime="2015-08-10T02:47:07.000Z"><a href="/2015/08/10/反射型xss/">2015-08-10</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/07/mysql使用记录总结/">MySql用户及字符集相关操作</a></h4>
-                            
-                            <p><time datetime="2015-08-07T09:47:50.000Z"><a href="/2015/08/07/mysql使用记录总结/">2015-08-07</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/07/密码找回漏洞总结/">密码找回漏洞总结</a></h4>
-                            
-                            <p><time datetime="2015-08-07T08:58:06.000Z"><a href="/2015/08/07/密码找回漏洞总结/">2015-08-07</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-08-10T02:47:07.000Z" itemprop="datePublished">
+          2015-08-10
+      </time>
+    
+</span>
+                <h1>反射型xss</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<figure class="highlight"><figcaption><span>/ "`等字符的过滤情况如果没有，直接X。```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ &#20160;&#20040;&#37117;&#27809;&#36807;&#28388;&#30340;&#20837;&#38376;&#24773;&#20917;](http://www.wooyun.org/bugs/wooyun-2010-015957)&#10;&#10;```2.&#32771;&#34385;&#29992;`&#38;#x`&#30340;&#24418;&#24335;&#20195;&#26367;&#65292;&#22914;&#26524;&#27809;&#26377;&#36807;&#28388;`&#38; #` &#29702;&#35770;&#19978;&#21487;&#20197;&#20195;&#26367;&#20219;&#24847;&#23383;&#31526;&#65292;&#20294;&#26159;&#19968;&#33324;&#37117;&#20250;&#23558;&#38;&#36807;&#28388;&#20026;`&#38;amp`&#12290;</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#23485;&#23383;&#33410;&#22797;&#20167;&#35760; [QQ&#37038;&#31665;&#22522;&#26412;&#36890;&#29992;]](http://www.wooyun.org/bugs/wooyun-2010-015969)&#10;&#10;&#10;```4.`location.href=&#34;.........&#34;+&#34;&#38;ss=aaaa\&#34;+&#34;&#38;from==1;function from()&#123;&#125;//&#34;+&#34;&#38;param=&#34;;</span><br></pre></td></tr></table></figure>
+<p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a><br><figure class="highlight"><figcaption><span>来使之后的代码生效。```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#25442;&#34892;&#31526;&#22797;&#20167;&#35760;](http://www.wooyun.org/bugs/wooyun-2010-016003)&#10;&#10;```6.&#21069;&#38754;&#30693;&#35782;&#30340;&#32508;&#21512;&#24212;&#29992;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//cgi</span>.data.tech.qq.com/<span class="keyword">index</span>.php?mod=search&amp;type=data&amp;site=digi&amp;libid=<span class="number">2</span>&amp;curpage=<span class="number">1</span>&amp;pagenum=<span class="number">30</span>&amp;filterattr=<span class="number">138</span>,<span class="number">138</span>|<span class="number">16</span>|<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">5</span>&amp;filtervalue=<span class="number">3500</span>-<span class="number">4000</span>,<span class="variable">%B4</span><span class="variable">%F3</span><span class="variable">%D3</span><span class="variable">%DA4000</span>|<span class="variable">%D0</span><span class="variable">%FD</span><span class="variable">%D7</span><span class="variable">%AA</span>|WCDMA,WCDMA,HSDPA,HSDPA&amp;tplname=centersearch.shtml&amp;orderby=aaaa<span class="variable">%c0</span><span class="variable">%5c</span><span class="variable">%0aalert</span>(<span class="number">1</span>);<span class="regexp">//</span></span><br></pre></td></tr></table></figure>
+<p>目标参数orderby</p>
+<pre><code><span class="number">1</span>.使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">`使</span>JS代码生效
+<span class="number">2</span>.使用反斜线<span class="escape">`%</span><span class="number">5</span>c<span class="escape">`解</span>决语法错误，但是发现\被过滤为\\
+<span class="number">3</span>.使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉一个反斜线最终保留一个反斜线，成功构造如上代码
+</code></pre><p>以上资料来自<a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子</a>@<a href="http://www.wooyun.org" target="_blank" rel="external">乌云</a></p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>虽然还没想好写点什么，但是总觉得这里放句话比较和谐。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2015/08/07/mysql使用记录总结/">
+        MySql用户及字符集相关操作 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/08/10/反射型xss/" data-title="反射型xss" data-url="http://yoursite.com/2015/08/10/反射型xss/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
