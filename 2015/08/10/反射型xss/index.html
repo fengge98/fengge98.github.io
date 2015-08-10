@@ -19,7 +19,7 @@
 2.考虑用`&amp;amp;#x`的形式代替，如果没有过滤`&amp;amp; #` 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为`&amp;amp;amp`. 
 输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
 3.gbXXXX系列的可以考虑使用">
-<meta property="og:updated_time" content="2015-08-10T03:27:55.301Z">
+<meta property="og:updated_time" content="2015-08-10T08:30:16.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反射型XSS(心伤的瘦子)">
 <meta name="twitter:description" content="1.查看`&amp;lt; / &quot;`等字符的过滤情况如果没有，直接X.
@@ -220,7 +220,7 @@
       <input type="hidden" class="isFancy" />
     
     
-     r class="article-header">
+     < class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
@@ -261,6 +261,32 @@
 <span class="number">2</span>.使用反斜线<span class="escape">`%</span><span class="number">5</span>c<span class="escape">`解</span>决语法错误，但是发现\被过滤为\\
 <span class="number">3</span>.使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉一个反斜线最终保留一个反斜线，成功构造如上代码
 </code></pre><p>以上资料来自<a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子</a>@<a href="http://www.wooyun.org" target="_blank" rel="external">乌云</a></p>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
