@@ -228,7 +228,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
-                    <h3><a href="/2015/08/07/mysql使用记录总结/">mysql使用记录总结</a></h3>
+                    <h3><a href="/2015/08/07/mysql使用记录总结/">MySql用户及字符集相关操作</a></h3>
                     <span>
                         <span class="post-meta">
       <time datetime="2015-08-07T09:47:50.000Z" itemprop="datePublished">
@@ -247,7 +247,12 @@
                     <p>
                       
                         MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):
-1.新建用户登录MYSQL：　　@&gt;mysql -u root -p　　@&gt;密码创建用户：　　mysql&gt; insert into mysql.user(Host,User,Password) values(“localhost”,”test”,password(“1234”));　　这样就创建了一个名为：te
+1.新建用户登录MYSQL：
+cmd&gt;mysql -u root -p
+cmd&gt;密码
+创建用户：
+mysql&gt; insert into mysql.user(Host,User,Password) values("localhost","test",password("1234"));
+这样就创建了一个名为：t
                       
                     </p>
                     
