@@ -5,34 +5,31 @@
   
   <title>MySql练级攻略-用户增删改查 | FengGe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）
-##用户管理
-###登录MYSQL：
+  <meta name="description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
+
 cmd&amp;gt;mysql -u root -p
 cmd&amp;gt;密码
-###查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-select user,host,password from m">
+查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）    select user,host,password from mysql.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySql练级攻略-用户增删改查">
 <meta property="og:url" content="http://yoursite.com/2015/08/11/MySql练级攻略-用户增删改查/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）
-##用户管理
-###登录MYSQL：
+<meta property="og:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
+
 cmd&amp;gt;mysql -u root -p
 cmd&amp;gt;密码
-###查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-select user,host,password from m">
-<meta property="og:updated_time" content="2015-08-11T02:45:16.289Z">
+查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）    select user,host,password from mysql.">
+<meta property="og:updated_time" content="2015-08-11T03:13:05.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略-用户增删改查">
-<meta name="twitter:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）
-##用户管理
-###登录MYSQL：
+<meta name="twitter:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
+
 cmd&amp;gt;mysql -u root -p
 cmd&amp;gt;密码
-###查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-select user,host,password from m">
+查看：MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）    select user,host,password from mysql.">
   
     <link rel="alternative" href="/atom.xml" title="FengGe" type="application/atom+xml">
   
@@ -250,27 +247,22 @@ select user,host,password from m">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）</p>
-<p>##用户管理</p>
-<p>###登录MYSQL：</p>
+        <p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）    </p>
+<h2>登录MYSQL:</h2>
+
 <pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
 <span class="built_ins">cmd</span>&gt;密码
-</code></pre><p>###查看：<br>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
-<pre><code><span class="operator">select <span class="keyword">user</span>,host,<span class="keyword">password</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span>;</span>
-</code></pre><p>或者是</p>
-<pre><code>mysql&gt;<span class="built_in">show</span> databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
-mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
-mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
-</code></pre><p>可以用以下命令查看<strong>当前用户</strong>；</p>
-<pre><code>mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;
-</code></pre><p>###创建：</p>
+</code></pre><h2>查看：</h2><br>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）<br><br>    select user,host,password from mysql.user;<br>或者是<br><br>    mysql&gt;show databases;                      //显示当前用户可查看的所有数据库<br>    mysql&gt;use mysql;                           //选择mysql数据库<br>    mysql&gt;select user,host,password from user; //从user表中查询<br><br>可以用以下命令查看<strong>当前用户</strong>；<br><br>    mysql&gt;select user();<br><h2>创建：</h2>
+
 <pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
-</code></pre><p>###修改：</p>
+</code></pre><h2>修改：</h2>
+
 <pre><code>mysql&gt;rename user <span class="built_in">test</span> to <span class="built_in">test</span>1;
 
 mysql&gt;<span class="built_in">set</span> password <span class="keyword">for</span> <span class="built_in">test</span> = password(<span class="string">'123'</span>)//对user表没有操作权限的用户可以用此命令修改自己的密码
 mysql&gt;updata mysql.user <span class="built_in">set</span> password = password(<span class="string">'123'</span>) <span class="built_in">where</span> user = <span class="string">"test"</span> //修改任意用户密码
-</code></pre><p>###删除:</p>
+</code></pre><h2>删除:</h2>
+
 <pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
 
 mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
