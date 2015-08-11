@@ -196,6 +196,56 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-MySql练级攻略-权限分配" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/11/MySql练级攻略-权限分配/" class="article-date">
+  	<time datetime="2015-08-11T03:14:10.000Z" itemprop="datePublished">2015-08-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/11/MySql练级攻略-权限分配/">MySql练级攻略-权限分配</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-MySql练级攻略-用户增删改查" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -227,7 +277,17 @@
 
 <pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
 <span class="built_ins">cmd</span>&gt;密码
-</code></pre><h2>查看：</h2><br>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）<br><br>    select user,host,password from mysql.user;<br>或者是<br><br>    mysql&gt;show databases;                      //显示当前用户可查看的所有数据库<br>    mysql&gt;use mysql;                           //选择mysql数据库<br>    mysql&gt;select user,host,password from user; //从user表中查询<br><br>可以用以下命令查看<strong>当前用户</strong>；<br><br>    mysql&gt;select user();<br><h2>创建：</h2>
+</code></pre><h2>查看：</h2>
+
+<p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
+<pre><code><span class="operator">select <span class="keyword">user</span>,host,<span class="keyword">password</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span>;</span>
+</code></pre><p>或者是</p>
+<pre><code>mysql&gt;<span class="built_in">show</span> databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
+mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
+mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
+</code></pre><p>可以用以下命令查看<strong>当前用户</strong>；</p>
+<pre><code>mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;
+</code></pre><h2>创建：</h2>
 
 <pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
 </code></pre><h2>修改：</h2>
