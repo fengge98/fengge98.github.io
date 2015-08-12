@@ -10,9 +10,9 @@
 mysql&amp;gt;show grants for test //查看用户test所有权限
 增加：
 
-mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot;
+mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot; ;
 //将myslq库select update 权限分配给test并将密码改为&quot;qwe1232&quot;
-mysql&amp;gt; grant all privi">
+mysql&amp;gt; grant all pri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySql练级攻略-权限分配">
 <meta property="og:url" content="http://yoursite.com/2015/08/11/MySql练级攻略-权限分配/index.html">
@@ -22,10 +22,10 @@ mysql&amp;gt; grant all privi">
 mysql&amp;gt;show grants for test //查看用户test所有权限
 增加：
 
-mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot;
+mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot; ;
 //将myslq库select update 权限分配给test并将密码改为&quot;qwe1232&quot;
-mysql&amp;gt; grant all privi">
-<meta property="og:updated_time" content="2015-08-12T01:29:27.043Z">
+mysql&amp;gt; grant all pri">
+<meta property="og:updated_time" content="2015-08-12T03:11:33.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略-权限分配">
 <meta name="twitter:description" content="查看：
@@ -33,9 +33,9 @@ mysql&amp;gt; grant all privi">
 mysql&amp;gt;show grants for test //查看用户test所有权限
 增加：
 
-mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot;
+mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot; ;
 //将myslq库select update 权限分配给test并将密码改为&quot;qwe1232&quot;
-mysql&amp;gt; grant all privi">
+mysql&amp;gt; grant all pri">
   
     <link rel="alternative" href="/atom.xml" title="FengGe" type="application/atom+xml">
   
@@ -258,10 +258,10 @@ mysql&amp;gt; grant all privi">
 <pre><code>mysql&gt;show grants <span class="keyword">for</span> <span class="built_in">test</span> //查看用户<span class="built_in">test</span>所有权限
 </code></pre><h2>增加：</h2>
 
-<pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span>
+<pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span> ;
 <span class="comment">//将myslq库select update 权限分配给test并将密码改为"qwe1232"</span>
-mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> mysql<span class="built_in">.</span>* <span class="keyword">to</span> test ;<span class="comment">//mysql库的所有权限</span>
-</code></pre><p>重复添加不报错</p>
+mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> mysql<span class="built_in">.</span>* <span class="keyword">to</span> test <span class="keyword">with</span> grant option;<span class="comment">//mysql库的所有权限</span>
+</code></pre><p>重复添加不报错<br>    mysql&gt; grant all privileges on <em>.</em> to test with grant option;</p>
 <h2>删除：</h2>
 
 <pre><code>mysql&gt; revoke select <span class="function_start"><span class="keyword">on</span></span> myslq.* test;
@@ -278,6 +278,15 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/08/12/MySql练级攻略-操作表/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          MySql练级攻略-操作表
+        
+      </div>
+    </a>
   
   
     <a href="/2015/08/11/MySql练级攻略-用户增删改查/" id="article-nav-older" class="article-nav-link-wrap">
