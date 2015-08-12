@@ -69,7 +69,7 @@ SQL语法
 
 ```
 反引号">
-<meta property="og:updated_time" content="2015-08-12T08:22:49.427Z">
+<meta property="og:updated_time" content="2015-08-12T08:24:21.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略(4)-SQL注入之数据库常量及函数">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
@@ -352,9 +352,8 @@ SQL语法
 </tr>
 </tbody>
 </table>
-<pre><code>mysql&gt; select id from admin where username = <span class="string">"admin"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>; <span class="regexp">//</span>正常的语句
-将admin处的输入构造为  `admin<span class="string">";#`
-mysql&gt; select id from admin where username = "</span>admin<span class="string">";#"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>;<span class="regexp">//</span>构造后的语句这样不经过<span class="keyword">and</span>后的验证直接返回符合的id
+<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span> and password = <span class="string">'123456'</span>; <span class="comment">//正常的语句</span>
+mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span>;<span class="preprocessor">#" and password = '123456';//构造后的语句这样不经过and后的验证直接返回符合的id</span>
 </code></pre><h2>常量</h2>
 
 <p>version</p>
