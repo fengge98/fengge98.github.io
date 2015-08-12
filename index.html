@@ -277,24 +277,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>记录表相关的增删改查操作包括：<strong>建库</strong>,<strong>表操作</strong>，<strong>记录的操作</strong></p>
-<h2>database</h2>
+<h1>database</h1>
 
 <pre><code>mysql&gt; create database <span class="keyword">test</span>;
 mysql&gt; show databases;
 mysql&gt; <span class="keyword">drop</span> database <span class="keyword">test</span>;<span class="comment">//数据库的创建删除</span>
-</code></pre><h2>table</h2>
+</code></pre><h1>table</h1>
 
-<h3>建表</h3>
+<h4>建表</h4>
 
 <pre><code>mysql&gt; create table admin (
 mysql&gt; id           <span class="built_in">int</span>      <span class="literal">not</span> <span class="literal">null</span> primary key auto_increment,
 mysql&gt; username  varchar(<span class="number">30</span>) <span class="literal">not</span> <span class="literal">null</span>             <span class="keyword">default</span> <span class="string">'test'</span>,  
 mysql&gt; sex      <span class="keyword">enum</span>(<span class="string">'F'</span>,<span class="string">'M'</span>),
 mysql&gt; address   var char(<span class="number">50</span>)  <span class="literal">null</span>)<span class="comment">;</span>
-</code></pre><h3>查看</h3>
+</code></pre><h4>查看</h4>
 
 <pre><code>mysql&gt; <span class="keyword">desc</span> admin;
-</code></pre><h3>修改</h3>
+</code></pre><h4>修改</h4>
 
 <pre><code>mysql&gt; alter table admin <span class="built_in">add</span> tel1 <span class="keyword">char</span>(<span class="number">11</span>) <span class="operator">not</span> <span class="constant">null</span> ;<span class="comment"> //添加字段</span>
 mysql&gt; alter table admin <span class="built_in">add</span> tel2 <span class="keyword">after</span> sex ;<span class="comment"> //指定位置添加字段</span>
@@ -303,10 +303,10 @@ mysql&gt; alter table admin change tel1 blog varchar(<span class="number">30</sp
 mysql&gt; alter table admin change id id int <span class="keyword">after</span> username<span class="comment">;//调整字段位置</span>
 mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表</span>
 </code></pre><p>以后用到的语句再添加</p>
-<h3>删除</h3>
+<h4>删除</h4>
 
 <pre><code>mysql&gt; <span class="keyword">drop</span> <span class="keyword">table</span> admin;
-</code></pre><h2>record</h2>
+</code></pre><h1>record</h1>
 
 <pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
 <span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
