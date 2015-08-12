@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/12/MySql练级攻略-4-SQL注入/">MySql练级攻略(4)-SQL注入</a>
+      <a class="article-title" href="/2015/08/12/MySql练级攻略-4-SQL注入/">MySql练级攻略(4)-SQL注入之数据库常量及函数</a>
     </h1>
   
 
@@ -222,7 +222,66 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2>关于引号</h2><br>在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行<br><br>    mysql&gt; select username”””‘’’’” from admin where id = “1”‘’;<br><br><h2>关于注释</h2>
+
+<p>可在命令行注释语句的符号</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>#</code></td>
+<td>hash语法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/*</code></td>
+<td>C-sytle</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-- -</code></td>
+<td>SQL语法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>;%00</code></td>
+<td>空字节</td>
+</tr>
+<tr>
+<td style="text-align:center">```</td>
+<td>反引号</td>
+</tr>
+</tbody>
+</table>
+<pre><code>mysql&gt; select id from admin where username = <span class="string">"admin"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>; <span class="regexp">//</span>正常的语句
+将admin处的输入构造为  `admin<span class="string">";#`
+mysql&gt; select id from admin where username = "</span>admin<span class="string">";#"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>;<span class="regexp">//</span>构造后的语句这样不经过<span class="keyword">and</span>后的验证直接返回符合的id
+</code></pre><h2>常量</h2><br><h5>version</h5><br><br>    VERSION()<br>    @@VERSION<br>    @@GLOBAL.VERSION<br>    mysql&gt; select @@version;//显示mysql版本<br>    mysql&gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真<br><br><h5>user</h5><br><br>    user()<br>    current_user<br>    current_user()<br>    system_user()<br>    session_user()<br>    mysql&gt; select user(); //显示当前用户<br>    mysql&gt; select concat_ws(“:”,user,password) from mysql.user where user = “root”; //显示 root:”对应用户密码散列值”<br><br><h5>database</h5><br><br>    database()<br>    schema()<br>    mysql&gt; select database();//显示mysql<br>    select schema_name from information_schema.schemata;//显示所有数据库<br><br><h5>host</h5><br><br>    @@host<br>    mysql&gt; select @@host;<br><br><h2>函数</h2>
+
+<pre><code>length<span class="params">()</span>
+mysql&gt; select length<span class="params">(<span class="string">"abc"</span>)</span>;<span class="comment">//字符串长度</span>
+
+mid<span class="params">()</span>
+mysql&gt; select mid<span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span>;<span class="comment">//指定字符串</span>
+
+<span class="keyword">if</span><span class="params">()</span>
+mysql&gt; select <span class="keyword">if</span><span class="params">(length<span class="params">(user<span class="params">()</span>)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;<span class="comment">//if成立返回sleep(3)</span>
+
+ascii<span class="params">()</span>
+mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
+mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
+
+count<span class="params">()</span>
+mysql&gt; select count<span class="params">(*)</span> from mysql.user;<span class="comment">//返回记录条数</span>
+
+<span class="built_in">concat</span><span class="params">()</span>
+mysql&gt; select <span class="built_in">concat</span><span class="params">(<span class="string">"a"</span>,<span class="string">"b"</span>)</span>;<span class="comment">//显示ab</span>
+
+concat_ws<span class="params">()</span>
+mysql&gt; select concat_ws<span class="params">(<span class="string">":"</span>,user,password)</span> from mysql.user where user = <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
+</code></pre>
       
     </div>
     
@@ -381,7 +440,7 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
 </code></pre><h2>立即更新:</h2>
 
 <pre><code>mysql&gt; flush privileges<span class="comment">;</span>
-</code></pre><p><a href="http://www.cnblogs.com/fslnet/p/3143344.html" target="_blank" rel="external">grant for detail</a><br><a href="http://blog.useasp.net/archive/2013/06/19/mysql-user-privileges-configuration-and-management-by-show-grant-and-revoke-syntax.aspx" target="_blank" rel="external">grant Explain</a></p>
+</code></pre><p><a href="http://drops.wooyun.org/tips/2245" target="_blank" rel="external">grant for detail</a></p>
 
       
     </div>
