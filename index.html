@@ -250,15 +250,27 @@
 <td>空字节</td>
 </tr>
 <tr>
-<td style="text-align:center">```</td>
-<td>反引号</td>
+<td style="text-align:center"><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#9;mysql&#62; select id from admin where username = &#34;admin&#34; and password = &#39;123456&#39;; //&#27491;&#24120;&#30340;&#35821;&#21477;&#10;&#9;&#23558;admin&#22788;&#30340;&#36755;&#20837;&#26500;&#36896;&#20026;  `admin&#34;;#`&#10;&#9;mysql&#62; select id from admin where username = &#34;admin&#34;;#&#34; and password = &#39;123456&#39;;//&#26500;&#36896;&#21518;&#30340;&#35821;&#21477;&#36825;&#26679;&#19981;&#32463;&#36807;and&#21518;&#30340;&#39564;&#35777;&#30452;&#25509;&#36820;&#22238;&#31526;&#21512;&#30340;id&#10;&#10;&#60;h2&#62;&#24120;&#37327;&#60;/h2&#62;&#10;&#10;version&#10;&#10;&#9;```VERSION()&#10;&#9;@@VERSION&#10;&#9;@@GLOBAL.VERSION&#10;&#9;mysql&#62; select @@version;//&#26174;&#31034;mysql&#29256;&#26412;&#10;&#9;mysql&#62; select * from user where 1 and mid(version(),1,1) = 5;//&#24403;&#25968;&#25454;&#24211;&#29256;&#26412;&#20026;5.x.xx&#26102;&#36820;&#22238;&#20026;&#30495;</span><br></pre></td></tr></table></figure></td>
 </tr>
 </tbody>
 </table>
-<pre><code>mysql&gt; select id from admin where username = <span class="string">"admin"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>; <span class="regexp">//</span>正常的语句
-将admin处的输入构造为  `admin<span class="string">";#`
-mysql&gt; select id from admin where username = "</span>admin<span class="string">";#"</span> <span class="keyword">and</span> password = <span class="string">'123456'</span>;<span class="regexp">//</span>构造后的语句这样不经过<span class="keyword">and</span>后的验证直接返回符合的id
-</code></pre><h2>常量</h2><br>version<br><br>    VERSION()<br>    @@VERSION<br>    @@GLOBAL.VERSION<br>    mysql&gt; select @@version;//显示mysql版本<br>    mysql&gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真<br><br>user<br><br>    user()<br>    current_user<br>    current_user()<br>    system_user()<br>    session_user()<br>    mysql&gt; select user(); //显示当前用户<br>    mysql&gt; select concat_ws(“:”,user,password) from mysql.user where user = “root”; //显示 root:”对应用户密码散列值”<br><br>database<br><br>    database()<br>    schema()<br>    mysql&gt; select database();//显示mysql<br>    select schema_name from information_schema.schemata;//显示所有数据库<br><br>host<br><br>    @@host<br>    mysql&gt; select @@host;<br><br><h2>函数</h2>
+<p>user</p>
+<pre><code>user()
+<span class="function">current_user
+<span class="title">current_user</span>(<span class="params"></span>)
+<span class="title">system_user</span>(<span class="params"></span>)
+<span class="title">session_user</span>(<span class="params"></span>)
+mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
+mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
+</code></pre><p>database</p>
+<pre><code>database()
+schema()
+mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
+<span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
+</code></pre><p>host</p>
+<pre><code>@<span class="at_rule">@host</span>
+mysql&gt; select <span class="variable">@@host</span>;
+</code></pre><h2>函数</h2>
 
 <pre><code>length<span class="params">()</span>
 mysql&gt; select length<span class="params">(<span class="string">"abc"</span>)</span>;<span class="comment">//字符串长度</span>
