@@ -3,96 +3,51 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ubuntu下python+django环境搭建 | FengGe</title>
+  <title>MySql练级攻略(3)-操作表 | FengGe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一，首先列出需要安装的东西：
+  <meta name="description" content="记录表相关的增删改查操作包括：建库,表操作，记录的操作
+database
 
+mysql&amp;gt; create database test;
+mysql&amp;gt; show databases;
+mysql&amp;gt; drop database test;//数据库的创建删除
+table
 
-名称
-说明
-命令
+建表
 
-
-
-
-python2.7
-这个安装就不用多说了linux都会自带的
-
-
-easy_install
-一个能安装python工具的命令
-sudo apt-get install python-setuptools
-
-
-pip
-python包管理工具
-sudo easy install pip
-
-
-git
-版本管理工具实现多人合作开发
-sudo ap">
+mysql&amp;gt; create table admin (
+mysql&amp;gt; id">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu下python+django环境搭建">
-<meta property="og:url" content="http://yoursite.com/2015/08/10/ubuntu下python-django环境搭建/index.html">
+<meta property="og:title" content="MySql练级攻略(3)-操作表">
+<meta property="og:url" content="http://yoursite.com/2015/08/12/MySql练级攻略-3-操作表/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="一，首先列出需要安装的东西：
+<meta property="og:description" content="记录表相关的增删改查操作包括：建库,表操作，记录的操作
+database
 
+mysql&amp;gt; create database test;
+mysql&amp;gt; show databases;
+mysql&amp;gt; drop database test;//数据库的创建删除
+table
 
-名称
-说明
-命令
+建表
 
-
-
-
-python2.7
-这个安装就不用多说了linux都会自带的
-
-
-easy_install
-一个能安装python工具的命令
-sudo apt-get install python-setuptools
-
-
-pip
-python包管理工具
-sudo easy install pip
-
-
-git
-版本管理工具实现多人合作开发
-sudo ap">
-<meta property="og:updated_time" content="2015-08-12T03:42:21.204Z">
+mysql&amp;gt; create table admin (
+mysql&amp;gt; id">
+<meta property="og:updated_time" content="2015-08-12T03:42:23.568Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu下python+django环境搭建">
-<meta name="twitter:description" content="一，首先列出需要安装的东西：
+<meta name="twitter:title" content="MySql练级攻略(3)-操作表">
+<meta name="twitter:description" content="记录表相关的增删改查操作包括：建库,表操作，记录的操作
+database
 
+mysql&amp;gt; create database test;
+mysql&amp;gt; show databases;
+mysql&amp;gt; drop database test;//数据库的创建删除
+table
 
-名称
-说明
-命令
+建表
 
-
-
-
-python2.7
-这个安装就不用多说了linux都会自带的
-
-
-easy_install
-一个能安装python工具的命令
-sudo apt-get install python-setuptools
-
-
-pip
-python包管理工具
-sudo easy install pip
-
-
-git
-版本管理工具实现多人合作开发
-sudo ap">
+mysql&amp;gt; create table admin (
+mysql&amp;gt; id">
   
     <link rel="alternative" href="/atom.xml" title="FengGe" type="application/atom+xml">
   
@@ -273,11 +228,11 @@ sudo ap">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-ubuntu下python-django环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-MySql练级攻略-3-操作表" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/08/10/ubuntu下python-django环境搭建/" class="article-date">
-  	<time datetime="2015-08-10T05:09:36.000Z" itemprop="datePublished">2015-08-10</time>
+      <a href="/2015/08/12/MySql练级攻略-3-操作表/" class="article-date">
+  	<time datetime="2015-08-12T01:32:08.000Z" itemprop="datePublished">2015-08-12</time>
 </a>
     </div>
   
@@ -290,7 +245,7 @@ sudo ap">
         
   
     <h1 class="article-title" itemprop="name">
-      ubuntu下python+django环境搭建
+      MySql练级攻略(3)-操作表
     </h1>
   
 
@@ -299,7 +254,7 @@ sudo ap">
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
         
@@ -310,54 +265,42 @@ sudo ap">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一，首先列出需要安装的东西：">一，首先列出需要安装的东西：</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>python2.7</td>
-<td>这个安装就不用多说了linux都会自带的</td>
-</tr>
-<tr>
-<td>easy_install</td>
-<td>一个能安装python工具的命令</td>
-<td><code>sudo apt-get install python-setuptools</code></td>
-</tr>
-<tr>
-<td>pip</td>
-<td>python包管理工具</td>
-<td><code>sudo easy install pip</code></td>
-</tr>
-<tr>
-<td>git</td>
-<td>版本管理工具实现多人合作开发</td>
-<td><code>sudo apt-get install git</code></td>
-</tr>
-<tr>
-<td>django</td>
-<td>项目开发框架（建议先不要安装在全局）</td>
-<td><code>sudo easy install django</code></td>
-</tr>
-<tr>
-<td>virtualenv</td>
-<td>提供一个用于开发的模拟环境</td>
-<td><code>sudo easy installvirtualenv</code></td>
-</tr>
-<tr>
-<td>sublime</td>
-<td>编辑器                                     </td>
-</tr>
-</tbody>
-</table>
-<pre><code>到这里需要安装的东西就没有啦~
-</code></pre><h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
-<h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>      #会发现它已经在工作了</p>
+        <p>记录表相关的增删改查操作包括：<strong>建库</strong>,<strong>表操作</strong>，<strong>记录的操作</strong></p>
+<h2>database</h2>
 
+<pre><code>mysql&gt; create database <span class="keyword">test</span>;
+mysql&gt; show databases;
+mysql&gt; <span class="keyword">drop</span> database <span class="keyword">test</span>;<span class="comment">//数据库的创建删除</span>
+</code></pre><h2>table</h2>
+
+<h3>建表</h3>
+
+<pre><code>mysql&gt; create table admin (
+mysql&gt; id           <span class="built_in">int</span>      <span class="literal">not</span> <span class="literal">null</span> primary key auto_increment,
+mysql&gt; username  varchar(<span class="number">30</span>) <span class="literal">not</span> <span class="literal">null</span>             <span class="keyword">default</span> <span class="string">'test'</span>,  
+mysql&gt; sex      <span class="keyword">enum</span>(<span class="string">'F'</span>,<span class="string">'M'</span>),
+mysql&gt; address   var char(<span class="number">50</span>)  <span class="literal">null</span>)<span class="comment">;</span>
+</code></pre><h3>查看</h3>
+
+<pre><code>mysql&gt; <span class="keyword">desc</span> admin;
+</code></pre><h3>修改</h3>
+
+<pre><code>mysql&gt; alter table admin <span class="built_in">add</span> tel1 <span class="keyword">char</span>(<span class="number">11</span>) <span class="operator">not</span> <span class="constant">null</span> ;<span class="comment"> //添加字段</span>
+mysql&gt; alter table admin <span class="built_in">add</span> tel2 <span class="keyword">after</span> sex ;<span class="comment"> //指定位置添加字段</span>
+mysql&gt; alter table admin drop tel2 <span class="comment">;//删除字段</span>
+mysql&gt; alter table admin change tel1 blog varchar(<span class="number">30</span>) <span class="constant">null</span> <span class="comment">;//将tel1改为blog后面至少要有修改后的字段类型.</span>
+mysql&gt; alter table admin change id id int <span class="keyword">after</span> username<span class="comment">;//调整字段位置</span>
+mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表</span>
+</code></pre><p>以后用到的语句再添加</p>
+<h3>删除</h3>
+
+<pre><code>mysql&gt; <span class="keyword">drop</span> <span class="keyword">table</span> admin;
+</code></pre><h2>record</h2>
+
+<pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
+<span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> username = <span class="string">"admin"</span>;</span>//更新
+</code></pre>
       
     </div>
     
@@ -366,18 +309,18 @@ sudo ap">
     
 <nav id="article-nav">
   
-    <a href="/2015/08/10/loadrunner问题记录/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/12/MySql练级攻略-4-SQL注入/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          loadrunner问题记录
+          MySql练级攻略(4)-SQL注入
         
       </div>
     </a>
   
   
-    <a href="/2015/08/10/SqlMap命令-全/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SqlMap命令-全</div>
+    <a href="/2015/08/11/MySql练级攻略-2-权限分配/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySql练级攻略(2)-权限分配</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -406,7 +349,7 @@ sudo ap">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="ubuntu下python-django环境搭建" data-title="ubuntu下python+django环境搭建" data-url="http://yoursite.com/2015/08/10/ubuntu下python-django环境搭建/"></div>
+	<div class="ds-thread" data-thread-key="MySql练级攻略-3-操作表" data-title="MySql练级攻略(3)-操作表" data-url="http://yoursite.com/2015/08/12/MySql练级攻略-3-操作表/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
