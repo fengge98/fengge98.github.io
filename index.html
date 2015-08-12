@@ -390,13 +390,11 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
 </code></pre><h2>查看：</h2>
 
 <p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
-<pre><code><span class="operator">select <span class="keyword">user</span>,host,<span class="keyword">password</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span>;</span>
-</code></pre><p>或者是</p>
-<pre><code>mysql&gt;<span class="built_in">show</span> databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
+<pre><code>mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> mysql.user;<span class="comment">//或者使用以下两个分步语句</span>
+mysql&gt;show databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
 mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
 mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
-</code></pre><p>可以用以下命令查看<strong>当前用户</strong>；</p>
-<pre><code>mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;
+mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;                        <span class="comment">//查看当前用户</span>
 </code></pre><h2>创建：</h2>
 
 <pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
