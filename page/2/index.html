@@ -143,7 +143,7 @@
 				
 				<section class="switch-part switch-part4">
 				
-					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？</div>
+					<div id="js-aboutme">真羡慕那些有故事的人生，不像我，一个帅字就可以概括全部。</div>
 				</section>
 				
 			</div>
@@ -195,6 +195,111 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-mysql使用记录总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/07/mysql使用记录总结/" class="article-date">
+  	<time datetime="2015-08-07T09:47:50.000Z" itemprop="datePublished">2015-08-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/07/mysql使用记录总结/">MySql用户及字符集操作</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
+<h2 id="1-新建用户">1.新建用户</h2><p>登录MYSQL：</p>
+<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><p>创建用户：</p>
+<pre><code>mysql&gt; insert into mysql.user<span class="params">(Host,User,Password)</span> values<span class="params">(<span class="string">"localhost"</span>,<span class="string">"test"</span>,password<span class="params">(<span class="string">"1234"</span>)</span>)</span>;
+</code></pre><p>这样就创建了一个名为：test 密码为：1234 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。<br>然后登录一下：</p>
+<pre><code>mysql&gt;<span class="flow">exit</span>;
+<span class="built_in">cmd</span>&gt;mysql -u test -p
+<span class="built_in">cmd</span>&gt;输入密码
+mysql&gt;登录成功
+</code></pre><h2 id="2-为用户授权">2.为用户授权</h2><p>授权格式：</p>
+<pre><code><span class="operator"><span class="keyword">grant</span> 权限 <span class="keyword">on</span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;</span>　
+</code></pre><p>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</p>
+<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><p>首先为用户创建一个数据库(testDB)：</p>
+<pre><code>mysql&gt;create database <span class="built_in">test</span>DB;
+</code></pre><p>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</p>
+<pre><code>mysql&gt;grant all privileges <span class="function_start"><span class="keyword">on</span></span> testDB.* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> '<span class="number">1234</span>';
+mysql&gt;flush privileges;  刷新系统权限表
+格式：grant 权限 <span class="function_start"><span class="keyword">on</span></span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 identified <span class="keyword">by</span> <span class="string">"密码"</span>;　
+</code></pre><p>如果想指定部分权限给一用户，可以这样来写:</p>
+<pre><code>mysql&gt;grant <span class="keyword">select</span>,update <span class="keyword">on</span> testDB<span class="built_in">.</span>* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> <span class="string">'1234'</span>;
+</code></pre><p>　　mysql&gt;flush privileges; 刷新系统权限表</p>
+<p>授权test用户拥有所有数据库的某些权限： </p>
+<pre><code>mysql&gt;grant select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> test@<span class="string">"%"</span> identified by <span class="string">"1234"</span>;
+//test用户对所有数据库都有select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> 权限。
+//@<span class="string">"%"</span> 表示对所有非本地主机授权，不包括localhost。（localhost地址设为<span class="number">127.0</span>.<span class="number">0.1</span>，如果设为真实的本地地址，不知道是否可以，没有验证。）
+</code></pre><p>//对localhost授权：加上一句</p>
+<pre><code><span class="operator"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> testDB.* <span class="keyword">to</span> <span class="keyword">test</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'1234'</span>;</span>即可。
+</code></pre><h2 id="3-删除用户">3.删除用户</h2><pre><code>cmd&gt;mysql -u root -p
+cmd&gt;密码
+mysql&gt;Delete <span class="keyword">FROM</span> user <span class="keyword">Where</span> User=<span class="string">'test'</span> <span class="keyword">and</span> Host=<span class="string">'localhost'</span>;
+mysql&gt;flush privileges;
+mysql&gt;drop database testDB; <span class="comment">//删除用户的数据库</span>
+</code></pre><p>删除账户及权限：</p>
+<pre><code>&gt;drop user 用户名<span class="at_rule">@<span class="string">'%'</span>;</span>
+&gt;drop user 用户名<span class="at_rule">@<span class="preprocessor"> localhost</span>;</span> 
+</code></pre><h2 id="4-修改指定用户密码">4.修改指定用户密码</h2><pre><code>cmd&gt;mysql -u root -p
+cmd&gt;密码
+mysql&gt;<span class="keyword">update</span> mysql.user <span class="built_in">set</span> password=password('新密码') <span class="built_in">where</span> User=<span class="string">"test"</span> <span class="built_in">and</span> Host=<span class="string">"localhost"</span>;
+mysql&gt;flush privileges;
+</code></pre><h2 id="5-字符集相关操作">5.字符集相关操作</h2><p>mysql&gt;show database;<br>|<strong>查看所有数据库：</strong>show databases ;<br>|<strong>创建数据库：</strong>create database 数据库名；<br>|<strong>创建指定字符集数据库：</strong>    create database test2 default character set utf8<br>|<strong>查看指定数据库使用字符集：</strong>show create database 数据库名；<br>|<strong>删除数据库：</strong>drop database 数据库名;<br>|<strong>查看数据关于字符集的默认配置：</strong> show variables like ‘character%’;<br>|<strong>修改字符集的方法（结合上一句）：</strong></p>
+<pre><code><span class="operator"><span class="keyword">SET</span> character_set_client = utf8 ;</span>
+<span class="operator"><span class="keyword">SET</span> character_set_connection = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> character_set_results = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> character_set_server = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_connection = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_database = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_server = utf8 ;</span> 
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-密码找回漏洞总结" class="article article-type-post" itemscope itemprop="blogPost">
   
