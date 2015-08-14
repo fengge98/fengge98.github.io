@@ -3,105 +3,42 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MySql练级攻略(4)-SQL注入之数据库常量及函数 | FengGe</title>
+  <title>SQL注入练级攻略(1)-用户增删改查 | FengGe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
+  <meta name="description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
 
-可在命令行注释语句的符号
+cmd&amp;gt;mysql -u root -p
+cmd&amp;gt;密码
+查看：
 
-
-
-符号
-说明
-
-
-
-
-#
-hash语法
-
-
-/*
-C-sytle
-
-
--- -
-SQL语法
-
-
-;%00
-空字节
-
-
-```
-反引号">
+MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
+mysql&amp;gt;select user,host,password fro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySql练级攻略(4)-SQL注入之数据库常量及函数">
-<meta property="og:url" content="http://yoursite.com/2015/08/12/MySql练级攻略-4-SQL注入/index.html">
+<meta property="og:title" content="SQL注入练级攻略(1)-用户增删改查">
+<meta property="og:url" content="http://yoursite.com/2015/08/11/SQL注入练级攻略-1-用户增删改查/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
+<meta property="og:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
 
-可在命令行注释语句的符号
+cmd&amp;gt;mysql -u root -p
+cmd&amp;gt;密码
+查看：
 
-
-
-符号
-说明
-
-
-
-
-#
-hash语法
-
-
-/*
-C-sytle
-
-
--- -
-SQL语法
-
-
-;%00
-空字节
-
-
-```
-反引号">
-<meta property="og:updated_time" content="2015-08-14T03:45:41.841Z">
+MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
+mysql&amp;gt;select user,host,password fro">
+<meta property="og:updated_time" content="2015-08-14T05:29:09.107Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySql练级攻略(4)-SQL注入之数据库常量及函数">
-<meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
+<meta name="twitter:title" content="SQL注入练级攻略(1)-用户增删改查">
+<meta name="twitter:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
+登录MYSQL:
 
-可在命令行注释语句的符号
+cmd&amp;gt;mysql -u root -p
+cmd&amp;gt;密码
+查看：
 
-
-
-符号
-说明
-
-
-
-
-#
-hash语法
-
-
-/*
-C-sytle
-
-
--- -
-SQL语法
-
-
-;%00
-空字节
-
-
-```
-反引号">
+MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
+mysql&amp;gt;select user,host,password fro">
   
     <link rel="alternative" href="/atom.xml" title="FengGe" type="application/atom+xml">
   
@@ -282,11 +219,11 @@ SQL语法
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-MySql练级攻略-4-SQL注入" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SQL注入练级攻略-1-用户增删改查" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/08/12/MySql练级攻略-4-SQL注入/" class="article-date">
-  	<time datetime="2015-08-12T03:39:35.000Z" itemprop="datePublished">2015-08-12</time>
+      <a href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/" class="article-date">
+  	<time datetime="2015-08-11T01:02:25.000Z" itemprop="datePublished">2015-08-11</time>
 </a>
     </div>
   
@@ -299,7 +236,7 @@ SQL语法
         
   
     <h1 class="article-title" itemprop="name">
-      MySql练级攻略(4)-SQL注入之数据库常量及函数
+      SQL注入练级攻略(1)-用户增删改查
     </h1>
   
 
@@ -319,102 +256,33 @@ SQL语法
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2>关于引号</h2><br>在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行<br><br>    mysql&gt; select username”””‘’’’” from admin where id = “1”‘’;<br><br><h2>关于注释</h2>
+        <p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）    </p>
+<h2>登录MYSQL:</h2>
 
-<p>可在命令行注释语句的符号</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>#</code></td>
-<td>hash语法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>/*</code></td>
-<td>C-sytle</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-- -</code></td>
-<td>SQL语法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>;%00</code></td>
-<td>空字节</td>
-</tr>
-<tr>
-<td style="text-align:center">```</td>
-<td>反引号</td>
-</tr>
-</tbody>
-</table>
-<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span> and password = <span class="string">'123456'</span>; <span class="comment">//正常的语句</span>
-mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span>;<span class="preprocessor">#" and password = '123456';//构造后的语句这样不经过and后的验证直接返回符合的id</span>
-</code></pre><h2>常量</h2>
+<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><h2>查看：</h2>
 
-<p>version</p>
-<pre><code>VERSION()
-@@VERSION
-@@<span class="keyword">GLOBAL</span>.VERSION
-mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
-mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><p>user</p>
-<pre><code>user()
-<span class="function">current_user
-<span class="title">current_user</span>(<span class="params"></span>)
-<span class="title">system_user</span>(<span class="params"></span>)
-<span class="title">session_user</span>(<span class="params"></span>)
-mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><p>database</p>
-<pre><code>database()
-schema()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
-<span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><p>host</p>
-<pre><code>@<span class="at_rule">@host</span>
-mysql&gt; select <span class="variable">@@host</span>;
-</code></pre><h2>函数</h2>
+<p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
+<pre><code>mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> mysql.user;<span class="comment">//或者使用以下两个分步语句</span>
+mysql&gt;show databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
+mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
+mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
+mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;                        <span class="comment">//查看当前用户</span>
+</code></pre><h2>创建：</h2>
 
-<pre><code>length<span class="params">()</span>
-mysql&gt; select length<span class="params">(<span class="string">"abc"</span>)</span>;<span class="comment">//字符串长度</span>
+<pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
+</code></pre><h2>修改：</h2>
 
-mid<span class="params">()</span>
-mysql&gt; select mid<span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span>;<span class="comment">//指定字符串</span>
+<pre><code>mysql&gt;rename user <span class="built_in">test</span> to <span class="built_in">test</span>1;
 
-<span class="keyword">if</span><span class="params">()</span>
-mysql&gt; select <span class="keyword">if</span><span class="params">(length<span class="params">(user<span class="params">()</span>)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;<span class="comment">//if成立返回sleep(3)</span>
+mysql&gt;<span class="built_in">set</span> password <span class="keyword">for</span> <span class="built_in">test</span> = password(<span class="string">'123'</span>)//对user表没有操作权限的用户可以用此命令修改自己的密码
+mysql&gt;update mysql.user <span class="built_in">set</span> password = password(<span class="string">'123'</span>) <span class="built_in">where</span> user = <span class="string">"test"</span> //修改任意用户密码
+</code></pre><h2>删除:</h2>
 
-ascii<span class="params">()</span>
-mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
-mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
+<pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
 
-count<span class="params">()</span>
-mysql&gt; select count<span class="params">(*)</span> from mysql.user;<span class="comment">//返回记录条数</span>
-
-<span class="built_in">concat</span><span class="params">()</span>
-mysql&gt; select <span class="built_in">concat</span><span class="params">(<span class="string">"a"</span>,<span class="string">"b"</span>)</span>;<span class="comment">//显示ab</span>
-
-concat_ws<span class="params">()</span>
-mysql&gt; select concat_ws<span class="params">(<span class="string">":"</span>,user,password)</span> from mysql.user where user = <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-
-rand<span class="params">()</span>
-mysql&gt; select rand<span class="params">()</span>;<span class="comment">//0~1之间的随机数</span>
-
-<span class="built_in">floor</span><span class="params">()</span>
-mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
-
-group by<span class="params">()</span>
-mysql&gt; select type,<span class="built_in">max</span><span class="params">(price)</span> from price_info group by type;
-<span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
-
-distinct<span class="params">()</span>
-mysql&gt; select distinct user as username from mysql.user;
-<span class="comment">//修改显示名称</span>
+mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
 </code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
 
       
@@ -425,18 +293,18 @@ mysql&gt; select distinct user as username from mysql.user;
     
 <nav id="article-nav">
   
-    <a href="/2015/08/13/MySql练级攻略-5-5种注入方式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/11/SQL注入练级攻略-2-权限分配/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          MySql练级攻略-5-5种注入类型
+          SQL注入练级攻略(2)-权限分配
         
       </div>
     </a>
   
   
-    <a href="/2015/08/12/MySql练级攻略-3-操作表/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MySql练级攻略(3)-操作表</div>
+    <a href="/2015/08/10/loadrunner问题记录/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">loadrunner问题记录</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -465,7 +333,7 @@ mysql&gt; select distinct user as username from mysql.user;
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="MySql练级攻略-4-SQL注入" data-title="MySql练级攻略(4)-SQL注入之数据库常量及函数" data-url="http://yoursite.com/2015/08/12/MySql练级攻略-4-SQL注入/"></div>
+	<div class="ds-thread" data-thread-key="SQL注入练级攻略-1-用户增删改查" data-title="SQL注入练级攻略(1)-用户增删改查" data-url="http://yoursite.com/2015/08/11/SQL注入练级攻略-1-用户增删改查/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
