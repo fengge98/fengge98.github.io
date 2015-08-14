@@ -69,7 +69,7 @@ SQL语法
 
 ```
 反引号">
-<meta property="og:updated_time" content="2015-08-14T05:31:58.854Z">
+<meta property="og:updated_time" content="2015-08-14T05:41:48.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(4)-数据库常量及函数">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
@@ -413,8 +413,8 @@ mysql&gt; select type,<span class="built_in">max</span><span class="params">(pri
 <span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
 
 distinct<span class="params">()</span>
-mysql&gt; select distinct user as username from mysql.user;
-<span class="comment">//修改显示名称</span>
+mysql&gt; select distinct user from mysql.user;
+<span class="comment">//排重，只显示不重复的user.</span>
 </code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
 
       
