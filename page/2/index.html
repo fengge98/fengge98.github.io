@@ -170,6 +170,100 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/10/Git使用记录/" itemprop="url">
+                Git使用记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T11:20:24+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/Git使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/Git使用记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>##授权<br>生成密钥和公钥</p>
+<pre><code>ssh-keygen -t rsa -<span class="keyword">C</span> <span class="string">"yourmail@g.com"</span>
+</code></pre><p>注：    </p>
+<pre><code>ssh-keygen在git的安装目录的"bin"目录下。
+windows下填写路径是填写绝对路径，公钥密钥放在git安装      
+目录下的".ssh"文件夹中。例如D:<span class="command">\Git</span><span class="command">\.</span>ssh<span class="command">\id</span>_rsa     
+此时会创建D:<span class="command">\Git</span><span class="command">\.</span>ssh文件夹并在其中生成名为id_rsa的一对密钥。
+其中将公钥添加到github.com网站中就可以通过命令行对其进行各种操作。
+</code></pre><p>##登录github.com添加远程仓库。</p>
+<p>使用免费的只能选择public模式，添加title和description。完成并记录git clone url（形如：git@github.com\username\projectname）</p>
+<pre><code>git remote add origin git<span class="annotation">@github</span>.<span class="string">com:</span>fengge98\test.git
+</code></pre><p>创建一个名为origin的远程库关联到账户fengge98下名为test.git的工程</p>
+<pre><code><span class="label">git</span> <span class="keyword">push </span>-u origin master
+</code></pre><p>第一次由于远程仓库没有内容使用-u参数，将当前分支master中commit后的内容推送到origin远程库，并将远程库master和当前master关联方便以后的推送和拉取</p>
+<p>##本地编写代码</p>
+<pre><code>git branch asdf
+git checkout adsf       <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
+git checkout -b asdf    <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
+git <span class="keyword">add</span> test1.py
+git <span class="keyword">add</span> test2.py
+...
+git commit -m <span class="string">"description"</span>
+<span class="keyword">add</span>并commit                <span class="preprocessor">#其中description部分填写当前版本的改动 </span>
+git checkout master      <span class="preprocessor">#切换到主分支</span>
+git merge asdf           <span class="preprocessor">#将adsf提交的改动合并到master分支</span>
+git <span class="keyword">push</span>                   <span class="preprocessor">#将当前版本代码推送到远程库</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/10/反射型xss/" itemprop="url">
                 反射型XSS(心伤的瘦子)
               </a>
@@ -286,6 +380,21 @@
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/杂七杂八/" itemprop="url" rel="index">
+                  <span itemprop="name">杂七杂八</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
@@ -406,6 +515,21 @@ mysql&gt;flush privileges;
         </span>
 
         
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/逻辑漏洞/" itemprop="url" rel="index">
+                  <span itemprop="name">逻辑漏洞</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
 
         
           
@@ -497,21 +621,21 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
