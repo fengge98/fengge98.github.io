@@ -69,7 +69,7 @@ SQL语法
 
 ```
 反引号">
-<meta property="og:updated_time" content="2015-08-12T08:24:21.570Z">
+<meta property="og:updated_time" content="2015-08-14T02:56:54.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySql练级攻略(4)-SQL注入之数据库常量及函数">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
@@ -401,7 +401,18 @@ mysql&gt; select <span class="built_in">concat</span><span class="params">(<span
 
 concat_ws<span class="params">()</span>
 mysql&gt; select concat_ws<span class="params">(<span class="string">":"</span>,user,password)</span> from mysql.user where user = <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre>
+
+rand<span class="params">()</span>
+mysql&gt; select rand<span class="params">()</span>;<span class="comment">//0~1之间的随机数</span>
+
+<span class="built_in">floor</span><span class="params">()</span>
+mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
+
+group by<span class="params">()</span>
+mysql&gt; select type,<span class="built_in">max</span><span class="params">(price)</span> from price_info group by type;
+<span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+
       
     </div>
     
