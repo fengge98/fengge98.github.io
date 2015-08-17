@@ -53,7 +53,7 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
 2.基于时间的盲注
 
 mysql&amp;gt; select username from admin wher">
-<meta property="og:updated_time" content="2015-08-14T09:53:17.359Z">
+<meta property="og:updated_time" content="2015-08-17T02:27:28.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(5)-5种注入类型">
 <meta name="twitter:description" content="1.基于布尔的盲注
@@ -245,7 +245,8 @@ mysql&gt; <span class="keyword">select</span> username <span class="keyword">fro
 
 <pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
 mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
-<span class="comment">//如果if中条件成立返回延时</span>
+<span class="comment">//如果if中条件成立返回延时.</span>
+<span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
 </code></pre><h2>3.基于报错的注入</h2>
 
 <p>-rand和group的冲突</p>
@@ -365,7 +366,7 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
