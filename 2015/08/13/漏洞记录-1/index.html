@@ -35,22 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Apache HTTP Server “httpolny”cookie 泄露
-
-1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过">
+<meta name="description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="漏洞记录-1">
 <meta property="og:url" content="http://yoursite.com/2015/08/13/漏洞记录-1/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="Apache HTTP Server “httpolny”cookie 泄露
-
-1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过">
-<meta property="og:updated_time" content="2015-08-14T10:46:55.684Z">
+<meta property="og:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js">
+<meta property="og:updated_time" content="2015-08-17T05:24:33.074Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="漏洞记录-1">
-<meta name="twitter:description" content="Apache HTTP Server “httpolny”cookie 泄露
-
-1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过">
+<meta name="twitter:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -210,12 +204,8 @@
       
 
       
-        <span itemprop="articleBody"><h2>Apache HTTP Server “httpolny”cookie 泄露</h2>
-
-<p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。<br>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。<br>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置。<br>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache。</p>
-<h2>IIS WebDav Options 方法未禁用</h2>
-
-<p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等。<br>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患。<br>3.利用：<br>-使用option探测服务器信息：</p>
+        <span itemprop="articleBody"><h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。<br>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。<br>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置。<br>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache。</p>
+<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等。<br>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患。<br>3.利用：<br>-使用option探测服务器信息：</p>
 <pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
 Host:www<span class="class">.xxxx</span><span class="class">.com</span>
 </code></pre><p>  返回：</p>
@@ -257,9 +247,7 @@ Content-type:text/xml
 Content-length:<span class="number">0</span>
 <span class="comment">//修改成功</span>
 </code></pre><p>4修复：属于服务器配置不当造成的安全问题，options方法如非必须请关闭。</p>
-<h2>TRACE 方法未禁用</h2>
-
-<p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回。可能存在的危害是能够与XSS配合获取用户httponly的cookie内容。<br>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们。<br>3.利用：</p>
+<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回。可能存在的危害是能够与XSS配合获取用户httponly的cookie内容。<br>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们。<br>3.利用：</p>
 <pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
 &lt;!--  
 <span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
@@ -434,7 +422,7 @@ alert(xmlDoc);
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache_HTTP_Server_“httpolny”cookie_泄露"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS_WebDav_Options_方法未禁用"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE_方法未禁用"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
