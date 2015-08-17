@@ -40,9 +40,9 @@
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-  useruser()
+useruser()
 current_user
-curr">
+curren">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入练级攻略(4)-数据库常量及函数">
 <meta property="og:url" content="http://yoursite.com/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/index.html">
@@ -52,10 +52,10 @@ curr">
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-  useruser()
+useruser()
 current_user
-curr">
-<meta property="og:updated_time" content="2015-08-17T05:32:06.994Z">
+curren">
+<meta property="og:updated_time" content="2015-08-17T05:38:17.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(4)-数据库常量及函数">
 <meta name="twitter:description" content="常量versionVERSION()
@@ -63,9 +63,9 @@ curr">
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-  useruser()
+useruser()
 current_user
-curr">
+curren">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -240,68 +240,56 @@ curr">
       
 
       
-        <span itemprop="articleBody"><h2 id="常量">常量</h2><h2 id="version">version</h2><pre><code>VERSION()
+        <span itemprop="articleBody"><h2 id="常量">常量</h2><h2 id="version"><h5>version</h5></h2><pre><code>VERSION()
 @@VERSION
 @@<span class="keyword">GLOBAL</span>.VERSION
 mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><h2 id="user">  user</h2><pre><code>user()
+</code></pre><h2 id="user"><h5>user</h5></h2><pre><code>user()
 <span class="function">current_user
 <span class="title">current_user</span>(<span class="params"></span>)
 <span class="title">system_user</span>(<span class="params"></span>)
 <span class="title">session_user</span>(<span class="params"></span>)
 mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="database">  database</h2><pre><code>database()
+</code></pre><h2 id="database"><h5>database</h5></h2><pre><code>database()
 schema()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
 <span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><p>hostname</p>
+</code></pre><h5>hostname</h5>
+
 <pre><code>@<span class="variable">@hostname</span>
 mysql&gt; select <span class="variable">@@hostname</span>;
-</code></pre><h2>函数</h2>
-
-<pre><code>length()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">length</span>(<span class="params"><span class="string">"abc"</span></span>)</span>;<span class="comment">//字符串长度</span>
-
-mid()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">mid</span>(<span class="params"><span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span></span>)</span>;<span class="comment">//指定字符串</span>
-
-<span class="keyword">if</span>()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">if</span>(<span class="params">length(user(</span>))&gt;10,<span class="title">sleep</span>(<span class="params"><span class="number">3</span></span>),0)</span>;<span class="comment">//if成立返回sleep(3)</span>
-
-ascii()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">ascii</span>(<span class="params"><span class="string">"abcb"</span></span>)<span class="comment">//返回a的ascii码97</span>
-mysql&gt; <span class="keyword">select</span> <span class="title">ascii</span>(<span class="params">mid(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span></span>))</span>;<span class="comment">//返回b的ascii码98</span>
-
-count()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">count</span>(<span class="params">*</span>) <span class="keyword">from</span> mysql.user</span>;<span class="comment">//返回记录条数</span>
-
-concat()
+</code></pre><h2 id="函数">函数</h2><h2 id="length"><h5>length</h5></h2><pre><code><span class="built_in">length</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
+</code></pre><h2 id="mid"><h5>mid</h5></h2><pre><code>mid()
+mysql&gt; <span class="function">select <span class="title">mid</span><span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;<span class="comment">//指定字符串</span>
+</code></pre><h2 id="if,case"><h5>if,case</h5></h2><pre><code><span class="keyword">if</span>()
+mysql&gt; <span class="keyword">select</span> <span class="keyword">if</span>(length(user())&gt;<span class="number">10</span>,sleep(<span class="number">3</span>),<span class="number">0</span>);//<span class="keyword">if</span>成立返回sleep(<span class="number">3</span>)
+<span class="keyword">case</span>
+mysql <span class="keyword">select</span> <span class="keyword">case</span> when <span class="number">1</span>=<span class="number">1</span> <span class="keyword">then</span> <span class="literal">true</span> <span class="keyword">else</span> <span class="literal">false</span> <span class="keyword">end</span>;
+//<span class="keyword">if</span>相似
+</code></pre><h2 id="ascii"><h5>ascii</h5></h2><pre><code>ascii<span class="params">()</span>
+mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
+mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
+</code></pre><h2 id="count"><h5>count</h5></h2><pre><code><span class="built_in">count</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">count</span>(*) <span class="keyword">from</span> mysql.user;<span class="comment">//返回记录条数</span>
+</code></pre><h2 id="concat,concat_ws"><h5>concat,concat_ws</h5></h2><pre><code>concat()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">"a"</span>,<span class="string">"b"</span></span>)</span>;<span class="comment">//显示ab</span>
 
 concat_ws()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-
-rand()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">rand</span>(<span class="params"></span>)</span>;<span class="comment">//0~1之间的随机数</span>
-
-floor()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">floor</span>(<span class="params"><span class="number">1.1</span></span>)</span>;<span class="comment">//向下取整</span>
-
-<span class="function"><span class="keyword">group</span> <span class="title">by</span>(<span class="params"></span>)
-mysql&gt; <span class="keyword">select</span> type,<span class="title">max</span>(<span class="params">price</span>) <span class="keyword">from</span> price_info <span class="keyword">group</span> by type</span>;
+</code></pre><h2 id="rand"><h5>rand</h5></h2><pre><code><span class="keyword">rand</span>()
+mysql&gt; <span class="keyword">select</span> <span class="keyword">rand</span>();<span class="comment">//0~1之间的随机数</span>
+</code></pre><h2 id="floor"><h5>floor</h5></h2><pre><code><span class="built_in">floor</span><span class="params">()</span>
+mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
+</code></pre><h2 id="group_by"><h5>group_by</h5></h2><pre><code><span class="built_in">group</span> <span class="keyword">by</span>()
+mysql&gt; <span class="keyword">select</span> <span class="built_in">type</span>,<span class="built_in">max</span>(price) <span class="keyword">from</span> price_info <span class="built_in">group</span> <span class="keyword">by</span> <span class="built_in">type</span>;
 <span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
-
-distinct()
-mysql&gt; <span class="keyword">select</span> distinct user <span class="keyword">from</span> mysql.user;
-<span class="comment">//排重，只显示不重复的user.</span>
-
-<span class="keyword">case</span>
-mysql <span class="keyword">select</span> <span class="keyword">case</span> <span class="keyword">when</span> <span class="number">1</span>=<span class="number">1</span> then <span class="keyword">true</span> <span class="keyword">else</span> <span class="keyword">false</span> end;
-<span class="comment">//if相似</span>
+</code></pre><h2 id="distinct"><h5>distinct</h5></h2><pre><code><span class="keyword">distinct</span>()
+mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword">from</span> mysql.user;
+//排重，只显示不重复的user.
 </code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-<p>SELECT 1/<em>!41320UNION/</em>!/<em>!/</em>!00000SELECT/<em>!/</em>!USER/<em>!(/</em>!*/);</p>
 </span>
       
     </div>
@@ -460,7 +448,7 @@ mysql <span class="keyword">select</span> <span class="keyword">case</span> <spa
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">2.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">3.</span> <span class="nav-text">  user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database"><span class="nav-number">4.</span> <span class="nav-text">  database</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">2.</span> <span class="nav-text">version</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">version</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">3.</span> <span class="nav-text">user</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">user</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database"><span class="nav-number">4.</span> <span class="nav-text">database</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">database</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">hostname</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">5.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#length"><span class="nav-number">6.</span> <span class="nav-text">length</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">length</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mid"><span class="nav-number">7.</span> <span class="nav-text">mid</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">mid</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if,case"><span class="nav-number">8.</span> <span class="nav-text">if,case</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">if,case</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ascii"><span class="nav-number">9.</span> <span class="nav-text">ascii</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">ascii</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#count"><span class="nav-number">10.</span> <span class="nav-text">count</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">count</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat,concat_ws"><span class="nav-number">11.</span> <span class="nav-text">concat,concat_ws</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">11.0.0.1.</span> <span class="nav-text">concat,concat_ws</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rand"><span class="nav-number">12.</span> <span class="nav-text">rand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">12.0.0.1.</span> <span class="nav-text">rand</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floor"><span class="nav-number">13.</span> <span class="nav-text">floor</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">13.0.0.1.</span> <span class="nav-text">floor</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group_by"><span class="nav-number">14.</span> <span class="nav-text">group_by</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">14.0.0.1.</span> <span class="nav-text">group_by</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distinct"><span class="nav-number">15.</span> <span class="nav-text">distinct</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">15.0.0.1.</span> <span class="nav-text">distinct</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
