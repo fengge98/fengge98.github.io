@@ -702,24 +702,19 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
 
       
         
-          <span itemprop="articleBody"><h2>常量</h2>
-
-<p>version</p>
-<pre><code>VERSION()
+          <span itemprop="articleBody"><h2 id="常量">常量</h2><h2 id="version">version</h2><pre><code>VERSION()
 @@VERSION
 @@<span class="keyword">GLOBAL</span>.VERSION
 mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><p>user</p>
-<pre><code>user()
+</code></pre><h2 id="user">  user</h2><pre><code>user()
 <span class="function">current_user
 <span class="title">current_user</span>(<span class="params"></span>)
 <span class="title">system_user</span>(<span class="params"></span>)
 <span class="title">session_user</span>(<span class="params"></span>)
 mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><p>database</p>
-<pre><code>database()
+</code></pre><h2 id="database">  database</h2><pre><code>database()
 schema()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
 <span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
