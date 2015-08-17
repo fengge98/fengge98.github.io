@@ -99,7 +99,7 @@ SQL语法
 
 ```
 反引号">
-<meta property="og:updated_time" content="2015-08-17T03:39:40.248Z">
+<meta property="og:updated_time" content="2015-08-17T03:41:09.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(5)-基本绕过(一)">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行    mysql&amp;gt; select username”””‘’’’” from admin where id = “1”‘’;关于注释
@@ -359,7 +359,7 @@ mysql&gt; <span class="function">SELECT <span class="title">GROUP_CONCAT</span>(
 // /<span class="keyword">*</span>! SQL 语句 <span class="keyword">*</span>/ mysql特有语句，前面不管几个/<span class="keyword">*</span>!  语句需以<span class="keyword">*</span>/结尾.
 mysql&gt; select(1);
 //括号用来绕过过滤空格的情况.
-</code></pre><p></p><h2>and或or后面可以跟的字符</h2><br><strong>符号:Space,+,-,~,!,@</strong><p></p>
+</code></pre><p></p><h2>and或or后面可以跟的字符</h2><br><strong>符号: Space , + , - , ~ , ! , @ </strong><p></p>
 <pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
 </code></pre><p></p><h2>宽字节注入</h2><br>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。<p></p>
 <p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
