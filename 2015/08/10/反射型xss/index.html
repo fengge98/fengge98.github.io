@@ -35,28 +35,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="1.查看`&amp;lt; / &quot;`等字符的过滤情况如果没有，直接X.
- 什么都没过滤的入门情况
-2.考虑用`&amp;amp;#x`的形式代替，如果没有过滤`&amp;amp; #` 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为`&amp;amp;amp`. 
-输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
-3.gbXXXX系列的可以考虑使用">
+<meta name="description" content="1.查看&amp;lt; / &amp;quot;等字符的过滤情况如果没有，直接X. 什么都没过滤的入门情况
+2.考虑用&amp;amp;#x的形式代替，如果没有过滤&amp;amp; # 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为&amp;amp;amp. 输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
+3.gbXXXX系列的可以考虑使用宽字符%c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反射型XSS(心伤的瘦子)">
 <meta property="og:url" content="http://yoursite.com/2015/08/10/反射型xss/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="1.查看`&amp;lt; / &quot;`等字符的过滤情况如果没有，直接X.
- 什么都没过滤的入门情况
-2.考虑用`&amp;amp;#x`的形式代替，如果没有过滤`&amp;amp; #` 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为`&amp;amp;amp`. 
-输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
-3.gbXXXX系列的可以考虑使用">
-<meta property="og:updated_time" content="2015-08-14T09:49:35.516Z">
+<meta property="og:description" content="1.查看&amp;lt; / &amp;quot;等字符的过滤情况如果没有，直接X. 什么都没过滤的入门情况
+2.考虑用&amp;amp;#x的形式代替，如果没有过滤&amp;amp; # 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为&amp;amp;amp. 输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
+3.gbXXXX系列的可以考虑使用宽字符%c">
+<meta property="og:updated_time" content="2015-08-17T05:18:14.983Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反射型XSS(心伤的瘦子)">
-<meta name="twitter:description" content="1.查看`&amp;lt; / &quot;`等字符的过滤情况如果没有，直接X.
- 什么都没过滤的入门情况
-2.考虑用`&amp;amp;#x`的形式代替，如果没有过滤`&amp;amp; #` 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为`&amp;amp;amp`. 
-输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
-3.gbXXXX系列的可以考虑使用">
+<meta name="twitter:description" content="1.查看&amp;lt; / &amp;quot;等字符的过滤情况如果没有，直接X. 什么都没过滤的入门情况
+2.考虑用&amp;amp;#x的形式代替，如果没有过滤&amp;amp; # 理论上可以代替任意字符，但是一般都会将&amp;amp;过滤为&amp;amp;amp. 输出在&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;之间的情况//这里构造的代码没懂输出在HTML属性里的情况
+3.gbXXXX系列的可以考虑使用宽字符%c">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -231,14 +225,11 @@
       
 
       
-        <span itemprop="articleBody"><pre><code><span class="number">1</span>.查看<span class="escape">`&lt;</span> / <span class="string">"<span class="escape">`等</span>字符的过滤情况如果没有，直接X.</span>
-</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015957" target="_blank" rel="external"> 什么都没过滤的入门情况</a></p>
-<pre><code><span class="number">2</span>.考虑用<span class="escape">`&amp;</span>#x<span class="escape">`的</span>形式代替，如果没有过滤<span class="escape">`&amp;</span> #<span class="escape">` </span>理论上可以代替任意字符，但是一般都会将&amp;过滤为<span class="escape">`&amp;</span>amp<span class="escape">`.</span> 
-</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
-<pre><code><span class="number">3</span>.gbXXXX系列的可以考虑使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉双引号，可能是因为过滤的正则写的有问题.
-</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015969" target="_blank" rel="external">宽字节复仇记 [QQ邮箱基本通用]</a></p>
-<pre><code><span class="number">4.</span>`location.href=<span class="string">"........."</span>+<span class="string">"&amp;ss=aaaa\"+"</span>&amp;from==<span class="number">1</span>;<span class="function"><span class="keyword">function</span> <span class="title">from</span><span class="params">()</span></span>{}<span class="comment">//"+"&amp;param=";</span>
-</code></pre><p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a></p>
+        <span itemprop="articleBody"><h2 id="1-查看&lt;_/_&quot;等字符的过滤情况如果没有，直接X-">1.查看<code>&lt; / &quot;</code>等字符的过滤情况如果没有，直接X.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015957" target="_blank" rel="external"> 什么都没过滤的入门情况</a></p>
+<h2 id="2-考虑用&amp;#x的形式代替，如果没有过滤&amp;_#_理论上可以代替任意字符，但是一般都会将&amp;过滤为&amp;amp-">2.考虑用<code>&amp;#x</code>的形式代替，如果没有过滤<code>&amp; #</code> 理论上可以代替任意字符，但是一般都会将&amp;过滤为<code>&amp;amp</code>. </h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
+<h2 id="3-gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题-">3.gbXXXX系列的可以考虑使用宽字符<code>%c0</code>杀掉双引号，可能是因为过滤的正则写的有问题.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015969" target="_blank" rel="external">宽字节复仇记 [QQ邮箱基本通用]</a></p>
+<h2 id="4-`location-href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function_from(){}//“+”&amp;param=”;">4.`location.href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function from(){}//“+”&amp;param=”;</h2><p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格 </p>
+<h2 id="反斜线">反斜线</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a></p>
 <pre><code><span class="number">5</span>.输出出现在注释中使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">` </span>来使之后的代码生效。\.
 </code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-016003" target="_blank" rel="external">换行符复仇记</a></p>
 <pre><code><span class="number">6.</span>前面知识的综合应用
@@ -406,7 +397,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-查看<_/_"等字符的过滤情况如果没有，直接X-"><span class="nav-number">1.</span> <span class="nav-text">1.查看< / "等字符的过滤情况如果没有，直接X.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-考虑用&#x的形式代替，如果没有过滤&_#_理论上可以代替任意字符，但是一般都会将&过滤为&amp-"><span class="nav-number">2.</span> <span class="nav-text">2.考虑用&#x的形式代替，如果没有过滤& # 理论上可以代替任意字符，但是一般都会将&过滤为&amp. </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题-"><span class="nav-number">3.</span> <span class="nav-text">3.gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-`location-href=”………”+”&ss=aaaa\”+”&from==1;function_from(){}//“+”&param=”;"><span class="nav-number">4.</span> <span class="nav-text">4.`location.href=”………”+”&ss=aaaa\”+”&from==1;function from(){}//“+”&param=”;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反斜线"><span class="nav-number">5.</span> <span class="nav-text">反斜线</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
