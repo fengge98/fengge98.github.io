@@ -35,37 +35,37 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="1.常量versionVERSION()
+<meta name="description" content="常量versionVERSION()
 @@VERSION
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
 useruser()
 current_user
-curr">
+curren">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入练级攻略(4)-数据库常量及函数">
 <meta property="og:url" content="http://yoursite.com/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="1.常量versionVERSION()
+<meta property="og:description" content="常量versionVERSION()
 @@VERSION
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
 useruser()
 current_user
-curr">
-<meta property="og:updated_time" content="2015-08-17T05:47:36.449Z">
+curren">
+<meta property="og:updated_time" content="2015-08-17T05:48:56.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(4)-数据库常量及函数">
-<meta name="twitter:description" content="1.常量versionVERSION()
+<meta name="twitter:description" content="常量versionVERSION()
 @@VERSION
 @@GLOBAL.VERSION
 mysql&amp;gt; select @@version;//显示mysql版本
 mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
 useruser()
 current_user
-curr">
+curren">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -240,7 +240,7 @@ curr">
       
 
       
-        <span itemprop="articleBody"><h2 id="1-常量"><h1>1.常量</h1></h2><h2 id="version">version</h2><pre><code>VERSION()
+        <span itemprop="articleBody"><h2 id="常量"><h1>常量</h1></h2><h2 id="version">version</h2><pre><code>VERSION()
 @@VERSION
 @@<span class="keyword">GLOBAL</span>.VERSION
 mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
@@ -259,7 +259,7 @@ mysql&gt; <span class="function"><span class="keyword">select</span> <span class
 </code></pre><p>hostname</p>
 <pre><code>@<span class="variable">@hostname</span>
 mysql&gt; select <span class="variable">@@hostname</span>;
-</code></pre><h2 id="2-函数"><h1>2.函数</h1></h2><h2 id="length">length</h2><pre><code><span class="built_in">length</span>()
+</code></pre><h2 id="函数"><h1>函数</h1></h2><h2 id="length">length</h2><pre><code><span class="built_in">length</span>()
 mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
 </code></pre><h2 id="-mid">-mid</h2><pre><code>mid()
 mysql&gt; <span class="function">select <span class="title">mid</span><span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;<span class="comment">//指定字符串</span>
@@ -447,7 +447,7 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-常量"><span class="nav-number">1.</span> <span class="nav-text">1.常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">1.常量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">1.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">2.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database"><span class="nav-number">3.</span> <span class="nav-text">database</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-函数"><span class="nav-number">4.</span> <span class="nav-text">2.函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">2.函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#length"><span class="nav-number">1.</span> <span class="nav-text">length</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-mid"><span class="nav-number">2.</span> <span class="nav-text">-mid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if,case"><span class="nav-number">3.</span> <span class="nav-text">if,case</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ascii"><span class="nav-number">4.</span> <span class="nav-text">ascii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#count"><span class="nav-number">5.</span> <span class="nav-text">count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat,concat_ws"><span class="nav-number">6.</span> <span class="nav-text">concat,concat_ws</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rand"><span class="nav-number">7.</span> <span class="nav-text">rand</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floor"><span class="nav-number">8.</span> <span class="nav-text">floor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group_by"><span class="nav-number">9.</span> <span class="nav-text">group_by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distinct"><span class="nav-number">10.</span> <span class="nav-text">distinct</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">常量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">1.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">2.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database"><span class="nav-number">3.</span> <span class="nav-text">database</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#length"><span class="nav-number">1.</span> <span class="nav-text">length</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-mid"><span class="nav-number">2.</span> <span class="nav-text">-mid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if,case"><span class="nav-number">3.</span> <span class="nav-text">if,case</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ascii"><span class="nav-number">4.</span> <span class="nav-text">ascii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#count"><span class="nav-number">5.</span> <span class="nav-text">count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat,concat_ws"><span class="nav-number">6.</span> <span class="nav-text">concat,concat_ws</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rand"><span class="nav-number">7.</span> <span class="nav-text">rand</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floor"><span class="nav-number">8.</span> <span class="nav-text">floor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group_by"><span class="nav-number">9.</span> <span class="nav-text">group_by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distinct"><span class="nav-number">10.</span> <span class="nav-text">distinct</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
