@@ -47,7 +47,7 @@ mysql&amp;gt; grant all privile">
 增加：mysql&amp;gt; grant select,update on myslq.* to test identified by &quot;qwe123&quot; ;
 //将myslq库select update 权限分配给test并将密码改为&quot;qwe1232&quot;
 mysql&amp;gt; grant all privile">
-<meta property="og:updated_time" content="2015-08-17T05:19:07.065Z">
+<meta property="og:updated_time" content="2015-08-17T05:20:16.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(2)-权限分配">
 <meta name="twitter:description" content="查看：mysql&amp;gt;show grants for test //查看用户test所有权限
@@ -228,14 +228,14 @@ mysql&amp;gt; grant all privile">
       
 
       
-        <span itemprop="articleBody"><h2 id="查看："><h2>查看：</h2></h2><pre><code>mysql&gt;show grants <span class="keyword">for</span> <span class="built_in">test</span> //查看用户<span class="built_in">test</span>所有权限
-</code></pre><h2 id="增加："><h2>增加：</h2></h2><pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span> ;
+        <span itemprop="articleBody"><h2 id="查看：">查看：</h2><pre><code>mysql&gt;show grants <span class="keyword">for</span> <span class="built_in">test</span> //查看用户<span class="built_in">test</span>所有权限
+</code></pre><h2 id="增加：">增加：</h2><pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span> ;
 <span class="comment">//将myslq库select update 权限分配给test并将密码改为"qwe1232"</span>
 mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> mysql<span class="built_in">.</span>* <span class="keyword">to</span> test <span class="keyword">with</span> grant option;<span class="comment">//mysql库的所有权限</span>
 </code></pre><p>重复添加不报错<br>    mysql&gt; grant all privileges on <em>.</em> to test with grant option;</p>
-<h2 id="删除："><h2>删除：</h2></h2><pre><code>mysql&gt; revoke select <span class="function_start"><span class="keyword">on</span></span> myslq.* <span class="keyword">from</span> test;
+<h2 id="删除：">删除：</h2><pre><code>mysql&gt; revoke select <span class="function_start"><span class="keyword">on</span></span> myslq.* <span class="keyword">from</span> test;
 mysql&gt; revoke all privileges <span class="function_start"><span class="keyword">on</span></span> mysql.* <span class="keyword">from</span> test;
-</code></pre><h2 id="立即更新:"><h2>立即更新:</h2></h2><pre><code>mysql&gt; flush privileges<span class="comment">;</span>
+</code></pre><h2 id="立即更新:">立即更新:</h2><pre><code>mysql&gt; flush privileges<span class="comment">;</span>
 </code></pre><p><a href="http://drops.wooyun.org/tips/2245" target="_blank" rel="external">权限分配细则–乌云知识库</a></p>
 <p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
 </span>
@@ -396,7 +396,7 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看："><span class="nav-number">1.</span> <span class="nav-text">查看：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">查看：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加："><span class="nav-number">3.</span> <span class="nav-text">增加：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">增加：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除："><span class="nav-number">5.</span> <span class="nav-text">删除：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">删除：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#立即更新:"><span class="nav-number">7.</span> <span class="nav-text">立即更新:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">8.</span> <span class="nav-text">立即更新:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看："><span class="nav-number">1.</span> <span class="nav-text">查看：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加："><span class="nav-number">2.</span> <span class="nav-text">增加：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除："><span class="nav-number">3.</span> <span class="nav-text">删除：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#立即更新:"><span class="nav-number">4.</span> <span class="nav-text">立即更新:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
