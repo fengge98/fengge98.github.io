@@ -45,7 +45,7 @@
 <meta property="og:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.
 2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.
 3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过">
-<meta property="og:updated_time" content="2015-08-18T06:39:46.238Z">
+<meta property="og:updated_time" content="2015-08-18T08:34:16.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="漏洞记录-1">
 <meta name="twitter:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.
@@ -257,7 +257,7 @@ location：www.xxxx.com/webshell.asp
 Content-type:text/xml
 Content-length:<span class="number">0</span>
 <span class="comment">//修改成功</span>
-</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options方法如非必须请关闭.</p>
+</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
 <h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
 <p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
 <p>3.利用：</p>
@@ -275,15 +275,13 @@ alert(xmlDoc);
 <span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
 //将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
 </code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
-<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6)<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.<br>4.修复：</p>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
 <ul>
 <li><p>过滤<code>~</code>字符.</p>
 </li>
 <li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
 <p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
-<p>   Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).</p>
-<p>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).</p>
-<p>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+<p>   Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
 </li>
 </ul>
 <p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
@@ -295,6 +293,10 @@ alert(xmlDoc);
 </code></pre><ul>
 <li>使用waf进行防护.</li>
 </ul>
+<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统。如果使用同样的session id，则可能被截获并且伪造客户身份进入系统。</p>
+<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例<br>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中。<br>3.利用：可作为进一步渗透的信息储备<br>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码。</p>
 </span>
       
     </div>
@@ -455,7 +457,7 @@ alert(xmlDoc);
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache_HTTP_Server_“httpolny”cookie_泄露"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS_WebDav_Options_方法未禁用"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE_方法未禁用"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS短文件名泄露"><span class="nav-number">4.</span> <span class="nav-text">IIS短文件名泄露</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache_HTTP_Server_“httpolny”cookie_泄露"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS_WebDav_Options_方法未禁用"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE_方法未禁用"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS短文件名泄露"><span class="nav-number">4.</span> <span class="nav-text">IIS短文件名泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话标识别未更新"><span class="nav-number">5.</span> <span class="nav-text">会话标识别未更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敏感信息泄露"><span class="nav-number">6.</span> <span class="nav-text">敏感信息泄露</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
