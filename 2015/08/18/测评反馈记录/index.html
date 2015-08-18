@@ -47,7 +47,7 @@
 描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。
 建议：
 1.过滤客户端提交的敏感字符，提交的区域包括：地址栏中的所有参数，请求头信息，cookie中的参数，需要过滤的字符如下：|–&amp;amp">
-<meta property="og:updated_time" content="2015-08-18T09:03:46.402Z">
+<meta property="og:updated_time" content="2015-08-18T09:04:27.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="测评反馈记录">
 <meta name="twitter:description" content="SQL注入等级：紧急
@@ -278,8 +278,8 @@
 <pre><code><span class="tag">&lt;IfModule headers_module&gt;</span>
 <span class="keyword"><span class="common">Header</span></span> always append X-Frame-Options <span class="string">"DENY"</span>
 <span class="tag">&lt;/IfModule&gt;</span>
-</code></pre><h2 id="错误页面敏感信息泄露">错误页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
-<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息。<br>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中。<br>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…)。<br>4….发现再补</p>
+</code></pre><h2 id="页面敏感信息泄露">页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
+<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息。<br>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP，邮箱)显示在了页面，源码，url地址中。<br>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…)。<br>4….发现再补</p>
 <p>建议(一一对应):<br>1.限制对该文件的访问。<br>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息。<br>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息。</p>
 </span>
       
@@ -437,7 +437,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">1.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS跨站脚本攻击"><span class="nav-number">2.</span> <span class="nav-text">XSS跨站脚本攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF跨站请求伪造"><span class="nav-number">3.</span> <span class="nav-text">CSRF跨站请求伪造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clickjaking点击劫持"><span class="nav-number">4.</span> <span class="nav-text">clickjaking点击劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误页面敏感信息泄露"><span class="nav-number">5.</span> <span class="nav-text">错误页面敏感信息泄露</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">1.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS跨站脚本攻击"><span class="nav-number">2.</span> <span class="nav-text">XSS跨站脚本攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF跨站请求伪造"><span class="nav-number">3.</span> <span class="nav-text">CSRF跨站请求伪造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clickjaking点击劫持"><span class="nav-number">4.</span> <span class="nav-text">clickjaking点击劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面敏感信息泄露"><span class="nav-number">5.</span> <span class="nav-text">页面敏感信息泄露</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
