@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="mysql,sql注入," />
+  <meta name="keywords" content="反馈,总结," />
 
 
 
@@ -35,34 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
+<meta name="description" content="SQL注入等级：紧急
+描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。
+建议：
+1.过滤客户端提交的敏感字符，提交的区域包括：地址栏中的所有参数，请求头信息，cookie中的参数，需要过滤的字符如下：|–&amp;amp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略-7-绕过姿势-(二)">
-<meta property="og:url" content="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/index.html">
+<meta property="og:title" content="测评反馈记录">
+<meta property="og:url" content="http://yoursite.com/2015/08/18/测评反馈记录/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
-<meta property="og:updated_time" content="2015-08-17T06:49:50.498Z">
+<meta property="og:description" content="SQL注入等级：紧急
+描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。
+建议：
+1.过滤客户端提交的敏感字符，提交的区域包括：地址栏中的所有参数，请求头信息，cookie中的参数，需要过滤的字符如下：|–&amp;amp">
+<meta property="og:updated_time" content="2015-08-18T06:08:17.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势-(二)">
-<meta name="twitter:description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
+<meta name="twitter:title" content="测评反馈记录">
+<meta name="twitter:description" content="SQL注入等级：紧急
+描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。
+建议：
+1.过滤客户端提交的敏感字符，提交的区域包括：地址栏中的所有参数，请求头信息，cookie中的参数，需要过滤的字符如下：|–&amp;amp">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +63,7 @@
   };
 </script>
 
-  <title> SQL注入练级攻略-7-绕过姿势-(二) | FengGe </title>
+  <title> 测评反馈记录 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -187,7 +178,7 @@
           
           
             
-              SQL注入练级攻略-7-绕过姿势-(二)
+              测评反馈记录
             
           
         </h1>
@@ -196,8 +187,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-17T14:11:25+08:00" content="2015-08-17">
-            2015-08-17
+          <time itemprop="dateCreated" datetime="2015-08-18T10:11:06+08:00" content="2015-08-18">
+            2015-08-18
           </time>
         </span>
 
@@ -207,8 +198,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/17/SQL注入练级攻略-7-绕过姿势-二/" itemprop="commentsCount"></span>
+              <a href="/2015/08/18/测评反馈记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/18/测评反馈记录/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -222,22 +213,62 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
-<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
-<span class="string">' or 1=true #true=1, false=0
-'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
-<span class="string">' or version()=5.5 #5.5.41-log
-'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users
-</code></pre></span>
+        <span itemprop="articleBody"><h2 id="SQL注入">SQL注入</h2><p>等级：紧急</p>
+<p>描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。</p>
+<p>建议：</p>
+<p>1.过滤客户端提交的敏感字符，提交的区域包括：<strong>地址栏中的所有参数，请求头信息，cookie中的参数</strong>，需要过滤的字符如下：<br><code>|</code>–<code>&amp;</code>–<code>;</code>–<code>$</code>–<code>%</code>–<code>@</code>–<code>&#39;</code>;<br><code>&quot;</code>–<code>&lt;</code>–<code>&gt;</code>–<code>(</code>;<code>)</code>–<code>+</code>–<code>CR</code>;<br><code>LF</code>–<code>,</code>–<code>.</code>–<code>select</code>–<code>from</code>;<br><code>update</code>–<code>delete</code>–<code>union</code>–<code>and</code>–<code>or</code>;<br>2.白名单策略：定制允许客户端输入的长度，类型.<br>3.做好数据库用户权限管理，只给用户开放必要权限.</p>
+<h2 id="XSS跨站脚本攻击">XSS跨站脚本攻击</h2><p>1.反射型xss<br>等级：低</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的。反射型XSS通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行。它的特点是非持久化，必须用户点击带有特定参数的链接才能引起。</p>
+<p>2.存储型XSS<br>等级：中</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的。存储型XSS通过上传非法代码，当用户触发恶意代码，浏览器就执行攻击者定义的脚本程序。</p>
+<p>建议：<br>  1.对用户输入进行数据合法性验证:</p>
+<table>
+<thead>
+<tr>
+<th>不可信数据将被放置的地方</th>
+<th>例子</th>
+<th>应该采取的编码</th>
+<th>编码格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML标签之间</td>
+<td><code>&lt;div&gt; 不可信数据 &lt;/div&gt;</code></td>
+<td>HTML Entity编码</td>
+<td><code>&amp;–&gt;&amp;amp;&lt;–&gt;&amp;lt;&gt;–&gt;&amp;gt;”–&gt;&amp;quot;‘–&gt;&amp;#x27;/–&gt;&amp;#x2f;</code></td>
+</tr>
+<tr>
+<td>HTML标签的属性里</td>
+<td><code>&lt;input type=”text”value=” 不可信数据 ” /&gt;</code></td>
+<td>HTML Attribute编码</td>
+<td><code>&amp;#xHH;</code></td>
+</tr>
+<tr>
+<td>JavaScript标签里</td>
+<td><code>&lt;script&gt; var msg = ” 不可信数据 ” &lt;/script&gt;</code></td>
+<td>JavaScript编码</td>
+<td><code>\xHH</code></td>
+</tr>
+<tr>
+<td>HTML页面的URL里</td>
+<td><code>&lt;a href=”/page?p= 不可信数据 ” &gt;…&lt;/a&gt;</code></td>
+<td>URL编码</td>
+<td><code>%HH</code></td>
+</tr>
+<tr>
+<td>CSS里</td>
+<td><code>div style=” width: 不可信数据 ” &gt; … &lt;/div&gt;</code></td>
+<td>CSS编码</td>
+<td><code>\HH</code></td>
+</tr>
+</tbody>
+</table>
+<p>  2.为Cookie加上HttpOnly标记:<br>  许多XSS攻击的目标就是窃取用户Cookie。窃取Cookie一般都会依赖JavaScript读取 Cookie信息，而HttpOnly标记的cookie不允许被JS操作，这样即使Web应用产生了XSS漏洞，Cookie信息也能得到较好的保护。</p>
+<h2 id="CSRF跨站请求伪造">CSRF跨站请求伪造</h2><p>等级：中</p>
+<p>描述：攻击者盗用用户身份，以用户名义发送恶意请求。CSRF可能造成的危害包括：以用户名义发送邮件，发消息，盗取账号，甚至于购买商品，虚拟货币转账，个人隐私泄露以及财产安全。</p>
+<p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的。如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求。<br>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
+</span>
       
     </div>
 
@@ -245,9 +276,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/反馈/" rel="tag">#反馈</a>
           
-            <a href="/tags/sql注入/" rel="tag">#sql注入</a>
+            <a href="/tags/总结/" rel="tag">#总结</a>
           
         </div>
       
@@ -256,13 +287,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/18/测评反馈记录/" rel="prev">测评反馈记录</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/17/SQL注入练级攻略-6-基本绕过-一/" rel="next">SQL注入练级攻略(6)-绕过姿势(一)</a>
+              <a href="/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/" rel="next">SQL注入练级攻略-7-绕过姿势-(二)</a>
             
           </div>
         </div>
@@ -287,8 +316,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/17/SQL注入练级攻略-7-绕过姿势-二/"
-                   data-title="SQL注入练级攻略-7-绕过姿势-(二)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/">
+              <div class="ds-thread" data-thread-key="2015/08/18/测评反馈记录/"
+                   data-title="测评反馈记录" data-url="http://yoursite.com/2015/08/18/测评反馈记录/">
               </div>
             
           </div>
@@ -395,7 +424,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Where后条件的各种转换姿势"><span class="nav-number">1.</span> <span class="nav-text">Where后条件的各种转换姿势</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">1.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS跨站脚本攻击"><span class="nav-number">2.</span> <span class="nav-text">XSS跨站脚本攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF跨站请求伪造"><span class="nav-number">3.</span> <span class="nav-text">CSRF跨站请求伪造</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

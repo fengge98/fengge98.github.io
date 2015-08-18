@@ -170,6 +170,168 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/10/loadrunner问题记录/" itemprop="url">
+                loadrunner问题记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T13:54:01+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/性能测试/" itemprop="url" rel="index">
+                  <span itemprop="name">性能测试</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/loadrunner问题记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/loadrunner问题记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="简介">简介</h2><pre><code><span class="variable">HTML</span>-<span class="variable">Based</span>是在web测试脚本录制过程中默认选项.它基于界面，将属于一个界面的所有请求放在一个一个<span class="variable">Web</span>-url中.
+<span class="variable">URL</span>-<span class="variable">Based</span>在web测试脚本的录制过程，将每一个http请求放在一个<span class="variable">Web</span>-url中可读性较差.
+</code></pre><h2 id="HTML-Base&amp;URL-Based二者对比">HTML-Base&amp;URL-Based二者对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th><code>HTML_Based</code></th>
+<th><code>URL_Based</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">阅读性</td>
+<td>HTML为用户的每一个动作产生单独的步骤，脚本录制结果简洁直接，可阅读性强</td>
+<td>将每一个url请求放入web-url中，能更好的控制业务过程</td>
+</tr>
+<tr>
+<td style="text-align:center">选择</td>
+<td>基于浏览器的应用选择此项</td>
+<td>不是基于浏览器的应用/基于浏览器的应用中的脚本语言/javascript Applets向服务器发出了请求/使用了https协议</td>
+</tr>
+</tbody>
+</table>
+<p>注：录制过程不要使用浏览器的后退功能loadrunner对其支持不是很好.</p>
+<h2 id="LoadRunner录制脚本时为什么不弹出IE浏览器?">LoadRunner录制脚本时为什么不弹出IE浏览器?</h2><p>A.当一台主机上安装多个浏览器时，LoadRunner录制脚本经常遇到不能打开浏览器的情况，可以用下面的方法来解决.<br>启动浏览器，打开Internet选项对话框，切换到高级标签，去掉“启用第三方浏览器扩展(需要重启动)”的勾选，然后再次运行VuGen即可解决问题<br>提示：通常安装Firefox等浏览器后，都会勾选上面得选项，导致不能正常录制.因此建议运行LoadRunner得主机上保持一个干净的测试环境.<br>B.点Vuser》Run-Time Setting》Brower》Brower Version》Change==修改IE版本和WIN 7</p>
+<h2 id="录制Web脚本时，生成的脚本中存在乱码该如何解决?">录制Web脚本时，生成的脚本中存在乱码该如何解决?</h2><p>　　录制脚本前，打开录制选项配置对话框Record-Options，进入到Advanced标签，先勾选“Support charset”，然后选择中支持UTF-8.在IIS中找到Web.Config文件，在<system.web>….</system.web>节加入<globalization requestencoding="gb2312" responseencoding="gb2312" fileencoding="gb2312">后再次录制，就不会出现中文乱码问题了.</globalization></p>
+<h2 id="HTML-based_script与URL-based_script的脚本有什么区别?">HTML-based script与URL-based script的脚本有什么区别?</h2><p>使用“HTML-based script”的模式录制脚本，VuGen为用户的每个HTML操作生成单独的步骤，这种脚本看上去比较直观;使用“URL-based script”模式录制脚本时，VuGen可以捕获所有作为用户操作结果而发送到服务器的HTTP请求，然后为用户的每个请求分别生成对应方法.<br>通常，基于浏览器的Web应用会使用“HTML-based script”模式来录制脚本;而没有基于浏览器的Web应用Web应用中包含了与服务器进行交互的Java Applet基于浏览器的应用中包含了向服务器进行通信的JavaScript/VBScript代码基于浏览器的应用中使用了HTTPS安全协议，这时使用“URL-based script”模式进行录制.</p>
+<h2 id="为什么脚本中添加了检查方法Web-find，但是脚本回放时却没有执行?">为什么脚本中添加了检查方法Web-find，但是脚本回放时却没有执行?</h2><p>由于检查点功能会耗费一定的资源，因此LoadRunner默认关闭了对文本及图像的检查.要想开启检查功能，必须修改运行时的配置Run-time Setting.<br>进入“Run-time Setting”对话框，依次进入“Internet Protocol→Preferences”，勾选Checks下的“Enable Image and text check”选项即可.<br>检查执行结果时推荐使用web_reg_find方法.</p>
+<h2 id="运行时的Pacing设置主要影响什么?">运行时的Pacing设置主要影响什么?</h2><p>Pacing主要用来设置重复迭代脚本的间隔时间.共有三种方法：上次迭代结束后立刻开始上次迭代结束后等待固定时间按固定或随机的时间间隔开始执行新的迭代.<br>根据实际需要设置迭代即可.通常，没有时间间隔会产生更大的压力.</p>
+<h2 id="运行时设置Log标签中，如果没有勾选“Enable_logging”，则手工消息可以发送吗?">运行时设置Log标签中，如果没有勾选“Enable logging”，则手工消息可以发送吗?</h2><p>Enable logging选项仅影响自动日志记录和通过lr_log_message发送的消息.即使没有勾选，虚拟用户脚本中如果使用lr_messagelr_output_messagelr_error_message,仍然会记录其发出的消息.</p>
+<h2 id="LoadRunner_8-0版本的VuGen在录制Web_Services协议的脚本时一切正常，而回放时报出错误提示“Error：server_returned_an_incorrectly_formatted_SOAP_response”-这时说明原因引起的?">LoadRunner 8.0版本的VuGen在录制Web Services协议的脚本时一切正常，而回放时报出错误提示“Error：server returned an incorrectly formatted SOAP response”.这时说明原因引起的?</h2><p>造成这种情况的主要原因是LoadRunner 8.0的VuGen在录制Web Service协议的脚本时存在一个缺陷：如果服务器的操作系统是中文的，VuGen会自动将WSDL文件的头改为，因此会有上面的错误提示.<br>解决方法：把“LR80WebservicesFPI_setup.exe”和“lrunner_web_sevices_path_1.exe”两个补丁打上即可解决.</p>
+<h2 id="VuGen支持Netscape的客户证书吗?">VuGen支持Netscape的客户证书吗?</h2><p>不支持.目前的VuGen 8.0版本中仅支持Internet Explorer的客户端证书.录制脚本时可以先从Netscape中导出所需的证书，然后将其导入到Internet Explorer中，并确保以相同的顺序导出和导入这些证书.而且，在每台将要录制或运行需要证书的Web Vuser脚本的计算机上都要重复执行前面的过程.</p>
+<h2 id="VuGen会修改录制浏览器中的代理服务器设置吗?">VuGen会修改录制浏览器中的代理服务器设置吗?</h2><p>会修改.在开始录制基于浏览器的Web Vuser脚本时，VuGen首先会启动指定的浏览器.然后，VuGen会指示浏览器访问VuGen代理服务器.为此，VuGen会修改录制浏览器上的代理服务器设置.默认情况下，VuGen会立即将代理服务器设置更改为Localhost:7777.录制之后，VuGen会将原始代理服务器设置还原到该录制浏览器中.因此，在VuGen进行录制的过程中，不可以更改代理服务器设置，否则将无法正常进行.</p>
+<h2 id="在LoadRunner脚本如何输出当前系统时间?">在LoadRunner脚本如何输出当前系统时间?</h2><p>LoadRunner提供了char <em>ctime(const time_t </em>time)函数，调用参数为一个Long型的整数指针，用于存放返回时间的数值表示.<br>调用语句与返回值如下示例：<br>　　<br>    typedef long time_t;<br>　　Action()<br>　　{<br>　　time_t t;<br>　　lr_message(“Time in seconds since 1/1/70: %ld\n”,time(&amp;t));<br>　　lr_message(“System time and date: %s”,ctime(&amp;t));<br>　　}<br>　　输出结果为：<br>　　Time in seconds since 1/1/70: 1185329968<br>　　System time and date:Wed Jul 25 10:19:28 2007<br>　　<br>一些Web虚拟用户脚本录制后立刻回放没有任何问题，但是当设置迭代次数大于1时，如果进行回放则只能成功迭代一次.</p>
+<h2 id="为什么从第二次迭代开始发生错误?">为什么从第二次迭代开始发生错误?</h2><p>这种现象多是由于在“Run-time Setting”的“Browse Emulation”的设置中，勾选了“Simulate a new user on each iteration”及其下面的选项“Clear cache on each iteration”这两个选项的含义是每次迭代时模拟一个新的用户及每次迭代时清除缓存.<br>由于脚本迭代时，init和end只能执行一次，如果每次迭代都模拟一个新的用户并清除缓存，则用户登录信息将一并清除，因此迭代时可能会发生错误.</p>
+<h2 id="虚拟客户脚本“Run-time_Setting”中的线程和进程运行方式的区别?">虚拟客户脚本“Run-time Setting”中的线程和进程运行方式的区别?</h2><p>如果选择“Run Vuser as a process”，则场景运行时会为每一个虚拟用户创建一个进程;选择“Run Vuser as a thread”则将每个虚拟用户作为一个线程来运行，在任务管理器中只看到一个mmdrv.exe，这种方式的运行效率更高，能造成更大的压力，时默认选项.<br>另外，如果启用了IP欺骗功能，则先在Controller中选中Tools菜单下的“Expert Mode”，然后将Tools菜单下的“Options&gt;General”标签页中的IP地址分配方式也设置为与Vuser运行方式一致，同为线程或进程方式.</p>
+<h2 id="在Controller中运行Web相关测试场景时，经常会有很多超时错误提示，如何处理这类问题?">在Controller中运行Web相关测试场景时，经常会有很多超时错误提示，如何处理这类问题?</h2><p>这主要有脚本的默认超时设置引起.当回放Web脚本时，有时候由于服务器响应时间较长，会产生超时的错误.这时需要修改脚本的运行时配置.<br>进入“Run-time Setting”对话框后，依次进入“Internet Protocol→Preference”.然后点击“Options…”按钮，进入高级设置对话框，可以修改各类超时设置的默认值.</p>
+<h2 id="为什么Windows系统中的CPU内存等资源仍然充足，但是模拟的用户数量却上不去?">为什么Windows系统中的CPU内存等资源仍然充足，但是模拟的用户数量却上不去?</h2><p>在Windows计算机的标准设置下，操作系统的默认限制只能使用几百个Vuser，这个限制与CPU或内存无关，主要是操作系统本身规定了默认的最大线程数所导致.要想突破Windows这个限制，须修改Windows注册表.以Windows XP Professional为例.<br>　　<br>    (1)打开注册表后，进入注册表项HKEY_LOCAL_MACHINE中的下列关键字：System\CurrentControlSet\Control\Session Manager\SubSystems.<br>　　(2)找到Windows关键字，Windows关键字如下所示：<br>　　%SystemRoot%\system32\csrss.exe bjectDirectory=\Windows<br>　　SharedSection=1024,3072,512 Windows=On SubSystemType=Windows ServerDll=basesrv,1<br>　　ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2<br>　　ProfileControl=Off MaxRequestThreads=16<br>　　SharedSection=1024,3072,512关键字的格式为xxxx,yyyy,zzz.其中，xxxx定义了系统范围堆的最大值(以KB为单位)    ，yyyy定义每个桌面堆得大小.<br>    (3)将yyyy的设置从3072更改为8192(即8MB)，增加SharedSection参数值.<br>　　<br>通过对注册表的更改，系统将允许运行更多的线程，因而可以在计算机上运行更多的Vuser.这意味着能够模拟的最大并发用户数量将不受Windows操作系统的限制，而只受硬件和内部可伸缩性限制的约束.</p>
+<h2 id="录制脚本为空">录制脚本为空</h2><p>1.LR录制是客户端与服务器的数据交互，只有在有交互的时候才可以录制到脚本.<br>1）交互方式不一样，通过客户端的server进行交互，在scrīpt中选择最后一个track processes created as COM local servers  [选择scrīpt里的最后一个选项].</p>
+<ol>
+<li>非客户端与服务器的交互的一种操作，在页面上点前进或后退，如果页面是从缓存中取出来的，那么也就没有和服务器数据交互，所以也录制的为空脚本.   [windows注册表中禁用缓存]. </li>
+<li>协议选择错误，b/s不一定走http协议，还可能是https（http+ssl）.[最基础的错误].录制出错.<br>2）选择internet里选项里的连接里的局域网设置的代理不能选，因为LR在录制的时候会动态选择.<br>3）网页里的恶意代码，检测的时候响应LR录制脚本[用工具检测恶意代码，然后卸载恶意代码，eg：Ad_Aweare].<br>4）防病毒软件和防火墙，在录制时暂时关闭.<br>5）因为LR自身原因报错或者有些脚本不能录制下来[录制是最好选用scrīpt view，此时会报错，但能写下脚本，是因为LR无法解析，可以手工修改，而tree view 就直接停止了.<br>　<br>Loadrunner不支持默认的浏览器</li>
+</ol>
+<hr>
+<p>有时候，我们上网的时候，不小心会将某个浏览器设置为默认的浏览器，而我们不知道，这个时候，我们用loadrunner进行录制的时候，会提示loadrunner不支持系统设置的默认的浏览器，因此，需要我们重新选择浏览器，我们可以利用Reconding optiom中的Browser选项设置支持的浏览器，我们还可以利用下面的方法，将IE设置为默认的浏览器，因为loadrunner是支持IE的.设置方法如下：<br>在IE“工具（T）”菜单→“Interner选项”→“程序”选项卡里，确保“检查Internet Explorer是否为默认的浏览器”选项打上√.然后在你启动IE时，如果IE非默认浏览器就会出现提示窗是否把IE设置为默认.</p>
+<h2 id="Step_download_timeout_(120_seconds)">Step download timeout (120 seconds)   </h2><p>这是一个经常会遇到的问题，解决得办法走以下步骤：<br>1修改run time setting中的请求超时时间，增加到600s,其中有三项的参数可以一次都修改了，HTTP-request connect timeout，HTTP-request receieve timeout，Step download timeout，分别建议修改为6006005000.run time setting设置完了后记住还需要在control组件的option的run time setting中设置相应的参数.<br>2办法一不能解决的情况下，解决办法如下：<br>设置runt time setting中的internet protocol-preferences中的advaced区域有一个winlnet replay instead of sockets选项，选项后再回放就成功了.切记此法只对windows系统起作用，此法来自zee的资料.    </p>
+<h2 id="问题描述Connection_reset_by_peer-">问题描述Connection reset by peer.   </h2><p>这个问题不多遇见，一般是由于下载的速度慢，导致超时，所以，需要调整一下超时时间.<br>解决办法：Run-time setting窗口中的‘Internet Protocol’－‘Preferences’设置set advanced options（设置高级选项），重新设置一下“HTTP-request connect timeout（sec），可以稍微设大一些”.    </p>
+<h2 id="问题描述connection_refused">问题描述connection refused  </h2><p>这个的错误的原因比较复杂，也可能很简单也可能需要查看好几个地方，解决起来不同的操作系统方式也不同.<br>1首先检查是不是连接weblogic服务过大部分被拒绝，需要监控weblogic的连接等待情况，此时需要增加acceptBacklog，每次增加25%来提高看是否解决，同时还需要增加连接池和调整执行线程数，（连接池数*Statement Cache Size）的值应该小于等于oracle数据库连接数最大值.<br>2如果方法一操作后没有变化，此时需要去查看服务器操作系统中是否对连接数做了限制，AIX下可以直接vi文件limits修改其中的连接限制数端口数，还有tcp连接等待时间间隔大小，wiodows类似，只不过windows修改注册表，具体修改注册表中有TcpTimedWaitDelay和MaxUserPort项，键值在[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters].因为负载生成器的性能太好，发数据包特别快，服务器也响应特别快，从而导致负载生成器的机器的端口在没有timeout之前就全部占满了.在全部占满后，就会出现上面的错误.执行netstat –na命令，可以看到打开了很多端口.所以就调整TCP的time out.即在最后一个端口还没有用到时，前面已经有端口在释放了.<br>1,这里的TcpTimedWaitDelay默认值应该中是30s，所以这里，把这个值调小为5s（按需要调整）.<br>2,也可以把MaxUserPort调大（如果这个值不是最大值的话）.    </p>
+<h2 id="问题描述open_many_files">问题描述open many files </h2><p>问题一般都在压力较大的时候出现，由于服务器或者应用中间件本身对于打开的文件数有最大值限制造成，解决办法：<br>1修改操作系统的文件数限制，aix下面修改limits下的nofiles限制条件，增大或者设置为没有限制，尽量对涉及到的服务器都作修改.<br>2方法一解决不了情况下再去查看应用服务器weblogic的commonEnv.sh文件，修改其中的nofiles文件max-nofiles数增大，应该就可以通过了，具体就是查找到nofiles方法，修改其中else条件的执行体，把文件打开数调大.修改前记住备份此文件，防止修改出错.<br>3linux上可以通过ulimit –HSn 4096来修改文件打开数限制，也可以通过ulimit -a 来查看.<br>4linux上可以通过lsof -p pid | wc -l 来查看进程打开的句柄数.    </p>
+<h2 id="问题描述has_shut_down_the_connection_prematurely">问题描述has shut down the connection prematurely  </h2><p>一般是在访问应用服务器时出现，大用户量和小用户量均会出现.<br>来自网上的解释：<br>1&gt;应用访问死掉<br>小用户时：程序上的问题.程序上存在数据库的问题<br>2&gt;应用服务没有死<br>应用服务参数设置问题<br>例如：<br>在许多客户端连接Weblogic应用服务器被拒绝，而在服务器端没有错误显示，则有可能是Weblogic中的server元素的AcceptBacklog属性值设得过低.如果连接时收到connection refused消息，说明应提高该值，每次增加25％<br>Java连接池的大小设置，或JVM的设置等<br>3&gt;数据库的连接<br>在应用服务的性能参数可能太小了<br>数据库启动的最大连接数（跟硬件的内存有关）<br>以上信息有一定的参考价值，实际情况可以参考此类调试.<br>如果是以上所说的小用户时：程序上的问题.程序上存在数据库的问题，那就必须采用更加专业的工具来抓取出现问题的程序，主要是程序中执行效率很低的sql语句，weblogic可以采用introscope定位，期间可以注意观察一下jvm的垃圾回收情况看是否正常，我在实践中并发500用户和600用户时曾出现过jvm锯齿型的变化，上升下降都很快，这应该是不太正常的.<br>实际测试中，可以用telent 站点看看是否可以连接进去，可以通过修改连接池中的连接数和适当增加应用内存值，问题可以解决.    </p>
+<h2 id="问题描述Failed_to_connect_to_server">问题描述Failed to connect to server   </h2><p>这个问题一般是客户端链接到服务失败，原因有两个客户端连接限制（也就是压力负载机器），一个网络延迟严重，解决办法：<br>1修改负载机器注册表中的TcpTimedWaitDelay减小延时和MaxUserPort增加端口数.注：这将增加机器的负荷.<br>2检查网络延迟情况，看问题出在什么环节.<br>  建议为了减少这种情况，办法一最好测试前就完成了，保证干净的网络环境，每个负载机器的压力测试用户数不易过大，尽量平均每台负载器的用户数，这样以上问题出现的概率就很小了.   </p>
+<h2 id="问题描述Overlapped_transmission_of_request_to_…_WSA_IO_PENDING">问题描述Overlapped transmission of request to … WSA_IO_PENDING   </h2><p>这个问题，解决方法：<br> 1方法一，在脚本前加入web_set_sockets_option(“OVERLAPPED_SEND”, “0”)，禁用TTFB细分，问题即可解决，但是TTFB细分图将不能再使用，附图.<br>2方法二，可以通过增加连接池和应用系统的内存，每次增加25%.   </p>
+<h2 id="问题描述Deleted_the_current_transaction_…_since_response_time_is_not_accurate">问题描述Deleted the current transaction … since response time is not accurate </h2><p>这个问题不多遇见，一般出现在压力机器上发生ping值为负数（AMD双核CPU），可以重新启动pc机或者打补丁，附图.   </p>
+<h2 id="问题描述HTTP_Status-Code=500_(Internal_Server_Error)_for">问题描述HTTP Status-Code=500 (Internal Server Error) for  </h2><p>1应用服务当掉，重新启动应用服务.<br>2当应用系统处于的可用内存处于阀值以下时，出现HTTP Status-Code=500的概率非常高，此时只要增加应用系统的内存，问题即可解决.    </p>
+<h2 id="问题描述Failed_to_transmit_data_to_network:_[10057]Socket_is_not_connected">问题描述Failed to transmit data to network: [10057]Socket is not connected</h2><p>这个错误是由网络原因造成的，PC1和PC2上面都装了相同的loadrunner 9.0，且以相同数量的虚拟用户数运行相同的业务（机器上的其他条件都相同），PC1上面有少部分用户报错，PC2上的用户全部执行通过.   </p>
+<h2 id="问题描述_Error_-27257:_Pending_web_reg_save_param/reg_find/create_html_param[_ex]_request(s)_detected_and_reset_at_the_end_of_iteration_number_1">问题描述 Error -27257: Pending web_reg_save_param/reg_find/create_html_param[_ex] request(s) detected and reset at the end of iteration number 1  </h2><p>解决方法：web_reg_save_param位置放错了，应该放到请求页面前面. </p>
+<h2 id="问题描述_通过Controler调用远程代理时报错，Error:_CCI_security_error:You_are_running_under_secure_mode_and_the_function_system_is_not_allowed_in_this_mode-">问题描述 通过Controler调用远程代理时报错，Error: CCI security error:You are running under secure mode and the function system is not allowed in this mode.  </h2><p>解决方法：在代理开启的时候，去掉勾选防火墙选项.   </p>
+<h2 id="LoadRunner超时错误：">LoadRunner超时错误：</h2><p>在录制Web协议脚本回放时超时情况经常出现，产生错误的原因也有很多，解决的方法也不同.<br>错误现象1：Action.c(16): Error -27728: Step download timeout (120 seconds) has expired when downloading non-resource(s).<br>错误分析：对于HTTP协议，默认的超时时间是120秒（可以在LoadRunner中修改），客户端发送一个请求到服务器端，如果超过120秒服务器端还没有返回结果，则出现超时错误.<br>解决办法：首先在运行环境中对超时进行设置，默认的超时时间可以设置长一些，再设置多次迭代运行，如果还有超时现象，需要在“Runtime Setting”&gt;“Internet Protocol：Preferences”&gt;“Advanced”区域中设置一个“winlnet replay instead of sockets”选项，再回放是否成功.<br>错误现象2：Action.c(81):Continuing after Error -27498: Timed out while processing URL=<a href="http://172.18.20.70:7001/workflow/bjtel/leasedline/" target="_blank" rel="external">http://172.18.20.70:7001/workflow/bjtel/leasedline/</a> querystat/ subOrderQuery.do<br>错误分析：这种错误常常是因为并发压力过大，服务器端太繁忙，无法及时响应客户端的请求而造成的，所以这个错误是正常现象，是压力过大造成的.<br>如果压力很小就出现这个问题，可能是脚本某个地方有错误，要仔细查看脚本，提示的错误信息会定位某个具体问题发生的位置.<br>解决办法：例如上面的错误现象问题定位在某个URL上，需要再次运行一下场景，同时在其他机器上访问此URL.如果不能访问或时间过长，可能是服务器或者此应用不能支撑如此之大的负载.分析一下服务器，最好对其性能进行优化.<br>如果再次运行场景后还有超时现象，就要在各种图形中分析一下原因，例如可以查看是否服务器DNS网络等方面存在问题.<br>最后，增加一下运行时的超时设置，在“Run-Time Settings”&gt;“Internet Protocol:Preferences”中，单击“options”，增加“HTTP-request connect timeout”或者“HTTP-request receive”的值.   </p>
+<h2 id="LoadRunner脚本中出现乱码：在录制Web协议脚本时出现中文乱码，在回放脚本时会使回放停止在乱码位置，脚本无法运行-">LoadRunner脚本中出现乱码：在录制Web协议脚本时出现中文乱码，在回放脚本时会使回放停止在乱码位置，脚本无法运行.   </h2><p>错误现象：某个链接或者图片名称为中文乱码，脚本运行无法通过.<br>错误分析：脚本录制可能采用的是URL-based script方式，如果程序定义的字符集合采用的是国际标准，脚本就会出现乱码现象.<br>解决办法：重新录制脚本，在录制脚本前，打开录制选项配置对话框进行设置，在“Recording Options”的“Advanced”选项里先将“Surport Charset”选中，然后选中支持“UTF-8”的选项.   </p>
+<h2 id="LoadRunner">LoadRunner</h2><p> HTTP服务器状态代码：在录制Web协议脚本回放脚本的过程中，会出现HTTP服务器状态代码，例如常见的页面-404错误提示-500错误提示.<br>错误现象1：-404 Not Found服务器没有找到与请求URI相符的资源，但还可以继续运行直到结束.<br>错误分析：此处与请求URI相符的资源在录制脚本时已经被提交过一次，回放时不可再重复提交同样的资源，而需要更改提交资源的内容，每次回放一次脚本都要改变提交的数据，保证模拟实际环境，造成一定的负载压力.<br>解决办法：在出现错误的位置进行脚本关联，在必要时插入相应的函数.<br>错误现象2：-500 Internal Server Error服务器内部错误，脚本运行停止.<br>错误分析：服务器碰到了意外情况，使其无法继续回应请求.<br>解决办法：出现此错误是致命的，说明问题很严重，需要从问题的出现位置进行检查，此时需要此程序的开发人员配合来解决，而且产生的原因根据实际情况来定，测试人员无法单独解决问题，而且应该尽快解决，以便于后面的测试.   </p>
+<p>LoadRunner请求无法找到：在录制Web协议脚本回放脚本的过程中，会出现请求无法找到的现象，而导致脚本运行停止.</p>
+<hr>
+<p>错误现象：Action.c(41): Error -27979: Requested form. not found [MsgId: MERR-27979]<br> Action.c(41): web_submit_form. highest severity level was “ERROR”,0 body bytes, 0 header bytes [MsgId: MMSG-27178]”<br>这时在tree view中看不到此组件的相关URL.<br>错误分析：所选择的录制脚本模式不正确，通常情况下，基于浏览器的Web应用会使用“HTML-based script”模式来录制脚本；而没有基于浏览器的Web应用Web应用中包含了与服务器进行交互的Java Applet基于浏览器的应用中包含了向服务器进行通信的JavaScript/VBScript代码基于浏览器的应用中使用HTTPS安全协议，这时则使用“URL-based script”模式进行录制.<br>解决办法：打开录制选项配置对话框进行设置，在“Recording Options”的“Internet Protocol”选项里的“Recording”中选择“Recording Level”为“HTML-based script”，单击“HTML Advanced”，选择“Script. Type”为“A script. containing explicit”.然后再选择使用“URL-based script”模式来录制脚本.   </p>
+<h2 id="LoadRunner不执行检查方法：在录制Web协议脚本中添加了检查方法Web_find，但是在脚本回放的过程中并没有执行-">LoadRunner不执行检查方法：在录制Web协议脚本中添加了检查方法Web_find，但是在脚本回放的过程中并没有执行.   </h2><p>错误现象：在脚本中插入函数Web_find，在脚本中设置文本以及图像的检查点，但是在回放过程中并没有对设置的检查点进行检查，即Web_find失效.<br>错误分析：由于检查功能会消耗一定的资源，因此LoadRunner默认关闭了对文本以及图像的检查，所以在设置检查点后，需要开启检查功能.<br>解决办法：打开运行环境设置对话框进行设置，在“Run-time Settings”的“Internet Protocol”选项里的“Perference”中勾选“Check”下的“Enable Image and text check”选项.   </p>
+<h2 id="LoadRunner回放Web_Services协议脚本错误：">LoadRunner回放Web Services协议脚本错误：</h2><p>LoadRunner 8.0版本在录制Web Services协议的脚本时正常，但在回放时会出现错误，提示停止脚本运行.<br>错误现象：利用LoadRunner 8.0版本来录制Web Services协议的脚本没有任何错误提示，回放脚本时会出现如下错误提示“Error：server returned an incorrectly formatted SOAP response”.<br>错误分析：出现此错误的原因是LoadRunner8.0在录制Web Services协议的脚本时存在一个缺陷：如果服务器的操作系统是中文的，VuGen会自动将WSDL文件的头改为</p>
+<pre><code><span class="pi">&lt;?xml version=”1.0″encoding=”zh_cn” ?&gt;</span>，所以才会有此错误提示.   
+</code></pre><p>解决办法：下载两个补丁，分别为“LR80WebServicesFPI_setup.exe”和“lrunner<em>web</em> services_patch_1.exe”安装上即可. </p>
+<h2 id="error:missing_newline_in_d:\loadrunner\name-dat">error:missing newline in d:\loadrunner\name.dat   </h2><p>场景执行时报error:missing newline in d:\loadrunner\name.dat<br>第二次执行不报<br>两个解决办法：<br>第一：如果参数不是很多的话，不要打开记事本去编辑参数，就直接在LR提供的参数的表格中进行编辑即可.<br>第二：如果参数很多超过100条的话.在记事本中编辑好了之后，记着在最后一个参数后打个回车，让鼠标的光标移动到下一行.  </p>
+<h2 id="load_generator_is_currently_running_the_maximum_number_of_vuser_of_this_type">load generator is currently running the maximum number of vuser of this type   </h2><p>使用的是loadrunner8.0，有10000个用户的web的license，global的有10个.<br>在测试的时候发现running vuser到达1000以后就不能再提高，后面的vuser就会出错.错误是“The load generator is currently running the maximum number of vuser of this type”.<br>已经可以排除是load generator机器本身资源的问题.因为换了性能比较强的酷睿2还是同样的问题，CPU和memory都有空闲.<br>解决办法:   </p>
+<pre><code>在<span class="built_in">load</span> generator中有一个V<span class="keyword">user</span> limits tab，可以设置running <span class="keyword">user</span>的最大数目. 即设置 <span class="built_in">load</span> generator----Details------V<span class="keyword">user</span> limits ----Other Vusers 的最大参数   
+</code></pre><h2 id="sofeware_caused_connction：">sofeware caused connction：</h2><p>这种情况，一般是脚本有问题，或者loadrunner有问题.解决方法：重新启动机器，或者重新录制脚本，估计是loadrunner的bug.   </p>
+<h2 id="cannot_connect_to_server:">cannot connect to server:</h2><p>无法连接到服务器.这种情况是服务器的配置有问题，服务器无法承受过多的并发连接了.需要优化服务器的配置，<br>如操作系统采用windows 2003 server，<br>优化tomcat配置：maxThreads=”500” minSpareThreads=”400” maxSpareThreads=”450”.但是tomcat 最多支持500个并发访问<br>优化apache配置：<br>ThreadsPerChild 1900<br>MaxRequestsPerChild 10000<br>其他的错误如：<br>Action.c(10): Error -27791: Server has shut down the connection prematurely<br>HTTP Status-Code=503 (Service Temporarily Unavailable)<br>一般都是由于服务器配置不够好引起的，按照问题（2）处理，如果仍旧不行，需要优化硬件和调整程序了.   </p>
+<h2 id="Controller中设置了用户并发数量，但是运行时为何初始化的用户数量少于实际数量？">Controller中设置了用户并发数量，但是运行时为何初始化的用户数量少于实际数量？</h2><p>主要时设置问题.在Tools→options→Run-time setting中可以设置每次最多初始化的虚拟用户.如果需要100个并发用户，则将该值设置为大于100的数值.另外，注意LoadRunner相关协议License的更新，确保使用的License能够允许所需要的并发用户数量.</p>
+<h2 id="如何让场景的用户执行发生错误继续运行，以保证不间断进行压力测试？">如何让场景的用户执行发生错误继续运行，以保证不间断进行压力测试？</h2><p>用VuGen打开虚拟用户脚本后，进入”Run-time Settings”对话框后，依次进入”General→Miscellaneous”，可以看到Miscellaneous设置中关于”Error Handling”的配置.勾选”Continue on error”即可让虚拟用户发生错误继续运行.</p>
+<h2 id="为什么-NET虚拟用户有时不能在远程主机执行？">为什么.NET虚拟用户有时不能在远程主机执行？</h2><p>主要时LoadRunner的版本问题.根据笔者的经验，如果是Microsoft Visual Studio 2005开发的虚拟用户，同时LoadRunner客户端的版本低于8.1，执行Controller的主机将会发生错误.<br>因此要想正确的运行Microsoft Visual Studio 2005开发的.NET虚拟用户，客户端最好装8.1以上的版本，Controller的主机则安装8.0和8.1两个版本均可.此外，产生压力的 LoadRunner客户端上预先应该安装.NET运行环境，如果Microsoft Visual Studio 2005开发的是.NET虚拟用户，则应该安装Microsoft .NET Framework SDK v2.0.</p>
+<h2 id="测试分析结果中会统计Action时间，而实际上可能并不须要这些数据，如何只显示自己定义的用户事务？">测试分析结果中会统计Action时间，而实际上可能并不须要这些数据，如何只显示自己定义的用户事务？</h2><p>进入脚本的运行时设置，依次进入General→Miscellaneous.默认情况下，自动事务配置”Automatic Transactions”下有两个选项：第一个是把脚本的Action部分定义为一个事务；第二个时把脚本的每一部分定义为一个事务.去掉这两个勾选后，测试结果将会只显示自己定义的用户事务.</p>
+<h2 id="测试结果中，Summary和平均事务响应时间图里的各个事务的最大值平均值最小值为什么显示不一样？">测试结果中，Summary和平均事务响应时间图里的各个事务的最大值平均值最小值为什么显示不一样？</h2><p>主要是受采样时间的影响.Summary里的事务平均响应时间是根据整个场景执行过程得到的数据计算所得，最大值与最小值也是从整个场景中得到的.平均事务响应时间图主要时按照LoadRunner分析出来的采样频率来获取事务响应时间的最大值与最小值，然后计算平均值.可以通过”Set Granularity”来修改平均事务响应时间图的采样频率.如果把”Granularity”设为场景执行时间，则统计结果将会一致.</p>
+<h2 id="统计结果中的总点击量Total_Hits时用户的鼠标点击次数吗？">统计结果中的总点击量Total Hits时用户的鼠标点击次数吗？</h2><p>Total Hits不时按照用户的鼠标点击次数来计算的，而是按照各个虚拟客户端向后台发起的总的请求数来进行统计的.例如在向服务器请求的一个页面中，如果该页面包含5个图片，用户只要单击鼠标就可以访问该页面，而单个虚拟用户在LoadRunner访问的点击量为1+5=6次.</p>
+<h2 id="有些Web测试结果分析图（例如每秒返回页面数）在测试结果分析图中无法看到，如何进行配置？">有些Web测试结果分析图（例如每秒返回页面数）在测试结果分析图中无法看到，如何进行配置？</h2><p>用VuGen打开虚拟用户脚本后，进入”Run-time Settings”对话框后，依次进入”Internet Protocol&gt;Preference”，可以看到一些Web性能图配置.<br>勾选上面得选项后，Controller将会在测试执行过程中生成数据，然后可在Analysis中查看相应的性能结果分析图.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/10/ubuntu下python-django环境搭建/" itemprop="url">
                 ubuntu下python+django环境搭建
               </a>
@@ -387,8 +549,7 @@
 </tr>
 <tr>
 <td><code>-g GOOGLEDORK</code></td>
-<td>处理Google dork的结果作为目标</td>
-<td>URL。 </td>
+<td>处理Google dork的结果作为目标URL。</td>
 </tr>
 <tr>
 <td><code>-c CONFIGFILE</code></td>
@@ -1449,7 +1610,7 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1463,7 +1624,7 @@ mysql&gt;flush privileges;
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

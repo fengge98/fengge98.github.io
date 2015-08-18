@@ -41,7 +41,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/08/13/漏洞记录-1/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js">
-<meta property="og:updated_time" content="2015-08-17T05:54:01.500Z">
+<meta property="og:updated_time" content="2015-08-18T06:30:41.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="漏洞记录-1">
 <meta name="twitter:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie。2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长。3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js">
@@ -262,7 +262,22 @@ alert(xmlDoc);
 <span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
 //将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中。
 </code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭。</p>
-</span>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3<br>4.修复：</p>
+<p> 1.过滤<code>~</code>字符</p>
+<p> 2.Windows中禁用8.3格式文件名方法如下：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name query c:
+</code></pre><p>“c:”表示查询C盘的状态。如果功能被启用，会显示类似如下的信息：</p>
+<pre><code> Disable8dot3 的卷状态为 <span class="number">0</span> (<span class="number">8</span>dot3 名称创建已启用)。
+NtfsDisable8dot3NameCreation 的注册表状态为默认值 <span class="number">2</span> (卷级别设置)。
+基于以上的两个设置，在 c: 上启用 <span class="number">8</span>dot3 名称创建。
+</code></pre><p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
+<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
+</code></pre><p>也可以通过修改注册表实现：</p>
+<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
+
+值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
+</code></pre></span>
       
     </div>
 
@@ -355,7 +370,7 @@ alert(xmlDoc);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -369,7 +384,7 @@ alert(xmlDoc);
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -422,7 +437,7 @@ alert(xmlDoc);
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache_HTTP_Server_“httpolny”cookie_泄露"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS_WebDav_Options_方法未禁用"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE_方法未禁用"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache_HTTP_Server_“httpolny”cookie_泄露"><span class="nav-number">1.</span> <span class="nav-text">Apache HTTP Server “httpolny”cookie 泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS_WebDav_Options_方法未禁用"><span class="nav-number">2.</span> <span class="nav-text">IIS WebDav Options 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRACE_方法未禁用"><span class="nav-number">3.</span> <span class="nav-text">TRACE 方法未禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IIS短文件名泄露"><span class="nav-number">4.</span> <span class="nav-text">IIS短文件名泄露</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
