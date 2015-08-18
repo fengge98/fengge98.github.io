@@ -47,7 +47,7 @@
 描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。
 建议：
 1.过滤客户端提交的敏感字符，提交的区域包括：地址栏中的所有参数，请求头信息，cookie中的参数，需要过滤的字符如下：|–&amp;amp">
-<meta property="og:updated_time" content="2015-08-18T08:34:15.351Z">
+<meta property="og:updated_time" content="2015-08-18T08:57:32.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="测评反馈记录">
 <meta name="twitter:description" content="SQL注入等级：紧急
@@ -270,8 +270,15 @@
 <p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的。如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求。<br>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
 <h2 id="clickjaking点击劫持">clickjaking点击劫持</h2><p>级别：低</p>
 <p>描述：点击劫持是一种视觉上的欺骗手段。攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情 的情况下点击透明的iframe页面。通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上。</p>
-<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.</p>
-<h2 id="错误页面敏感信息泄露">错误页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
+<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.<br>X-Frame-Options响应头。赋值有如下三种：</p>
+<pre><code><span class="number">1</span>.DENY：不能被嵌入到任何iframe或者frame中。
+<span class="number">2</span><span class="class">.SAMEORIGIN</span>:页面只能被本站页面嵌入到iframe或者frame中。
+<span class="number">3</span><span class="class">.ALLOW-FROM</span> uri：只能被嵌入到指定域名的框架中。
+</code></pre><p>apache可配置http.conf如下：</p>
+<pre><code><span class="tag">&lt;IfModule headers_module&gt;</span>
+<span class="keyword"><span class="common">Header</span></span> always append X-Frame-Options <span class="string">"DENY"</span>
+<span class="tag">&lt;/IfModule&gt;</span>
+</code></pre><h2 id="错误页面敏感信息泄露">错误页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
 <p>描述：各种不同方式的敏感信息泄露给攻击者提供了信息。<br>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中。<br>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…)。<br>4….发现再补<br>建议(一一对应):<br>1.限制对该文件的访问。<br>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息。<br>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息。</p>
 </span>
       
