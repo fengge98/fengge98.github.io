@@ -763,10 +763,7 @@ VB.NET示例：
 <span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
 myCookie.HttpOnly = <span class="literal">True</span> 
 <span class="built_in">Response</span>.AppendCookie(myCookie) 
-</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考</p>
-<blockquote>
-<p>IIS WebDav Options 方法未禁用</p>
-</blockquote>
+</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考<a href="http://quanyong.xyz/2015/08/13/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95-1/#IIS_WebDav_Options_方法未禁用" target="_blank" rel="external">IIS WebDav Options 方法未禁用</a></p>
 <p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用。或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码。</p>
 <h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”。当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息。如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中。用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露。<br>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”。<br>示例：<br>1）当密码类型的input标签没有“autocomplete”属性名时，如：</p>
 <pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
