@@ -45,7 +45,7 @@
 <meta property="og:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.
 2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.
 3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过">
-<meta property="og:updated_time" content="2015-08-18T09:09:34.386Z">
+<meta property="og:updated_time" content="2015-08-19T01:01:57.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="漏洞记录-1">
 <meta name="twitter:description" content="Apache HTTP Server “httpolny”cookie 泄露1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.
@@ -281,7 +281,7 @@ alert(xmlDoc);
 </li>
 <li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
 <p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
-<p>   Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
 </li>
 </ul>
 <p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
@@ -294,10 +294,12 @@ alert(xmlDoc);
 <li>使用waf进行防护.</li>
 </ul>
 <h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
-<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统。如果使用同样的session id，则可能被截获并且伪造客户身份进入系统。</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
 <p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
-<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例<br>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中。<br>3.利用：可作为进一步渗透的信息储备<br>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码。</p>
-<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁。<br>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性。</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例<br>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
+<p>3.利用：可作为进一步渗透的信息储备<br>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
+<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
+<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
 <pre><code>Java示例：
 HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
 response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
@@ -315,14 +317,12 @@ myCookie.HttpOnly = <span class="literal">True</span>
 <blockquote>
 <p>IIS WebDav Options 方法未禁用</p>
 </blockquote>
-<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用。或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码。</p>
-<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”。当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息。如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中。用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露。<br>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”。<br>示例：<br>1）当密码类型的input标签没有“autocomplete”属性名时，如：</p>
+<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
+<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
+<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
+<p>示例：</p>
 <pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
 则增加“autocomplete”属性为“off”即可，修改为：
-&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
-</code></pre><p>2) 当密码类型的input标签有“autocomplete”属性名，但其属性值为“on”时，如：</p>
-<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"on"</span>&gt;
-则修改“autocomplete”属性为“off”即可，修改为：
 &lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
 </code></pre></span>
       
