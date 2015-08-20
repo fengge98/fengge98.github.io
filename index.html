@@ -211,6 +211,21 @@
         </span>
 
         
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
 
         
           
@@ -232,7 +247,37 @@
 
       
         
-          <span itemprop="articleBody"></span>
+          <span itemprop="articleBody"><h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
+<ul>
+<li><p>% 特性<br>场景：iis+asp<br>说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select</p>
+</li>
+<li><p>%u 特性<br>场景：iis+asp,iis+aspx<br>说明：iis支出unicode编码将关键字的某个字符以%u006c的格式输入在waf层会通过，在iis环境中解析为正常sql语句从而bypass。</p>
+</li>
+<li><p>多个unicode码对应同一个字符<br>场景：iss+asp<br>说明：select中的e对应的unicode为%u0065，但是%u00f0同样会被转换成为e。</p>
+<p>  s%u0065lect-&gt;select<br>  s%u00f0lect-&gt;select<br>疑问:如何知道哪些unicode编码会被解码成相同的字符<br>可以参考：<a href="http://drops.wooyun.org/tips/968" target="_blank" rel="external">wooyun知识库wafbypass-七个姿势</a></p>
+</li>
+</ul>
+<p>2.apache服务器</p>
+<ul>
+<li><p>method绕过<br>场景：某些版本的Apache<br>说明：发生GET请求时，无论method取任何值，都返回200.<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2013-024599" target="_blank" rel="external">安全宝SQL注入规则绕过</a></p>
+</li>
+<li><p>php和Apache畸形boundary绕过<br>场景：php+Apache<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
+</li>
+</ul>
+<h2 id="Web应用程序层bypass">Web应用程序层bypass</h2><p>1.url编码绕过<br>说明：在这一步waf可能会对url只进行一次解码，然后过滤。此时可以试<strong>一次url编码</strong>或<strong>两次url编码</strong>，不管怎么样在应用程序里，都需要对url进行完全解码，就是解到正常的语句，要不然还是无法继续执行的。<br>具体参考：<br><a href="http://www.wooyun.org/bugs/wooyun-2015-090369" target="_blank" rel="external">两次url编码绕过waf</a><br>2.改变请求获取方式</p>
+<ul>
+<li><p>GET，POST，COOKIE<br>说明：在有些环境下可能存在统一参数获取的情况，例如 <code>p = select * from admin</code> p可以从GET，POST或者COOKIE中，我们可以通过将注入语句变换位置从而实现绕过。<br>也就是说，<strong>应用可以从这3种方式获取到t的内容，但是waf不一定会将这三种方式全部过滤</strong><br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2014-089338" target="_blank" rel="external">变化payload位置绕过waf</a></p>
+</li>
+<li><p>POST提交方式变化<br>POST提交数据有两种方式urlencode和form-data，当一种被过滤可以考虑换一种方式。</p>
+</li>
+<li><p>畸形请求方式<br>在asp和asp.net获取请求的时候使用了request包形如request[“q”]–(django下会不会存在?)它会分不清GET和POST请求，就可能出现问题，可能出现的问题就是<strong>发送一个畸形的请求包，waf没有正常拦截，但是却被正常解析</strong><br>畸形的请求包可能是声明method为GET，包的实际结构是POST形式<br>具体参考<br><a href="http://www.80sec.com/%E6%B5%85%E8%B0%88%E7%BB%95%E8%BF%87WAF%E7%9A%84%E6%95%B0%E7%A7%8D%E6%96%B9%E6%B3%95.html" target="_blank" rel="external">asp.net中使用request方法获取参数造成bypass</a></p>
+</li>
+</ul>
+<p>3.hpp方式(HTTP参数污染)<br>正常<code>?id=1</code><br>当我们发送<code>?id=1&amp;id=2&amp;id=3</code>形如此类的参数，不同的环境获取到的参数可能是不同的。</p>
+<pre><code>asp/asp.net + iss : id = <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>
+php+apache : id = <span class="number">3</span>
+</code></pre><p>由此可见，waf获取的参数和应用程序获取到的参数也可能是不一样，具体情境具体分析，要搞清楚waf获取到的内容和应用获取到的内容的差异，才能准确构造payload。<br>这种方式的bypass可能进行一些白名单的绕过<br><code>id = admin&amp;id = 1union select user from admin</code><br>admin是白名单中的内容，后面id内容是应用获取到的内容。这种情况就可能发生注入。<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2015-099513" target="_blank" rel="external">使用webscan360的cms厂商通过hpp可使其失效</a></p>
+</span>
         
       
     </div>
