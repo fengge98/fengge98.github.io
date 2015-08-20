@@ -211,32 +211,13 @@
           <span itemprop="articleBody"><p>将所有字符串按字符串储存时的编码方式解码(decode)为unicode编码进行操作.</p>
 <h2 id="查看一个汉字的GBK,unicode,utf-8编码">查看一个汉字的GBK,unicode,utf-8编码</h2><ul>
 <li><p>GBK</p>
-<p>  //输入中文时默认的编码方式为gbk</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>s = “汉”<br>s<br>  ‘\xba\xba’</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>  <code>//输入中文时默认的编码方式为gbk</code><br>  <code>&gt;&gt;&gt;s = &quot;汉&quot;</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xba\xba&#39;</code></p>
 </li>
 <li><p>unicode</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>s = s.decode(“gbk”)<br>s<br>  u’\u6c49’</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>  <code>&gt;&gt;&gt;s = s.decode(&quot;gbk&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>u&#39;\u6c49&#39;</code></p>
 </li>
 <li><p>utf-8</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>s = s.encode(“utf-8”)<br>s<br>  ‘\xe6\xb1\x89’</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>  <code>&gt;&gt;&gt;s = s.encode(&quot;utf-8&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xe6\xb1\x89&#39;</code></p>
 </li>
 </ul>
 <h2 id="查看英文字母的ascii码">查看英文字母的ascii码</h2><p>注：ascii码是世界上最先使用的编码方式，在后来的一系列编码方式中，不管是gbk ucnicde 还是utf-8对于asii码都是向下兼容的，也就是说编码结果是一样的（在所占字节数上可能会有差异）.</p>
