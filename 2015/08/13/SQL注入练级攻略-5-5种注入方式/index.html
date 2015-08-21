@@ -45,7 +45,7 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
 <meta property="og:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
 mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
 基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
-<meta property="og:updated_time" content="2015-08-20T08:14:09.764Z">
+<meta property="og:updated_time" content="2015-08-21T02:31:32.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(5)-5种注入类型">
 <meta name="twitter:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
@@ -277,10 +277,10 @@ mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</s
 <h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
 <pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
 </code></pre><p>2.猜解字段数：</p>
-<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
 <span class="comment">//知道返回正常就说明有几个字段</span>
 </code></pre><p>3.猜解字段</p>
-<pre><code>mysql&gt; select <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
 <span class="comment">//猜解username字段是否存在</span>
 </code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
 <pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;

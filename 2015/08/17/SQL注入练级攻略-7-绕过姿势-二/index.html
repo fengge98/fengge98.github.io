@@ -41,7 +41,8 @@ page.php?id=1 UniOn sElEcT 1,2,3,4;
 page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
 也可以构造的更复杂视情况而定SeLSeselectleCTecT
 使用编码
-URL编码普通的URL编码">
+Hex编码
+  z.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入练级攻略-7-绕过姿势之-(二)">
 <meta property="og:url" content="http://yoursite.com/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/index.html">
@@ -52,8 +53,9 @@ page.php?id=1 UniOn sElEcT 1,2,3,4;
 page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
 也可以构造的更复杂视情况而定SeLSeselectleCTecT
 使用编码
-URL编码普通的URL编码">
-<meta property="og:updated_time" content="2015-08-20T03:32:07.252Z">
+Hex编码
+  z.com">
+<meta property="og:updated_time" content="2015-08-21T02:41:03.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略-7-绕过姿势之-(二)">
 <meta name="twitter:description" content="大小写绕过最基本的的绕过，适用于过滤器对大小写敏感的场景
@@ -62,7 +64,8 @@ page.php?id=1 UniOn sElEcT 1,2,3,4;
 page.php?id =1 UNIunionON SELselectECT 1,2,3,4 ;
 也可以构造的更复杂视情况而定SeLSeselectleCTecT
 使用编码
-URL编码普通的URL编码">
+Hex编码
+  z.com">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -226,6 +229,21 @@ URL编码普通的URL编码">
         </span>
 
         
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
 
         
           
@@ -252,9 +270,6 @@ URL编码普通的URL编码">
 <pre><code>page.php?id =<span class="number">1</span> UNIunionON SELselectECT <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> ;
 </code></pre><p>也可以构造的更复杂视情况而定SeLSeselectleCTecT</p>
 <h2 id="使用编码">使用编码</h2><ul>
-<li><p>URL编码<br>普通的URL编码可能无法实现绕过不过存在某种情况URL编码只进行了一次解码过滤可以用两次编码绕过</p>
-<p>  page.php?id=1%252f%252a*/UNION%252f%252a/SELECT </p>
-</li>
 <li><p>Hex编码</p>
 <p>  z.com/index.php?page_id=-15 /<em>!u%6eion</em>/ /<em>!se%6cect</em>/ 1,2,3,4,SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))<br>  //6e-&gt;n   6c-&gt;l  字母的十六进制编码，与ascii码一致，在python解释器中<br>  //python&gt; “admin”.encode(“hex”) #61646D696E<br>  //python&gt; “61646D696E”.decode(“hex”) #admin</p>
 </li>

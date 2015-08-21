@@ -35,34 +35,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Web Server层的bypass1.IIS服务器
+<meta name="description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
 
-% 特性场景：iis+asp说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select
-
-%u 特性场景：iis+asp,iis+aspx说明：iis支出unicode编码将关键字的某个字符以%u006c的格式输入在waf层会通过，在iis环境中解析为正常sql语句从而bypass。
-
-多个unicode">
+Web Ser">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入练级攻略(8)-绕过姿势(三)">
 <meta property="og:url" content="http://yoursite.com/2015/08/20/SQL注入练级攻略-8-绕过姿势-三/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="Web Server层的bypass1.IIS服务器
+<meta property="og:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
 
-% 特性场景：iis+asp说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select
-
-%u 特性场景：iis+asp,iis+aspx说明：iis支出unicode编码将关键字的某个字符以%u006c的格式输入在waf层会通过，在iis环境中解析为正常sql语句从而bypass。
-
-多个unicode">
-<meta property="og:updated_time" content="2015-08-20T06:39:49.920Z">
+Web Ser">
+<meta property="og:updated_time" content="2015-08-21T02:39:19.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(8)-绕过姿势(三)">
-<meta name="twitter:description" content="Web Server层的bypass1.IIS服务器
+<meta name="twitter:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
 
-% 特性场景：iis+asp说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select
-
-%u 特性场景：iis+asp,iis+aspx说明：iis支出unicode编码将关键字的某个字符以%u006c的格式输入在waf层会通过，在iis环境中解析为正常sql语句从而bypass。
-
-多个unicode">
+Web Ser">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -261,7 +249,10 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
+        <span itemprop="articleBody"><blockquote>
+<p>心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。<strong>bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求</strong>，这个请求可能起作用于Web server\web程序\数据库等不同的地方。<strong>但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果</strong></p>
+</blockquote>
+<h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
 <ul>
 <li><p>% 特性<br>场景：iis+asp<br>说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select</p>
 </li>
@@ -275,7 +266,7 @@
 <ul>
 <li><p>method绕过<br>场景：某些版本的Apache<br>说明：发生GET请求时，无论method取任何值，都返回200.<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2013-024599" target="_blank" rel="external">安全宝SQL注入规则绕过</a></p>
 </li>
-<li><p>php和Apache畸形boundary绕过<br>场景：php+Apache<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
+<li><p>php和Apache畸形boundary绕过<br>场景：php+Apach<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
 </li>
 </ul>
 <h2 id="Web应用程序层bypass">Web应用程序层bypass</h2><p>1.url编码绕过<br>说明：在这一步waf可能会对url只进行一次解码，然后过滤。此时可以试<strong>一次url编码</strong>或<strong>两次url编码</strong>，不管怎么样在应用程序里，都需要对url进行完全解码，就是解到正常的语句，要不然还是无法继续执行的。<br>具体参考：<br><a href="http://www.wooyun.org/bugs/wooyun-2015-090369" target="_blank" rel="external">两次url编码绕过waf</a><br>2.改变请求获取方式</p>
@@ -291,6 +282,10 @@
 <pre><code>asp/asp.net + iss : id = <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>
 php+apache : id = <span class="number">3</span>
 </code></pre><p>由此可见，waf获取的参数和应用程序获取到的参数也可能是不一样，具体情境具体分析，要搞清楚waf获取到的内容和应用获取到的内容的差异，才能准确构造payload。<br>这种方式的bypass可能进行一些白名单的绕过<br><code>id = admin&amp;id = 1union select user from admin</code><br>admin是白名单中的内容，后面id内容是应用获取到的内容。这种情况就可能发生注入。<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2015-099513" target="_blank" rel="external">使用webscan360的cms厂商通过hpp可使其失效</a></p>
+<h2 id="Mysql数据库层Bypass">Mysql数据库层Bypass</h2><blockquote>
+<p>通常注入语句的构造是从形如?id=1之后开始构造的，所以从参数之后的位置开始。</p>
+</blockquote>
+<p>union绕过：<br><a href="http://zone.wooyun.org/content/16772" target="_blank" rel="external">union绕过的三种姿势</a></p>
 </span>
       
     </div>
@@ -447,7 +442,7 @@ php+apache : id = <span class="number">3</span>
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web_Server层的bypass"><span class="nav-number">1.</span> <span class="nav-text">Web Server层的bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web应用程序层bypass"><span class="nav-number">2.</span> <span class="nav-text">Web应用程序层bypass</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web_Server层的bypass"><span class="nav-number">1.</span> <span class="nav-text">Web Server层的bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web应用程序层bypass"><span class="nav-number">2.</span> <span class="nav-text">Web应用程序层bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql数据库层Bypass"><span class="nav-number">3.</span> <span class="nav-text">Mysql数据库层Bypass</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
