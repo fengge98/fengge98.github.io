@@ -45,7 +45,7 @@ Web Ser">
 <meta property="og:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
 
 Web Ser">
-<meta property="og:updated_time" content="2015-08-21T02:42:13.332Z">
+<meta property="og:updated_time" content="2015-08-21T02:45:52.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入练级攻略(8)-绕过姿势(三)">
 <meta name="twitter:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
@@ -286,6 +286,7 @@ php+apache : id = <span class="number">3</span>
 <p>通常注入语句的构造是从形如?id=1之后开始构造的，所以从参数之后的位置开始。</p>
 </blockquote>
 <p>union绕过：<br><a href="http://zone.wooyun.org/content/16772" target="_blank" rel="external">union绕过的三种姿势</a><br>数据库层其他的一些绕过姿势可参考<br><a href="http://quanyong.xyz/2015/08/17/SQL%E6%B3%A8%E5%85%A5%E7%BB%83%E7%BA%A7%E6%94%BB%E7%95%A5-6-%E5%9F%BA%E6%9C%AC%E7%BB%95%E8%BF%87-%E4%B8%80/" target="_blank" rel="external">绕过姿势一</a><br><a href="http://quanyong.xyz/2015/08/17/SQL%E6%B3%A8%E5%85%A5%E7%BB%83%E7%BA%A7%E6%94%BB%E7%95%A5-7-%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF-%E4%BA%8C/" target="_blank" rel="external">绕过姿势二</a></p>
+<p>Bypass系列本文参考<br><a href="http://drops.wooyun.org/tips/7883" target="_blank" rel="external">Bypass WAF Cookbook</a><br><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">MySql注入科普-瞌睡龙</a><br><a href="http://drops.wooyun.org/tips/7299" target="_blank" rel="external">MySQL注入技巧-Utopia</a></p>
 </span>
       
     </div>
