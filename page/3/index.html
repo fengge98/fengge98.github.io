@@ -194,6 +194,236 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/10/反射型xss/" itemprop="url">
+                反射型XSS(心伤的瘦子)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T10:47:07+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/XSS漏洞/" itemprop="url" rel="index">
+                  <span itemprop="name">XSS漏洞</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/反射型xss/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/反射型xss/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="1-查看&lt;_/_&quot;等字符的过滤情况如果没有，直接X-">1.查看<code>&lt; / &quot;</code>等字符的过滤情况如果没有，直接X.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015957" target="_blank" rel="external"> 什么都没过滤的入门情况</a></p>
+<h2 id="2-考虑用&amp;#x的形式代替，如果没有过滤&amp;_#_理论上可以代替任意字符，但是一般都会将&amp;过滤为&amp;amp-">2.考虑用<code>&amp;#x</code>的形式代替，如果没有过滤<code>&amp; #</code> 理论上可以代替任意字符，但是一般都会将&amp;过滤为<code>&amp;amp</code>. </h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
+<h2 id="3-gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题-">3.gbXXXX系列的可以考虑使用宽字符<code>%c0</code>杀掉双引号，可能是因为过滤的正则写的有问题.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015969" target="_blank" rel="external">宽字节复仇记 [QQ邮箱基本通用]</a></p>
+<h2 id="4-`location-href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function_from(){}//“+”&amp;param=”;">4.`location.href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function from(){}//“+”&amp;param=”;</h2><p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格 </p>
+<h2 id="5-反斜线">5.反斜线</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a></p>
+<h2 id="6-换行符">6.换行符</h2><pre><code><span class="number">5</span>.输出出现在注释中使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">` </span>来使之后的代码生效。\.
+</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-016003" target="_blank" rel="external">换行符复仇记</a></p>
+<h2 id="7-前面知识的综合应用">7.前面知识的综合应用</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//cgi</span>.data.tech.qq.com/<span class="keyword">index</span>.php?mod=search&amp;type=data&amp;site=digi&amp;libid=<span class="number">2</span>&amp;curpage=<span class="number">1</span>&amp;pagenum=<span class="number">30</span>&amp;filterattr=<span class="number">138</span>,<span class="number">138</span>|<span class="number">16</span>|<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">5</span>&amp;filtervalue=<span class="number">3500</span>-<span class="number">4000</span>,<span class="variable">%B4</span><span class="variable">%F3</span><span class="variable">%D3</span><span class="variable">%DA4000</span>|<span class="variable">%D0</span><span class="variable">%FD</span><span class="variable">%D7</span><span class="variable">%AA</span>|WCDMA,WCDMA,HSDPA,HSDPA&amp;tplname=centersearch.shtml&amp;orderby=aaaa<span class="variable">%c0</span><span class="variable">%5c</span><span class="variable">%0aalert</span>(<span class="number">1</span>);<span class="regexp">//</span></span><br></pre></td></tr></table></figure>
+<p>目标参数orderby</p>
+<pre><code><span class="number">1</span>.使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">`使</span>JS代码生效
+<span class="number">2</span>.使用反斜线<span class="escape">`%</span><span class="number">5</span>c<span class="escape">`解</span>决语法错误，但是发现\被过滤为\\
+<span class="number">3</span>.使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉一个反斜线最终保留一个反斜线，成功构造如上代码
+</code></pre><p>以上资料来自<a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子</a>@<a href="http://www.wooyun.org" target="_blank" rel="external">乌云</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/07/mysql使用记录总结/" itemprop="url">
+                MySql用户及字符集操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-07T17:47:50+08:00" content="2015-08-07">
+            2015-08-07
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/杂七杂八/" itemprop="url" rel="index">
+                  <span itemprop="name">杂七杂八</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/07/mysql使用记录总结/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/mysql使用记录总结/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
+<h2 id="1-新建用户">1.新建用户</h2><p>登录MYSQL：</p>
+<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><p>创建用户：</p>
+<pre><code>mysql&gt; insert into mysql.user<span class="params">(Host,User,Password)</span> values<span class="params">(<span class="string">"localhost"</span>,<span class="string">"test"</span>,password<span class="params">(<span class="string">"1234"</span>)</span>)</span>;
+</code></pre><p>这样就创建了一个名为：test 密码为：1234 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。<br>然后登录一下：</p>
+<pre><code>mysql&gt;<span class="flow">exit</span>;
+<span class="built_in">cmd</span>&gt;mysql -u test -p
+<span class="built_in">cmd</span>&gt;输入密码
+mysql&gt;登录成功
+</code></pre><h2 id="2-为用户授权">2.为用户授权</h2><p>授权格式：</p>
+<pre><code><span class="operator"><span class="keyword">grant</span> 权限 <span class="keyword">on</span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;</span>　
+</code></pre><p>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</p>
+<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><p>首先为用户创建一个数据库(testDB)：</p>
+<pre><code>mysql&gt;create database <span class="built_in">test</span>DB;
+</code></pre><p>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</p>
+<pre><code>mysql&gt;grant all privileges <span class="function_start"><span class="keyword">on</span></span> testDB.* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> '<span class="number">1234</span>';
+mysql&gt;flush privileges;  刷新系统权限表
+格式：grant 权限 <span class="function_start"><span class="keyword">on</span></span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 identified <span class="keyword">by</span> <span class="string">"密码"</span>;　
+</code></pre><p>如果想指定部分权限给一用户，可以这样来写:</p>
+<pre><code>mysql&gt;grant <span class="keyword">select</span>,update <span class="keyword">on</span> testDB<span class="built_in">.</span>* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> <span class="string">'1234'</span>;
+</code></pre><p>　　mysql&gt;flush privileges; 刷新系统权限表</p>
+<p>授权test用户拥有所有数据库的某些权限： </p>
+<pre><code>mysql&gt;grant select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> test@<span class="string">"%"</span> identified by <span class="string">"1234"</span>;
+//test用户对所有数据库都有select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> 权限。
+//@<span class="string">"%"</span> 表示对所有非本地主机授权，不包括localhost。（localhost地址设为<span class="number">127.0</span>.<span class="number">0.1</span>，如果设为真实的本地地址，不知道是否可以，没有验证。）
+</code></pre><p>//对localhost授权：加上一句</p>
+<pre><code><span class="operator"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> testDB.* <span class="keyword">to</span> <span class="keyword">test</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'1234'</span>;</span>即可。
+</code></pre><h2 id="3-删除用户">3.删除用户</h2><pre><code>cmd&gt;mysql -u root -p
+cmd&gt;密码
+mysql&gt;Delete <span class="keyword">FROM</span> user <span class="keyword">Where</span> User=<span class="string">'test'</span> <span class="keyword">and</span> Host=<span class="string">'localhost'</span>;
+mysql&gt;flush privileges;
+mysql&gt;drop database testDB; <span class="comment">//删除用户的数据库</span>
+</code></pre><p>删除账户及权限：</p>
+<pre><code>&gt;drop user 用户名<span class="at_rule">@<span class="string">'%'</span>;</span>
+&gt;drop user 用户名<span class="at_rule">@<span class="preprocessor"> localhost</span>;</span> 
+</code></pre><h2 id="4-修改指定用户密码">4.修改指定用户密码</h2><pre><code>cmd&gt;mysql -u root -p
+cmd&gt;密码
+mysql&gt;<span class="keyword">update</span> mysql.user <span class="built_in">set</span> password=password('新密码') <span class="built_in">where</span> User=<span class="string">"test"</span> <span class="built_in">and</span> Host=<span class="string">"localhost"</span>;
+mysql&gt;flush privileges;
+</code></pre><h2 id="5-字符集相关操作">5.字符集相关操作</h2><p>mysql&gt;show database;<br>|<strong>查看所有数据库：</strong>show databases ;<br>|<strong>创建数据库：</strong>create database 数据库名；<br>|<strong>创建指定字符集数据库：</strong>    create database test2 default character set utf8<br>|<strong>查看指定数据库使用字符集：</strong>show create database 数据库名；<br>|<strong>删除数据库：</strong>drop database 数据库名;<br>|<strong>查看数据关于字符集的默认配置：</strong> show variables like ‘character%’;<br>|<strong>修改字符集的方法（结合上一句）：</strong></p>
+<pre><code><span class="operator"><span class="keyword">SET</span> character_set_client = utf8 ;</span>
+<span class="operator"><span class="keyword">SET</span> character_set_connection = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> character_set_results = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> character_set_server = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_connection = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_database = utf8 ;</span> 
+<span class="operator"><span class="keyword">SET</span> collation_server = utf8 ;</span> 
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/07/密码找回漏洞总结/" itemprop="url">
                 密码找回漏洞总结
               </a>
@@ -317,7 +547,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -331,7 +561,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

