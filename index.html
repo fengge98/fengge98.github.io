@@ -194,8 +194,8 @@
           
           
             
-              <a class="post-title-link" href="/2015/09/06/sublime使用快捷键/" itemprop="url">
-                sublime使用快捷键
+              <a class="post-title-link" href="/2015/09/14/安全测试思路总结/" itemprop="url">
+                安全测试思路总结
               </a>
             
           
@@ -205,8 +205,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-06T11:07:31+08:00" content="2015-09-06">
-            2015-09-06
+          <time itemprop="dateCreated" datetime="2015-09-14T15:35:01+08:00" content="2015-09-14">
+            2015-09-14
           </time>
         </span>
 
@@ -216,8 +216,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/06/sublime使用快捷键/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/06/sublime使用快捷键/" itemprop="commentsCount"></span>
+              <a href="/2015/09/14/安全测试思路总结/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/安全测试思路总结/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -232,7 +232,18 @@
 
       
         
-          <span itemprop="articleBody"></span>
+          <span itemprop="articleBody"><p>学习安全测试也有一段时间了,零零散散的学习了一些X站姿势,也结合前一阵的测试过程,做一个测试思路的总结.</p>
+<h2 id="信息搜集:">信息搜集:</h2><p>1.可以先用Nmap扫扫<strong>端口</strong>情况,换一换不同扫描策略看看结果.<br>2.用lijiejie的subdomainbrute.py查查<strong>子域名</strong>.<br>3.用dirfuzz.py爆破<strong>目录</strong>.<br>4.AppScan探测<strong>url</strong>备用.<br>5.可以利用登录或者找回密码等页面爆破网站注册用户.<br>6.根据域名查看域名注册人信息,IP反查,搜集旁站信息…<br>7.试试域传送漏洞.</p>
+<p>总之就是尽可能的搜集信息,上面是能想到的比较重要的几点.在搜集过程中记录觉得有用的信息,例如:后台管理地址,企业邮箱入口.思路再猥琐一点,也可以搜集客服,HR或者其他一些公司公开人员信息,用于反射型XSS,CSRF,社工等用途.</p>
+<h2 id="账户体系检测">账户体系检测</h2><p>1.观察是否存在可爆破的页面,能否突破验证码,IP检测(通过修改X-Forwarded-For)等限制.<br>2.注册过程中可能出现的漏洞:任意手机注册,短信轰炸,越权绑定存在账户等问题,都需要进行排查.<br>2.修改密码功能,详情参考<a href="http://quanyong.xyz/2015/08/07/%E5%AF%86%E7%A0%81%E6%89%BE%E5%9B%9E%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" target="_blank" rel="external">密码找回漏洞总结</a></p>
+<h2 id="SQL注入检测">SQL注入检测</h2><p>1.将AppScan探测到的url存为txt文件.<br>2.使用sqlmap -m 参数进行批量扫描.<br>3.选取可疑url进行手工测试,尝试不同绕过.</p>
+<h2 id="XSS检测">XSS检测</h2><p>1.使用chrome的XSS检测插件进行检测:将<strong>检测目标</strong>和<strong>payload</strong>添加至指定位置.<br>2.选取一些大范围使用以及可能造成存储型XSS的参数进行验证.<br>3.查看\”&gt;&amp;/等字符的过滤情况.</p>
+<h2 id="CSRF检测">CSRF检测</h2><p>1.截获请求,观察其中有无类似防止csrf攻击的参数.<br>2.修改refer继续请求.<br>3.如果请求被正常返回,构造csrf攻击页面,通过点击访问进行验证.</p>
+<h2 id="越权漏洞检测">越权漏洞检测</h2><p>1.注册两个账号,分别用chrome和火狐登录.<br>2.通过替换参数检测越权,通常是 id,uid,username等参数.<br>3.如果有条件同时检测<strong>平行越权</strong>和<strong>垂直越权</strong>.</p>
+<h2 id="历史漏洞排查">历史漏洞排查</h2><p>1.如果产品曾经爆出历史漏洞,可单独列出此项.<br>2.根据历史漏洞进行排查,验证修复情况.</p>
+<h2 id="工具扫描结果">工具扫描结果</h2><p>1.AppScan 目前只用过这个,针对扫描结果进行验证,给出分析建议.<br>2.通常是一些敏感信息泄露:电话,邮箱,内网IP等<br>3.使用HTTPS协议,密码不能自动补全,httponly限制js操作cookie.</p>
+<h2 id="测试总结">测试总结</h2><p>1.列举测试过程中发现的问题,并简述修复建议.<br>2.简要评估网站安全.</p>
+</span>
         
       
     </div>
@@ -1425,7 +1436,7 @@ php+apache : id = <span class="number">3</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
