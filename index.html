@@ -242,7 +242,7 @@ print pop.<span class="function"><span class="title">getwelcome</span><span clas
 pop = pop.<span class="function"><span class="title">user</span><span class="params">(username)</span></span>
 pop.<span class="function"><span class="title">pass_</span><span class="params">(password)</span></span>     #到了这一步如果没有抛出异常,登录成功
 pop.<span class="function"><span class="title">quit</span><span class="params">()</span></span>
-</code></pre><p>注意: 1.在各个步骤的异常情况判断.<br>      2.代码第6行如果第一次认证失败,不可以继续验证.需要调用quit方法结束实例(为什么解释器中和实际运行的结果不一致).<br>      3.实现逻辑方面读取用户密码不断便利实现暴力破解.</p>
+</code></pre><p>注意:<br>    1.在各个步骤的异常情况判断.<br>    2.代码第6行如果第一次认证失败,不可以继续验证.需要调用quit方法结束实例(为什么解释器中和实际运行的结果不一致).<br>    3.实现逻辑方面读取用户密码不断便利实现暴力破解.</p>
 <p>脚本代码</p>
 <pre><code><span class="comment"># coding=utf-8</span>
 <span class="keyword">import</span> threading, time, random, sys, poplib 
