@@ -194,6 +194,175 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/20/python编码操作/" itemprop="url">
+                python编码操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-20T09:33:07+08:00" content="2015-08-20">
+            2015-08-20
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/20/python编码操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/python编码操作/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>将所有字符串按字符串储存时的编码方式解码(decode)为unicode编码进行操作.</p>
+<h2 id="查看一个汉字的GBK,unicode,utf-8编码">查看一个汉字的GBK,unicode,utf-8编码</h2><ul>
+<li><p>GBK</p>
+<p>  <code>//输入中文时默认的编码方式为gbk</code><br>  <code>&gt;&gt;&gt;s = &quot;汉&quot;</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xba\xba&#39;</code></p>
+</li>
+<li><p>unicode</p>
+<p>  <code>&gt;&gt;&gt;s = s.decode(&quot;gbk&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>u&#39;\u6c49&#39;</code></p>
+</li>
+<li><p>utf-8</p>
+<p>  <code>&gt;&gt;&gt;s = s.encode(&quot;utf-8&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xe6\xb1\x89&#39;</code></p>
+</li>
+</ul>
+<h2 id="查看英文字母的ascii码">查看英文字母的ascii码</h2><p>注：ascii码是世界上最先使用的编码方式，在后来的一系列编码方式中，不管是gbk ucnicde 还是utf-8对于asii码都是向下兼容的，也就是说编码结果是一样的（在所占字节数上可能会有差异）.</p>
+<pre><code>&gt;&gt;&gt;<span class="string">"admin"</span>.<span class="function"><span class="title">encode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
+<span class="string">'61646d696e'</span>
+&gt;&gt;&gt;<span class="string">'61646d696e'</span>.<span class="function"><span class="title">decode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
+<span class="string">'admin'</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
+                cmd命令使用记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
+            2015-08-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
+//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
+</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
+</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
+</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
+</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
+</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
+</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
+</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
+//查看现有账户
+<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
+//查看admin账户详情
+<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
+//添加用户
+<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
+//删除
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/19/字符编码详解/" itemprop="url">
                 字符编码详解
               </a>
@@ -1232,204 +1401,6 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="url">
-                SQL注入练级攻略(3)-table操作相关
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-12T09:32:08+08:00" content="2015-08-12">
-            2015-08-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/12/SQL注入练级攻略-3-操作表/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/SQL注入练级攻略-3-操作表/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>记录表相关的增删改查操作包括：<strong>建库</strong>,<strong>表操作</strong>，<strong>记录的操作</strong></p>
-<h2 id="database"><h1>database</h1></h2><pre><code>mysql&gt; create database <span class="keyword">test</span>;
-mysql&gt; show databases;
-mysql&gt; <span class="keyword">drop</span> database <span class="keyword">test</span>;<span class="comment">//数据库的创建删除</span>
-</code></pre><h2 id="table"><h1>table</h1></h2><h2 id="建表">建表</h2><pre><code>mysql&gt; create table admin (
-mysql&gt; id           <span class="built_in">int</span>      <span class="literal">not</span> <span class="literal">null</span> primary key auto_increment,
-mysql&gt; username  varchar(<span class="number">30</span>) <span class="literal">not</span> <span class="literal">null</span>             <span class="keyword">default</span> <span class="string">'test'</span>,  
-mysql&gt; sex      <span class="keyword">enum</span>(<span class="string">'F'</span>,<span class="string">'M'</span>),
-mysql&gt; address   var char(<span class="number">50</span>)  <span class="literal">null</span>)<span class="comment">;</span>
-</code></pre><h2 id="查看">查看</h2><pre><code>mysql&gt; <span class="keyword">desc</span> admin;
-</code></pre><h2 id="修改">修改</h2><pre><code>mysql&gt; alter table admin <span class="built_in">add</span> tel1 <span class="keyword">char</span>(<span class="number">11</span>) <span class="operator">not</span> <span class="constant">null</span> ;<span class="comment"> //添加字段</span>
-mysql&gt; alter table admin <span class="built_in">add</span> tel2 <span class="keyword">after</span> sex ;<span class="comment"> //指定位置添加字段</span>
-mysql&gt; alter table admin drop tel2 <span class="comment">;//删除字段</span>
-mysql&gt; alter table admin change tel1 blog varchar(<span class="number">30</span>) <span class="constant">null</span> <span class="comment">;//将tel1改为blog后面至少要有修改后的字段类型.</span>
-mysql&gt; alter table admin change id id int <span class="keyword">after</span> username<span class="comment">;//调整字段位置</span>
-mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表</span>
-</code></pre><p>以后用到的语句再添加</p>
-<h2 id="删除">删除</h2><pre><code>mysql&gt; <span class="keyword">drop</span> <span class="keyword">table</span> admin;
-</code></pre><h2 id="record"><h1>record</h1></h2><pre><code><span class="operator">select <span class="keyword">id</span>,username <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> <span class="number">1</span>=<span class="number">1</span> ;</span>
-<span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">admin</span> (username,tel1) <span class="keyword">values</span>(<span class="string">"admin"</span>,<span class="string">"13000000000"</span>);</span>//除自增和带有默认值的字段外，NOT NULL的字段必须要进行赋值.
-<span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">admin</span> <span class="keyword">where</span> username = <span class="string">"admin"</span>;</span>//更新
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/11/SQL注入练级攻略-2-权限分配/" itemprop="url">
-                SQL注入练级攻略(2)-权限分配
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-11T11:14:10+08:00" content="2015-08-11">
-            2015-08-11
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/11/SQL注入练级攻略-2-权限分配/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/SQL注入练级攻略-2-权限分配/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看：">查看：</h2><pre><code>mysql&gt;show grants <span class="keyword">for</span> <span class="built_in">test</span> //查看用户<span class="built_in">test</span>所有权限
-</code></pre><h2 id="增加：">增加：</h2><pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span> ;
-<span class="comment">//将myslq库select update 权限分配给test并将密码改为"qwe1232"</span>
-mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> mysql<span class="built_in">.</span>* <span class="keyword">to</span> test <span class="keyword">with</span> grant option;<span class="comment">//mysql库的所有权限</span>
-</code></pre><p>重复添加不报错<br>    mysql&gt; grant all privileges on <em>.</em> to test with grant option;</p>
-<h2 id="删除：">删除：</h2><pre><code>mysql&gt; revoke select <span class="function_start"><span class="keyword">on</span></span> myslq.* <span class="keyword">from</span> test;
-mysql&gt; revoke all privileges <span class="function_start"><span class="keyword">on</span></span> mysql.* <span class="keyword">from</span> test;
-</code></pre><h2 id="立即更新:">立即更新:</h2><pre><code>mysql&gt; flush privileges<span class="comment">;</span>
-</code></pre><p><a href="http://drops.wooyun.org/tips/2245" target="_blank" rel="external">权限分配细则–乌云知识库</a></p>
-<p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1468,7 +1439,7 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1482,7 +1453,7 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

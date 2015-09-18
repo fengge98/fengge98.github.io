@@ -55,7 +55,7 @@ import poplib
 pop = poplib.POP3(host,port,delay)
 print pop.getwelcome()  #如果连接成功打印welcome信息
 pop =">
-<meta property="og:updated_time" content="2015-09-15T09:59:16.507Z">
+<meta property="og:updated_time" content="2015-09-18T08:44:30.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="邮箱爆破脚本总结">
 <meta name="twitter:description" content="前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.
@@ -286,7 +286,20 @@ success = []
       <span class="keyword">except</span>:
         <span class="keyword">pass</span>
 mailbruteforce(users,words) 
-</code></pre><h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
+</code></pre><h2 id="多线程版本">多线程版本</h2><p>效率还是太慢,想改成多线程增加点效率,随便还有待解决的问题,还是记录下来</p>
+<p>1.上面的基本思路是求两个线性分布的笛卡尔积.<br>2.多线程版本目前的思路是,开t个线程,每个线程<strong>分配一个用户名并开始爆破弱密码</strong>.</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myThread</span> <span class="params">(threading.Thread)</span>:</span>
+      <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,username,passwords)</span>:</span>
+    //初始化时传入参数
+      <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span>
+        <span class="keyword">for</span> password <span class="keyword">in</span> self.passwords:
+              连接邮箱并验证
+
+t = myThread(username,passwords)
+t.start()//线程开始运行
+t.join()//阻塞线程直到这一批开启的线程释放,所以一般放在循环外
+</code></pre><p>为每个线程分配任务的逻辑还是有点问题,日后再补.</p>
+<h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
 </span>
       
     </div>
@@ -378,7 +391,7 @@ mailbruteforce(users,words)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -392,7 +405,7 @@ mailbruteforce(users,words)
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -449,7 +462,7 @@ mailbruteforce(users,words)
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破脚本"><span class="nav-number">1.</span> <span class="nav-text">爆破脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结:"><span class="nav-number">2.</span> <span class="nav-text">总结:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破脚本"><span class="nav-number">1.</span> <span class="nav-text">爆破脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程版本"><span class="nav-number">2.</span> <span class="nav-text">多线程版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结:"><span class="nav-number">3.</span> <span class="nav-text">总结:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

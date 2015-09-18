@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="mysql,sql注入," />
+  <meta name="keywords" content="http,python," />
 
 
 
@@ -35,22 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
-
-Web Ser">
+<meta name="description" content="使用httplib时的设置方式import httplib,urllib,urllib2;   
+params = urllib.urlencode({ &apos;param&apos;:&quot;55B2A1EDA8B09D13&quot;,
+                            &apos;js_sfl&apos;:2,
+                            &apos;codetxt&apos;:&apos;532832&apos;});">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略(8)-绕过姿势(三)">
-<meta property="og:url" content="http://yoursite.com/2015/08/20/SQL注入练级攻略-8-绕过姿势-三/index.html">
+<meta property="og:title" content="python接发http请求">
+<meta property="og:url" content="http://yoursite.com/2015/09/18/python接发http请求/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
-
-Web Ser">
-<meta property="og:updated_time" content="2015-08-21T02:45:52.436Z">
+<meta property="og:description" content="使用httplib时的设置方式import httplib,urllib,urllib2;   
+params = urllib.urlencode({ &apos;param&apos;:&quot;55B2A1EDA8B09D13&quot;,
+                            &apos;js_sfl&apos;:2,
+                            &apos;codetxt&apos;:&apos;532832&apos;});">
+<meta property="og:updated_time" content="2015-09-18T08:44:26.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略(8)-绕过姿势(三)">
-<meta name="twitter:description" content="心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求，这个请求可能起作用于Web server\web程序\数据库等不同的地方。但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果
-
-Web Ser">
+<meta name="twitter:title" content="python接发http请求">
+<meta name="twitter:description" content="使用httplib时的设置方式import httplib,urllib,urllib2;   
+params = urllib.urlencode({ &apos;param&apos;:&quot;55B2A1EDA8B09D13&quot;,
+                            &apos;js_sfl&apos;:2,
+                            &apos;codetxt&apos;:&apos;532832&apos;});">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -60,7 +63,7 @@ Web Ser">
   };
 </script>
 
-  <title> SQL注入练级攻略(8)-绕过姿势(三) | FengGe </title>
+  <title> python接发http请求 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -199,7 +202,7 @@ Web Ser">
           
           
             
-              SQL注入练级攻略(8)-绕过姿势(三)
+              python接发http请求
             
           
         </h1>
@@ -208,34 +211,19 @@ Web Ser">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-20T11:32:48+08:00" content="2015-08-20">
-            2015-08-20
+          <time itemprop="dateCreated" datetime="2015-09-18T16:37:19+08:00" content="2015-09-18">
+            2015-09-18
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/20/SQL注入练级攻略-8-绕过姿势-三/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/SQL注入练级攻略-8-绕过姿势-三/" itemprop="commentsCount"></span>
+              <a href="/2015/09/18/python接发http请求/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/python接发http请求/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -249,44 +237,29 @@ Web Ser">
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>心得：waf存在于一个完整请求的各个部分，云waf，硬waf，软waf。现阶段可以理解为：我们请求的所有数据，都经过waf，由waf进行识别是否为合法请求。<strong>bypass的姿势就是要利用不同场景的特性构造一个不能被waf识别的有效请求</strong>，这个请求可能起作用于Web server\web程序\数据库等不同的地方。<strong>但是万变不离其中，本质就是寻找waf环境和系统环境间相同语句的不同解析结果</strong></p>
-</blockquote>
-<h2 id="Web_Server层的bypass">Web Server层的bypass</h2><p>1.IIS服务器</p>
-<ul>
-<li><p>% 特性<br>场景：iis+asp<br>说明：字符串se%lect在waf层解析出来是se%lect在asp+iis环境中是select</p>
-</li>
-<li><p>%u 特性<br>场景：iis+asp,iis+aspx<br>说明：iis支出unicode编码将关键字的某个字符以%u006c的格式输入在waf层会通过，在iis环境中解析为正常sql语句从而bypass。</p>
-</li>
-<li><p>多个unicode码对应同一个字符<br>场景：iss+asp<br>说明：select中的e对应的unicode为%u0065，但是%u00f0同样会被转换成为e。</p>
-<p>  s%u0065lect-&gt;select<br>  s%u00f0lect-&gt;select<br>疑问:如何知道哪些unicode编码会被解码成相同的字符<br>可以参考：<a href="http://drops.wooyun.org/tips/968" target="_blank" rel="external">wooyun知识库wafbypass-七个姿势</a></p>
-</li>
-</ul>
-<p>2.apache服务器</p>
-<ul>
-<li><p>method绕过<br>场景：某些版本的Apache<br>说明：发生GET请求时，无论method取任何值，都返回200.<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2013-024599" target="_blank" rel="external">安全宝SQL注入规则绕过</a></p>
-</li>
-<li><p>php和Apache畸形boundary绕过<br>场景：php+Apach<br>说明：Php在解析multipart-data的时候有自己的特性，对于boundary的识别，只取了逗号前面的内容，例如我们设置的boundary为—-aaaa,123456，php解析的时候只识别了—-aaaa,后面的内容均没有识别。然而其他的如WAF在做解析的时候，有可能获取的是整个字符串，此时可能就会出现BYPASS。</p>
-</li>
-</ul>
-<h2 id="Web应用程序层bypass">Web应用程序层bypass</h2><p>1.url编码绕过<br>说明：在这一步waf可能会对url只进行一次解码，然后过滤。此时可以试<strong>一次url编码</strong>或<strong>两次url编码</strong>，不管怎么样在应用程序里，都需要对url进行完全解码，就是解到正常的语句，要不然还是无法继续执行的。<br>具体参考：<br><a href="http://www.wooyun.org/bugs/wooyun-2015-090369" target="_blank" rel="external">两次url编码绕过waf</a><br>2.改变请求获取方式</p>
-<ul>
-<li><p>GET，POST，COOKIE<br>说明：在有些环境下可能存在统一参数获取的情况，例如 <code>p = select * from admin</code> p可以从GET，POST或者COOKIE中，我们可以通过将注入语句变换位置从而实现绕过。<br>也就是说，<strong>应用可以从这3种方式获取到t的内容，但是waf不一定会将这三种方式全部过滤</strong><br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2014-089338" target="_blank" rel="external">变化payload位置绕过waf</a></p>
-</li>
-<li><p>POST提交方式变化<br>POST提交数据有两种方式urlencode和form-data，当一种被过滤可以考虑换一种方式。</p>
-</li>
-<li><p>畸形请求方式<br>在asp和asp.net获取请求的时候使用了request包形如request[“q”]–(django下会不会存在?)它会分不清GET和POST请求，就可能出现问题，可能出现的问题就是<strong>发送一个畸形的请求包，waf没有正常拦截，但是却被正常解析</strong><br>畸形的请求包可能是声明method为GET，包的实际结构是POST形式<br>具体参考<br><a href="http://www.80sec.com/%E6%B5%85%E8%B0%88%E7%BB%95%E8%BF%87WAF%E7%9A%84%E6%95%B0%E7%A7%8D%E6%96%B9%E6%B3%95.html" target="_blank" rel="external">asp.net中使用request方法获取参数造成bypass</a></p>
-</li>
-</ul>
-<p>3.hpp方式(HTTP参数污染)<br>正常<code>?id=1</code><br>当我们发送<code>?id=1&amp;id=2&amp;id=3</code>形如此类的参数，不同的环境获取到的参数可能是不同的。</p>
-<pre><code>asp/asp.net + iss : id = <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>
-php+apache : id = <span class="number">3</span>
-</code></pre><p>由此可见，waf获取的参数和应用程序获取到的参数也可能是不一样，具体情境具体分析，要搞清楚waf获取到的内容和应用获取到的内容的差异，才能准确构造payload。<br>这种方式的bypass可能进行一些白名单的绕过<br><code>id = admin&amp;id = 1union select user from admin</code><br>admin是白名单中的内容，后面id内容是应用获取到的内容。这种情况就可能发生注入。<br>具体参考<br><a href="http://www.wooyun.org/bugs/wooyun-2015-099513" target="_blank" rel="external">使用webscan360的cms厂商通过hpp可使其失效</a></p>
-<h2 id="Mysql数据库层Bypass">Mysql数据库层Bypass</h2><blockquote>
-<p>通常注入语句的构造是从形如?id=1之后开始构造的，所以从参数之后的位置开始。</p>
-</blockquote>
-<p>union绕过：<br><a href="http://zone.wooyun.org/content/16772" target="_blank" rel="external">union绕过的三种姿势</a><br>数据库层其他的一些绕过姿势可参考<br><a href="http://quanyong.xyz/2015/08/17/SQL%E6%B3%A8%E5%85%A5%E7%BB%83%E7%BA%A7%E6%94%BB%E7%95%A5-6-%E5%9F%BA%E6%9C%AC%E7%BB%95%E8%BF%87-%E4%B8%80/" target="_blank" rel="external">绕过姿势一</a><br><a href="http://quanyong.xyz/2015/08/17/SQL%E6%B3%A8%E5%85%A5%E7%BB%83%E7%BA%A7%E6%94%BB%E7%95%A5-7-%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF-%E4%BA%8C/" target="_blank" rel="external">绕过姿势二</a></p>
-<p>Bypass系列本文参考<br><a href="http://drops.wooyun.org/tips/7883" target="_blank" rel="external">Bypass WAF Cookbook</a><br><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">MySql注入科普-瞌睡龙</a><br><a href="http://drops.wooyun.org/tips/7299" target="_blank" rel="external">MySQL注入技巧-Utopia</a></p>
+        <span itemprop="articleBody"><h2 id="使用httplib时的设置方式">使用httplib时的设置方式</h2><pre><code><span class="keyword">import</span> httplib,urllib,urllib2;   
+params = urllib.urlencode({ 'param':<span class="string">"55B2A1EDA8B09D13"</span>,
+                            'js_sfl':<span class="number">2</span>,
+                            'codetxt':'<span class="number">532832</span>'});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};   
+conn = httplib.<span class="type">HTTPConnection</span>(<span class="string">"localhost"</span>,<span class="number">8555</span>);<span class="comment">#在此步骤设置代理地址,可以在代理中看到请求,方便调试</span>
+conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,body=params,headers=headers);      
+response = conn.getresponse();     
+conn.close();
+</code></pre><h2 id="使用urllib2时的设置方式">使用urllib2时的设置方式</h2><pre><code>import httplib,urllib,urllib2;   
+<span class="keyword">params</span> = urllib.urlencode({ <span class="string">'param'</span>:<span class="string">"55B2A1EDA8B09D13"</span>,
+                            <span class="string">'js_sfl'</span>:<span class="number">2</span>,
+                            <span class="string">'codetxt'</span>:<span class="string">'532832'</span>});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};       
+opener = urllib2.build_opener( urllib2.ProxyHandler({<span class="string">'http'</span>:<span class="string">"localhost:8555"</span>}) )<span class="preprocessor">#在这一步设置代理地址和端口,可以看到请求</span>
+urllib2.install_opener(opener)
+sContent = urllib2.urlopen(<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>)
+req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,data=<span class="keyword">params</span>)  
+</code></pre><p>总结:<br>1.可以在burp的repeater模块看看哪些参数可以删哪些不可以删.<br>2.header和body中有的参数不可以没有.<br>3.在连接主机的那一步通过设置代理,可以在代理中查看请求的详情,方便调试.<br>4.使用httplib.HTTPConnection的对象调用request的时候将参数传入body时会出现限定长度的情况,目前还没有解决</p>
 </span>
       
     </div>
@@ -295,9 +268,9 @@ php+apache : id = <span class="number">3</span>
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/http/" rel="tag">#http</a>
           
-            <a href="/tags/sql注入/" rel="tag">#sql注入</a>
+            <a href="/tags/python/" rel="tag">#python</a>
           
         </div>
       
@@ -306,13 +279,11 @@ php+apache : id = <span class="number">3</span>
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/31/端口汇总/" rel="prev">端口汇总</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/20/python编码操作/" rel="next">python编码操作</a>
+              <a href="/2015/09/18/延时sql注入脚本/" rel="next">延时sql注入脚本</a>
             
           </div>
         </div>
@@ -337,8 +308,8 @@ php+apache : id = <span class="number">3</span>
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/20/SQL注入练级攻略-8-绕过姿势-三/"
-                   data-title="SQL注入练级攻略(8)-绕过姿势(三)" data-url="http://yoursite.com/2015/08/20/SQL注入练级攻略-8-绕过姿势-三/">
+              <div class="ds-thread" data-thread-key="2015/09/18/python接发http请求/"
+                   data-title="python接发http请求" data-url="http://yoursite.com/2015/09/18/python接发http请求/">
               </div>
             
           </div>
@@ -449,7 +420,7 @@ php+apache : id = <span class="number">3</span>
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web_Server层的bypass"><span class="nav-number">1.</span> <span class="nav-text">Web Server层的bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web应用程序层bypass"><span class="nav-number">2.</span> <span class="nav-text">Web应用程序层bypass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql数据库层Bypass"><span class="nav-number">3.</span> <span class="nav-text">Mysql数据库层Bypass</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用httplib时的设置方式"><span class="nav-number">1.</span> <span class="nav-text">使用httplib时的设置方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用urllib2时的设置方式"><span class="nav-number">2.</span> <span class="nav-text">使用urllib2时的设置方式</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
