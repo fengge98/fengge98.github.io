@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="mysql,sql注入," />
+  <meta name="keywords" content="mongodb," />
 
 
 
@@ -35,37 +35,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="常量versionVERSION()
-@@VERSION
-@@GLOBAL.VERSION
-mysql&amp;gt; select @@version;//显示mysql版本
-mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-useruser()
-current_user
-curren">
+<meta name="description" content="最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来
+打开服务mongod.exe --dbpath = &quot;E:\db&quot;
+#打开服务并指定数据库位置
+查看操作在程序的bin目录下用过mongo.exe进入命令行
+mongodb&amp;gt; show dbs
+#显示所有数据库
+mongodb&amp;gt; use admin
+#使用admin库,如果没有名为admin的库则创建
+mongodb&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入练级攻略(4)-数据库常量及函数">
-<meta property="og:url" content="http://yoursite.com/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/index.html">
+<meta property="og:title" content="MongoDB基本操作">
+<meta property="og:url" content="http://yoursite.com/2015/09/22/MongoDB基本操作/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="常量versionVERSION()
-@@VERSION
-@@GLOBAL.VERSION
-mysql&amp;gt; select @@version;//显示mysql版本
-mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-useruser()
-current_user
-curren">
-<meta property="og:updated_time" content="2015-08-17T06:58:39.939Z">
+<meta property="og:description" content="最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来
+打开服务mongod.exe --dbpath = &quot;E:\db&quot;
+#打开服务并指定数据库位置
+查看操作在程序的bin目录下用过mongo.exe进入命令行
+mongodb&amp;gt; show dbs
+#显示所有数据库
+mongodb&amp;gt; use admin
+#使用admin库,如果没有名为admin的库则创建
+mongodb&amp;">
+<meta property="og:updated_time" content="2015-09-22T08:49:14.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入练级攻略(4)-数据库常量及函数">
-<meta name="twitter:description" content="常量versionVERSION()
-@@VERSION
-@@GLOBAL.VERSION
-mysql&amp;gt; select @@version;//显示mysql版本
-mysql&amp;gt; select * from user where 1 and mid(version(),1,1) = 5;//当数据库版本为5.x.xx时返回为真
-useruser()
-current_user
-curren">
+<meta name="twitter:title" content="MongoDB基本操作">
+<meta name="twitter:description" content="最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来
+打开服务mongod.exe --dbpath = &quot;E:\db&quot;
+#打开服务并指定数据库位置
+查看操作在程序的bin目录下用过mongo.exe进入命令行
+mongodb&amp;gt; show dbs
+#显示所有数据库
+mongodb&amp;gt; use admin
+#使用admin库,如果没有名为admin的库则创建
+mongodb&amp;">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +78,7 @@ curren">
   };
 </script>
 
-  <title> SQL注入练级攻略(4)-数据库常量及函数 | FengGe </title>
+  <title> MongoDB基本操作 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -214,7 +217,7 @@ curren">
           
           
             
-              SQL注入练级攻略(4)-数据库常量及函数
+              MongoDB基本操作
             
           
         </h1>
@@ -223,34 +226,19 @@ curren">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-12T11:39:35+08:00" content="2015-08-12">
-            2015-08-12
+          <time itemprop="dateCreated" datetime="2015-09-22T15:05:24+08:00" content="2015-09-22">
+            2015-09-22
           </time>
         </span>
 
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" itemprop="commentsCount"></span>
+              <a href="/2015/09/22/MongoDB基本操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/22/MongoDB基本操作/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -264,61 +252,29 @@ curren">
       
 
       
-        <span itemprop="articleBody"><h2 id="常量"><h1>常量</h1></h2><h2 id="version">version</h2><pre><code>VERSION()
-@@VERSION
-@@<span class="keyword">GLOBAL</span>.VERSION
-mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
-mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><h2 id="user">user</h2><pre><code>user()
-<span class="function">current_user
-<span class="title">current_user</span>(<span class="params"></span>)
-<span class="title">system_user</span>(<span class="params"></span>)
-<span class="title">session_user</span>(<span class="params"></span>)
-mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="database">database</h2><pre><code>database()
-schema()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
-<span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><h2 id="hostname">hostname</h2><pre><code>@<span class="variable">@hostname</span>
-mysql&gt; select <span class="variable">@@hostname</span>;
-</code></pre><h2 id="datadir">datadir</h2><pre><code>@<span class="variable">@datadir</span>
-mysql&gt; select <span class="variable">@@datadir</span>;
-<span class="comment">//data绝对路径</span>
-</code></pre><h2 id="current_timestamp">current_timestamp</h2><pre><code>current_timestamp
-mysql&gt; <span class="keyword">select</span> current_timestamp;<span class="comment">//当前时间</span>
-</code></pre><h2 id="uuid()">uuid()</h2><pre><code>uuid()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">uuid</span>(<span class="params"></span>)</span>;
-</code></pre><h2 id="函数"><h1>函数</h1></h2><h2 id="length">length</h2><pre><code><span class="built_in">length</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
-</code></pre><h2 id="mid">mid</h2><pre><code>mid()
-mysql&gt; <span class="function">select <span class="title">mid</span><span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;<span class="comment">//指定字符串</span>
-</code></pre><h2 id="if,case">if,case</h2><pre><code><span class="keyword">if</span>()
-mysql&gt; <span class="keyword">select</span> <span class="keyword">if</span>(length(user())&gt;<span class="number">10</span>,sleep(<span class="number">3</span>),<span class="number">0</span>);//<span class="keyword">if</span>成立返回sleep(<span class="number">3</span>)
-<span class="keyword">case</span>
-mysql <span class="keyword">select</span> <span class="keyword">case</span> when <span class="number">1</span>=<span class="number">1</span> <span class="keyword">then</span> <span class="literal">true</span> <span class="keyword">else</span> <span class="literal">false</span> <span class="keyword">end</span>;
-//<span class="keyword">if</span>相似
-</code></pre><h2 id="ascii">ascii</h2><pre><code>ascii<span class="params">()</span>
-mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
-mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
-</code></pre><h2 id="count">count</h2><pre><code><span class="built_in">count</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">count</span>(*) <span class="keyword">from</span> mysql.user;<span class="comment">//返回记录条数</span>
-</code></pre><h2 id="concat,concat_ws">concat,concat_ws</h2><pre><code>concat()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">"a"</span>,<span class="string">"b"</span></span>)</span>;<span class="comment">//显示ab</span>
-
-concat_ws()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="rand">rand</h2><pre><code><span class="keyword">rand</span>()
-mysql&gt; <span class="keyword">select</span> <span class="keyword">rand</span>();<span class="comment">//0~1之间的随机数</span>
-</code></pre><h2 id="floor">floor</h2><pre><code><span class="built_in">floor</span><span class="params">()</span>
-mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
-</code></pre><h2 id="group_by">group_by</h2><pre><code><span class="built_in">group</span> <span class="keyword">by</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">type</span>,<span class="built_in">max</span>(price) <span class="keyword">from</span> price_info <span class="built_in">group</span> <span class="keyword">by</span> <span class="built_in">type</span>;
-<span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
-</code></pre><h2 id="distinct">distinct</h2><pre><code><span class="keyword">distinct</span>()
-mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword">from</span> mysql.user;
-//排重，只显示不重复的user.
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+        <span itemprop="articleBody"><p>最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来</p>
+<h2 id="打开服务">打开服务</h2><pre><code>mongod<span class="class">.exe</span> --dbpath = <span class="string">"E:\db"</span>
+#打开服务并指定数据库位置
+</code></pre><h2 id="查看操作">查看操作</h2><pre><code>在程序的bin目录下用过mongo.exe进入命令行
+mongodb&gt; show dbs
+<span class="preprocessor">#显示所有数据库</span>
+mongodb&gt; use admin
+<span class="preprocessor">#使用admin库,如果没有名为admin的库则创建</span>
+mongodb&gt; show collections
+<span class="preprocessor">#显示所有集合</span>
+mongodb&gt; db.createCollection(<span class="string">"mail"</span>)
+<span class="preprocessor">#创建名为mail的集合</span>
+mongodb&gt; db.mail.find({<span class="string">"mail"</span>:<span class="string">"admin@163.com"</span>})
+<span class="preprocessor">#显示集合mail中mail值为:admin@163.com的值,如无条件则显示全部</span>
+</code></pre><h2 id="删除操作">删除操作</h2><pre><code>mongodb&gt; db.<span class="function"><span class="title">dropDatebase</span><span class="params">()</span></span>
+#删除当前数据库
+mongodb&gt; db<span class="class">.test</span><span class="class">.drop</span>()
+#删除test集合
+mongodb&gt; db<span class="class">.test</span><span class="class">.remove</span>()
+#删除记录慎用不可逆
+</code></pre><h2 id="帮助">帮助</h2><pre><code>mongodb&gt; <span class="keyword">db</span>.<span class="keyword">help</span>()
+mongodb&gt; <span class="keyword">help</span>
+</code></pre><p>手打一遍加深印象</p>
 </span>
       
     </div>
@@ -327,9 +283,7 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
-          
-            <a href="/tags/sql注入/" rel="tag">#sql注入</a>
+            <a href="/tags/mongodb/" rel="tag">#mongodb</a>
           
         </div>
       
@@ -338,13 +292,11 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/" rel="prev">SQL注入练级攻略(5)-5种注入类型</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/12/SQL注入练级攻略-3-操作表/" rel="next">SQL注入练级攻略(3)-table操作相关</a>
+              <a href="/2015/09/18/python接发http请求/" rel="next">python接发http请求</a>
             
           </div>
         </div>
@@ -369,8 +321,8 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/12/SQL注入练级攻略-4-数据库常量及函数/"
-                   data-title="SQL注入练级攻略(4)-数据库常量及函数" data-url="http://yoursite.com/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/">
+              <div class="ds-thread" data-thread-key="2015/09/22/MongoDB基本操作/"
+                   data-title="MongoDB基本操作" data-url="http://yoursite.com/2015/09/22/MongoDB基本操作/">
               </div>
             
           </div>
@@ -481,7 +433,7 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">常量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">1.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">2.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#database"><span class="nav-number">3.</span> <span class="nav-text">database</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hostname"><span class="nav-number">4.</span> <span class="nav-text">hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#datadir"><span class="nav-number">5.</span> <span class="nav-text">datadir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#current_timestamp"><span class="nav-number">6.</span> <span class="nav-text">current_timestamp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uuid()"><span class="nav-number">7.</span> <span class="nav-text">uuid()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">8.</span> <span class="nav-text">函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#length"><span class="nav-number">1.</span> <span class="nav-text">length</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mid"><span class="nav-number">2.</span> <span class="nav-text">mid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if,case"><span class="nav-number">3.</span> <span class="nav-text">if,case</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ascii"><span class="nav-number">4.</span> <span class="nav-text">ascii</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#count"><span class="nav-number">5.</span> <span class="nav-text">count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat,concat_ws"><span class="nav-number">6.</span> <span class="nav-text">concat,concat_ws</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rand"><span class="nav-number">7.</span> <span class="nav-text">rand</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floor"><span class="nav-number">8.</span> <span class="nav-text">floor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group_by"><span class="nav-number">9.</span> <span class="nav-text">group_by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#distinct"><span class="nav-number">10.</span> <span class="nav-text">distinct</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开服务"><span class="nav-number">1.</span> <span class="nav-text">打开服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看操作"><span class="nav-number">2.</span> <span class="nav-text">查看操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除操作"><span class="nav-number">3.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助"><span class="nav-number">4.</span> <span class="nav-text">帮助</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
