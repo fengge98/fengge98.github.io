@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="linux,putty," />
+  <meta name="keywords" content="cmd," />
 
 
 
@@ -35,31 +35,31 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
-传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
-windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
+<meta name="description" content="打开命令行的时候切换目录总是件麻烦事,想起以前写过的一个目录切换的bat脚本,重新编辑之后用了两天效果还不错.在这记录下来
+需要添加或修改功能时:
+1.更新echo的显示部分.2.找到对应字母的goto部分写上需要进行的操作.
+:START
+@echo off
+@echo &quot;|--------|--------|--------|--------|--------|--------|-------">
 <meta property="og:type" content="article">
-<meta property="og:title" content="putty使用记录">
-<meta property="og:url" content="http://yoursite.com/2015/09/02/putty使用记录/index.html">
+<meta property="og:title" content="批处理之目录快速切换">
+<meta property="og:url" content="http://yoursite.com/2015/09/23/批处理之目录快速切换/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
-传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
-windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
-<meta property="og:updated_time" content="2015-09-18T08:44:34.772Z">
+<meta property="og:description" content="打开命令行的时候切换目录总是件麻烦事,想起以前写过的一个目录切换的bat脚本,重新编辑之后用了两天效果还不错.在这记录下来
+需要添加或修改功能时:
+1.更新echo的显示部分.2.找到对应字母的goto部分写上需要进行的操作.
+:START
+@echo off
+@echo &quot;|--------|--------|--------|--------|--------|--------|-------">
+<meta property="og:updated_time" content="2015-09-23T01:28:35.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="putty使用记录">
-<meta name="twitter:description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
-传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
-windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
+<meta name="twitter:title" content="批处理之目录快速切换">
+<meta name="twitter:description" content="打开命令行的时候切换目录总是件麻烦事,想起以前写过的一个目录切换的bat脚本,重新编辑之后用了两天效果还不错.在这记录下来
+需要添加或修改功能时:
+1.更新echo的显示部分.2.找到对应字母的goto部分写上需要进行的操作.
+:START
+@echo off
+@echo &quot;|--------|--------|--------|--------|--------|--------|-------">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +69,7 @@ ps">
   };
 </script>
 
-  <title> putty使用记录 | FengGe </title>
+  <title> 批处理之目录快速切换 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +208,7 @@ ps">
           
           
             
-              putty使用记录
+              批处理之目录快速切换
             
           
         </h1>
@@ -217,8 +217,8 @@ ps">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-02T11:46:05+08:00" content="2015-09-02">
-            2015-09-02
+          <time itemprop="dateCreated" datetime="2015-09-23T09:22:43+08:00" content="2015-09-23">
+            2015-09-23
           </time>
         </span>
 
@@ -228,8 +228,8 @@ ps">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/02/putty使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/02/putty使用记录/" itemprop="commentsCount"></span>
+              <a href="/2015/09/23/批处理之目录快速切换/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/23/批处理之目录快速切换/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -243,14 +243,146 @@ ps">
       
 
       
-        <span itemprop="articleBody"><h2 id="命令终端中文乱码问题">命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
-<h2 id="传输文件">传输文件</h2><p>我的做法是将putty所在目录设置到环境变量中<br>这样就可以使用pscp和psftp传输文件了</p>
-<p>windows-&gt;linux</p>
-<pre><code>pscp 目标文件 root<span class="variable">@192</span>.<span class="number">168</span>.***.***<span class="symbol">:/home/quanyong</span>
-
-psftp <span class="number">192.168</span>.<span class="number">101.213</span>
-cd到目标目录
-put 目标文件
+        <span itemprop="articleBody"><p>打开命令行的时候切换目录总是件麻烦事,想起以前写过的一个目录切换的bat脚本,重新编辑之后用了两天效果还不错.<br>在这记录下来</p>
+<p>需要添加或修改功能时:</p>
+<p>1.更新echo的显示部分.<br>2.找到对应字母的goto部分写上需要进行的操作.</p>
+<pre><code>:<span class="operator"><span class="keyword">START</span>
+@echo <span class="keyword">off</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span>
+@echo <span class="string">"|A       |B       |C       |D       |E       |F       |G       |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span>
+@echo <span class="string">"|*       |burp    |Chrome  |DomainBP|*       |Firefox |*       |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span>      
+@echo <span class="string">"|H       |I       |J       |K       |L       |M       |N       |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span> 
+@echo <span class="string">"|*       |*       |*       |*       |*       |*       |Sublime |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span> 
+@echo <span class="string">"|O       |P       |Q       |S       |T       |U       |V       |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span> 
+@echo <span class="string">"|*       |pwdBP   |quit    |sqlmap  |*       |*       |        |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|--------|--------|--------|"</span> 
+@echo <span class="string">"|W       |X       |Y       |Z       |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|"</span>
+@echo <span class="string">"|*       |*       |*       |Blog    |"</span>
+@echo <span class="string">"|--------|--------|--------|--------|"</span>
+choice /<span class="keyword">c</span> abcdefghijklmnopqrstuvwxyz
+<span class="keyword">if</span> errorlevel <span class="number">26</span> <span class="keyword">goto</span> Z
+<span class="keyword">if</span> errorlevel <span class="number">25</span> <span class="keyword">goto</span> Y
+<span class="keyword">if</span> errorlevel <span class="number">23</span> <span class="keyword">goto</span> W
+<span class="keyword">if</span> errorlevel <span class="number">22</span> <span class="keyword">goto</span> V
+<span class="keyword">if</span> errorlevel <span class="number">21</span> <span class="keyword">goto</span> U
+<span class="keyword">if</span> errorlevel <span class="number">20</span> <span class="keyword">goto</span> <span class="keyword">T</span>
+<span class="keyword">if</span> errorlevel <span class="number">19</span> <span class="keyword">goto</span> S
+<span class="keyword">if</span> errorlevel <span class="number">18</span> <span class="keyword">goto</span> R
+<span class="keyword">if</span> errorlevel <span class="number">17</span> <span class="keyword">goto</span> Q
+<span class="keyword">if</span> errorlevel <span class="number">16</span> <span class="keyword">goto</span> <span class="keyword">P</span>
+<span class="keyword">if</span> errorlevel <span class="number">15</span> <span class="keyword">goto</span> O
+<span class="keyword">if</span> errorlevel <span class="number">14</span> <span class="keyword">goto</span> <span class="keyword">N</span>
+<span class="keyword">if</span> errorlevel <span class="number">13</span> <span class="keyword">goto</span> <span class="keyword">M</span>
+<span class="keyword">if</span> errorlevel <span class="number">12</span> <span class="keyword">goto</span> <span class="keyword">L</span>
+<span class="keyword">if</span> errorlevel <span class="number">11</span> <span class="keyword">goto</span> <span class="keyword">K</span>
+<span class="keyword">if</span> errorlevel <span class="number">10</span> <span class="keyword">goto</span> J
+<span class="keyword">if</span> errorlevel <span class="number">9</span> <span class="keyword">goto</span> <span class="keyword">I</span>
+<span class="keyword">if</span> errorlevel <span class="number">8</span> <span class="keyword">goto</span> H
+<span class="keyword">if</span> errorlevel <span class="number">7</span> <span class="keyword">goto</span> <span class="keyword">G</span>
+<span class="keyword">if</span> errorlevel <span class="number">6</span> <span class="keyword">goto</span> <span class="keyword">F</span>
+<span class="keyword">if</span> errorlevel <span class="number">5</span> <span class="keyword">goto</span> <span class="keyword">E</span>
+<span class="keyword">if</span> errorlevel <span class="number">4</span> <span class="keyword">goto</span> <span class="keyword">D</span>
+<span class="keyword">if</span> errorlevel <span class="number">3</span> <span class="keyword">goto</span> <span class="keyword">C</span>
+<span class="keyword">if</span> errorlevel <span class="number">2</span> <span class="keyword">goto</span> B
+<span class="keyword">if</span> errorlevel <span class="number">1</span> <span class="keyword">goto</span> A
+:A
+aaaaa
+<span class="keyword">goto</span> END1
+:B
+bbbbb
+cd /<span class="keyword">d</span> <span class="keyword">E</span>:\tools\burpsuite1<span class="number">.6</span><span class="number">.17</span>
+<span class="keyword">start</span> .
+<span class="keyword">goto</span> END1
+:<span class="keyword">C</span>
+cd <span class="keyword">C</span>:\Program Files (x86)\Google\Chrome\Application\
+<span class="keyword">start</span> chrome
+@echo 少侠请稍等...
+<span class="keyword">goto</span> END1
+:<span class="keyword">D</span>
+ddddd
+<span class="keyword">start</span> cmd /<span class="keyword">k</span> cd /<span class="keyword">d</span> <span class="keyword">E</span>:\tools\subDomainsBrute
+<span class="keyword">goto</span> END1
+:<span class="keyword">E</span> 
+ddddd
+<span class="keyword">goto</span> END1
+:<span class="keyword">F</span>
+cd <span class="keyword">D</span>:\Mozilla Firefox
+<span class="keyword">start</span> firefox
+@echo 少侠请稍等...
+<span class="keyword">goto</span> END1
+:<span class="keyword">G</span>
+ggggg
+<span class="keyword">goto</span> END1
+:H
+hhhhh
+<span class="keyword">goto</span> END1
+:<span class="keyword">I</span>
+iiiii
+<span class="keyword">goto</span> END1
+:J
+jjjjj
+<span class="keyword">goto</span> END1
+:<span class="keyword">K</span>
+kkkkk
+<span class="keyword">goto</span> END1
+:<span class="keyword">L</span>
+lllll
+<span class="keyword">goto</span> END1
+:<span class="keyword">M</span>
+mmmmm
+<span class="keyword">goto</span> END1
+:<span class="keyword">N</span>
+cd /<span class="keyword">d</span> <span class="keyword">C</span>:\Program Files\Sublime <span class="built_in">Text</span> <span class="number">2</span>\
+<span class="keyword">start</span> SublimeText.exe
+@echo 少侠请稍等...
+<span class="keyword">goto</span> END1
+:O
+ooooo
+<span class="keyword">goto</span> END1
+:<span class="keyword">P</span>
+<span class="keyword">start</span> cmd /<span class="keyword">k</span> cd /<span class="keyword">d</span> <span class="keyword">E</span>:\tools\pwdScan\htpwdScan
+<span class="keyword">goto</span> END1
+:Q
+@echo <span class="string">"告辞"</span>
+<span class="keyword">goto</span> END2
+:R
+rrrrr
+<span class="keyword">goto</span> END1
+:S
+<span class="keyword">start</span> cmd /<span class="keyword">k</span> cd /<span class="keyword">d</span> <span class="keyword">E</span>:\tools\sqlmap
+cd /<span class="keyword">d</span> <span class="keyword">E</span>:\tools\sqlmap
+<span class="keyword">start</span>.
+<span class="keyword">goto</span> END1
+:<span class="keyword">T</span>
+ttttt
+<span class="keyword">goto</span> END1
+:U
+uuuuu
+<span class="keyword">goto</span> END1
+:V
+vvvvv
+<span class="keyword">goto</span> END1
+:W
+wwwww
+<span class="keyword">goto</span> END1
+:X
+xxxxx
+<span class="keyword">goto</span> END1
+:Y
+yyyyy
+<span class="keyword">goto</span> END1
+:Z
+<span class="keyword">start</span> cmd /<span class="keyword">k</span> cd /<span class="keyword">d</span> <span class="keyword">D</span>:\fenggezone
+<span class="keyword">goto</span> END1
+:END1
+<span class="keyword">goto</span> <span class="keyword">START</span>
+&lt;:END2&gt;    &lt;/:END2&gt;</span>
 </code></pre></span>
       
     </div>
@@ -259,9 +391,7 @@ put 目标文件
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag">#linux</a>
-          
-            <a href="/tags/putty/" rel="tag">#putty</a>
+            <a href="/tags/cmd/" rel="tag">#cmd</a>
           
         </div>
       
@@ -270,13 +400,11 @@ put 目标文件
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/06/shell命令使用记录/" rel="prev">shell命令使用记录</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/02/Vim练级攻略/" rel="next">Vim练级攻略</a>
+              <a href="/2015/09/22/MongoDB基本操作/" rel="next">MongoDB基本操作</a>
             
           </div>
         </div>
@@ -301,8 +429,8 @@ put 目标文件
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/09/02/putty使用记录/"
-                   data-title="putty使用记录" data-url="http://yoursite.com/2015/09/02/putty使用记录/">
+              <div class="ds-thread" data-thread-key="2015/09/23/批处理之目录快速切换/"
+                   data-title="批处理之目录快速切换" data-url="http://yoursite.com/2015/09/23/批处理之目录快速切换/">
               </div>
             
           </div>
@@ -413,7 +541,7 @@ put 目标文件
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令终端中文乱码问题"><span class="nav-number">1.</span> <span class="nav-text">命令终端中文乱码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输文件"><span class="nav-number">2.</span> <span class="nav-text">传输文件</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
