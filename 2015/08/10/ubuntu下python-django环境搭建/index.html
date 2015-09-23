@@ -93,7 +93,7 @@ sudo easy install pip
 git
 版本管理工具实现多人合作开发
 sudo ap">
-<meta property="og:updated_time" content="2015-08-14T09:53:46.989Z">
+<meta property="og:updated_time" content="2015-09-23T01:45:54.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu下python+django环境搭建">
 <meta name="twitter:description" content="一，首先列出需要安装的东西：
@@ -350,8 +350,7 @@ sudo ap">
 </tr>
 </tbody>
 </table>
-<pre><code>到这里需要安装的东西就没有啦~
-</code></pre><h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
+<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
 <h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>      #会发现它已经在工作了</p>
 </span>
       
@@ -444,7 +443,7 @@ sudo ap">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
