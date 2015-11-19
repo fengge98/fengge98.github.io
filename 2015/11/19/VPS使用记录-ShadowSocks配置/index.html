@@ -43,7 +43,7 @@ VPS简介通常供应商会提供一个web管理界面，在这里通常可以�
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。
 VPS简介通常供应商会提供一个web管理界面，在这里通常可以完成系统重装，备份/还原，升级配置，续费…一些基本操作。根据在这里提供的ip地址和默认密码使用put">
-<meta property="og:updated_time" content="2015-11-19T02:08:15.094Z">
+<meta property="og:updated_time" content="2015-11-19T03:15:05.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-ShadowSocks配置">
 <meta name="twitter:description" content="前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。
@@ -233,11 +233,13 @@ VPS简介通常供应商会提供一个web管理界面，在这里通常可以�
       
         <span itemprop="articleBody"><p>前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。</p>
 <h2 id="VPS简介">VPS简介</h2><p>通常供应商会提供一个web管理界面，在这里通常可以完成系统重装，备份/还原，升级配置，续费…一些基本操作。<br>根据在这里提供的ip地址和默认密码使用putty进行连接。<br>使用以下命令安装一些基本工具</p>
-<pre><code>apt-<span class="built_in">get</span> <span class="keyword">update</span> //不知道啥问题要执行一遍这个命令
-apt-<span class="built_in">get</span> install <span class="keyword">vim</span>
-apt-<span class="built_in">get</span> install <span class="keyword">python</span>-pip
-想到再加
-</code></pre><h2 id="ShadowSocks服务端配置">ShadowSocks服务端配置</h2><p>过程</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">update</span> //不知道啥问题要执行一遍这个命令
+apt-<span class="keyword">get</span> <span class="keyword">install</span> vim
+apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip
+apt-<span class="keyword">get</span> <span class="keyword">install</span> git
+想到再加</span>
+</code></pre><h2 id="ShadowSocks配置">ShadowSocks配置</h2><p>服务端：</p>
+<p>过程</p>
 <pre><code>apt-<span class="keyword">get</span> install python-pip
 pip install shadowsocks
 find / -<span class="property">name</span> shadowsocks <span class="comment">#看看装在哪里了</span>
@@ -254,7 +256,13 @@ vim config.json          <span class="comment">#新建名为config.json的文件
 }
 
 apt-<span class="keyword">get</span> install python-m2crypto <span class="comment">#为了支持以上加密方式</span>
-</code></pre></span>
+vim /etc/rc.<span class="keyword">local</span>               <span class="comment">#设置为开机自启动添加以下信息</span>
+/usr/<span class="keyword">local</span>/bin/ssserver –c /etc/shadowsocks/config.json
+</code></pre><p>在VPS的web管理界面重启VPS。</p>
+<p>客户端：</p>
+<p>1.下载客户端填写config.json文件中对应的信息。<br>2.使用 SwitchySharp（chrome代理管理插件）或FoxyProxy（Firefox代理管理插件）代理设置到对应local_port端口</p>
+<p>以上就是Shadowsocks搭建全过程。</p>
+</span>
       
     </div>
 
@@ -274,6 +282,8 @@ apt-<span class="keyword">get</span> install python-m2crypto <span class="commen
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/19/VPS使用记录-BeEF平台/" rel="prev">'VPS使用记录-BeEF平台'</a>
             
           </div>
 
@@ -345,7 +355,7 @@ apt-<span class="keyword">get</span> install python-m2crypto <span class="commen
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -416,7 +426,7 @@ apt-<span class="keyword">get</span> install python-m2crypto <span class="commen
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPS简介"><span class="nav-number">1.</span> <span class="nav-text">VPS简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShadowSocks服务端配置"><span class="nav-number">2.</span> <span class="nav-text">ShadowSocks服务端配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPS简介"><span class="nav-number">1.</span> <span class="nav-text">VPS简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShadowSocks配置"><span class="nav-number">2.</span> <span class="nav-text">ShadowSocks配置</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

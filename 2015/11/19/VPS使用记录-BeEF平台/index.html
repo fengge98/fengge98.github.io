@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="VPS,xss," />
 
 
 
@@ -35,16 +35,28 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
+<meta name="description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
+在/etc/apt/sources.list文件中添加软件园
+deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
+apt-get update #更新软件源">
 <meta property="og:type" content="article">
-<meta property="og:title" content="系统参数查看">
-<meta property="og:url" content="http://yoursite.com/2015/11/09/系统参数查看/index.html">
+<meta property="og:title" content="'VPS使用记录-BeEF平台'">
+<meta property="og:url" content="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-11-09T06:18:52.097Z">
+<meta property="og:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
+在/etc/apt/sources.list文件中添加软件园
+deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
+apt-get update #更新软件源">
+<meta property="og:updated_time" content="2015-11-19T07:14:29.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="系统参数查看">
-<meta name="twitter:description">
+<meta name="twitter:title" content="'VPS使用记录-BeEF平台'">
+<meta name="twitter:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
+在/etc/apt/sources.list文件中添加软件园
+deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
+apt-get update #更新软件源">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -54,7 +66,7 @@
   };
 </script>
 
-  <title> 系统参数查看 | FengGe </title>
+  <title> 'VPS使用记录-BeEF平台' | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -193,7 +205,7 @@
           
           
             
-              系统参数查看
+              'VPS使用记录-BeEF平台'
             
           
         </h1>
@@ -202,8 +214,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-09T14:18:52+08:00" content="2015-11-09">
-            2015-11-09
+          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
+            2015-11-19
           </time>
         </span>
 
@@ -213,8 +225,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/09/系统参数查看/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/系统参数查看/" itemprop="commentsCount"></span>
+              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -228,24 +240,52 @@
       
 
       
-        <span itemprop="articleBody"></span>
+        <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
+<pre><code>在/etc/apt/sources.list文件中添加软件园
+deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
+apt-get <span class="operator"><span class="keyword">update</span> #更新软件源
+
+
+apt-<span class="keyword">get</span> <span class="keyword">install</span> ruby1<span class="number">.9</span><span class="number">.3</span>
+apt-<span class="keyword">get</span> <span class="keyword">install</span> libssl-dev libsqlite3-dev sqlite
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> <span class="keyword">g</span>++
+apt-<span class="keyword">get</span> <span class="keyword">install</span> git安装BeEF
+
+git <span class="keyword">clone</span> https://github.com/beefproject/beef
+apt-<span class="keyword">get</span> <span class="keyword">install</span> rubygems
+sudo gem <span class="keyword">install</span> bundler
+bundle <span class="keyword">install</span>            #这一步需要cd到beef目录下进行
+./beef  #运行
+访问地址 your_ip:<span class="number">3000</span>/ui/<span class="keyword">authentication</span>
+config.yaml  # 配置文件用来修改密码
+
+nohup ./beef &amp;     #设置为后台运行或使用下一句命令二者选其一
+setsid ./beef </span>
+</code></pre></span>
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VPS/" rel="tag">#VPS</a>
+          
+            <a href="/tags/xss/" rel="tag">#xss</a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/09/aphache性能优化记录/" rel="prev">aphache性能优化记录</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/19/python-socket编程相关记录/" rel="next">python socket编程相关记录</a>
+              <a href="/2015/11/19/VPS使用记录-ShadowSocks配置/" rel="next">VPS使用记录-ShadowSocks配置</a>
             
           </div>
         </div>
@@ -270,8 +310,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/09/系统参数查看/"
-                   data-title="系统参数查看" data-url="http://yoursite.com/2015/11/09/系统参数查看/">
+              <div class="ds-thread" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/"
+                   data-title="'VPS使用记录-BeEF平台'" data-url="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/">
               </div>
             
           </div>
@@ -311,7 +351,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

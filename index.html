@@ -194,6 +194,96 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/19/VPS使用记录-BeEF平台/" itemprop="url">
+                'VPS使用记录-BeEF平台'
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
+            2015-11-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
+<pre><code>在/etc/apt/sources.list文件中添加软件园
+deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
+apt-get <span class="operator"><span class="keyword">update</span> #更新软件源
+
+
+apt-<span class="keyword">get</span> <span class="keyword">install</span> ruby1<span class="number">.9</span><span class="number">.3</span>
+apt-<span class="keyword">get</span> <span class="keyword">install</span> libssl-dev libsqlite3-dev sqlite
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> <span class="keyword">g</span>++
+apt-<span class="keyword">get</span> <span class="keyword">install</span> git安装BeEF
+
+git <span class="keyword">clone</span> https://github.com/beefproject/beef
+apt-<span class="keyword">get</span> <span class="keyword">install</span> rubygems
+sudo gem <span class="keyword">install</span> bundler
+bundle <span class="keyword">install</span>            #这一步需要cd到beef目录下进行
+./beef  #运行
+访问地址 your_ip:<span class="number">3000</span>/ui/<span class="keyword">authentication</span>
+config.yaml  # 配置文件用来修改密码
+
+nohup ./beef &amp;     #设置为后台运行或使用下一句命令二者选其一
+setsid ./beef </span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/19/VPS使用记录-ShadowSocks配置/" itemprop="url">
                 VPS使用记录-ShadowSocks配置
               </a>
@@ -234,11 +324,13 @@
         
           <span itemprop="articleBody"><p>前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。</p>
 <h2 id="VPS简介">VPS简介</h2><p>通常供应商会提供一个web管理界面，在这里通常可以完成系统重装，备份/还原，升级配置，续费…一些基本操作。<br>根据在这里提供的ip地址和默认密码使用putty进行连接。<br>使用以下命令安装一些基本工具</p>
-<pre><code>apt-<span class="built_in">get</span> <span class="keyword">update</span> //不知道啥问题要执行一遍这个命令
-apt-<span class="built_in">get</span> install <span class="keyword">vim</span>
-apt-<span class="built_in">get</span> install <span class="keyword">python</span>-pip
-想到再加
-</code></pre><h2 id="ShadowSocks服务端配置">ShadowSocks服务端配置</h2><p>过程</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">update</span> //不知道啥问题要执行一遍这个命令
+apt-<span class="keyword">get</span> <span class="keyword">install</span> vim
+apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip
+apt-<span class="keyword">get</span> <span class="keyword">install</span> git
+想到再加</span>
+</code></pre><h2 id="ShadowSocks配置">ShadowSocks配置</h2><p>服务端：</p>
+<p>过程</p>
 <pre><code>apt-<span class="keyword">get</span> install python-pip
 pip install shadowsocks
 find / -<span class="property">name</span> shadowsocks <span class="comment">#看看装在哪里了</span>
@@ -255,7 +347,13 @@ vim config.json          <span class="comment">#新建名为config.json的文件
 }
 
 apt-<span class="keyword">get</span> install python-m2crypto <span class="comment">#为了支持以上加密方式</span>
-</code></pre></span>
+vim /etc/rc.<span class="keyword">local</span>               <span class="comment">#设置为开机自启动添加以下信息</span>
+/usr/<span class="keyword">local</span>/bin/ssserver –c /etc/shadowsocks/config.json
+</code></pre><p>在VPS的web管理界面重启VPS。</p>
+<p>客户端：</p>
+<p>1.下载客户端填写config.json文件中对应的信息。<br>2.使用 SwitchySharp（chrome代理管理插件）或FoxyProxy（Firefox代理管理插件）代理设置到对应local_port端口</p>
+<p>以上就是Shadowsocks搭建全过程。</p>
+</span>
         
       
     </div>
@@ -334,142 +432,6 @@ apt-<span class="keyword">get</span> install python-m2crypto <span class="commen
 <span class="constant">AddOutputFilterByType DEFLATE </span>text/html  text/png text/jpg text/css text/plain text/xml application/x-httpd-php application/x-javascript <span class="comment">#设置对压缩的文件</span>
 &lt;<span class="regexp">/ifmodule&gt;</span>
 </code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/09/系统参数查看/" itemprop="url">
-                系统参数查看
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-09T14:18:52+08:00" content="2015-11-09">
-            2015-11-09
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/11/09/系统参数查看/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/系统参数查看/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/19/python-socket编程相关记录/" itemprop="url">
-                python socket编程相关记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-19T16:34:14+08:00" content="2015-10-19">
-            2015-10-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/19/python-socket编程相关记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/19/python-socket编程相关记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"></span>
         
       
     </div>
@@ -1245,6 +1207,79 @@ expect:
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/16/浏览器解析算法/" itemprop="url">
+                浏览器解析算法
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-16T18:04:12+08:00" content="2015-09-16">
+            2015-09-16
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/16/浏览器解析算法/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/16/浏览器解析算法/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>简要记录记录下对浏览器解析过程的理解</p>
+<h2 id="符号解析算法">符号解析算法</h2><p><img src="http://img.blog.csdn.net/20150710105743538" alt="浏览器符号识别算法"><br>过程：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;html&gt;</span></span><br><span class="line"><span class="tag">&lt;body&gt;</span></span><br><span class="line"><span class="keyword">Hello</span> world</span><br><span class="line"><span class="tag">&lt;/body&gt;</span></span><br><span class="line"><span class="tag">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>以如上代码为例：<br>符号解析的范围包括了：HTML的<strong>开始标签、结束标签、属性及属性值</strong> 符号识别工作由<strong>分词器</strong>完成<br>1当读取到<code>&lt;</code>状态跳转到Tag open，读取到<code>h</code> 状态跳转到Tag name 之后的<code>tml</code> 均在此状态下循环，读取到<code>&gt;</code> 状态跳转回data<br>2标签<code>&lt;body&gt;</code> 识别过程同上<br>3在分词器识别Hello word过程中为每一个字符生成一个字符符号。<br>4识别结束标签的过程参照过程1。</p>
+<p>总结:<br>浏览器的解析过程远没有这么简单,理解浏览器解析的过程,可以找找XSS绕过浏览器自身的过滤器,再放两个比较特殊的例子.<br><a href="http://www.wooyun.org/whitehats/%E5%BF%83%E4%BC%A4%E7%9A%84%E7%98%A6%E5%AD%90" target="_blank" rel="external">心伤的瘦子17&amp;&amp;18</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1283,7 +1318,7 @@ expect:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
