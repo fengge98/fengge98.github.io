@@ -233,27 +233,27 @@
       
         
           <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
-<pre><code>在/etc/apt/sources.list文件中添加软件园
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1。9.*的版本
-apt-get <span class="operator"><span class="keyword">update</span> #更新软件源
+<pre><code>在/etc/apt/sources.list文件中添加软件源
+deb <span class="keyword">http</span>://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
+<span class="comment">#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本</span>
+apt-<span class="built_in">get</span> update <span class="comment">#更新软件源</span>
 
 
-apt-<span class="keyword">get</span> <span class="keyword">install</span> ruby1<span class="number">.9</span><span class="number">.3</span>
-apt-<span class="keyword">get</span> <span class="keyword">install</span> libssl-dev libsqlite3-dev sqlite
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> <span class="keyword">g</span>++
-apt-<span class="keyword">get</span> <span class="keyword">install</span> git安装BeEF
+apt-<span class="built_in">get</span> install ruby1<span class="number">.9</span><span class="number">.3</span>                             <span class="comment">#安装ruby 这步坑爹啊，一定要装高版本，换版本太折腾</span>
+apt-<span class="built_in">get</span> install libssl-dev libsqlite3-dev sqlite
+sudo apt-<span class="built_in">get</span> install g++
+git clone <span class="keyword">https</span>://github.com/beefproject/beef        <span class="comment">#安装BeEF</span>
+apt-<span class="built_in">get</span> install rubygems
+sudo gem install bundler
+bundle install                                        <span class="comment">#这一步需要cd到beef目录下进行</span>
 
-git <span class="keyword">clone</span> https://github.com/beefproject/beef
-apt-<span class="keyword">get</span> <span class="keyword">install</span> rubygems
-sudo gem <span class="keyword">install</span> bundler
-bundle <span class="keyword">install</span>            #这一步需要cd到beef目录下进行
-./beef  #运行
-访问地址 your_ip:<span class="number">3000</span>/ui/<span class="keyword">authentication</span>
-config.yaml  # 配置文件用来修改密码
 
-nohup ./beef &amp;     #设置为后台运行或使用下一句命令二者选其一
-setsid ./beef </span>
+./beef                                              <span class="comment">#运行</span>
+访问地址 your_ip:<span class="number">3000</span>/ui/authentication
+config.yaml                                          <span class="comment"># 配置文件用来修改密码</span>
+
+nohup ./beef &amp;                                         <span class="comment">#设置为后台运行或使用下一句命令二者选其一</span>
+setsid ./beef 
 </code></pre></span>
         
       
