@@ -194,6 +194,117 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/19/字符编码详解/" itemprop="url">
+                字符编码详解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-19T10:45:52+08:00" content="2015-08-19">
+            2015-08-19
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/19/字符编码详解/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/字符编码详解/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="基本概念">基本概念</h2><ul>
+<li><p><strong>字符是各种文字和符号的总称</strong>.</p>
+</li>
+<li><p><strong>字符集是字符的集合:</strong>，不同字符集包含的字符个数不同。常见字符集有：ASCII字符集、ISO8859字符集、GB2312字符集、BIG5字符集、GB18030字符集、Unicode字符集等.</p>
+</li>
+</ul>
+<p>使用哪些字符。也就是说哪些汉字，字母和符号会被收入标准中。所包含“字符”的集合就叫做“字符集”。规定每个“字符”分别用一个字节还是多个字节存储，用哪些字节来存储，这个规定就叫做“编码”。</p>
+<p>各个国家和地区在制定编码标准的时候，“字符的集合”和“编码”一般都是同时制定的。因此，平常我们所说的“字符集”，比如：GB2312, GBK, JIS 等，除了有“字符的集合”这层含义外，同时也包含了“编码”的含义。</p>
+<ul>
+<li><p><strong>编码：</strong>所谓编码就是用数字表示字符，例如用D7D6表示“字”。编码是将字符转化为数字的约定，规则。</p>
+</li>
+<li><p><strong>UNICODE(UCS,Unicode Character Set)字符集</strong>为各种语言的每一个字符设定了<strong>统一并且唯一</strong>的数字编号，其他的编码方式通常是针对某一区域的语言，文字设计，只支持特定的语言。</p>
+</li>
+<li><p><strong>代码页：</strong>规定了适用于特定区域的字符集，以及编码方式。可以理解为字符和字节数据的映射表。<strong>不同代码页的编号可以理解为内码</strong>，如936为简体中文GBK，950为正体中文Big5。</p>
+</li>
+<li><p><strong>utf(UCS Transformation format):</strong>UCS只规定了如何编码，并没有规定这些编码如何保存，传输。于是就有了utf，可以理解为utf是基于UCS的编码方案<br>UTF-8就是以8位为单元对UCS进行编码。从UCS-2到UTF-8的编码方式如下：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">UCS-2编码(16进制)</th>
+<th style="text-align:left">UTF-8 字节流(二进制)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0000 - 007F</td>
+<td style="text-align:left">0xxxxxxx</td>
+</tr>
+<tr>
+<td style="text-align:center">0080 - 07FF</td>
+<td style="text-align:left">110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td style="text-align:center">0800 - FFFF</td>
+<td style="text-align:left">1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody>
+</table>
+<p>例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001， 用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</p>
+<h2 id="总结">总结</h2><p>UCS为所有的语言的所有字符分配了统一并唯一的数字，UCS结合代码页对现在已经流行起来的一些编码方式做出支持。<br>文字实际上是以上述表格中utf-8的形式保存在系统中。当我们打开这个文件时(以utf-8为例)：<br>1.文字首先以utf-8的编码格式保存在文件中。<br>2.Windows在读取文件时通过BOM确认编码方式为utf-8，以选择对应的代码页65001。<br>3.按照编码规则 utf-8  -&gt;  unicode<br>4.Windows按照Unicode在指定代码页中查找字体图像，画到窗口上。</p>
+<p>参考资料<br><a href="http://www.fmddlmyy.cn/text6.html" target="_blank" rel="external">谈谈Unicode编码，简要解释UCS、UTF、BMP、BOM等名词</a><br><a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&amp;cof=FORID%3A11&amp;ie=UTF-8&amp;q=%E5%AD%97%E8%8A%82%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0&amp;sa.x=0&amp;sa.y=0" target="_blank" rel="external">阮一峰的网络日志</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/18/测评反馈记录/" itemprop="url">
                 测评反馈记录
               </a>
@@ -1319,107 +1430,6 @@ mysql&gt; revoke all privileges <span class="function_start"><span class="keywor
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/" itemprop="url">
-                SQL注入练级攻略(1)-用户增删改查
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-11T09:02:25+08:00" content="2015-08-11">
-            2015-08-11
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/SQL注入练级攻略-1-用户增删改查/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）</p>
-<h2 id="登录MYSQL:">登录MYSQL:</h2><pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><h2 id="查看：">查看：</h2><p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
-<pre><code>mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> mysql.user;<span class="comment">//或者使用以下两个分步语句</span>
-mysql&gt;show databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
-mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
-mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
-mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;                        <span class="comment">//查看当前用户</span>
-</code></pre><h2 id="创建：">创建：</h2><pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
-</code></pre><h2 id="修改：">修改：</h2><pre><code>mysql&gt;rename user <span class="built_in">test</span> to <span class="built_in">test</span>1;
-
-mysql&gt;<span class="built_in">set</span> password <span class="keyword">for</span> <span class="built_in">test</span> = password(<span class="string">'123'</span>)//对user表没有操作权限的用户可以用此命令修改自己的密码
-mysql&gt;update mysql.user <span class="built_in">set</span> password = password(<span class="string">'123'</span>) <span class="built_in">where</span> user = <span class="string">"test"</span> //修改任意用户密码
-</code></pre><h2 id="删除:">删除:</h2><pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
-
-mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1458,7 +1468,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1472,7 +1482,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
