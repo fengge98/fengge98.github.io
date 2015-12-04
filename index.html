@@ -194,8 +194,8 @@
           
           
             
-              <a class="post-title-link" href="/2015/12/04/HTTP和TCP协议的keepalive配置详解/" itemprop="url">
-                HTTP和TCP协议的keepalive配置详解
+              <a class="post-title-link" href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/" itemprop="url">
+                VPS使用记录-MetaSploit环境搭建
               </a>
             
           
@@ -205,7 +205,7 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-04T15:26:39+08:00" content="2015-12-04">
+          <time itemprop="dateCreated" datetime="2015-12-04T17:24:38+08:00" content="2015-12-04">
             2015-12-04
           </time>
         </span>
@@ -216,8 +216,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/04/HTTP和TCP协议的keepalive配置详解/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/HTTP和TCP协议的keepalive配置详解/" itemprop="commentsCount"></span>
+              <a href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/VPS使用记录-MetaSploit环境搭建/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -232,7 +232,16 @@
 
       
         
-          <span itemprop="articleBody"></span>
+          <span itemprop="articleBody"><h2 id="MetaSploit安装">MetaSploit安装</h2><p>安装之前需要ruby环境，在这里用的是ruby-2.1.7版本</p>
+<pre><code>git clone https://github.com/rapid7/metasploit-framework framework3 <span class="comment">#clone到frameword3文件夹中</span>
+gem <span class="keyword">install</span> bundler
+bundle <span class="keyword">install</span>
+</code></pre><p>在这一步碰到两个问题：</p>
+<p>1.gem install pg说缺包，apt-get又装不上，后来在source.list把原来装系统的时候默认的源都加上。<br>然后 apt-get update，然后提示错误说缺什么就安什么。</p>
+<p>2.错误提示找不到pcap.h文件，是在gem install pcaprub的时候报的错，原因还是缺包。<br>apt-get install libpcap-dev</p>
+<h2 id="postgresql安装">postgresql安装</h2><pre><code>sudo apt-<span class="built_in">get</span> installpostgresql postgresql-client postgresql-server-<span class="built_in">dev</span>-<span class="built_in">all</span> -y
+</code></pre><p>没弄完下周再弄</p>
+</span>
         
       
     </div>
@@ -318,7 +327,8 @@ rbenv versions <span class="preprocessor">#显示当前已安装和正在使用�
 <span class="built_in">local</span>：为本地的一个特定项目设置 Ruby 版本，注意这将覆盖全局设置。
 <span class="built_in">shell</span>：针对 <span class="built_in">shell</span> 设置 Ruby 版本，该设置将覆盖 <span class="built_in">global</span> 和 <span class="built_in">local</span> 设置。
 $ rbenv <span class="built_in">global</span> <span class="number">2.1</span><span class="number">.5</span> <span class="comment">#切换到2.1.5</span>
-</code></pre></span>
+</code></pre><p>大概就是这些~</p>
+</span>
         
       
     </div>
@@ -1178,14 +1188,14 @@ threads = []
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
