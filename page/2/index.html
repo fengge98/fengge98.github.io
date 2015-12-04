@@ -194,6 +194,283 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/23/python操作数据库/" itemprop="url">
+                python操作数据库
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-23T09:48:38+08:00" content="2015-09-23">
+            2015-09-23
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/23/python操作数据库/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/23/python操作数据库/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>关系型数据库比较适合事务型的业务,而非关系型比较适合大量数据读写的情况.</p>
+</blockquote>
+<p>用python进行了mongodb数据库的一些操作,加上之前mysql相关的一些内容在这里一并记录下来.</p>
+<h2 id="MongDB">MongDB</h2><p>需要pymongo模块,在3.0以后的版本就不要bson模块了</p>
+<pre><code>from pymongo import MongoClient
+
+<span class="keyword">client</span> = MongoClient(<span class="keyword">server</span>,port)
+db = <span class="keyword">client</span>[database]  <span class="preprocessor">#数据库名</span>
+connention = db[table] <span class="preprocessor">#集合名</span>
+connention.insert_many([{},{},{}])
+<span class="preprocessor">#传入insert_many中的参数是一个列表,列表元素是字典</span>
+</code></pre><h2 id="MySql">MySql</h2><p>需要MySQLdb模块</p>
+<pre><code>#coding=utf-<span class="number">8</span>
+import MySQLdb
+
+conn = MySQLdb.connect(
+        host = <span class="string">'localhost'</span>,
+        port = <span class="number">3306</span>,
+        user = <span class="string">'root'</span>,
+        passwd = <span class="string">'123'</span>,
+        db = <span class="string">'test'</span>,)
+cur = conn.<span class="function"><span class="title">cursor</span><span class="params">()</span></span>
+cur.<span class="function"><span class="title">execute</span><span class="params">(<span class="string">"insert into admin (id,username) values (1,\"123a\")"</span>)</span></span>
+conn.<span class="function"><span class="title">commit</span><span class="params">()</span></span>
+cur.<span class="function"><span class="title">close</span><span class="params">()</span></span>
+conn.<span class="function"><span class="title">close</span><span class="params">()</span></span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/22/MongoDB基本操作/" itemprop="url">
+                MongoDB基本操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-22T15:05:24+08:00" content="2015-09-22">
+            2015-09-22
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/22/MongoDB基本操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/22/MongoDB基本操作/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来</p>
+<h2 id="打开服务">打开服务</h2><pre><code>mongod<span class="class">.exe</span> --dbpath = <span class="string">"E:\db"</span>
+#打开服务并指定数据库位置
+</code></pre><h2 id="查看操作">查看操作</h2><pre><code>在程序的bin目录下用过mongo.exe进入命令行
+mongodb&gt; show dbs
+<span class="preprocessor">#显示所有数据库</span>
+mongodb&gt; use admin
+<span class="preprocessor">#使用admin库,如果没有名为admin的库则创建</span>
+mongodb&gt; show collections
+<span class="preprocessor">#显示所有集合</span>
+mongodb&gt; db.createCollection(<span class="string">"mail"</span>)
+<span class="preprocessor">#创建名为mail的集合</span>
+mongodb&gt; db.mail.find({<span class="string">"mail"</span>:<span class="string">"admin@163.com"</span>})
+<span class="preprocessor">#显示集合mail中mail值为:admin@163.com的值,如无条件则显示全部</span>
+</code></pre><h2 id="删除操作">删除操作</h2><pre><code>mongodb&gt; db.<span class="function"><span class="title">dropDatebase</span><span class="params">()</span></span>
+#删除当前数据库
+mongodb&gt; db<span class="class">.test</span><span class="class">.drop</span>()
+#删除test集合
+mongodb&gt; db<span class="class">.test</span><span class="class">.remove</span>()
+#删除记录慎用不可逆
+</code></pre><h2 id="帮助">帮助</h2><pre><code>mongodb&gt; <span class="keyword">db</span>.<span class="keyword">help</span>()
+mongodb&gt; <span class="keyword">help</span>
+</code></pre><p>手打一遍加深印象</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/18/python接发http请求/" itemprop="url">
+                python接发http请求
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:37:19+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/python接发http请求/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/python接发http请求/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="使用httplib时的设置方式">使用httplib时的设置方式</h2><pre><code><span class="keyword">import</span> httplib,urllib,urllib2;   
+params = urllib.urlencode({ 'param':<span class="string">"55B2A1EDA8B09D13"</span>,
+                            'js_sfl':<span class="number">2</span>,
+                            'codetxt':'<span class="number">532832</span>'});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};   
+conn = httplib.<span class="type">HTTPConnection</span>(<span class="string">"localhost"</span>,<span class="number">8555</span>);<span class="comment">#在此步骤设置代理地址,可以在代理中看到请求,方便调试</span>
+conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,body=params,headers=headers);      
+response = conn.getresponse();     
+conn.close();
+</code></pre><h2 id="使用urllib2时的设置方式">使用urllib2时的设置方式</h2><pre><code>import httplib,urllib,urllib2;   
+<span class="keyword">params</span> = urllib.urlencode({ <span class="string">'param'</span>:<span class="string">"55B2A1EDA8B09D13"</span>,
+                            <span class="string">'js_sfl'</span>:<span class="number">2</span>,
+                            <span class="string">'codetxt'</span>:<span class="string">'532832'</span>});       
+headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang.cn"</span>,
+            <span class="string">"Content-Length"</span>: <span class="string">"81"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span>};       
+opener = urllib2.build_opener( urllib2.ProxyHandler({<span class="string">'http'</span>:<span class="string">"localhost:8555"</span>}) )<span class="preprocessor">#在这一步设置代理地址和端口,可以看到请求</span>
+urllib2.install_opener(opener)
+sContent = urllib2.urlopen(<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>)
+req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,data=<span class="keyword">params</span>)  
+</code></pre><p>总结:<br>1.可以在burp的repeater模块看看哪些参数可以删哪些不可以删.<br>2.header和body中有的参数不可以没有.<br>3.在连接主机的那一步通过设置代理,可以在代理中查看请求的详情,方便调试.<br>4.使用httplib.HTTPConnection的对象调用request的时候将参数传入body时会出现限定长度的情况,目前还没有解决</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/18/SQL注入练级攻略8-延时sql注入脚本/" itemprop="url">
                 SQL注入练级攻略8-延时sql注入脚本
               </a>
@@ -1090,286 +1367,6 @@ php+apache : id = <span class="number">3</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/20/python编码操作/" itemprop="url">
-                python编码操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-20T09:33:07+08:00" content="2015-08-20">
-            2015-08-20
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/20/python编码操作/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/20/python编码操作/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>将所有字符串按字符串储存时的编码方式解码(decode)为unicode编码进行操作.</p>
-<h2 id="查看一个汉字的GBK,unicode,utf-8编码">查看一个汉字的GBK,unicode,utf-8编码</h2><ul>
-<li><p>GBK</p>
-<p>  <code>//输入中文时默认的编码方式为gbk</code><br>  <code>&gt;&gt;&gt;s = &quot;汉&quot;</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xba\xba&#39;</code></p>
-</li>
-<li><p>unicode</p>
-<p>  <code>&gt;&gt;&gt;s = s.decode(&quot;gbk&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>u&#39;\u6c49&#39;</code></p>
-</li>
-<li><p>utf-8</p>
-<p>  <code>&gt;&gt;&gt;s = s.encode(&quot;utf-8&quot;)</code><br>  <code>&gt;&gt;&gt;s</code><br>  <code>&#39;\xe6\xb1\x89&#39;</code></p>
-</li>
-</ul>
-<h2 id="查看英文字母的ascii码">查看英文字母的ascii码</h2><p>注：ascii码是世界上最先使用的编码方式，在后来的一系列编码方式中，不管是gbk ucnicde 还是utf-8对于asii码都是向下兼容的，也就是说编码结果是一样的（在所占字节数上可能会有差异）.</p>
-<pre><code>&gt;&gt;&gt;<span class="string">"admin"</span>.<span class="function"><span class="title">encode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
-<span class="string">'61646d696e'</span>
-&gt;&gt;&gt;<span class="string">'61646d696e'</span>.<span class="function"><span class="title">decode</span><span class="params">(<span class="string">"hex"</span>)</span></span>
-<span class="string">'admin'</span>
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
-                cmd命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
-</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
-//查看现有账户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
-//查看admin账户详情
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
-//添加用户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
-//删除
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/字符编码详解/" itemprop="url">
-                字符编码详解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T10:45:52+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/字符编码详解/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/字符编码详解/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="基本概念">基本概念</h2><ul>
-<li><p><strong>字符是各种文字和符号的总称</strong>.</p>
-</li>
-<li><p><strong>字符集是字符的集合:</strong>，不同字符集包含的字符个数不同。常见字符集有：ASCII字符集、ISO8859字符集、GB2312字符集、BIG5字符集、GB18030字符集、Unicode字符集等.</p>
-</li>
-</ul>
-<p>使用哪些字符。也就是说哪些汉字，字母和符号会被收入标准中。所包含“字符”的集合就叫做“字符集”。规定每个“字符”分别用一个字节还是多个字节存储，用哪些字节来存储，这个规定就叫做“编码”。</p>
-<p>各个国家和地区在制定编码标准的时候，“字符的集合”和“编码”一般都是同时制定的。因此，平常我们所说的“字符集”，比如：GB2312, GBK, JIS 等，除了有“字符的集合”这层含义外，同时也包含了“编码”的含义。</p>
-<ul>
-<li><p><strong>编码：</strong>所谓编码就是用数字表示字符，例如用D7D6表示“字”。编码是将字符转化为数字的约定，规则。</p>
-</li>
-<li><p><strong>UNICODE(UCS,Unicode Character Set)字符集</strong>为各种语言的每一个字符设定了<strong>统一并且唯一</strong>的数字编号，其他的编码方式通常是针对某一区域的语言，文字设计，只支持特定的语言。</p>
-</li>
-<li><p><strong>代码页：</strong>规定了适用于特定区域的字符集，以及编码方式。可以理解为字符和字节数据的映射表。<strong>不同代码页的编号可以理解为内码</strong>，如936为简体中文GBK，950为正体中文Big5。</p>
-</li>
-<li><p><strong>utf(UCS Transformation format):</strong>UCS只规定了如何编码，并没有规定这些编码如何保存，传输。于是就有了utf，可以理解为utf是基于UCS的编码方案<br>UTF-8就是以8位为单元对UCS进行编码。从UCS-2到UTF-8的编码方式如下：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">UCS-2编码(16进制)</th>
-<th style="text-align:left">UTF-8 字节流(二进制)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0000 - 007F</td>
-<td style="text-align:left">0xxxxxxx</td>
-</tr>
-<tr>
-<td style="text-align:center">0080 - 07FF</td>
-<td style="text-align:left">110xxxxx 10xxxxxx</td>
-</tr>
-<tr>
-<td style="text-align:center">0800 - FFFF</td>
-<td style="text-align:left">1110xxxx 10xxxxxx 10xxxxxx</td>
-</tr>
-</tbody>
-</table>
-<p>例如“汉”字的Unicode编码是6C49。6C49在0800-FFFF之间，所以肯定要用3字节模板了：1110xxxx 10xxxxxx 10xxxxxx。将6C49写成二进制是：0110 110001 001001， 用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001，即E6 B1 89。</p>
-<h2 id="总结">总结</h2><p>UCS为所有的语言的所有字符分配了统一并唯一的数字，UCS结合代码页对现在已经流行起来的一些编码方式做出支持。<br>文字实际上是以上述表格中utf-8的形式保存在系统中。当我们打开这个文件时(以utf-8为例)：<br>1.文字首先以utf-8的编码格式保存在文件中。<br>2.Windows在读取文件时通过BOM确认编码方式为utf-8，以选择对应的代码页65001。<br>3.按照编码规则 utf-8  -&gt;  unicode<br>4.Windows按照Unicode在指定代码页中查找字体图像，画到窗口上。</p>
-<p>参考资料<br><a href="http://www.fmddlmyy.cn/text6.html" target="_blank" rel="external">谈谈Unicode编码，简要解释UCS、UTF、BMP、BOM等名词</a><br><a href="http://www.ruanyifeng.com/blog/search.html?cx=016304377626642577906%3Ab_e9skaywzq&amp;cof=FORID%3A11&amp;ie=UTF-8&amp;q=%E5%AD%97%E8%8A%82%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0&amp;sa.x=0&amp;sa.y=0" target="_blank" rel="external">阮一峰的网络日志</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1408,21 +1405,21 @@ php+apache : id = <span class="number">3</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -45,7 +45,7 @@ python提供了socket和socketserver两个基本模块，在这里主要记录�
 <meta property="og:description" content="之前验证xml实体攻击漏洞的时候用到了python的socket模块当时没有记录下来，今天又要翻半天文档才弄明白其中的用法，在这里记录下来
 python提供了socket和socketserver两个基本模块，在这里主要记录下socket模块的用法
 服务端代码s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #创建套接字号s，for TCP">
-<meta property="og:updated_time" content="2015-11-26T09:45:26.993Z">
+<meta property="og:updated_time" content="2015-12-04T07:19:33.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket编程学习记录">
 <meta name="twitter:description" content="之前验证xml实体攻击漏洞的时候用到了python的socket模块当时没有记录下来，今天又要翻半天文档才弄明白其中的用法，在这里记录下来
@@ -239,7 +239,7 @@ python提供了socket和socketserver两个基本模块，在这里主要记录�
 <h2 id="服务端代码">服务端代码</h2><pre><code>s = socket.<span class="function"><span class="title">socket</span><span class="params">(socket.AF_INET,socket.SOCK_STREAM)</span></span> #创建套接字号s，<span class="keyword">for</span> TCP
 可以在python解释器中通过dir（s）查看支持哪些方法
 s.<span class="function"><span class="title">bind</span><span class="params">((host,port)</span></span>)                                    #bind中的参数是元组类型
-s.<span class="function"><span class="title">listen</span><span class="params">(<span class="number">1</span>)</span></span>                                         #监听
+s.<span class="function"><span class="title">listen</span><span class="params">(<span class="number">1</span>)</span></span>                                         #服务器允许的socket连接数，<span class="number">0</span>-<span class="number">5</span>
 conn,addr = s.<span class="function"><span class="title">accept</span><span class="params">()</span></span>                                 #这一步写进循环中
 #当客户端调用s.<span class="function"><span class="title">connect</span><span class="params">()</span></span>进行TCP连接（发生三次握手过程）
 s<span class="class">.recv</span>,s.<span class="function"><span class="title">sendall</span><span class="params">()</span></span>
@@ -247,16 +247,7 @@ s.close
 </code></pre><h2 id="客户端代码">客户端代码</h2><pre><code><span class="keyword">s</span> = <span class="keyword">socket</span>.<span class="keyword">socket</span>(<span class="keyword">socket</span>.AF_INET,<span class="keyword">socket</span>.SOCK_STREAM) <span class="comment">#创建套接字号s，for TCP</span>
 <span class="keyword">s</span>.<span class="keyword">connect</span>((host,port))
 <span class="keyword">s</span>.<span class="keyword">close</span>
-</code></pre><h2 id="TCP三次握手">TCP三次握手</h2><p>因为socket模块算是实现TCP/UDP协议的api，这里记录下三次握手的过程。</p>
-<pre><code><span class="number">1.</span>客户端--&gt;服务端：SYN=<span class="number">1</span> seq_number=x
-请求连接的标志SYN=<span class="number">1</span>，ACK=<span class="number">0</span>，并产生一个随机序号x
-<span class="number">2.</span>服务端--&gt;客户端：SYN=<span class="number">1</span> ACK=<span class="number">1</span> ack_number=x+<span class="number">1</span> 生成seq_number=y
-server收到<span class="number">1</span>时返回<span class="number">2</span>，在这一步ack_number生成规则为x+<span class="number">1</span>，随机生成seq_number为y
-<span class="number">3.</span>客户端--&gt;服务端: ACK=<span class="number">1</span> seq_number=x+<span class="number">1</span> ack_number=y+<span class="number">1</span>
-客户端确认<span class="number">2</span>中ack_number的值是否为x+<span class="number">1</span>，并根据<span class="number">2</span>中生成的seq_number生成新的ack_number发送给服务端
-</code></pre><p>在这里看第三步的确认显得有些多余，但是这一步是TCP实现点对点单线连接不可缺少的一步。假想一个场景：</p>
-<p>A–&gt;B 发送了两个请求1，总总原因两个包不可能同时到达B。<br>如果没有了步骤3就建立了两个TCP连接，但是有了步骤3情况就不一样了。<br>擦 尼玛没想明白–想明白了再补</p>
-</span>
+</code></pre></span>
       
     </div>
 
@@ -274,6 +265,8 @@ server收到<span class="number">1</span>时返回<span class="number">2</span>�
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/01/性能测试心得体会篇/" rel="prev">性能测试心得体会篇(一)</a>
             
           </div>
 
@@ -345,21 +338,21 @@ server收到<span class="number">1</span>时返回<span class="number">2</span>�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -416,7 +409,7 @@ server收到<span class="number">1</span>时返回<span class="number">2</span>�
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端代码"><span class="nav-number">1.</span> <span class="nav-text">服务端代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端代码"><span class="nav-number">2.</span> <span class="nav-text">客户端代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP三次握手"><span class="nav-number">3.</span> <span class="nav-text">TCP三次握手</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端代码"><span class="nav-number">1.</span> <span class="nav-text">服务端代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端代码"><span class="nav-number">2.</span> <span class="nav-text">客户端代码</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
