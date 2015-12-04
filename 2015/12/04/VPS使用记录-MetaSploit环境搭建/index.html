@@ -51,7 +51,7 @@ gem install bundler
 bundle install
 在这一步碰到两个问题：
 1.gem install pg说缺包">
-<meta property="og:updated_time" content="2015-12-04T10:19:47.870Z">
+<meta property="og:updated_time" content="2015-12-04T10:23:06.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-MetaSploit环境搭建">
 <meta name="twitter:description" content="MetaSploit安装安装之前需要ruby环境，在这里用的是ruby-2.1.7版本
@@ -248,7 +248,7 @@ bundle install
 gem <span class="keyword">install</span> bundler
 bundle <span class="keyword">install</span>
 </code></pre><p>在这一步碰到两个问题：</p>
-<p>1.gem install pg说缺包，apt-get又装不上，后来在source.list把原来装系统的时候默认的源都加上。<br>然后 apt-get update，然后提示错误说缺什么就安什么。</p>
+<p>1.gem install pg说缺包，apt-get又装不上，后来在source.list把原来装系统的时候默认的源都加上。然后 apt-get update，然后提示错误说缺什么就安什么。</p>
 <p>2.错误提示找不到pcap.h文件，是在gem install pcaprub的时候报的错，原因还是缺包。<br>apt-get install libpcap-dev</p>
 <h2 id="postgresql安装">postgresql安装</h2><pre><code>sudo apt-<span class="built_in">get</span> installpostgresql postgresql-client postgresql-server-<span class="built_in">dev</span>-<span class="built_in">all</span> -y
 </code></pre><p>没弄完下周再弄</p>
