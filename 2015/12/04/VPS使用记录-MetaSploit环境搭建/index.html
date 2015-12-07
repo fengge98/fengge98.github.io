@@ -51,7 +51,7 @@ gem install bundler
 bundle install
 在这一步碰到两个问题：
 1.gem install pg说缺包">
-<meta property="og:updated_time" content="2015-12-04T10:23:06.577Z">
+<meta property="og:updated_time" content="2015-12-07T02:03:33.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-MetaSploit环境搭建">
 <meta name="twitter:description" content="MetaSploit安装安装之前需要ruby环境，在这里用的是ruby-2.1.7版本
@@ -250,9 +250,27 @@ bundle <span class="keyword">install</span>
 </code></pre><p>在这一步碰到两个问题：</p>
 <p>1.gem install pg说缺包，apt-get又装不上，后来在source.list把原来装系统的时候默认的源都加上。然后 apt-get update，然后提示错误说缺什么就安什么。</p>
 <p>2.错误提示找不到pcap.h文件，是在gem install pcaprub的时候报的错，原因还是缺包。<br>apt-get install libpcap-dev</p>
-<h2 id="postgresql安装">postgresql安装</h2><pre><code>sudo apt-<span class="built_in">get</span> installpostgresql postgresql-client postgresql-server-<span class="built_in">dev</span>-<span class="built_in">all</span> -y
-</code></pre><p>没弄完下周再弄</p>
-</span>
+<h2 id="postgresql安装">postgresql安装</h2><pre><code>sudo apt-get installpostgresql postgresql-client postgresql-server-dev-all -y
+<span class="preprocessor">#postgresql安装的时候会默认创建一个名为postgresql的用户</span>
+su postgres                 <span class="preprocessor">#切换到postgresql用户</span>
+createuser msf -P -S -R -D     <span class="preprocessor">#创建名为msf的数据库用户，记住在这一步输入的密码</span>
+createdb -O msf msf            <span class="preprocessor">#创建名为msf的数据库</span>
+vim /home/framework3/condig/database.yml  <span class="preprocessor">#在这个目录下创建名为database.yml的文件，该目录下有一个后缀为example的参考文件，添加如下信息。</span>
+
+production:
+  adapter: postgresql
+  database: msf
+  username: msf
+  password: 密码
+  host: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>
+  port: <span class="number">5432</span>
+  pool: <span class="number">75</span>
+  timeout: <span class="number">5</span>
+
+msfconsole     <span class="preprocessor">#打开命令行</span>
+msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
+[*] postgresql connected to msf
+</code></pre></span>
       
     </div>
 
