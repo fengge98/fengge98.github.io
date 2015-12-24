@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="VPS,xss," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -35,28 +35,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
-<meta property="og:type" content="article">
-<meta property="og:title" content="VPS使用记录-BeEF平台">
-<meta property="og:url" content="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/index.html">
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FengGe">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
-<meta property="og:updated_time" content="2015-11-20T07:36:21.095Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VPS使用记录-BeEF平台">
-<meta name="twitter:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
+<meta name="twitter:title" content="FengGe">
+<meta name="twitter:description">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -66,7 +53,7 @@ apt-get update #更新软件源">
   };
 </script>
 
-  <title> VPS使用记录-BeEF平台 | FengGe </title>
+  <title> FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -84,7 +71,9 @@ apt-get update #更新软件源">
 
 
 
-  <div class="container one-column page-post-detail">
+  <div class="container one-column 
+   page-home 
+">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -192,9 +181,9 @@ apt-get update #更新软件源">
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
@@ -205,7 +194,9 @@ apt-get update #更新软件源">
           
           
             
-              VPS使用记录-BeEF平台
+              <a class="post-title-link" href="/2015/08/07/密码找回漏洞总结/" itemprop="url">
+                密码找回漏洞总结
+              </a>
             
           
         </h1>
@@ -214,19 +205,34 @@ apt-get update #更新软件源">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
-            2015-11-19
+          <time itemprop="dateCreated" datetime="2015-08-07T16:58:06+08:00" content="2015-08-07">
+            2015-08-07
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/逻辑漏洞/" itemprop="url" rel="index">
+                  <span itemprop="name">逻辑漏洞</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
+              <a href="/2015/08/07/密码找回漏洞总结/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/密码找回漏洞总结/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,83 +246,50 @@ apt-get update #更新软件源">
       
 
       
-        <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
-<pre><code>在/etc/apt/sources.list文件中添加软件源
-deb <span class="keyword">http</span>://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-<span class="comment">#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本</span>
-apt-<span class="built_in">get</span> update <span class="comment">#更新软件源</span>
-
-
-apt-<span class="built_in">get</span> install ruby1<span class="number">.9</span><span class="number">.3</span>                             <span class="comment">#安装ruby 这步坑爹啊，一定要装高版本，换版本太折腾</span>
-apt-<span class="built_in">get</span> install libssl-dev libsqlite3-dev sqlite
-sudo apt-<span class="built_in">get</span> install g++
-git clone <span class="keyword">https</span>://github.com/beefproject/beef        <span class="comment">#安装BeEF</span>
-apt-<span class="built_in">get</span> install rubygems
-sudo gem install bundler
-bundle install                                        <span class="comment">#这一步需要cd到beef目录下进行</span>
-
-
-./beef                                              <span class="comment">#运行</span>
-访问地址 your_ip:<span class="number">3000</span>/ui/authentication
-config.yaml                                          <span class="comment"># 配置文件用来修改密码</span>
-
-nohup ./beef &amp;                                         <span class="comment">#设置为后台运行或使用下一句命令二者选其一</span>
-setsid ./beef 
+        
+          <span itemprop="articleBody"><h1 id="概述">概述</h1><pre><code>大部分是乌云知识库中的内容，已经总结的很好了，再按照自己的思路过一遍。
+</code></pre><h2 id="1-伪造请求（未注册的情况下）">1.伪造请求（未注册的情况下）</h2><pre><code>在请求密码修改的过程中，修改账号的手机或邮箱等联系方式，在接受到验证码后进行密码修改。
+</code></pre><p><a href="http://www.wooyun.org/bugs/wooyun-2013-020425" target="_blank" rel="external">OPPO修改任意帐号密码-2</a><br><a href="http://www.wooyun.org/bugs/wooyun-2013-020532" target="_blank" rel="external">OPPO修改任意帐号密码-3</a><br>修改了接受密码手机，并且通过对账户类型的修改绕过边界。</p>
+<h2 id="2-使用正常账户请求修改获取token">2.使用正常账户请求修改获取token</h2><pre><code><span class="number">1.</span> 爆破（绕过次数验证）
+</code></pre><p> <a href="http://www.wooyun.org/bugs/wooyun-2012-011833" target="_blank" rel="external">当当网任意用户密码修改漏洞</a><br> 原因：验证码过于简单，并且没有对请求修改次数做出限制。<br> <a href="http://www.wooyun.org/bugs/wooyun-2012-011720" target="_blank" rel="external">微信任意用户密码修改漏洞</a><br> 原因：虽然设置了请求阀值，但被猜解除了验证方式，病找到了绕过方式，验证码为4-5位的数字容易爆破</p>
+<pre><code><span class="number">2.</span> 猜解
+</code></pre><p> <a href="http://www.wooyun.org/bugs/wooyun-2012-08333" target="_blank" rel="external">奇虎360任意密码修改</a><br> 原因：使用了特定值的加密作为token，被猜解到使用了时间戳的MD5值。在实际过程中我们也可以尝试用户名，手机，邮箱，等等的不同加密方式。</p>
+<pre><code><span class="number">3.</span> 在客户端寻找token信息
+</code></pre><p> <a href="http://www.wooyun.org/bugs/wooyun-2012-05630" target="_blank" rel="external">走秀网秀团任意密码修改缺陷</a><br> 原因：没有严格控制token，在返回的url中发现token信息<br><a href="http://www.wooyun.org/bugs/wooyun-2012-04728" target="_blank" rel="external"> sohu邮箱任意用户密码重置</a><br>原因：找回密码问题的答案在页面源码中可以看到…… </p>
+<h2 id="3-通过验证提交修改请求时存在的漏洞">3.通过验证提交修改请求时存在的漏洞</h2><pre><code>在请求过程中修改用户uid
+</code></pre><p> <a href="http://www.wooyun.org/bugs/wooyun-2012-012572" target="_blank" rel="external">身份通任意密码修改-泄漏大量公民信息</a><br> <a href="http://www.wooyun.org/bugs/wooyun-2013-018263" target="_blank" rel="external">携程旅行网任意老板密码修改(庆在wooyun第100洞)</a><br> 原因：没有管理好token和用户间一对一的关系，导致在最后提交请求的过程中修改了uid导致任意用户密码重置。</p>
+<h2 id="4-边界绕过特殊案例">4.边界绕过特殊案例</h2><p><a href="http://www.wooyun.org/bugs/wooyun-2012-08307" target="_blank" rel="external">网易邮箱可直接修改其用户密码</a><br>过程：注册过程的绑定手机页面用过参数修改，将任意账号绑定至可控手机，在通过密码找回流程找回</p>
+<pre><code>以上资料均来自乌云知识库~
 </code></pre></span>
+        
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/VPS/" rel="tag">#VPS</a>
-          
-            <a href="/tags/xss/" rel="tag">#xss</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/11/20/VPS使用记录-使用Tor搭建匿名服务器/" rel="prev">VPS使用记录-使用Tor搭建匿名服务器</a>
-            
-          </div>
-
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/11/19/VPS使用记录-ShadowSocks配置/" rel="next">VPS使用记录-ShadowSocks配置</a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
 
  </div>
 
         
 
-        
-          <div class="comments" id="comments">
-            
-              <div class="ds-thread" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/"
-                   data-title="VPS使用记录-BeEF平台" data-url="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/">
-              </div>
-            
-          </div>
         
       </div>
 
@@ -333,15 +306,6 @@ setsid ./beef
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
       
 
       <section class="site-overview">
@@ -418,17 +382,6 @@ setsid ./beef
 
       </section>
 
-      
-        <section class="post-toc-wrap sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator"></div>
-          <div class="post-toc">
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-        </section>
       
 
     </div>
@@ -516,165 +469,6 @@ setsid ./beef
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  
-<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
-
-
-<script type="text/javascript" id="sidebar.toc.highlight">
-  $(document).ready(function () {
-    var tocSelector = '.post-toc';
-    var $tocSelector = $(tocSelector);
-    var activeCurrentSelector = '.active-current';
-
-    $tocSelector
-      .on('activate.bs.scrollspy', function () {
-        var $currentActiveElement = $(tocSelector + ' .active').last();
-
-        removeCurrentActiveClass();
-        $currentActiveElement.addClass('active-current');
-
-        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
-      })
-      .on('clear.bs.scrollspy', function () {
-        removeCurrentActiveClass();
-      });
-
-    function removeCurrentActiveClass () {
-      $(tocSelector + ' ' + activeCurrentSelector)
-        .removeClass(activeCurrentSelector.substring(1));
-    }
-
-    function processTOC () {
-      getTOCMaxHeight();
-      toggleTOCOverflowIndicators();
-    }
-
-    function getTOCMaxHeight () {
-      var height = $('.sidebar').height() -
-                   $tocSelector.position().top -
-                   $('.post-toc-indicator-bottom').height();
-
-      $tocSelector.css('height', height);
-
-      return height;
-    }
-
-    function toggleTOCOverflowIndicators () {
-      tocOverflowIndicator(
-        '.post-toc-indicator-top',
-        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
-      );
-
-      tocOverflowIndicator(
-        '.post-toc-indicator-bottom',
-        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
-      )
-    }
-
-    $(document).on('sidebar.motion.complete', function () {
-      processTOC();
-    });
-
-    $('body').scrollspy({ target: tocSelector });
-    $(window).on('resize', function () {
-      if ( $('.sidebar').hasClass('sidebar-active') ) {
-        processTOC();
-      }
-    });
-
-    onScroll($tocSelector);
-
-    function onScroll (element) {
-      element.on('mousewheel DOMMouseScroll', function (event) {
-          var oe = event.originalEvent;
-          var delta = oe.wheelDelta || -oe.detail;
-
-          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-          event.preventDefault();
-
-          toggleTOCOverflowIndicators();
-      });
-    }
-
-    function tocOverflowIndicator (indicator, action) {
-      var $indicator = $(indicator);
-      var opacity = action === 'show' ? 0.4 : 0;
-      $indicator.velocity ?
-        $indicator.velocity('stop').velocity({
-          opacity: opacity
-        }, { duration: 100 }) :
-        $indicator.stop().animate({
-          opacity: opacity
-        }, 100);
-    }
-
-  });
-</script>
-
-<script type="text/javascript" id="sidebar.nav">
-  $(document).ready(function () {
-    var html = $('html');
-    var TAB_ANIMATE_DURATION = 200;
-    var hasVelocity = $.isFunction(html.velocity);
-
-    $('.sidebar-nav li').on('click', function () {
-      var item = $(this);
-      var activeTabClassName = 'sidebar-nav-active';
-      var activePanelClassName = 'sidebar-panel-active';
-      if (item.hasClass(activeTabClassName)) {
-        return;
-      }
-
-      var currentTarget = $('.' + activePanelClassName);
-      var target = $('.' + item.data('target'));
-
-      hasVelocity ?
-        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
-          target
-            .velocity('stop')
-            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
-            .addClass(activePanelClassName);
-        }) :
-        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
-          currentTarget.hide();
-          target
-            .stop()
-            .css({'opacity': 0, 'display': 'block'})
-            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
-              currentTarget.removeClass(activePanelClassName);
-              target.addClass(activePanelClassName);
-            });
-        });
-
-      item.siblings().removeClass(activeTabClassName);
-      item.addClass(activeTabClassName);
-    });
-
-    $('.post-toc a').on('click', function (e) {
-      e.preventDefault();
-      var targetSelector = escapeSelector(this.getAttribute('href'));
-      var offset = $(targetSelector).offset().top;
-      hasVelocity ?
-        html.velocity('stop').velocity('scroll', {
-          offset: offset  + 'px',
-          mobileHA: false
-        }) :
-        $('html, body').stop().animate({
-          scrollTop: offset
-        }, 500);
-    });
-
-    // Expand sidebar on post detail page by default, when post has a toc.
-    var $tocContent = $('.post-toc-content');
-    if (isDesktop() && CONFIG.sidebar === 'post') {
-      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
-        displaySidebar();
-      }
-    }
-  });
-</script>
-
-
 
   <script type="text/javascript">
     $(document).ready(function () {

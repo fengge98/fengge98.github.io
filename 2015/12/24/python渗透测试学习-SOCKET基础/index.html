@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="VPS,xss," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -35,28 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
+<meta name="description">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VPS使用记录-BeEF平台">
-<meta property="og:url" content="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/index.html">
+<meta property="og:title" content="python渗透测试学习-SOCKET基础">
+<meta property="og:url" content="http://yoursite.com/2015/12/24/python渗透测试学习-SOCKET基础/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
-<meta property="og:updated_time" content="2015-11-20T07:36:21.095Z">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-24T06:57:44.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VPS使用记录-BeEF平台">
-<meta name="twitter:description" content="BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程
-在/etc/apt/sources.list文件中添加软件源
-deb http://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本
-apt-get update #更新软件源">
+<meta name="twitter:title" content="python渗透测试学习-SOCKET基础">
+<meta name="twitter:description">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -66,7 +54,7 @@ apt-get update #更新软件源">
   };
 </script>
 
-  <title> VPS使用记录-BeEF平台 | FengGe </title>
+  <title> python渗透测试学习-SOCKET基础 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -205,7 +193,7 @@ apt-get update #更新软件源">
           
           
             
-              VPS使用记录-BeEF平台
+              python渗透测试学习-SOCKET基础
             
           
         </h1>
@@ -214,8 +202,8 @@ apt-get update #更新软件源">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
-            2015-11-19
+          <time itemprop="dateCreated" datetime="2015-12-24T14:57:44+08:00" content="2015-12-24">
+            2015-12-24
           </time>
         </span>
 
@@ -225,8 +213,8 @@ apt-get update #更新软件源">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
+              <a href="/2015/12/24/python渗透测试学习-SOCKET基础/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/24/python渗透测试学习-SOCKET基础/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -240,54 +228,22 @@ apt-get update #更新软件源">
       
 
       
-        <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
-<pre><code>在/etc/apt/sources.list文件中添加软件源
-deb <span class="keyword">http</span>://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-<span class="comment">#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本</span>
-apt-<span class="built_in">get</span> update <span class="comment">#更新软件源</span>
-
-
-apt-<span class="built_in">get</span> install ruby1<span class="number">.9</span><span class="number">.3</span>                             <span class="comment">#安装ruby 这步坑爹啊，一定要装高版本，换版本太折腾</span>
-apt-<span class="built_in">get</span> install libssl-dev libsqlite3-dev sqlite
-sudo apt-<span class="built_in">get</span> install g++
-git clone <span class="keyword">https</span>://github.com/beefproject/beef        <span class="comment">#安装BeEF</span>
-apt-<span class="built_in">get</span> install rubygems
-sudo gem install bundler
-bundle install                                        <span class="comment">#这一步需要cd到beef目录下进行</span>
-
-
-./beef                                              <span class="comment">#运行</span>
-访问地址 your_ip:<span class="number">3000</span>/ui/authentication
-config.yaml                                          <span class="comment"># 配置文件用来修改密码</span>
-
-nohup ./beef &amp;                                         <span class="comment">#设置为后台运行或使用下一句命令二者选其一</span>
-setsid ./beef 
-</code></pre></span>
+        <span itemprop="articleBody"></span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/VPS/" rel="tag">#VPS</a>
-          
-            <a href="/tags/xss/" rel="tag">#xss</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/20/VPS使用记录-使用Tor搭建匿名服务器/" rel="prev">VPS使用记录-使用Tor搭建匿名服务器</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/19/VPS使用记录-ShadowSocks配置/" rel="next">VPS使用记录-ShadowSocks配置</a>
+              <a href="/2015/12/15/浅谈DNS协议及使用/" rel="next">浅谈DNS协议及使用</a>
             
           </div>
         </div>
@@ -312,8 +268,8 @@ setsid ./beef
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/"
-                   data-title="VPS使用记录-BeEF平台" data-url="http://yoursite.com/2015/11/19/VPS使用记录-BeEF平台/">
+              <div class="ds-thread" data-thread-key="2015/12/24/python渗透测试学习-SOCKET基础/"
+                   data-title="python渗透测试学习-SOCKET基础" data-url="http://yoursite.com/2015/12/24/python渗透测试学习-SOCKET基础/">
               </div>
             
           </div>

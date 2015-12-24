@@ -45,7 +45,9 @@
 <meta property="og:image" content="http://quanyong.pub/pic/DNS_Flags.jpg">
 <meta property="og:image" content="http://quanyong.pub/pic/DNS_chaxun.png">
 <meta property="og:image" content="http://quanyong.pub/pic/DNS_chaxun.png">
-<meta property="og:updated_time" content="2015-12-21T09:55:41.994Z">
+<meta property="og:image" content="http://quanyong.pub/pic/13DNS.png">
+<meta property="og:image" content="http://quanyong.pub/pic/13DNS2.png">
+<meta property="og:updated_time" content="2015-12-24T07:04:58.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈DNS协议及使用">
 <meta name="twitter:description" content="什么是DNSDNS(Domain Name System)，一个分布式提供域名解析服务的系统。在我们进行网络通讯的时候更习惯记住对方的域名而不是IP，但是机器却更喜欢使用IP来找到通讯目标。人们想了一个折中的办法，把域名和IP形成映射关系（DNS记录）找个地方放起来，每当需要的时候让计算机到这个地方查一下记录，从而找到对应的IP。在早期的互联网中并没有那么多主机要进行管理，每个机器的管理员就共同维">
@@ -273,8 +275,34 @@ Data lenght: <span class="strong">*00 04*</span>
 -------------------------------------------------</span>
 </code></pre><p>Name有两种表示方式：<br>1.直接用labal表示<br>2.记录的一个偏移量，解析报文的计算偏移量</p>
 <p>一次A记录的查询，应答过程如上</p>
-<h2 id="DNS架构">DNS架构</h2><p><a href="http://blog.csdn.net/hunanchenxingyu/article/details/21488291" target="_blank" rel="external">http://blog.csdn.net/hunanchenxingyu/article/details/21488291</a><br><a href="http://www.lijiejie.com/dns-zone-transfer-python-client-query" target="_blank" rel="external">http://www.lijiejie.com/dns-zone-transfer-python-client-query</a><br><a href="http://lcx.cc/?i=2343" target="_blank" rel="external">http://lcx.cc/?i=2343</a><br><a href="http://network.51cto.com/art/201411/456097.htm" target="_blank" rel="external">http://network.51cto.com/art/201411/456097.htm</a></p>
-<p>为什么根服务器只有13个</p>
+<h2 id="为什么全球只有13台根服务器">为什么全球只有13台根服务器</h2><p>写在知乎的回答直接粘回来</p>
+<p>当客户端发送的DNS查询报文，指定的DNS无法完成解析，该DNS会返回一个应答报文告诉客户端：我不知道怎么解析，你去问DNS根服务器吧。在这个应答报文里只能装下13台根服务器的信息。</p>
+<p>在学习DNS过程中恰好看到了这个问题，在这里尽量能讲的明白一点，也记录一下自己的学习过程。讲的不对的地方，欢迎指正~~</p>
+<hr>
+<p>想要弄明白题主的问题，为什么只有13台DNS根服务器？首先要弄明白两件事：<br>1.一次完整的域名解析流程。<br>用完整来形容可能不太恰当，这里完整的意思是包括客户端到根服务器所有交互。<br>2.DNS报文格式<br>既然说一个DNS应答报文只能装下13个服务器的信息，就要弄明白3件事情：DNS报文大小限制、每个服务器信息大小和其他部分信息的大小。</p>
+<p>注：这里讲的13台是指逻辑上的13个IP，并非只有13个物理服务器。</p>
+<p>这里先简单吹一波~对我们来说记住一个域名显然要比记住一个IP地址方便的多，但是计算机在通讯的时候则需要通过IP地址，于是人们整理出了一份域名到IP映射关系的记录，每一次请求就去这个记录中查询一次对应的IP，就像今天windows中的host文件。早期的互联网并没有那么多计算机，只需要管理员们共同维护相同的记录，就解决了域名解析的需求。随着计算机技术的发展，越来越多的记录需要维护，域名解析系统也随之不断发展完善，于是就有了今天的DNS。<br>DNS服务的实现大多是基于UDP来实现的，为什么用UDP上面 @郭无心 同学解释的很清楚，也有少部分情况使用TCP：<br>1.当基于UDP的DNS应答报文中截断位为1时，接收到该报文的一方会使用TCP进行连接，重新发送查询报文。<br>2.域传送的时候，域传送可以简单理解为，请求获得该服务器内关于某个域名<br>的所有记录，一般用于主服务器和备份服务器之间的记录同步。DNS服务器关于域传送配置不当可能出现域名信息泄露的情况–DNS域传送漏洞。</p>
+<p>DNS系统管理维护着网络中所有的域名信息，把这些信息放在一个服务器上，考虑到网络，服务器开销等各种因素显然是不现实的，于是就采用了如今的分布式策略。这里只对什么时候会出现报文中放不下13台以上根服务器的情况进行分析。</p>
+<p>以windows客户端A类型的查询为例。</p>
+<p><img src="http://quanyong.pub/pic/13DNS.png" alt="DNS应报文"><br>上面IP为192.168.51.155向默认的DNS-202.106.0.20发送了一个迭代类型查询报文，报文中说：告诉我<a href="http://zhihutestbyfengge.com这个域名的IP。" target="_blank" rel="external">http://zhihutestbyfengge.com这个域名的IP。</a><br>这个域名并不存在，所以这个DNS中没有相关记录，于是就在应答报文中说：我也不知道你的问题，你问一下这13个根服务器吧。</p>
+<p>继续来看一下应答报文中有什么内容</p>
+<p><img src="http://quanyong.pub/pic/13DNS2.png" alt="DNS应报文"></p>
+<pre><code>Transaction ID----------<span class="number">2</span>byte
+Flags-------------------<span class="number">2</span>byte
+Questinos---------------<span class="number">2</span>byte
+Answer RRs--------------<span class="number">2</span>byte
+Authority RRs-----------<span class="number">2</span>byte
+Additional RRs----------<span class="number">2</span>byte  <span class="preprocessor">#Authority RRs：<span class="number">13</span> &amp;&amp; Additional RRS：<span class="number">14</span> 这两个值代表了Authoritative nameservers 和Additional records 区域记录的条数。</span>
+Queries-----------------<span class="number">27</span>byte
+Authoritative nameservers------<span class="number">224</span>byte
+Additional records-------------<span class="number">248</span>byte
+<span class="preprocessor">#一条Authority和一条Additional记录组成了一条完整的根服务器信息    </span>
+
+<span class="number">6</span>*<span class="number">2</span>+<span class="number">27</span>+<span class="number">224</span>+<span class="number">248</span>=<span class="number">511</span>(byte)
+</code></pre><p>上面有人说到基于udp的dns报文的最大限制为512byte，在这个应答报文中包含13台DNS服务器信息，占用了511byte，没有地方再放第14台记录了，所以究其问题的根本原因是因为协议限制。</p>
+<p>这里我发现Additional区域多了两个AAAA类型的查询没有搞懂是怎么回事<br>关于DNS报文内容的具体含义以及接下来客户端和根服务以及根服务如何解析该域名的过程就不展开了。<br>注：<br>1.实际上返回的这13个服务器的信息是13个包含com和net顶级域名记录的gtld server。就是负责解析com和net域名的DNS，虽然应答报文中不是根服务器信息，但是我认为这种情况完全可以模拟印证开头的结论。<br>2.对于为什么DNS报文的最大限制为512byte，完全可以再开一题进行讨论，这里就不再深入了。</p>
+<p>DNS篇就到这里</p>
+<p><a href="http://blog.csdn.net/hunanchenxingyu/article/details/21488291" target="_blank" rel="external">http://blog.csdn.net/hunanchenxingyu/article/details/21488291</a><br><a href="http://www.lijiejie.com/dns-zone-transfer-python-client-query" target="_blank" rel="external">http://www.lijiejie.com/dns-zone-transfer-python-client-query</a><br><a href="http://lcx.cc/?i=2343" target="_blank" rel="external">http://lcx.cc/?i=2343</a><br><a href="http://network.51cto.com/art/201411/456097.htm" target="_blank" rel="external">http://network.51cto.com/art/201411/456097.htm</a></p>
 </span>
       
     </div>
@@ -291,6 +319,8 @@ Data lenght: <span class="strong">*00 04*</span>
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/24/python渗透测试学习-SOCKET基础/" rel="prev">python渗透测试学习-SOCKET基础</a>
             
           </div>
 
@@ -362,7 +392,7 @@ Data lenght: <span class="strong">*00 04*</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -433,7 +463,7 @@ Data lenght: <span class="strong">*00 04*</span>
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是DNS"><span class="nav-number">1.</span> <span class="nav-text">什么是DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS协议-查询/应答报文"><span class="nav-number">2.</span> <span class="nav-text">DNS协议-查询/应答报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wireshark抓包分析"><span class="nav-number">3.</span> <span class="nav-text">wireshark抓包分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS架构"><span class="nav-number">4.</span> <span class="nav-text">DNS架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是DNS"><span class="nav-number">1.</span> <span class="nav-text">什么是DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS协议-查询/应答报文"><span class="nav-number">2.</span> <span class="nav-text">DNS协议-查询/应答报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wireshark抓包分析"><span class="nav-number">3.</span> <span class="nav-text">wireshark抓包分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么全球只有13台根服务器"><span class="nav-number">4.</span> <span class="nav-text">为什么全球只有13台根服务器</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
