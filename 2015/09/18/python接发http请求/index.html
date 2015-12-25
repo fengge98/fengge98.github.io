@@ -47,7 +47,7 @@ params = urllib.urlencode({ &apos;param&apos;:&quot;55B2A1EDA8B09D13&quot;,
 params = urllib.urlencode({ &apos;param&apos;:&quot;55B2A1EDA8B09D13&quot;,
                             &apos;js_sfl&apos;:2,
                             &apos;codetxt&apos;:&apos;532832&apos;});">
-<meta property="og:updated_time" content="2015-09-18T08:44:26.762Z">
+<meta property="og:updated_time" content="2015-12-25T08:08:38.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python接发http请求">
 <meta name="twitter:description" content="使用httplib时的设置方式import httplib,urllib,urllib2;   
@@ -258,7 +258,6 @@ headers = { <span class="string">"Host"</span>: <span class="string">"www.aokang
 opener = urllib2.build_opener( urllib2.ProxyHandler({<span class="string">'http'</span>:<span class="string">"localhost:8555"</span>}) )<span class="preprocessor">#在这一步设置代理地址和端口,可以看到请求</span>
 urllib2.install_opener(opener)
 sContent = urllib2.urlopen(<span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>)
-req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/verify_repassword.aspx?action=edit HTTP/1.1"</span>,data=<span class="keyword">params</span>)  
 </code></pre><p>总结:<br>1.可以在burp的repeater模块看看哪些参数可以删哪些不可以删.<br>2.header和body中有的参数不可以没有.<br>3.在连接主机的那一步通过设置代理,可以在代理中查看请求的详情,方便调试.<br>4.使用httplib.HTTPConnection的对象调用request的时候将参数传入body时会出现限定长度的情况,目前还没有解决</p>
 </span>
       
@@ -365,7 +364,7 @@ req = urllib2.Request(url = <span class="string">"http://www.aokang.cn/member/ve
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
