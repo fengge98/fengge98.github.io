@@ -36,7 +36,7 @@
 
 
 <meta name="description" content="socket for python document 
-这里用python实现一个简单的端口扫描脚本&amp;gt;&amp;gt;&amp;gt;import socket
+这里用python实现一个简单的端口验证脚本&amp;gt;&amp;gt;&amp;gt;import socket
 &amp;gt;&amp;gt;&amp;gt;s = socket.socket()
 &amp;gt;&amp;gt;&amp;gt;s.connection((&apos;192.168.*.*&apos;,22))#如果22端口开放则正常否则抛出异常
 
@@ -49,7 +49,7 @@ def port">
 <meta property="og:url" content="http://yoursite.com/2015/12/24/python渗透测试学习-SOCKET基础/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="socket for python document 
-这里用python实现一个简单的端口扫描脚本&amp;gt;&amp;gt;&amp;gt;import socket
+这里用python实现一个简单的端口验证脚本&amp;gt;&amp;gt;&amp;gt;import socket
 &amp;gt;&amp;gt;&amp;gt;s = socket.socket()
 &amp;gt;&amp;gt;&amp;gt;s.connection((&apos;192.168.*.*&apos;,22))#如果22端口开放则正常否则抛出异常
 
@@ -57,11 +57,11 @@ def port">
 import socket,sys
 
 def port">
-<meta property="og:updated_time" content="2015-12-25T08:15:48.023Z">
+<meta property="og:updated_time" content="2015-12-25T08:25:58.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python渗透测试学习-SOCKET基础">
 <meta name="twitter:description" content="socket for python document 
-这里用python实现一个简单的端口扫描脚本&amp;gt;&amp;gt;&amp;gt;import socket
+这里用python实现一个简单的端口验证脚本&amp;gt;&amp;gt;&amp;gt;import socket
 &amp;gt;&amp;gt;&amp;gt;s = socket.socket()
 &amp;gt;&amp;gt;&amp;gt;s.connection((&apos;192.168.*.*&apos;,22))#如果22端口开放则正常否则抛出异常
 
@@ -253,7 +253,7 @@ def port">
 
       
         <span itemprop="articleBody"><p><a href="https://docs.python.org/2/library/socket.html" target="_blank" rel="external">socket for python document</a> </p>
-<h2 id="这里用python实现一个简单的端口扫描脚本">这里用python实现一个简单的端口扫描脚本</h2><pre><code>&gt;&gt;&gt;<span class="keyword">import</span> socket
+<h2 id="这里用python实现一个简单的端口验证脚本">这里用python实现一个简单的端口验证脚本</h2><pre><code>&gt;&gt;&gt;<span class="keyword">import</span> socket
 &gt;&gt;&gt;s = socket.socket()
 &gt;&gt;&gt;s.connection((<span class="string">'192.168.*.*'</span>,<span class="number">22</span>))<span class="comment">#如果22端口开放则正常否则抛出异常</span>
 
@@ -321,6 +321,8 @@ server.listen(<span class="number">5</span>)                    <span class="com
     Host: quanyong<span class="class">.pub</span>:<span class="number">9999</span>
     Accept-Encoding: identity
 </code></pre><p>1.urllib模块在发起http请求的时候用了http1.0。<br>2.urllib和urllib2设置了User-Agent值，不知道会不会有应用识别这个值，限制大量请求。<br>3.httplib模块中创建httplib.HTTPConnection(host,port)对象的时候并不会创建TCP连接。</p>
+<p>今天到这里，下一节实现一个可以转发http请求功能的脚本。</p>
+<p>Marry Christmas~</p>
 </span>
       
     </div>
@@ -481,7 +483,7 @@ server.listen(<span class="number">5</span>)                    <span class="com
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#这里用python实现一个简单的端口扫描脚本"><span class="nav-number">1.</span> <span class="nav-text">这里用python实现一个简单的端口扫描脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口监控"><span class="nav-number">2.</span> <span class="nav-text">端口监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python发送http请求"><span class="nav-number">3.</span> <span class="nav-text">python发送http请求</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#这里用python实现一个简单的端口验证脚本"><span class="nav-number">1.</span> <span class="nav-text">这里用python实现一个简单的端口验证脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口监控"><span class="nav-number">2.</span> <span class="nav-text">端口监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python发送http请求"><span class="nav-number">3.</span> <span class="nav-text">python发送http请求</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
