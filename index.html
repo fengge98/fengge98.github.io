@@ -194,6 +194,138 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/28/python渗透测试学习-http代理实现/" itemprop="url">
+                python渗透测试学习-http代理实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-28T14:42:28+08:00" content="2015-12-28">
+            2015-12-28
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/28/python渗透测试学习-http代理实现/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/python渗透测试学习-http代理实现/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="简述">简述</h2><p>http是以TCP为基础进行传输的，如果我们在服务端监听端口，处理请求数据并回应给客户端，就实现了http代理。<br>以访问quanyong.xyz为例：</p>
+<p><img src="http://quanyong.pub/pic/HTTP_PROXY.png" alt="HTTP_PROXY"><br>1.VPS监听特定端口=0.0.0.0:9999，将浏览器的代理设置为=IP:9999,向quanyong.xyz发送GET请求。<br>2.VPS接受该请求，并解析请求内容，利用解析结果和quanyong.xyz建立一个socket连接，send步骤1中接受的数据，此时VPS就模拟了浏览器发送http请求<br>3.VPS接受http_response<br>4.将数据传回客户端。</p>
+<p>下面给出代码：</p>
+<pre><code><span class="comment">#coding=utf-8</span>
+<span class="keyword">import</span> socket
+<span class="keyword">import</span> sys
+<span class="keyword">import</span> threading
+<span class="keyword">import</span> urllib2
+
+local_host = <span class="string">'0.0.0.0'</span>
+local_port = <span class="number">9999</span>
+
+<span class="function"><span class="keyword">def</span> <span class="title">get_target</span><span class="params">(request_content)</span>:</span>
+    <span class="comment">#解析从浏览器发送过来的get请求，筛选目标host与port，返回一个元组类型</span>
+    <span class="keyword">try</span>:
+        request_target = request_content[:request_content.find(<span class="string">'\n'</span>)].split(<span class="string">' '</span>)[<span class="number">1</span>]
+        request_target = request_target.replace(<span class="string">'http://'</span>,<span class="string">''</span>)
+        request_target = request_target[:request_target.find(<span class="string">'/'</span>)]
+    <span class="keyword">except</span> Exception, e:
+        <span class="keyword">raise</span> e
+
+    <span class="keyword">if</span> <span class="string">':'</span> <span class="keyword">in</span> request_target:
+        remote_list = request_target.split(<span class="string">':'</span>)
+        remote_host = remote_list[<span class="number">0</span>]
+        remote_port = int(remote_list[<span class="number">1</span>])
+        <span class="keyword">return</span> (remote_host,remote_port)
+    <span class="keyword">else</span>:
+        remote_host = request_target
+        remote_port = <span class="number">80</span>
+        <span class="keyword">return</span> (remote_host,remote_port)
+
+<span class="function"><span class="keyword">def</span> <span class="title">client_handler</span><span class="params">(client_socket,client_addr)</span>:</span>
+    request_content = client_socket.recv(<span class="number">100000</span>)
+    <span class="keyword">print</span> <span class="string">'Recieve %d Bytes info from %s'</span>%(len(request_content),client_addr[<span class="number">0</span>])
+    <span class="keyword">if</span> request_content:
+        response_content = server_handler(request_content)
+        client_socket.send(response_content)
+
+<span class="function"><span class="keyword">def</span> <span class="title">server_handler</span><span class="params">(request_content)</span>:</span>
+    <span class="comment">#接受请求数据，返回一个字符串类型的http_response</span>
+    remote_host,remote_port = get_target(request_content)
+    <span class="keyword">try</span>:
+        server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        server_socket.connect((remote_host,remote_port))
+        server_socket.send(request_content)
+        send_back_content = server_socket.recv(<span class="number">1000000</span>)
+        <span class="keyword">return</span> send_back_content
+    <span class="keyword">except</span> Exception, e:
+        <span class="keyword">raise</span> e
+
+
+<span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>
+    client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    client_socket.bind((local_host,local_port))
+    client_socket.listen(<span class="number">5</span>)
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        client,addr = client_socket.accept()
+        <span class="keyword">print</span> <span class="string">'Accept info from %s %d'</span> % (addr[<span class="number">0</span>],addr[<span class="number">1</span>])
+        client_thread = threading.Thread(target=client_handler,args=(client,addr))
+        client_thread.start()
+
+<span class="keyword">if</span> __name__=<span class="string">'__main__'</span>:
+    main()
+</code></pre><p>存在问题：<br>1.http-request内容解析部分存在问题，筛选host和port。<br>2.线程方面没有做处理，会出现两个线程操作一个变量的情况。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/24/python渗透测试学习-SOCKET基础/" itemprop="url">
                 python渗透测试学习-SOCKET基础
               </a>
@@ -1109,96 +1241,6 @@ tor [<span class="built_in">start</span>|<span class="built_in">stop</span>|rest
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/19/VPS使用记录-BeEF平台/" itemprop="url">
-                VPS使用记录-BeEF平台
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
-            2015-11-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
-<pre><code>在/etc/apt/sources.list文件中添加软件源
-deb <span class="keyword">http</span>://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-<span class="comment">#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本</span>
-apt-<span class="built_in">get</span> update <span class="comment">#更新软件源</span>
-
-
-apt-<span class="built_in">get</span> install ruby1<span class="number">.9</span><span class="number">.3</span>                             <span class="comment">#安装ruby 这步坑爹啊，一定要装高版本，换版本太折腾</span>
-apt-<span class="built_in">get</span> install libssl-dev libsqlite3-dev sqlite
-sudo apt-<span class="built_in">get</span> install g++
-git clone <span class="keyword">https</span>://github.com/beefproject/beef        <span class="comment">#安装BeEF</span>
-apt-<span class="built_in">get</span> install rubygems
-sudo gem install bundler
-bundle install                                        <span class="comment">#这一步需要cd到beef目录下进行</span>
-
-
-./beef                                              <span class="comment">#运行</span>
-访问地址 your_ip:<span class="number">3000</span>/ui/authentication
-config.yaml                                          <span class="comment"># 配置文件用来修改密码</span>
-
-nohup ./beef &amp;                                         <span class="comment">#设置为后台运行或使用下一句命令二者选其一</span>
-setsid ./beef 
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1237,7 +1279,7 @@ setsid ./beef
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
