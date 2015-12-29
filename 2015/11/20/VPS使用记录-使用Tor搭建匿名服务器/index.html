@@ -38,8 +38,8 @@
 <meta name="description" content="之前听过Tor提供匿名服务，在本地搭建没有成功，貌似被墙掉了。今天突然想可不可以，在VPS上使用TOR搭建一个匿名代理的服务。
 这里用了TOR+bitvise Tunnelier（）的组合
 可以简单的看成服务端（TOR）+客户端（bitvise Tunnelier）的组合
-TOR安装apt-get install tor 
-tor [start|stop|restart] #具体安装位置可以通过f">
+实际上就是在VPS上安装TOR，bitvise Tunelier使用SSH隧道实现http类型请求的转发。
+TOR安装apt-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VPS使用记录-使用Tor搭建匿名服务器">
 <meta property="og:url" content="http://yoursite.com/2015/11/20/VPS使用记录-使用Tor搭建匿名服务器/index.html">
@@ -47,16 +47,16 @@ tor [start|stop|restart] #具体安装位置可以通过f">
 <meta property="og:description" content="之前听过Tor提供匿名服务，在本地搭建没有成功，貌似被墙掉了。今天突然想可不可以，在VPS上使用TOR搭建一个匿名代理的服务。
 这里用了TOR+bitvise Tunnelier（）的组合
 可以简单的看成服务端（TOR）+客户端（bitvise Tunnelier）的组合
-TOR安装apt-get install tor 
-tor [start|stop|restart] #具体安装位置可以通过f">
-<meta property="og:updated_time" content="2015-11-20T07:36:19.931Z">
+实际上就是在VPS上安装TOR，bitvise Tunelier使用SSH隧道实现http类型请求的转发。
+TOR安装apt-">
+<meta property="og:updated_time" content="2015-12-29T01:45:58.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-使用Tor搭建匿名服务器">
 <meta name="twitter:description" content="之前听过Tor提供匿名服务，在本地搭建没有成功，貌似被墙掉了。今天突然想可不可以，在VPS上使用TOR搭建一个匿名代理的服务。
 这里用了TOR+bitvise Tunnelier（）的组合
 可以简单的看成服务端（TOR）+客户端（bitvise Tunnelier）的组合
-TOR安装apt-get install tor 
-tor [start|stop|restart] #具体安装位置可以通过f">
+实际上就是在VPS上安装TOR，bitvise Tunelier使用SSH隧道实现http类型请求的转发。
+TOR安装apt-">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -243,6 +243,7 @@ tor [start|stop|restart] #具体安装位置可以通过f">
         <span itemprop="articleBody"><p>之前听过Tor提供匿名服务，在本地搭建没有成功，貌似被墙掉了。今天突然想可不可以，在VPS上使用TOR搭建一个匿名代理的服务。</p>
 <p>这里用了TOR+bitvise Tunnelier（）的组合</p>
 <p>可以简单的看成服务端（TOR）+客户端（bitvise Tunnelier）的组合</p>
+<p>实际上就是在VPS上安装TOR，bitvise Tunelier使用SSH隧道实现http类型请求的转发。</p>
 <h2 id="TOR安装">TOR安装</h2><pre><code>apt-<span class="built_in">get</span> install tor 
 tor [<span class="built_in">start</span>|<span class="built_in">stop</span>|restart] <span class="comment">#具体安装位置可以通过find命令查找</span>
 </code></pre><p>说明：默认在127.0.0.1:9050 端口上运行</p>
@@ -342,7 +343,7 @@ tor [<span class="built_in">start</span>|<span class="built_in">stop</span>|rest
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -356,7 +357,7 @@ tor [<span class="built_in">start</span>|<span class="built_in">stop</span>|rest
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
