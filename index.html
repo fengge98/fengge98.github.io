@@ -195,7 +195,7 @@
           
             
               <a class="post-title-link" href="/2015/12/30/Apache2-module内容学习/" itemprop="url">
-                'Apache2-module内容学习'
+                Apache2-module内容学习
               </a>
             
           
@@ -330,7 +330,7 @@ apxs2 -<span class="tag">i</span> -<span class="tag">a</span> -n mod_rewrite mod
 <pre><code>ssh -l loginname -L <span class="string">localhost:</span><span class="string">local_port:</span><span class="string">torhost:</span>torport vpshost
 </code></pre><p><img src="http://quanyong.pub/pic/SSH_Forwarding.png" alt="ssh_Forwarding"></p>
 <p>localhost:local_port—-&gt;ssh监听的端口，浏览器代理设置到此端口<br>torhost:torport—-&gt;tor应用运行的host和port<br>vpshost—-&gt;ssh要连接的IP</p>
-<p>到这产生了一个疑惑其实就是实现了一个代理转发功能，为什么还要成为SSH隧道技术呢？</p>
+<p>到这产生了一个疑惑其实就是实现了一个代理转发功能，为什么还要称为SSH隧道技术呢？</p>
 <p>我认为原因是ssh在进行数据传输的时候进行了加密处理，一次http请求在客户端和VPS之间 流量通过的一系列设备看来只是进行了一次ssh通信。</p>
 <p>1.当开启转发功能后，Wireshark抓到的包全部被识别为ssh和tcp协议，所以当防火墙策略不对该ssh通信做出限制，我们就可以通过这个通道浏览网页。<br>2.客户端和VPS上ssh为我们完成了加密解密的过程，发送一个http请求，监听torhost:torport发现该端口收到的就是一个明文http请求。</p>
 <h2 id="DNS隧道技术">DNS隧道技术</h2><p>第一次接触DNS隧道技术源于wooyun上一个关于我邮的绕过计费网关的漏洞。<br><a href="http://wooyun.org/bugs/wooyun-2010-099967" target="_blank" rel="external">[DNS tunnel实例]北京某大学网关计费系统可被绕过</a></p>
