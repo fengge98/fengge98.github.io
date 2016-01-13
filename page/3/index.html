@@ -855,7 +855,7 @@ Swap: <span class="number">192772</span>k total  交换区总量
           
             
               <a class="post-title-link" href="/2015/09/02/putty使用记录/" itemprop="url">
-                putty使用记录
+                ssh使用记录
               </a>
             
           
@@ -892,7 +892,7 @@ Swap: <span class="number">192772</span>k total  交换区总量
 
       
         
-          <span itemprop="articleBody"><h2 id="命令终端中文乱码问题">命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
+          <span itemprop="articleBody"><h2 id="putty命令终端中文乱码问题">putty命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
 <h2 id="传输文件">传输文件</h2><p>我的做法是将putty所在目录设置到环境变量中<br>这样就可以使用pscp和psftp传输文件了</p>
 <p>windows-&gt;linux</p>
 <pre><code>pscp 目标文件 root<span class="variable">@192</span>.<span class="number">168</span>.***.***<span class="symbol">:/home/quanyong</span>
@@ -900,6 +900,10 @@ Swap: <span class="number">192772</span>k total  交换区总量
 psftp <span class="number">192.168</span>.<span class="number">101.213</span>
 cd到目标目录
 put 目标文件
+
+<span class="comment">#使用ssh命令行</span>
+scp -rp /path/filename username<span class="variable">@remoteIP</span><span class="symbol">:/path</span> <span class="comment">#将本地文件拷贝到服务器上</span>
+scp -rp username<span class="variable">@remoteIP</span><span class="symbol">:/path/filename</span> /path <span class="comment">#将远程文件从服务器下载到本地</span>
 </code></pre></span>
         
       

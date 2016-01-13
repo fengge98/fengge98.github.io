@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="linux,putty," />
+  <meta name="keywords" content="linux,putty,ssh," />
 
 
 
@@ -35,31 +35,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
+<meta name="description" content="putty命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
 传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
 windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
+pscp 目标文件 root@192.168.***.***:/home/quanyon">
 <meta property="og:type" content="article">
-<meta property="og:title" content="putty使用记录">
+<meta property="og:title" content="ssh使用记录">
 <meta property="og:url" content="http://yoursite.com/2015/09/02/putty使用记录/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
+<meta property="og:description" content="putty命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
 传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
 windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
-<meta property="og:updated_time" content="2015-09-18T08:44:34.772Z">
+pscp 目标文件 root@192.168.***.***:/home/quanyon">
+<meta property="og:updated_time" content="2016-01-13T07:27:53.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="putty使用记录">
-<meta name="twitter:description" content="命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
+<meta name="twitter:title" content="ssh使用记录">
+<meta name="twitter:description" content="putty命令终端中文乱码问题标题栏左上角图标-&amp;gt;Change Setting-&amp;gt;Translation-&amp;gt;character set -&amp;gt;UTF-8
 传输文件我的做法是将putty所在目录设置到环境变量中这样就可以使用pscp和psftp传输文件了
 windows-&amp;gt;linux
-pscp 目标文件 root@192.168.***.***:/home/quanyong
-
-ps">
+pscp 目标文件 root@192.168.***.***:/home/quanyon">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +63,7 @@ ps">
   };
 </script>
 
-  <title> putty使用记录 | FengGe </title>
+  <title> ssh使用记录 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +202,7 @@ ps">
           
           
             
-              putty使用记录
+              ssh使用记录
             
           
         </h1>
@@ -243,7 +237,7 @@ ps">
       
 
       
-        <span itemprop="articleBody"><h2 id="命令终端中文乱码问题">命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
+        <span itemprop="articleBody"><h2 id="putty命令终端中文乱码问题">putty命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
 <h2 id="传输文件">传输文件</h2><p>我的做法是将putty所在目录设置到环境变量中<br>这样就可以使用pscp和psftp传输文件了</p>
 <p>windows-&gt;linux</p>
 <pre><code>pscp 目标文件 root<span class="variable">@192</span>.<span class="number">168</span>.***.***<span class="symbol">:/home/quanyong</span>
@@ -251,6 +245,10 @@ ps">
 psftp <span class="number">192.168</span>.<span class="number">101.213</span>
 cd到目标目录
 put 目标文件
+
+<span class="comment">#使用ssh命令行</span>
+scp -rp /path/filename username<span class="variable">@remoteIP</span><span class="symbol">:/path</span> <span class="comment">#将本地文件拷贝到服务器上</span>
+scp -rp username<span class="variable">@remoteIP</span><span class="symbol">:/path/filename</span> /path <span class="comment">#将远程文件从服务器下载到本地</span>
 </code></pre></span>
       
     </div>
@@ -262,6 +260,8 @@ put 目标文件
             <a href="/tags/linux/" rel="tag">#linux</a>
           
             <a href="/tags/putty/" rel="tag">#putty</a>
+          
+            <a href="/tags/ssh/" rel="tag">#ssh</a>
           
         </div>
       
@@ -302,7 +302,7 @@ put 目标文件
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/09/02/putty使用记录/"
-                   data-title="putty使用记录" data-url="http://yoursite.com/2015/09/02/putty使用记录/">
+                   data-title="ssh使用记录" data-url="http://yoursite.com/2015/09/02/putty使用记录/">
               </div>
             
           </div>
@@ -413,7 +413,7 @@ put 目标文件
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令终端中文乱码问题"><span class="nav-number">1.</span> <span class="nav-text">命令终端中文乱码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输文件"><span class="nav-number">2.</span> <span class="nav-text">传输文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#putty命令终端中文乱码问题"><span class="nav-number">1.</span> <span class="nav-text">putty命令终端中文乱码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输文件"><span class="nav-number">2.</span> <span class="nav-text">传输文件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
