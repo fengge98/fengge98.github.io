@@ -525,8 +525,7 @@ iodine <span class="operator">-f</span> -P password server_ip 记录值
 ssh -l loginname -L localhost:local_port:torhost:torport <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>
 代理设置为-&gt;localhost:local_port
 </code></pre><p>5.验证<br>打开wireshark后发现多了一个网卡:本地连接2</p>
-<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图</p>
-<p><a href="http://quanyong.pub/pic/dns_tunnel.png" target="_blank" rel="external">dns_tunnel</a></p>
+<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图<br><img src="http://quanyong.pub/pic/dns_tunnel.png" alt="dns_tunnel"></p>
 </span>
         
       

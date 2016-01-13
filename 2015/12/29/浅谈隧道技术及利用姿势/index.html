@@ -46,7 +46,8 @@ SSH转发功能SSH除了可以当作linux的远程管理工具，它的转发功
 SSH转发功能SSH除了可以当作linux的远程管理工具，它的转发功能也是十分强大的。
 情境：在V">
 <meta property="og:image" content="http://quanyong.pub/pic/SSH_Forwarding.png">
-<meta property="og:updated_time" content="2016-01-13T07:21:45.469Z">
+<meta property="og:image" content="http://quanyong.pub/pic/dns_tunnel.png">
+<meta property="og:updated_time" content="2016-01-13T07:24:46.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈隧道技术及利用姿势">
 <meta name="twitter:description" content="简介写下标题后发现题目起的似乎大了些，缩小下范围，在这里主要讨论基于TCP/IP的应用层协议隧道（SSH DNS）不同的网络环境下，防火墙的限制策略也不尽相同，如何通过不同的隧道绕过通信限制，或者通过跳板机利用不同隧道进行代理转发穿透防火墙，控制流量从自定义的各种通道进行传输，是一件很有意思的事情。
@@ -263,8 +264,7 @@ iodine <span class="operator">-f</span> -P password server_ip 记录值
 ssh -l loginname -L localhost:local_port:torhost:torport <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>
 代理设置为-&gt;localhost:local_port
 </code></pre><p>5.验证<br>打开wireshark后发现多了一个网卡:本地连接2</p>
-<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图</p>
-<p><a href="http://quanyong.pub/pic/dns_tunnel.png" target="_blank" rel="external">dns_tunnel</a></p>
+<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图<br><img src="http://quanyong.pub/pic/dns_tunnel.png" alt="dns_tunnel"></p>
 </span>
       
     </div>
