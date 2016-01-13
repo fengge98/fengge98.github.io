@@ -194,6 +194,74 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/13/NESSUS使用记录/" itemprop="url">
+                NESSUS使用记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-13T10:57:52+08:00" content="2016-01-13">
+            2016-01-13
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/13/NESSUS使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/13/NESSUS使用记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/05/谈谈序列化和反序列化的问题/" itemprop="url">
                 谈谈序列化和反序列化引发的问题
               </a>
@@ -235,7 +303,7 @@
           <span itemprop="articleBody"><blockquote>
 <p>数据和操作指令保存在一起不加区分，从而容易被误解</p>
 </blockquote>
-<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.检测poc编写<br>5.</p>
+<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.检测poc编写</p>
 <p>个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickle模块，java中的ObjectOutputStream，ObjectInputStream类，php中的serialize()函数。为了跨平台，跨语言可以将数据序列化成xml，json的格式进行传输。<br>在序列化和反序列化的过程，如果被别有用心的人利用，构造恶意序列化文本发送给程序，程序解析了这个文本之后便可以执行攻击者构造的操作指令，其危害不言而喻。以个人比较熟悉的python为例：</p>
 <pre><code>import cPickle 
 
@@ -440,6 +508,25 @@ apxs2 -<span class="tag">i</span> -<span class="tag">a</span> -n mod_rewrite mod
 <p>1.当开启转发功能后，Wireshark抓到的包全部被识别为ssh和tcp协议，所以当防火墙策略不对该ssh通信做出限制，我们就可以通过这个通道浏览网页。<br>2.客户端和VPS上ssh为我们完成了加密解密的过程，发送一个http请求，监听torhost:torport发现该端口收到的就是一个明文http请求。</p>
 <h2 id="DNS隧道技术">DNS隧道技术</h2><p>第一次接触DNS隧道技术源于wooyun上一个关于我邮的绕过计费网关的漏洞。<br><a href="http://wooyun.org/bugs/wooyun-2010-099967" target="_blank" rel="external">[DNS tunnel实例]北京某大学网关计费系统可被绕过</a></p>
 <p>ssh隧道建立过程中ssh帮我们完成了数据的加密解密，在DNS隧道建立过程中同样需要类似功能的应用。</p>
+<p>这里使用了iodine</p>
+<p>1.添加两条域名解析记录</p>
+<pre><code><span class="keyword">NS</span>    名称-&gt;记录值
+<span class="keyword">A</span>    记录值-&gt;IP    
+</code></pre><p>2.服务端(ubuntu)</p>
+<pre><code>首先安装对应版本iodine
+iodined -c -f <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span> -P password 记录值
+<span class="preprocessor">#要确保<span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>不是正在使用的内网网段，开始设置的时候用了<span class="number">10</span>网段貌似和公司内网ip冲突，数据包全发到这个机器上。</span>
+</code></pre><p>3.客户端(win7_64)</p>
+<pre><code>安装iodine对应版本，与服务端版本一致
+安装OpenVPN 的 TAP Virtual Ethernet Adapter模块
+iodine <span class="operator">-f</span> -P password server_ip 记录值
+</code></pre><p>4.使用ssh转发</p>
+<pre><code>ping <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>  <span class="preprocessor">#看看能不能通</span>
+ssh -l loginname -L localhost:local_port:torhost:torport <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>
+代理设置为-&gt;localhost:local_port
+</code></pre><p>5.验证<br>打开wireshark后发现多了一个网卡:本地连接2</p>
+<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图</p>
+<p><a href="http://quanyong.pub/pic/dns_tunnel.png" target="_blank" rel="external">dns_tunnel</a></p>
 </span>
         
       
@@ -1156,87 +1243,6 @@ $ rbenv <span class="built_in">global</span> <span class="number">2.1</span><spa
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/01/性能测试心得体会篇/" itemprop="url">
-                性能测试心得体会篇(一)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-01T17:12:57+08:00" content="2015-12-01">
-            2015-12-01
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/01/性能测试心得体会篇/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/01/性能测试心得体会篇/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>前段时间接触了几个性能测试的项目，主要用到了loadrunner，这里把关于性能测试，Loadrunner的一些体会记录下来。</p>
-<h2 id="测试需求">测试需求</h2><p>在进行测试之前我们一定要确定测试目标，测试目标的确定一般来讲有以下方式</p>
-<pre><code><span class="number">1.</span>客户提供
-<span class="number">2.</span>根据网站访问数据进行估算（估算的方法可以使用二八模型-<span class="number">80</span>%的操作是在<span class="number">20</span>%的时间里完成的）
-<span class="number">3.</span>客户也不清楚，也无法提供网站流量数据，只能根据用户量进行大概估算了（就是测测看）
-</code></pre><h2 id="Loadrunner中的一些名词含义">Loadrunner中的一些名词含义</h2><p>事务：我们可以自己定义事务的范围，可以是一次首页访问，一次用户登录，一次用户注册。用户完成一个事务往往包含了多次http请求。</p>
-<p>并发/VUSER:说白了就是开了多少个线程，loadrunner实现并行计算的策略是每50个线程开启一个进程，这里并发数和对服务器的压力是成正相关的，但并不代表并发数越高对服务器的压力就越大。<br>程序运行的时候根据不同的压力机配置设置恰当的线程数量，这时程序运行的效率最高，造成的压力在最高点。</p>
-<p>注：平时跟项目经理和客户沟通的时候经常会提到多少多少并发，这里提到的并发和vuser的数量是不一样的，没有相关经验的人，提到并发直观的理解是有多少个用户在同时使用网站。这个数据可以根据脚本运行时间和通过的事务数算出来。</p>
-<p>平均响应时间：一段时间内事务的平均响应时间。<br>每秒事务数：每秒完成的事务数。<br>吞吐率：每秒交互的流量总计。</p>
-<h2 id="项目注意事项">项目注意事项</h2><p>1.了解网站结构：要明确工程的部署情况。<br>例如：应用服务器，资源服务器，负载服务器的分部及协同工作的方式。</p>
-<p>2.明确测试目标：大多数情况下客户或项目人员对性能方面不是特别了解，项目也没有正式投入使用，无法提供访问量等数据。这种情况就可以压一压看看网站情况.当然也要对不合理的测试要求进行沟通。<br>例如：要求对每个业务都进行负载测试，其实是完全没有必要的，而且费时费力的事情。</p>
-<p>3.带宽要充足：能要多少要多少。</p>
-<p>4.想到了后面再补</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1275,7 +1281,7 @@ $ rbenv <span class="built_in">global</span> <span class="number">2.1</span><spa
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

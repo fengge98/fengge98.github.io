@@ -37,23 +37,23 @@
 
 <meta name="description" content="数据和操作指令保存在一起不加区分，从而容易被误解
 
-1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写5.
-个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpic">
+1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写
+个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈序列化和反序列化引发的问题">
 <meta property="og:url" content="http://yoursite.com/2016/01/05/谈谈序列化和反序列化的问题/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="数据和操作指令保存在一起不加区分，从而容易被误解
 
-1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写5.
-个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpic">
-<meta property="og:updated_time" content="2016-01-05T10:10:23.903Z">
+1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写
+个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickl">
+<meta property="og:updated_time" content="2016-01-13T02:15:24.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈序列化和反序列化引发的问题">
 <meta name="twitter:description" content="数据和操作指令保存在一起不加区分，从而容易被误解
 
-1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写5.
-个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpic">
+1.序列化和反序列化简介2.python演示反序列化利用姿势3.java演示利用姿势4.检测poc编写
+个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickl">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -240,7 +240,7 @@
         <span itemprop="articleBody"><blockquote>
 <p>数据和操作指令保存在一起不加区分，从而容易被误解</p>
 </blockquote>
-<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.检测poc编写<br>5.</p>
+<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.检测poc编写</p>
 <p>个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickle模块，java中的ObjectOutputStream，ObjectInputStream类，php中的serialize()函数。为了跨平台，跨语言可以将数据序列化成xml，json的格式进行传输。<br>在序列化和反序列化的过程，如果被别有用心的人利用，构造恶意序列化文本发送给程序，程序解析了这个文本之后便可以执行攻击者构造的操作指令，其危害不言而喻。以个人比较熟悉的python为例：</p>
 <pre><code>import cPickle 
 
@@ -292,6 +292,8 @@ Use exit() <span class="keyword">or</span> Ctrl-Z plus Return to exit
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/13/NESSUS使用记录/" rel="prev">NESSUS使用记录</a>
             
           </div>
 
@@ -363,7 +365,7 @@ Use exit() <span class="keyword">or</span> Ctrl-Z plus Return to exit
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

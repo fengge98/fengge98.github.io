@@ -194,6 +194,120 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/10/ubuntu下python-django环境搭建/" itemprop="url">
+                ubuntu下python+django环境搭建
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-10T13:09:36+08:00" content="2015-08-10">
+            2015-08-10
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/10/ubuntu下python-django环境搭建/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/ubuntu下python-django环境搭建/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="一，首先列出需要安装的东西：">一，首先列出需要安装的东西：</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python2.7</td>
+<td>这个安装就不用多说了linux都会自带的</td>
+</tr>
+<tr>
+<td>easy_install</td>
+<td>一个能安装python工具的命令</td>
+<td><code>sudo apt-get install python-setuptools</code></td>
+</tr>
+<tr>
+<td>pip</td>
+<td>python包管理工具</td>
+<td><code>sudo easy install pip</code></td>
+</tr>
+<tr>
+<td>git</td>
+<td>版本管理工具实现多人合作开发</td>
+<td><code>sudo apt-get install git</code></td>
+</tr>
+<tr>
+<td>django</td>
+<td>项目开发框架（建议先不要安装在全局）</td>
+<td><code>sudo easy install django</code></td>
+</tr>
+<tr>
+<td>virtualenv</td>
+<td>提供一个用于开发的模拟环境</td>
+<td><code>sudo easy installvirtualenv</code></td>
+</tr>
+<tr>
+<td>sublime</td>
+<td>编辑器                                     </td>
+</tr>
+</tbody>
+</table>
+<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                       #创建名为env的环境<br>执行命令：source env/bin/activate           #进入env环境<br>执行命令：pipfreeze                         #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                    #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                        #会发现多了一个django</p>
+<h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>   #会发现它已经在工作了</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/10/SqlMap命令-全/" itemprop="url">
                 SqlMap命令-全
               </a>
@@ -1327,7 +1441,7 @@ mysql&gt;flush privileges;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

