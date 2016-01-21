@@ -93,7 +93,7 @@ sudo easy install pip
 git
 版本管理工具实现多人合作开发
 sudo ap">
-<meta property="og:updated_time" content="2015-12-04T07:24:17.173Z">
+<meta property="og:updated_time" content="2016-01-19T02:10:48.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu下python+django环境搭建">
 <meta name="twitter:description" content="一，首先列出需要安装的东西：
@@ -342,7 +342,7 @@ sudo ap">
 <tr>
 <td>virtualenv</td>
 <td>提供一个用于开发的模拟环境</td>
-<td><code>sudo easy installvirtualenv</code></td>
+<td><code>sudo easy install virtualenv</code></td>
 </tr>
 <tr>
 <td>sublime</td>
@@ -350,7 +350,7 @@ sudo ap">
 </tr>
 </tbody>
 </table>
-<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenvenv                       #创建名为env的环境<br>执行命令：source env/bin/activate           #进入env环境<br>执行命令：pipfreeze                         #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                    #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                        #会发现多了一个django</p>
+<h2 id="二，使用virtualenv建立虚拟开发环境"> 二，使用virtualenv建立虚拟开发环境</h2><p>转到开发目录（cd filename / 打开filename  cd ..  /后退   mkdir filename/ 创建名为filename的文件）用到的3基本个命令<br>执行命令：virtualenv env                       #创建名为env的环境<br>执行命令：source env/bin/activate           #进入env环境<br>执行命令：pipfreeze                         #查看当前env目录下安装包的情况 正常情况下是什么都没有 或是默认安装几个重要包<br>执行命令：pip install django                    #安装djangodjango框架安装在env环境中<br>再次执行：pip freeze                        #会发现多了一个django</p>
 <h2 id="三，使用django创建一个工程">三，使用django创建一个工程</h2><p>执行命令：django-admin.py startproject mysite #创建一个名为mysite的django工程<br>进入mysite目录：cd mysite<br>执行命令：python manage.py runserver<br>在浏览器地址栏输入：<a href="http://127.0.0.1:8000/" target="_blank" rel="external">http://127.0.0.1:8000/</a>   #会发现它已经在工作了</p>
 </span>
       
@@ -457,7 +457,7 @@ sudo ap">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

