@@ -194,93 +194,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/12/04/Ubuntu配置管理ruby全记录/" itemprop="url">
-                Ubuntu配置管理ruby记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-04T10:04:54+08:00" content="2015-12-04">
-            2015-12-04
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/04/Ubuntu配置管理ruby全记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/Ubuntu配置管理ruby全记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>之前搭BeFF平台需要用到ruby环境~用apt-get命令默认安装1.8.7版本的ruby，到后面说ruby版本太低，需要升级ruby。<br>接下来就开始了升级ruby的不归路，今天要搭建metasploit又需要ruby环境，之前环境被我弄了乱七八糟的，看来自己埋的坑是迟早要跳的。</p>
-<h2 id="rbenv安装配置">rbenv安装配置</h2><p>因为需要不同版本的ruby环境，所以先找找有没有版本管理工具。网站推荐的是rvm和rbenv两个工具，上次rvm没用明白，今天试试rbenv。</p>
-<pre><code><span class="variable">$ </span>cd /home
-<span class="variable">$ </span><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/sstephenson</span><span class="regexp">/rbenv.git ~/</span>.rbenv <span class="comment">#安装到root目录下的 .rbenv文件夹</span>
-<span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/sstephenson</span><span class="regexp">/ruby-build.git ~/</span>.rbenv/plugins/ruby-build<span class="comment">#注意安装目录</span>
-<span class="variable">$ </span>apt-get install rubygems <span class="comment">#好多软件需要ruby环境的时候经常用到gem命令~</span>
-添加环境变量（可选）
-<span class="variable">$ </span>echo <span class="string">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> <span class="prompt">&gt;&gt; </span>.bash_profile
-<span class="variable">$ </span>echo <span class="string">'eval "$(rbenv init -)"'</span> <span class="prompt">&gt;&gt; </span>.bash_profile
-<span class="variable">$ </span>source ~<span class="regexp">/.bash_profile</span>
-</code></pre><h2 id="rbenv使用">rbenv使用</h2><pre><code>rbenv install --<span class="built_in">list</span> <span class="preprocessor">#查看可安装的列表</span>
-rbenv install <span class="number">1.9</span><span class="number">.3</span>-p551 <span class="preprocessor">#安装ruby，这一步需要在.rbenv文件夹下进行，否则会报错估计和ruby-build文件路径有关.</span>
-rbenv versions <span class="preprocessor">#显示当前已安装和正在使用的ruby版本</span>
-</code></pre><p>rbenv 支持以下三种 Ruby 版本的环境管理：</p>
-<pre><code><span class="built_in">global</span>：设置全局的 Ruby 版本，换句话说，所有的 <span class="built_in">shell</span> 都将使用该 Ruby 版本。
-<span class="built_in">local</span>：为本地的一个特定项目设置 Ruby 版本，注意这将覆盖全局设置。
-<span class="built_in">shell</span>：针对 <span class="built_in">shell</span> 设置 Ruby 版本，该设置将覆盖 <span class="built_in">global</span> 和 <span class="built_in">local</span> 设置。
-$ rbenv <span class="built_in">global</span> <span class="number">2.1</span><span class="number">.5</span> <span class="comment">#切换到2.1.5</span>
-</code></pre><p>大概就是这些~</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2015/12/01/性能测试心得体会篇/" itemprop="url">
                 性能测试心得体会篇(一)
               </a>
@@ -1183,6 +1096,97 @@ conn.<span class="function"><span class="title">close</span><span class="params"
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/22/MongoDB基本操作/" itemprop="url">
+                MongoDB基本操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-22T15:05:24+08:00" content="2015-09-22">
+            2015-09-22
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/22/MongoDB基本操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/22/MongoDB基本操作/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来</p>
+<h2 id="打开服务">打开服务</h2><pre><code>mongod<span class="class">.exe</span> --dbpath = <span class="string">"E:\db"</span>
+#打开服务并指定数据库位置
+</code></pre><h2 id="查看操作">查看操作</h2><pre><code>在程序的bin目录下用过mongo.exe进入命令行
+mongodb&gt; show dbs
+<span class="preprocessor">#显示所有数据库</span>
+mongodb&gt; use admin
+<span class="preprocessor">#使用admin库,如果没有名为admin的库则创建</span>
+mongodb&gt; show collections
+<span class="preprocessor">#显示所有集合</span>
+mongodb&gt; db.createCollection(<span class="string">"mail"</span>)
+<span class="preprocessor">#创建名为mail的集合</span>
+mongodb&gt; db.mail.find({<span class="string">"mail"</span>:<span class="string">"admin@163.com"</span>})
+<span class="preprocessor">#显示集合mail中mail值为:admin@163.com的值,如无条件则显示全部</span>
+</code></pre><h2 id="删除操作">删除操作</h2><pre><code>mongodb&gt; db.<span class="function"><span class="title">dropDatebase</span><span class="params">()</span></span>
+#删除当前数据库
+mongodb&gt; db<span class="class">.test</span><span class="class">.drop</span>()
+#删除test集合
+mongodb&gt; db<span class="class">.test</span><span class="class">.remove</span>()
+#删除记录慎用不可逆
+</code></pre><h2 id="帮助">帮助</h2><pre><code>mongodb&gt; <span class="keyword">db</span>.<span class="keyword">help</span>()
+mongodb&gt; <span class="keyword">help</span>
+</code></pre><p>手打一遍加深印象</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1221,7 +1225,7 @@ conn.<span class="function"><span class="title">close</span><span class="params"
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
