@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -35,34 +35,37 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
+<meta name="description" content="之前在linux下安东西的时候，太过依赖于使用工具安装，导致东西都安进了挂载在根目录的磁盘下，导致磁盘空间被占满而又不敢乱删东西，折腾了一天，最终选择了重装系统，这次好好做一下分区，安装的软件也尽量进行统一管理。
+1.用户管理
+#新建用户
+useradd username
+passwd username
+
+vi /etc/ssh/sshd_config
+#Port改下端口，PermitRootLo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git使用记录">
-<meta property="og:url" content="http://yoursite.com/2015/08/10/Git使用记录/index.html">
+<meta property="og:title" content="linux基本配置">
+<meta property="og:url" content="http://yoursite.com/2016/01/28/linux基本配置/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
-<meta property="og:updated_time" content="2015-12-04T07:29:11.553Z">
+<meta property="og:description" content="之前在linux下安东西的时候，太过依赖于使用工具安装，导致东西都安进了挂载在根目录的磁盘下，导致磁盘空间被占满而又不敢乱删东西，折腾了一天，最终选择了重装系统，这次好好做一下分区，安装的软件也尽量进行统一管理。
+1.用户管理
+#新建用户
+useradd username
+passwd username
+
+vi /etc/ssh/sshd_config
+#Port改下端口，PermitRootLo">
+<meta property="og:updated_time" content="2016-02-03T01:57:53.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git使用记录">
-<meta name="twitter:description" content="授权生成密钥和公钥
-ssh-keygen -t rsa -C &quot;yourmail@g.com&quot;
-注：    
-ssh-keygen在git的安装目录的&quot;bin&quot;目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的&quot;.ssh&quot;文件夹中。例如`D:\Git\.ssh\id_rsa.`    
-此时会创建D:\Git\.ssh文件夹并在其中生成名为id_rsa的">
+<meta name="twitter:title" content="linux基本配置">
+<meta name="twitter:description" content="之前在linux下安东西的时候，太过依赖于使用工具安装，导致东西都安进了挂载在根目录的磁盘下，导致磁盘空间被占满而又不敢乱删东西，折腾了一天，最终选择了重装系统，这次好好做一下分区，安装的软件也尽量进行统一管理。
+1.用户管理
+#新建用户
+useradd username
+passwd username
+
+vi /etc/ssh/sshd_config
+#Port改下端口，PermitRootLo">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +75,7 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
   };
 </script>
 
-  <title> Git使用记录 | FengGe </title>
+  <title> linux基本配置 | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -211,7 +214,7 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
           
           
             
-              Git使用记录
+              linux基本配置
             
           
         </h1>
@@ -220,8 +223,8 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-10T11:20:24+08:00" content="2015-08-10">
-            2015-08-10
+          <time itemprop="dateCreated" datetime="2016-01-28T09:11:27+08:00" content="2016-01-28">
+            2016-01-28
           </time>
         </span>
 
@@ -231,8 +234,8 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/10/Git使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/Git使用记录/" itemprop="commentsCount"></span>
+              <a href="/2016/01/28/linux基本配置/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/28/linux基本配置/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -246,30 +249,58 @@ windows下填写路径是填写绝对路径，公钥密钥放在git安装
       
 
       
-        <span itemprop="articleBody"><h2 id="授权">授权</h2><p>生成密钥和公钥</p>
-<pre><code>ssh-keygen -t rsa -<span class="keyword">C</span> <span class="string">"yourmail@g.com"</span>
-</code></pre><p>注：    </p>
-<pre><code>ssh-keygen在git的安装目录的"bin"目录下。
-windows下填写路径是填写绝对路径，公钥密钥放在git安装      
-目录下的".ssh"文件夹中。例如`D:<span class="command">\Git</span><span class="command">\.</span>ssh<span class="command">\id</span>_rsa.`    
-此时会创建D:<span class="command">\Git</span><span class="command">\.</span>ssh文件夹并在其中生成名为id_rsa的一对密钥。
-其中将公钥添加到github.com网站中就可以通过命令行对其进行各种操作。
-</code></pre><h2 id="登录github-com添加远程仓库。">登录github.com添加远程仓库。</h2><p>使用免费的只能选择public模式，添加title和description。完成并记录git clone url（形如：git@github.com\username\projectname）</p>
-<pre><code>git remote add origin git<span class="annotation">@github</span>.<span class="string">com:</span>fengge98\test.git
-</code></pre><p>创建一个名为origin的远程库关联到账户fengge98下名为test.git的工程</p>
-<pre><code><span class="label">git</span> <span class="keyword">push </span>-u origin master
-</code></pre><p>第一次由于远程仓库没有内容使用-u参数，将当前分支master中commit后的内容推送到origin远程库，并将远程库master和当前master关联方便以后的推送和拉取</p>
-<h2 id="本地编写代码">本地编写代码</h2><pre><code>git branch asdf
-git checkout adsf       <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
-git checkout -b asdf    <span class="preprocessor">#创建名为asdf的分支 并切换到asd</span>
-git <span class="keyword">add</span> test1.py
-git <span class="keyword">add</span> test2.py
-...
-git commit -m <span class="string">"description"</span>
-<span class="keyword">add</span>并commit                <span class="preprocessor">#其中description部分填写当前版本的改动 </span>
-git checkout master      <span class="preprocessor">#切换到主分支</span>
-git merge asdf           <span class="preprocessor">#将adsf提交的改动合并到master分支</span>
-git <span class="keyword">push</span>                   <span class="preprocessor">#将当前版本代码推送到远程库</span>
+        <span itemprop="articleBody"><p>之前在linux下安东西的时候，太过依赖于使用工具安装，导致东西都安进了挂载在根目录的磁盘下，导致磁盘空间被占满而又不敢乱删东西，折腾了一天，最终选择了重装系统，这次好好做一下分区，安装的软件也尽量进行统一管理。</p>
+<p>1.用户管理</p>
+<pre><code><span class="preprocessor">#新建用户</span>
+useradd username
+passwd username
+
+vi /etc/ssh/sshd_config
+<span class="preprocessor">#Port改下端口，PermitRootLogin改为no</span>
+
+service ssh restart
+</code></pre><p>2.磁盘分区及挂载</p>
+<pre><code>df 
+fdisk -l 
+<span class="preprocessor">#看看磁盘的挂载情况和所有的磁盘信息，这里发现xvdb这个磁盘还没有用上</span>
+
+mkfs -t ext3 /dev/xvdb <span class="preprocessor">#格式化成ext3文件系统  </span>
+fdisk /dev/xvdb        <span class="preprocessor">#分区其中p：打印分区情况n：添加 </span>
+
+Device Boot      Start         End      Blocks   Id  System
+/dev/xvdb1           <span class="number">1</span>         <span class="number">600</span>     <span class="number">4819468</span>+  <span class="number">83</span>  Linux
+/dev/xvdb2         <span class="number">601</span>        <span class="number">1600</span>     <span class="number">8032500</span>   <span class="number">83</span>  Linux
+/dev/xvdb3        <span class="number">1601</span>        <span class="number">2610</span>     <span class="number">8112825</span>   <span class="number">83</span>  Linux
+
+mkfs -t ext2 /dev/xvdb1 <span class="preprocessor">#转换文件格式<span class="number">1.2</span><span class="number">.3</span>都需要做</span>
+mount /dev/xvdb1 /workspace <span class="preprocessor">#放一些自己写的脚本</span>
+mount /dev/xvdb2 /app         <span class="preprocessor">#东西在这安</span>
+mount /dev/xvdb3 /backup    <span class="preprocessor">#备份</span>
+
+vi /etc/fstab  <span class="preprocessor">#添加以下<span class="number">3</span>行信息</span>
+/dev/xvdb1        /workspace        ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+/dev/xvdb2        /app                 ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+/dev/xvdb3        /backup             ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+</code></pre><p>3.安装必要软件</p>
+<p>安装gcc，make</p>
+<pre><code>yum <span class="keyword">install</span> gcc make
+</code></pre><p>安装Python2.7</p>
+<pre><code>wget http:<span class="comment">//python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2  </span>
+tar -jxvf Python-<span class="number">2.7</span><span class="number">.3</span>.tar.bz2  
+cd Python-<span class="number">2.7</span><span class="number">.3</span>  
+./configure --prefix=/app/python2<span class="number">.7</span>
+make &amp;&amp; make install
+mv /usr/bin/python /usr/bin/python2<span class="number">.6</span><span class="number">.6</span>  
+ln -s /app/python2<span class="number">.7</span>/bin/python2<span class="number">.7</span> /usr/bin/python  
+
+vi /usr/bin/yum   <span class="preprocessor">#yum不支持python2<span class="number">.7</span>坑爹啊</span>
+改成<span class="preprocessor">#!/usr/bin/python2<span class="number">.6</span><span class="number">.6</span></span>
+</code></pre><p>安装git</p>
+<pre><code>yun <span class="keyword">install</span> git --setopt=prefix=/app/git <span class="comment">#使用setopt参数安装到指定目录</span>
+</code></pre><p>用python2.6安装easy_install</p>
+<pre><code>mv <span class="regexp">/usr/</span>bin<span class="regexp">/python2.6.6 /u</span>sr<span class="regexp">/bin/</span>python
+yum install python-setuptool
+easy_isntall pip
 </code></pre></span>
       
     </div>
@@ -278,7 +309,7 @@ git <span class="keyword">push</span>                   <span class="preprocesso
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag">#git</a>
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -287,13 +318,11 @@ git <span class="keyword">push</span>                   <span class="preprocesso
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/10/SqlMap命令-全/" rel="prev">SqlMap命令-全</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/10/反射型xss/" rel="next">反射型XSS(心伤的瘦子)</a>
+              <a href="/2016/01/11/反弹shell的各种姿势/" rel="next">shell的各种姿势</a>
             
           </div>
         </div>
@@ -318,8 +347,8 @@ git <span class="keyword">push</span>                   <span class="preprocesso
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/10/Git使用记录/"
-                   data-title="Git使用记录" data-url="http://yoursite.com/2015/08/10/Git使用记录/">
+              <div class="ds-thread" data-thread-key="2016/01/28/linux基本配置/"
+                   data-title="linux基本配置" data-url="http://yoursite.com/2016/01/28/linux基本配置/">
               </div>
             
           </div>
@@ -430,7 +459,7 @@ git <span class="keyword">push</span>                   <span class="preprocesso
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#授权"><span class="nav-number">1.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录github-com添加远程仓库。"><span class="nav-number">2.</span> <span class="nav-text">登录github.com添加远程仓库。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地编写代码"><span class="nav-number">3.</span> <span class="nav-text">本地编写代码</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

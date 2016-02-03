@@ -194,6 +194,97 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/22/MongoDB基本操作/" itemprop="url">
+                MongoDB基本操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-22T15:05:24+08:00" content="2015-09-22">
+            2015-09-22
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/22/MongoDB基本操作/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/22/MongoDB基本操作/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>最近研究了下非关系型数据库Mongodb,在这里把一些操作记录下来</p>
+<h2 id="打开服务">打开服务</h2><pre><code>mongod<span class="class">.exe</span> --dbpath = <span class="string">"E:\db"</span>
+#打开服务并指定数据库位置
+</code></pre><h2 id="查看操作">查看操作</h2><pre><code>在程序的bin目录下用过mongo.exe进入命令行
+mongodb&gt; show dbs
+<span class="preprocessor">#显示所有数据库</span>
+mongodb&gt; use admin
+<span class="preprocessor">#使用admin库,如果没有名为admin的库则创建</span>
+mongodb&gt; show collections
+<span class="preprocessor">#显示所有集合</span>
+mongodb&gt; db.createCollection(<span class="string">"mail"</span>)
+<span class="preprocessor">#创建名为mail的集合</span>
+mongodb&gt; db.mail.find({<span class="string">"mail"</span>:<span class="string">"admin@163.com"</span>})
+<span class="preprocessor">#显示集合mail中mail值为:admin@163.com的值,如无条件则显示全部</span>
+</code></pre><h2 id="删除操作">删除操作</h2><pre><code>mongodb&gt; db.<span class="function"><span class="title">dropDatebase</span><span class="params">()</span></span>
+#删除当前数据库
+mongodb&gt; db<span class="class">.test</span><span class="class">.drop</span>()
+#删除test集合
+mongodb&gt; db<span class="class">.test</span><span class="class">.remove</span>()
+#删除记录慎用不可逆
+</code></pre><h2 id="帮助">帮助</h2><pre><code>mongodb&gt; <span class="keyword">db</span>.<span class="keyword">help</span>()
+mongodb&gt; <span class="keyword">help</span>
+</code></pre><p>手打一遍加深印象</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/18/python接发http请求/" itemprop="url">
                 python接发http请求
               </a>
@@ -1269,90 +1360,6 @@ php+apache : id = <span class="number">3</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/19/cmd命令使用记录/" itemprop="url">
-                cmd命令使用记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-19T15:33:48+08:00" content="2015-08-19">
-            2015-08-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/19/cmd命令使用记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/cmd命令使用记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
-</code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
-//查看现有账户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
-//查看admin账户详情
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin    password /<span class="built_ins">add</span>
-//添加用户
-<span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin /del
-//删除
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1391,7 +1398,7 @@ php+apache : id = <span class="number">3</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1405,7 +1412,7 @@ php+apache : id = <span class="number">3</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

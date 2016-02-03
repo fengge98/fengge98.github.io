@@ -43,7 +43,7 @@ VPS简介通常供应商会提供一个web管理界面，在这里通常可以�
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。
 VPS简介通常供应商会提供一个web管理界面，在这里通常可以完成系统重装，备份/还原，升级配置，续费…一些基本操作。根据在这里提供的ip地址和默认密码使用put">
-<meta property="og:updated_time" content="2015-12-04T07:31:10.776Z">
+<meta property="og:updated_time" content="2016-01-29T01:46:37.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS使用记录-ShadowSocks配置">
 <meta name="twitter:description" content="前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。
@@ -243,6 +243,7 @@ apt-<span class="keyword">get</span> <span class="keyword">install</span> git
 <p>过程</p>
 <pre><code>apt-<span class="keyword">get</span> install python-pip
 pip install shadowsocks
+<span class="comment"># 或者git clone git://github.com/madeye/shadowsocks-libev.git</span>
 find / -<span class="property">name</span> shadowsocks <span class="comment">#看看装在哪里了</span>
 mkdir shadowsocks        <span class="comment">#在etc目录下新建名为shadowsocks的文件夹</span>
 vim config.json          <span class="comment">#新建名为config.json的文件写入一下内容</span>
@@ -356,7 +357,7 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -370,7 +371,7 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

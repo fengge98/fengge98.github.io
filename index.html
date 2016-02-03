@@ -194,6 +194,126 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/28/linux基本配置/" itemprop="url">
+                linux基本配置
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-28T09:11:27+08:00" content="2016-01-28">
+            2016-01-28
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/28/linux基本配置/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/28/linux基本配置/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>之前在linux下安东西的时候，太过依赖于使用工具安装，导致东西都安进了挂载在根目录的磁盘下，导致磁盘空间被占满而又不敢乱删东西，折腾了一天，最终选择了重装系统，这次好好做一下分区，安装的软件也尽量进行统一管理。</p>
+<p>1.用户管理</p>
+<pre><code><span class="preprocessor">#新建用户</span>
+useradd username
+passwd username
+
+vi /etc/ssh/sshd_config
+<span class="preprocessor">#Port改下端口，PermitRootLogin改为no</span>
+
+service ssh restart
+</code></pre><p>2.磁盘分区及挂载</p>
+<pre><code>df 
+fdisk -l 
+<span class="preprocessor">#看看磁盘的挂载情况和所有的磁盘信息，这里发现xvdb这个磁盘还没有用上</span>
+
+mkfs -t ext3 /dev/xvdb <span class="preprocessor">#格式化成ext3文件系统  </span>
+fdisk /dev/xvdb        <span class="preprocessor">#分区其中p：打印分区情况n：添加 </span>
+
+Device Boot      Start         End      Blocks   Id  System
+/dev/xvdb1           <span class="number">1</span>         <span class="number">600</span>     <span class="number">4819468</span>+  <span class="number">83</span>  Linux
+/dev/xvdb2         <span class="number">601</span>        <span class="number">1600</span>     <span class="number">8032500</span>   <span class="number">83</span>  Linux
+/dev/xvdb3        <span class="number">1601</span>        <span class="number">2610</span>     <span class="number">8112825</span>   <span class="number">83</span>  Linux
+
+mkfs -t ext2 /dev/xvdb1 <span class="preprocessor">#转换文件格式<span class="number">1.2</span><span class="number">.3</span>都需要做</span>
+mount /dev/xvdb1 /workspace <span class="preprocessor">#放一些自己写的脚本</span>
+mount /dev/xvdb2 /app         <span class="preprocessor">#东西在这安</span>
+mount /dev/xvdb3 /backup    <span class="preprocessor">#备份</span>
+
+vi /etc/fstab  <span class="preprocessor">#添加以下<span class="number">3</span>行信息</span>
+/dev/xvdb1        /workspace        ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+/dev/xvdb2        /app                 ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+/dev/xvdb3        /backup             ext2    defaults        <span class="number">1</span> <span class="number">2</span>
+</code></pre><p>3.安装必要软件</p>
+<p>安装gcc，make</p>
+<pre><code>yum <span class="keyword">install</span> gcc make
+</code></pre><p>安装Python2.7</p>
+<pre><code>wget http:<span class="comment">//python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2  </span>
+tar -jxvf Python-<span class="number">2.7</span><span class="number">.3</span>.tar.bz2  
+cd Python-<span class="number">2.7</span><span class="number">.3</span>  
+./configure --prefix=/app/python2<span class="number">.7</span>
+make &amp;&amp; make install
+mv /usr/bin/python /usr/bin/python2<span class="number">.6</span><span class="number">.6</span>  
+ln -s /app/python2<span class="number">.7</span>/bin/python2<span class="number">.7</span> /usr/bin/python  
+
+vi /usr/bin/yum   <span class="preprocessor">#yum不支持python2<span class="number">.7</span>坑爹啊</span>
+改成<span class="preprocessor">#!/usr/bin/python2<span class="number">.6</span><span class="number">.6</span></span>
+</code></pre><p>安装git</p>
+<pre><code>yun <span class="keyword">install</span> git --setopt=prefix=/app/git <span class="comment">#使用setopt参数安装到指定目录</span>
+</code></pre><p>用python2.6安装easy_install</p>
+<pre><code>mv <span class="regexp">/usr/</span>bin<span class="regexp">/python2.6.6 /u</span>sr<span class="regexp">/bin/</span>python
+yum install python-setuptool
+easy_isntall pip
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/11/反弹shell的各种姿势/" itemprop="url">
                 shell的各种姿势
               </a>
@@ -1208,93 +1328,6 @@ msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/04/Ubuntu配置管理ruby全记录/" itemprop="url">
-                Ubuntu配置管理ruby记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-04T10:04:54+08:00" content="2015-12-04">
-            2015-12-04
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/04/Ubuntu配置管理ruby全记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/Ubuntu配置管理ruby全记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>之前搭BeFF平台需要用到ruby环境~用apt-get命令默认安装1.8.7版本的ruby，到后面说ruby版本太低，需要升级ruby。<br>接下来就开始了升级ruby的不归路，今天要搭建metasploit又需要ruby环境，之前环境被我弄了乱七八糟的，看来自己埋的坑是迟早要跳的。</p>
-<h2 id="rbenv安装配置">rbenv安装配置</h2><p>因为需要不同版本的ruby环境，所以先找找有没有版本管理工具。网站推荐的是rvm和rbenv两个工具，上次rvm没用明白，今天试试rbenv。</p>
-<pre><code><span class="variable">$ </span>cd /home
-<span class="variable">$ </span><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/sstephenson</span><span class="regexp">/rbenv.git ~/</span>.rbenv <span class="comment">#安装到root目录下的 .rbenv文件夹</span>
-<span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/sstephenson</span><span class="regexp">/ruby-build.git ~/</span>.rbenv/plugins/ruby-build<span class="comment">#注意安装目录</span>
-<span class="variable">$ </span>apt-get install rubygems <span class="comment">#好多软件需要ruby环境的时候经常用到gem命令~</span>
-添加环境变量（可选）
-<span class="variable">$ </span>echo <span class="string">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> <span class="prompt">&gt;&gt; </span>.bash_profile
-<span class="variable">$ </span>echo <span class="string">'eval "$(rbenv init -)"'</span> <span class="prompt">&gt;&gt; </span>.bash_profile
-<span class="variable">$ </span>source ~<span class="regexp">/.bash_profile</span>
-</code></pre><h2 id="rbenv使用">rbenv使用</h2><pre><code>rbenv install --<span class="built_in">list</span> <span class="preprocessor">#查看可安装的列表</span>
-rbenv install <span class="number">1.9</span><span class="number">.3</span>-p551 <span class="preprocessor">#安装ruby，这一步需要在.rbenv文件夹下进行，否则会报错估计和ruby-build文件路径有关.</span>
-rbenv versions <span class="preprocessor">#显示当前已安装和正在使用的ruby版本</span>
-</code></pre><p>rbenv 支持以下三种 Ruby 版本的环境管理：</p>
-<pre><code><span class="built_in">global</span>：设置全局的 Ruby 版本，换句话说，所有的 <span class="built_in">shell</span> 都将使用该 Ruby 版本。
-<span class="built_in">local</span>：为本地的一个特定项目设置 Ruby 版本，注意这将覆盖全局设置。
-<span class="built_in">shell</span>：针对 <span class="built_in">shell</span> 设置 Ruby 版本，该设置将覆盖 <span class="built_in">global</span> 和 <span class="built_in">local</span> 设置。
-$ rbenv <span class="built_in">global</span> <span class="number">2.1</span><span class="number">.5</span> <span class="comment">#切换到2.1.5</span>
-</code></pre><p>大概就是这些~</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1333,7 +1366,7 @@ $ rbenv <span class="built_in">global</span> <span class="number">2.1</span><spa
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1347,7 +1380,7 @@ $ rbenv <span class="built_in">global</span> <span class="number">2.1</span><spa
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
