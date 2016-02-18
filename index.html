@@ -194,6 +194,94 @@
           
           
             
+              <a class="post-title-link" href="/2016/02/18/范围爆破常见服务/" itemprop="url">
+                范围爆破常见服务
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-02-18T11:13:12+08:00" content="2016-02-18">
+            2016-02-18
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/02/18/范围爆破常见服务/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/18/范围爆破常见服务/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。</p>
+<h2 id="Ubuntu_14版_32位系统">Ubuntu 14版 32位系统</h2><p>安装nmap，hydra<br>    apt-get install nmap<br>    apt-get install hydra hydra-gtk</p>
+<h2 id="nmap搜集信息">nmap搜集信息</h2><p>以22端口为例</p>
+<pre><code><span class="keyword">nmap</span> -<span class="keyword">v</span> -<span class="keyword">sn</span> -PE -<span class="keyword">n</span> --<span class="built_in">min</span>-hostgroup <span class="number">1024</span> --<span class="built_in">min</span>-parallelism <span class="number">1024</span> -oG nmap_output IP/<span class="number">16</span>
+#扫下<span class="keyword">b</span>段，把存活主机筛选出来
+<span class="keyword">cat</span> nmap_output | <span class="keyword">grep</span> Up |awk <span class="string">'{print $2}'</span> &gt; target_alive
+#将存活主机IP筛选出来，进一步扫描识别服务
+<span class="keyword">nmap</span> -sS -<span class="keyword">p</span> <span class="number">22</span> -oG nmap_output -iL target_alive
+#读取上一步中存活主机列表，扫描<span class="number">22</span>端口或者用下一条直接扫一个<span class="keyword">c</span>段
+<span class="keyword">nmap</span> -sS -<span class="keyword">p</span> <span class="number">22</span> -oG nmap_output IP/<span class="number">24</span>
+#扫描<span class="keyword">c</span>段下开放<span class="number">22</span>端口的服务
+<span class="keyword">cat</span> nmap_output | <span class="keyword">grep</span> <span class="keyword">open</span> |awk <span class="string">'{print $2}'</span>  &gt; target_ssh
+#筛选
+</code></pre><p>说明：<br>1.第一条指令执行速度较快，目的是快速判断大范围的存活主机，提高扫描效率。<br>2.使用该指令扫描靶机vps的B段IP，促发了保护机制，结果攻击VPS直接被DDOS打挂了<br>3.关于第一条命令详解参见李姐姐的博客<br>4.关于nmap一些其他姿势可参考nmap科学使用方法</p>
+<p><a href="http://www.lijiejie.com/nmap-fast-scan-large-networks/" target="_blank" rel="external">李姐姐的博客</a><br><a href="http://blog.jobbole.com/54595/" target="_blank" rel="external">nmap科学使用方法</a></p>
+<h2 id="爆破ssh">爆破ssh</h2><pre><code>hydra -M target_ssh ssh -s port -L username<span class="class">.txt</span> -P password<span class="class">.txt</span> -t <span class="number">50</span>
+#-M读取爆破目标，-s为指定爆破端口，-t为运行的线程数默认为<span class="number">16</span>
+hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span class="class">.txt</span> -t <span class="number">50</span>
+#直接用IP爆破
+</code></pre><p>总结：基本思路就是使用nmap获得爆破目标(ftp,ssh,smtp,pop,mysql…)并处理，用hydra对目标进行爆破。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/28/linux基本配置/" itemprop="url">
                 linux基本配置
               </a>
@@ -1233,101 +1321,6 @@ makeinstall
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/" itemprop="url">
-                VPS使用记录-MetaSploit环境搭建
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-04T17:24:38+08:00" content="2015-12-04">
-            2015-12-04
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/VPS使用记录-MetaSploit环境搭建/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="MetaSploit安装">MetaSploit安装</h2><p>安装之前需要ruby环境，在这里用的是ruby-2.1.7版本</p>
-<pre><code>git clone https://github.com/rapid7/metasploit-framework framework3 <span class="comment">#clone到frameword3文件夹中</span>
-gem <span class="keyword">install</span> bundler
-bundle <span class="keyword">install</span>
-</code></pre><p>在这一步碰到两个问题：</p>
-<p>1.gem install pg说缺包，apt-get又装不上，后来在source.list把原来装系统的时候默认的源都加上。然后 apt-get update，然后提示错误说缺什么就安什么。</p>
-<p>2.错误提示找不到pcap.h文件，是在gem install pcaprub的时候报的错，原因还是缺包。<br>apt-get install libpcap-dev</p>
-<h2 id="postgresql安装">postgresql安装</h2><pre><code>sudo apt-get installpostgresql postgresql-client postgresql-server-dev-all -y
-<span class="preprocessor">#postgresql安装的时候会默认创建一个名为postgresql的用户</span>
-su postgres                 <span class="preprocessor">#切换到postgresql用户</span>
-createuser msf -P -S -R -D     <span class="preprocessor">#创建名为msf的数据库用户，记住在这一步输入的密码</span>
-createdb -O msf msf            <span class="preprocessor">#创建名为msf的数据库</span>
-vim /home/framework3/condig/database.yml  <span class="preprocessor">#在这个目录下创建名为database.yml的文件，该目录下有一个后缀为example的参考文件，添加如下信息。</span>
-
-production:
-  adapter: postgresql
-  database: msf
-  username: msf
-  password: 密码
-  host: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>
-  port: <span class="number">5432</span>
-  pool: <span class="number">75</span>
-  timeout: <span class="number">5</span>
-
-msfconsole     <span class="preprocessor">#打开命令行</span>
-msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
-[*] postgresql connected to msf
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1366,7 +1359,7 @@ msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1380,7 +1373,7 @@ msf&gt; db_status <span class="preprocessor">#查看数据库连接状态</span>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
