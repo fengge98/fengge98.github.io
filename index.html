@@ -194,6 +194,198 @@
           
           
             
+              <a class="post-title-link" href="/2016/02/25/性能测试学习-1/" itemprop="url">
+                性能测试学习-1
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-02-25T15:27:18+08:00" content="2016-02-25">
+            2016-02-25
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/02/25/性能测试学习-1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/25/性能测试学习-1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>近来状态不佳，学的东西杂乱无章，也没能及时有效的总结，先放一放安全，从头开始总结下性能测试</p>
+<h2 id="点对点带宽测试">点对点带宽测试</h2><p>用到的工具iperf</p>
+<pre><code>apt-get install iperf <span class="hexcolor">#deb</span>ian系统，windows下载安装包进行安装
+
+#服务端运行
+iperf -f M -s
+#客户端运行
+iperf<span class="class">.exe</span> -f M -c <span class="number">192.168</span>.<span class="number">51.145</span> -t <span class="number">10</span> -<span class="tag">i</span> <span class="number">1</span>
+</code></pre><p>测得公司内网实际传输速度在11.5Mbytes左右，11.5(实际速度)*8=92(带宽)，推测内网为百兆带宽</p>
+<p>看一下windows机器支持的网卡最大速度：<br>    控制面板–网络连接–本地连接（属性）–配置（常规下面）–高级（找speed&amp;duplex）–右边下拉菜单里看有那些选项（最大为100M）<br>又查了一下树莓派自带网口的网卡速度，结果也是100M…</p>
+<p>在这个场景下测出来的是本机-&gt;服务器的带宽</p>
+<h2 id="一次简单的GET请求">一次简单的GET请求</h2><p>编辑网页内容 1234567890 发送一次GET请求 抓包看看大小</p>
+<pre><code>场景A:本机-&gt;服务器  <span class="number">66</span>+<span class="number">54</span>+<span class="number">524</span>+<span class="number">54</span>=<span class="number">698</span>bytes <span class="preprocessor">#<span class="number">3</span>个TCP，<span class="number">1</span>个http请求（上行）</span>
+场景B:服务器-&gt;本机  <span class="number">66</span>+<span class="number">60</span>+<span class="number">349</span>=<span class="number">475</span>bytes    <span class="preprocessor">#<span class="number">2</span>个TCP，<span class="number">1</span>个http响应（下行）</span>
+</code></pre><p>从这些信息里可以分析出什么呢？</p>
+<p>1.如果是宽带瓶颈应该出现在上行的方向即场景A，宽带承受最大理论值为 11.5<em>1024</em>1024/698 约等于 17275，即每秒钟可通过17275个请求。<br>2.还可以分析出正常情况下，场景A吞吐率/场景B吞吐率应约为3/2，如远大于3/2可以推测服务器出现性能瓶颈。<br>3.如果场景A的带宽始终没有被占满，但压力机的cpu，内存各项占用比例很大则可能是压力机到达了瓶颈。</p>
+<h2 id="jmeter压力实测">jmeter压力实测</h2><p>apache的配置情况：</p>
+<pre><code><span class="preprocessor">#工作模式：</span>
+cd /etc/apache2/mods-enabled/ 
+<span class="preprocessor">#查看Apache2启动时载入哪些模块，发现载入了prefork的工作模式</span>
+vim mpm_prefork.conf
+<span class="preprocessor">#看一下相关配置</span>
+&lt;IfModule mpm_prefork_module&gt;
+    StartServers                  <span class="number">5</span>
+    MinSpareServers               <span class="number">5</span>
+    MaxSpareServers              <span class="number">10</span>
+    MaxRequestWorkers             <span class="number">150</span>
+    MaxConnectionsPerChild       <span class="number">0</span>
+&lt;/IfModule&gt;
+
+<span class="preprocessor">#apache配置：</span>
+KeepAlive On
+MaxKeepAliveRequests <span class="number">100</span>
+</code></pre><p>jmeter脚本简述：一次GET请求。<br><a href="http://192.168.51.145/test.html" target="_blank" rel="external">http://192.168.51.145/test.html</a></p>
+<p>测试结果：</p>
+<table>
+<thead>
+<tr>
+<th>并发数</th>
+<th>平均事务响应时间</th>
+<th>cpu-user</th>
+<th>cpu-sys</th>
+<th>packin</th>
+<th>packout</th>
+<th>tcp连接数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>12</td>
+<td>20</td>
+<td>2</td>
+<td>455</td>
+<td>720</td>
+<td>55</td>
+</tr>
+<tr>
+<td>2</td>
+<td>12</td>
+<td>35</td>
+<td>4.5</td>
+<td>780</td>
+<td>1300</td>
+</tr>
+<tr>
+<td>3</td>
+<td>13</td>
+<td>51</td>
+<td>7</td>
+<td>1161</td>
+<td>1160</td>
+</tr>
+<tr>
+<td>4</td>
+<td>13</td>
+<td>68</td>
+<td>10</td>
+<td>1400</td>
+<td>2270</td>
+</tr>
+<tr>
+<td>5</td>
+<td>14</td>
+<td>75</td>
+<td>14</td>
+<td>1534</td>
+<td>2444</td>
+</tr>
+<tr>
+<td>6</td>
+<td>19</td>
+<td>82</td>
+<td>17</td>
+<td>1570</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>7</td>
+<td>21</td>
+<td>81</td>
+<td>16</td>
+<td>1615</td>
+<td>2610</td>
+</tr>
+<tr>
+<td>8</td>
+<td>24</td>
+<td>83.5</td>
+<td>16</td>
+<td>1671</td>
+<td>2641</td>
+</tr>
+<tr>
+<td>10</td>
+<td>28</td>
+<td>80</td>
+<td>19</td>
+<td>1647</td>
+<td>2770</td>
+</tr>
+</tbody>
+</table>
+<p>说明：<br>1.在5并发左右时吞吐量达到最大，其中每个包的大小约为1475bytes，即(1475/1024)kb<em>2770=3998kb，约为4MB/s（packout</em>packsize）<br>2.可以看到开启7个线程时发包和接包个数达到峰值，并不会随着压力机进程的增加而增加，推测瓶颈出现在压力机。<br>3.本次测试只是简单一问一答的请求，去除了网页中的js,css及一些图片的请求，在实际测试的过程中不应去除这些内容。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/02/18/范围爆破常见服务/" itemprop="url">
                 范围爆破常见服务
               </a>
@@ -233,8 +425,10 @@
       
         
           <span itemprop="articleBody"><p>记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。</p>
-<h2 id="Ubuntu_14版_32位系统">Ubuntu 14版 32位系统</h2><p>安装nmap，hydra<br>    apt-get install nmap<br>    apt-get install hydra hydra-gtk</p>
-<h2 id="nmap搜集信息">nmap搜集信息</h2><p>以22端口为例</p>
+<h2 id="Ubuntu_14版_32位系统">Ubuntu 14版 32位系统</h2><p>安装nmap，hydra</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">install</span> nmap 
+apt-<span class="keyword">get</span> <span class="keyword">install</span> hydra hydra-gtk</span>
+</code></pre><h2 id="nmap搜集信息">nmap搜集信息</h2><p>以22端口为例</p>
 <pre><code><span class="keyword">nmap</span> -<span class="keyword">v</span> -<span class="keyword">sn</span> -PE -<span class="keyword">n</span> --<span class="built_in">min</span>-hostgroup <span class="number">1024</span> --<span class="built_in">min</span>-parallelism <span class="number">1024</span> -oG nmap_output IP/<span class="number">16</span>
 #扫下<span class="keyword">b</span>段，把存活主机筛选出来
 <span class="keyword">cat</span> nmap_output | <span class="keyword">grep</span> Up |awk <span class="string">'{print $2}'</span> &gt; target_alive
@@ -251,6 +445,8 @@
 #-M读取爆破目标，-s为指定爆破端口，-t为运行的线程数默认为<span class="number">16</span>
 hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span class="class">.txt</span> -t <span class="number">50</span>
 #直接用IP爆破
+</code></pre><h2 id="爆破telnet">爆破telnet</h2><pre><code>hydra <span class="number">123.103</span><span class="number">.58</span><span class="number">.186</span> telnet -l admin -p admin -t <span class="number">1</span> -s <span class="number">23</span> -e ns -f -V
+<span class="preprocessor">#-s之后的参数不知道有啥用~用到了再研究</span>
 </code></pre><p>总结：基本思路就是使用nmap获得爆破目标(ftp,ssh,smtp,pop,mysql…)并处理，用hydra对目标进行爆破。</p>
 </span>
         
@@ -1214,113 +1410,6 @@ Additional records-------------<span class="number">248</span>byte
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/11/VIM配置过程/" itemprop="url">
-                VIM配置过程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-11T15:00:29+08:00" content="2015-12-11">
-            2015-12-11
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/11/VIM配置过程/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/VIM配置过程/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。</p>
-<h2 id="编译安装">编译安装</h2><p>1.下载源码进入src目录</p>
-<pre><code>./configure --enable-pythoninterp | <span class="keyword">grep</span> <span class="keyword">python</span>
-#pythoninterp原来默认是<span class="keyword">no</span>的状态在这里添加进去
-<span class="keyword">make</span>
-<span class="keyword">make</span> install
-<span class="keyword">vim</span> --<span class="keyword">version</span> | <span class="keyword">grep</span> <span class="keyword">python</span> #看看<span class="keyword">python</span>后面的状态
-</code></pre><h2 id="安装vundle-插件管理工具">安装vundle-插件管理工具</h2><p>自从有了这货-再也不用自己下包再挨个拷到docs和plugin目录了</p>
-<p>地址：<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">https://github.com/VundleVim/Vundle.vim</a></p>
-<p>按教程一步步来就OK</p>
-<p><em>插件安装</em></p>
-<p>安装的时候配置了.vimrc文件，以后需要安什么插件只要在 .vimrc文件中加上</p>
-<pre><code><span class="title">Bundle</span> <span class="string">'pluginname'</span>                <span class="comment">#vim官网插件名称</span>
-Bundle <span class="string">'username/projectname'</span>    <span class="comment">#github地址</span>
-</code></pre><p>然后进入vim执行</p>
-<pre><code><span class="attribute">:BundleInstall</span>
-</code></pre><p><em>插件删除</em></p>
-<p>去掉 .vimrc 文件中想要删除的插件，进入vim执行</p>
-<pre><code><span class="attribute">:BunbleClean</span>
-</code></pre><h2 id="安装插件">安装插件</h2><p>在~/.vimrc 文件中添加以下内容</p>
-<pre><code><span class="type">Bundle</span> <span class="symbol">'taglist</span>.vim'
-<span class="type">Bundle</span> <span class="symbol">'scrooloose</span>/nerdtree'
-<span class="type">Bundle</span> <span class="symbol">'Valloric</span>/<span class="type">YouCompleteMe'</span>
-</code></pre><p> 进入vim执行</p>
-<pre><code><span class="attribute">:BundleInstall</span>
-</code></pre><p> 安装到第三个插件的时候提示需要编译YCM,YCM已经被安装到YouCompleteMe目录下</p>
-<pre><code> mkdri <span class="regexp">/etc/Y</span>CM #建立新文件夹放置编译后的内容
- cd <span class="regexp">/etc/Y</span>CM
-
-cmake -G <span class="string">"Unix Makefiles"</span> . ~<span class="regexp">/.vim/</span>bundle<span class="regexp">/YouCompleteMe/</span>third_party<span class="regexp">/ycmd/</span>cpp
-make ycm_support_libs
-</code></pre><p>编译过程提示cmake版本过低</p>
-<pre><code>apt-<span class="built_in">get</span> --purge autoremove cmake
-下载最新版cmake <span class="keyword">source</span>解压
-./bootstrap
-<span class="keyword">make</span>
-makeinstall
-</code></pre><p>再用cmake执行YCM的编译命令，打开vim发现已经可以实现自动补全了，关于这个插件的详细设置日后再研究。</p>
-<p>./vimrc文件的配置备份至 quanyong.pub/backup/vimrc 有点乱有时间再改</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1359,7 +1448,7 @@ makeinstall
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

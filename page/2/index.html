@@ -194,6 +194,113 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/11/VIM配置过程/" itemprop="url">
+                VIM配置过程
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-11T15:00:29+08:00" content="2015-12-11">
+            2015-12-11
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/11/VIM配置过程/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/VIM配置过程/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。</p>
+<h2 id="编译安装">编译安装</h2><p>1.下载源码进入src目录</p>
+<pre><code>./configure --enable-pythoninterp | <span class="keyword">grep</span> <span class="keyword">python</span>
+#pythoninterp原来默认是<span class="keyword">no</span>的状态在这里添加进去
+<span class="keyword">make</span>
+<span class="keyword">make</span> install
+<span class="keyword">vim</span> --<span class="keyword">version</span> | <span class="keyword">grep</span> <span class="keyword">python</span> #看看<span class="keyword">python</span>后面的状态
+</code></pre><h2 id="安装vundle-插件管理工具">安装vundle-插件管理工具</h2><p>自从有了这货-再也不用自己下包再挨个拷到docs和plugin目录了</p>
+<p>地址：<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">https://github.com/VundleVim/Vundle.vim</a></p>
+<p>按教程一步步来就OK</p>
+<p><em>插件安装</em></p>
+<p>安装的时候配置了.vimrc文件，以后需要安什么插件只要在 .vimrc文件中加上</p>
+<pre><code><span class="title">Bundle</span> <span class="string">'pluginname'</span>                <span class="comment">#vim官网插件名称</span>
+Bundle <span class="string">'username/projectname'</span>    <span class="comment">#github地址</span>
+</code></pre><p>然后进入vim执行</p>
+<pre><code><span class="attribute">:BundleInstall</span>
+</code></pre><p><em>插件删除</em></p>
+<p>去掉 .vimrc 文件中想要删除的插件，进入vim执行</p>
+<pre><code><span class="attribute">:BunbleClean</span>
+</code></pre><h2 id="安装插件">安装插件</h2><p>在~/.vimrc 文件中添加以下内容</p>
+<pre><code><span class="type">Bundle</span> <span class="symbol">'taglist</span>.vim'
+<span class="type">Bundle</span> <span class="symbol">'scrooloose</span>/nerdtree'
+<span class="type">Bundle</span> <span class="symbol">'Valloric</span>/<span class="type">YouCompleteMe'</span>
+</code></pre><p> 进入vim执行</p>
+<pre><code><span class="attribute">:BundleInstall</span>
+</code></pre><p> 安装到第三个插件的时候提示需要编译YCM,YCM已经被安装到YouCompleteMe目录下</p>
+<pre><code> mkdri <span class="regexp">/etc/Y</span>CM #建立新文件夹放置编译后的内容
+ cd <span class="regexp">/etc/Y</span>CM
+
+cmake -G <span class="string">"Unix Makefiles"</span> . ~<span class="regexp">/.vim/</span>bundle<span class="regexp">/YouCompleteMe/</span>third_party<span class="regexp">/ycmd/</span>cpp
+make ycm_support_libs
+</code></pre><p>编译过程提示cmake版本过低</p>
+<pre><code>apt-<span class="built_in">get</span> --purge autoremove cmake
+下载最新版cmake <span class="keyword">source</span>解压
+./bootstrap
+<span class="keyword">make</span>
+makeinstall
+</code></pre><p>再用cmake执行YCM的编译命令，打开vim发现已经可以实现自动补全了，关于这个插件的详细设置日后再研究。</p>
+<p>./vimrc文件的配置备份至 quanyong.pub/backup/vimrc 有点乱有时间再改</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/" itemprop="url">
                 VPS使用记录-MetaSploit环境搭建
               </a>
@@ -996,194 +1103,6 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/12/DNS域传送漏洞学习记录/" itemprop="url">
-                DNS域传送漏洞学习记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-12T15:30:39+08:00" content="2015-10-12">
-            2015-10-12
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/12/DNS域传送漏洞学习记录/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/12/DNS域传送漏洞学习记录/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>最近研究了一下DNS域传送漏洞,这里记录一下学习结果</p>
-<h2 id="DNS域传送漏洞概述">DNS域传送漏洞概述</h2><p>DNS服务提供了域名到IP的映射,服务端口通常为53.DNS服务器分为三类:主服务器,备份服务器,缓存服务器.其中备份服务器同步主服务器的过程为<strong>域传送</strong>.<br>当DNS服务器配置不当时可能导致任何匿名用户都可以获得整个域的所有记录,整个网络结构就暴漏给了攻击者.危害也就不言而喻了.</p>
-<p>常见的DNS记录有以下几类</p>
-<table>
-<thead>
-<tr>
-<th>类别</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>ip地址映射</td>
-</tr>
-<tr>
-<td>AAAA</td>
-<td>ipv6地址映射</td>
-</tr>
-<tr>
-<td>CHAME</td>
-<td>别名</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>域名记录</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>邮箱交换记录</td>
-</tr>
-<tr>
-<td>PTR</td>
-<td>反向记录</td>
-</tr>
-<tr>
-<td>TXT</td>
-<td>邮箱信息</td>
-</tr>
-</tbody>
-</table>
-<h2 id="nslookup命令检测域传送漏洞">nslookup命令检测域传送漏洞</h2><p>1.非交互式</p>
-<pre><code>cmd&gt; nslookup -type=ns baidu.com
-<span class="preprocessor">#查看baidu.com此域名被哪个dns服务器解析</span>
-cmd&gt; nslookup -type=ptr <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>
-<span class="preprocessor">#反向查看<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>的域名</span>
-</code></pre><p>2.交互式</p>
-<pre><code><span class="built_ins">cmd</span>&gt; nslookup <span class="comment">#进入交互</span>
-<span class="built_ins">cmd</span>&gt; server dns.baidu.com <span class="comment">#指定dnsserver</span>
-<span class="built_ins">cmd</span>&gt; ls baidu.com <span class="comment">#列出所有记录</span>
-</code></pre><p>可以写一个bat脚本保存为 dnstest.bat</p>
-<pre><code>echo <span class="keyword">ls</span> <span class="variable">%1</span> | nslookup - <span class="variable">%2</span>
-</code></pre><p>在使用时格式如下:</p>
-<pre><code><span class="tag">dnstest</span> <span class="tag">baidu</span><span class="class">.com</span> <span class="tag">dns</span><span class="class">.baidu</span><span class="class">.com</span>
-<span class="id">#param1</span>中写入访问域名
-<span class="id">#param2</span>中写入<span class="tag">dns</span>地址
-</code></pre><h2 id="DNS批量扫描PY脚本">DNS批量扫描PY脚本</h2><p>想到写一个批量扫描乌云上所有厂商DNS域传送漏洞的脚本:<br>1.以厂商页为首页爬取所有厂商url<br>2.根据url得到dns服务地址<br>3.如果存在漏洞将结果存入文件保存</p>
-<p>改了改lijiejie的代码如下:</p>
-<pre><code><span class="comment">#coding = utf-8</span>
-<span class="keyword">import</span> urllib2,re,threading,os
-list1 = [<span class="string">'share.baidu.com'</span>,<span class="string">'hm.baidu.com'</span>,<span class="string">'sae.sina.com'</span>,<span class="string">'widget.weibo.com'</span>,<span class="string">'cip4.czpush.com'</span>]
-colleges = []
-<span class="keyword">for</span> item <span class="keyword">in</span> range(<span class="number">41</span>,<span class="number">43</span>):
-    <span class="keyword">if</span> item == <span class="number">1</span>:
-        html_doc = urllib2.urlopen(<span class="string">'http://wooyun.org/corps'</span>).read().decode(<span class="string">'utf-8'</span>)
-        links = re.findall(<span class="string">r'\w+.\w+\.com|\w+.\w+\.cn|\w+.\w+\.net'</span>, html_doc)
-    <span class="keyword">else</span>:
-        html_doc = urllib2.urlopen(<span class="string">'http://wooyun.org/corps/page/'</span>+str(item)).read().decode(<span class="string">'utf-8'</span>)
-        links = re.findall(<span class="string">r'\w+.\w+\.com|\w+.\w+\.cn|\w+.\w+\.net'</span>, html_doc)
-        <span class="keyword">print</span> <span class="string">'spidering %d'</span>% item
-    <span class="keyword">for</span> url <span class="keyword">in</span> links:
-        <span class="keyword">if</span> url <span class="keyword">not</span> <span class="keyword">in</span> list1 <span class="keyword">and</span> (<span class="string">'/'</span><span class="keyword">not</span> <span class="keyword">in</span> url):
-            <span class="keyword">try</span>:
-                colleges.index(url)
-                <span class="keyword">pass</span>
-            <span class="keyword">except</span> Exception, e:
-                colleges.append(url)        
-f = open(<span class="string">'1.txt'</span>,<span class="string">'w'</span>)
-<span class="keyword">for</span> item <span class="keyword">in</span> colleges:
-    f.write(item+<span class="string">'\n'</span>)
-<span class="string">'''colleges = []
-f = open('1.txt','r')
-for item in f:
-    colleges.append(item.replace('\n',''))'''</span>        
-lock = threading.Lock()
-c_index = <span class="number">0</span>
-<span class="function"><span class="keyword">def</span> <span class="title">test_DNS_Servers</span><span class="params">()</span>:</span>
-    <span class="keyword">global</span> c_index
-    <span class="keyword">while</span> <span class="keyword">True</span>:
-        lock.acquire()
-        <span class="keyword">if</span> c_index &gt;= len(colleges):
-            lock.release()
-            <span class="keyword">break</span>    <span class="comment"># End of list</span>
-        domain = colleges[c_index].lstrip(<span class="string">'www.'</span>)
-        c_index += <span class="number">1</span>
-        lock.release()
-        cmd_res = os.popen(<span class="string">'nslookup -type=ns '</span> + domain).read()    <span class="comment"># fetch DNS Server List</span>
-        <span class="keyword">print</span> domain
-        dns_servers = re.findall(<span class="string">'nameserver = ([\w\.]+)'</span>, cmd_res)
-        <span class="keyword">for</span> server <span class="keyword">in</span> dns_servers:
-            <span class="keyword">if</span> len(server) &lt; <span class="number">5</span>: server += domain
-            cmd_res = os.popen(os.getcwd() + <span class="string">'\\BIND9\\dig @%s axfr %s'</span> % (server, domain)).read()
-            <span class="keyword">if</span> cmd_res.find(<span class="string">'Transfer failed.'</span>) &lt; <span class="number">0</span> <span class="keyword">and</span> \
-               cmd_res.find(<span class="string">'connection timed out'</span>) &lt; <span class="number">0</span> <span class="keyword">and</span> \
-               cmd_res.find(<span class="string">'XFR size'</span>) &gt; <span class="number">0</span> :
-                lock.acquire()
-                <span class="keyword">print</span> <span class="string">'*'</span> * <span class="number">10</span> +  <span class="string">' Vulnerable dns server found:'</span>, server, <span class="string">'*'</span> * <span class="number">10</span>
-                lock.release()
-                <span class="keyword">with</span> open(<span class="string">'vulnerable_hosts.txt'</span>, <span class="string">'a'</span>) <span class="keyword">as</span> f:
-                    f.write(<span class="string">'%s    %s\n'</span> % (server.ljust(<span class="number">30</span>), domain))
-                <span class="keyword">with</span> open(<span class="string">'dns\\'</span> + server + <span class="string">'.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:
-                    f.write(cmd_res)           
-threads = []
-<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):
-    t = threading.Thread(target=test_DNS_Servers)
-    t.start()
-    threads.append(t)
-<span class="keyword">for</span> t <span class="keyword">in</span> threads:
-    t.join()
-</code></pre><p>扫出来了4个存在dns域传送的漏洞,lijiejie原版扫高校的脚本能扫出来近三分之一的高校都存在此漏洞<br><a href="https://github.com/lijiejie/edu-dns-zone-transfer" target="_blank" rel="external">原版脚本传送门</a><br>本文参考<br><a href="http://www.lijiejie.com/dns-zone-transfer-3/" target="_blank" rel="external">lijiejie Blog</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1222,7 +1141,7 @@ threads = []
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
