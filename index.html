@@ -247,8 +247,10 @@ iperf<span class="class">.exe</span> -f M -c <span class="number">192.168</span>
 <pre><code>场景A:本机-&gt;服务器  <span class="number">66</span>+<span class="number">54</span>+<span class="number">524</span>+<span class="number">54</span>=<span class="number">698</span>bytes <span class="preprocessor">#<span class="number">3</span>个TCP，<span class="number">1</span>个http请求（上行）</span>
 场景B:服务器-&gt;本机  <span class="number">66</span>+<span class="number">60</span>+<span class="number">349</span>=<span class="number">475</span>bytes    <span class="preprocessor">#<span class="number">2</span>个TCP，<span class="number">1</span>个http响应（下行）</span>
 </code></pre><p>从这些信息里可以分析出什么呢？</p>
-<p>1.如果是宽带瓶颈应该出现在上行的方向即场景A，宽带承受最大理论值为 11.5<em>1024</em>1024/698 约等于 17275，即每秒钟可通过17275个请求。<br>2.还可以分析出正常情况下，场景A吞吐率/场景B吞吐率应约为3/2，如远大于3/2可以推测服务器出现性能瓶颈。<br>3.如果场景A的带宽始终没有被占满，但压力机的cpu，内存各项占用比例很大则可能是压力机到达了瓶颈。</p>
-<h2 id="jmeter压力实测">jmeter压力实测</h2><p>apache的配置情况：</p>
+<pre><code><span class="number">1.</span>如果是宽带瓶颈应该出现在上行的方向即场景A，宽带承受最大理论值为 <span class="number">11.5</span>*<span class="number">1024</span>*<span class="number">1024</span>/<span class="number">698</span> 约等于 <span class="number">17275</span>，即每秒钟可通过<span class="number">17275</span>个请求。
+<span class="number">2.</span>还可以分析出正常情况下，场景A吞吐率/场景B吞吐率应约为<span class="number">3</span>/<span class="number">2</span>，如远大于<span class="number">3</span>/<span class="number">2</span>可以推测服务器出现性能瓶颈。
+<span class="number">3.</span>如果场景A的带宽始终没有被占满，但压力机的cpu，内存各项占用比例很大则可能是压力机到达了瓶颈。
+</code></pre><h2 id="jmeter压力实测">jmeter压力实测</h2><p>apache的配置情况：</p>
 <pre><code><span class="preprocessor">#工作模式：</span>
 cd /etc/apache2/mods-enabled/ 
 <span class="preprocessor">#查看Apache2启动时载入哪些模块，发现载入了prefork的工作模式</span>
@@ -265,8 +267,7 @@ vim mpm_prefork.conf
 <span class="preprocessor">#apache配置：</span>
 KeepAlive On
 MaxKeepAliveRequests <span class="number">100</span>
-</code></pre><p>jmeter脚本简述：一次GET请求。<br><a href="http://192.168.51.145/test.html" target="_blank" rel="external">http://192.168.51.145/test.html</a></p>
-<p>测试结果：</p>
+</code></pre><p>测试结果：</p>
 <table>
 <thead>
 <tr>
@@ -276,7 +277,6 @@ MaxKeepAliveRequests <span class="number">100</span>
 <th>cpu-sys</th>
 <th>packin</th>
 <th>packout</th>
-<th>tcp连接数</th>
 </tr>
 </thead>
 <tbody>
@@ -287,7 +287,6 @@ MaxKeepAliveRequests <span class="number">100</span>
 <td>2</td>
 <td>455</td>
 <td>720</td>
-<td>55</td>
 </tr>
 <tr>
 <td>2</td>
@@ -355,8 +354,12 @@ MaxKeepAliveRequests <span class="number">100</span>
 </tr>
 </tbody>
 </table>
-<p>说明：<br>1.在5并发左右时吞吐量达到最大，其中每个包的大小约为1475bytes，即(1475/1024)kb<em>2770=3998kb，约为4MB/s（packout</em>packsize）<br>2.可以看到开启7个线程时发包和接包个数达到峰值，并不会随着压力机进程的增加而增加，推测瓶颈出现在压力机。<br>3.本次测试只是简单一问一答的请求，去除了网页中的js,css及一些图片的请求，在实际测试的过程中不应去除这些内容。</p>
-</span>
+<p>说明：</p>
+<pre><code><span class="number">1.</span>在<span class="number">5</span>并发左右时吞吐量达到最大，其中每个包的大小约为<span class="number">1475</span>bytes，即(<span class="number">1475</span>/<span class="number">1024</span>)kb*<span class="number">2770</span>=<span class="number">3998</span>kb，约为<span class="number">4</span>MB/s（packout*packsize）
+<span class="number">2.</span>可以看到开启<span class="number">7</span>个线程时发包和接包个数达到峰值，并不会随着压力机进程的增加而增加，推测瓶颈出现在压力机（*待解决*）。
+<span class="number">3.</span>本次测试只是简单一问一答的请求，去除了网页中的js,css及一些图片的请求，在实际测试的过程中不应去除这些内容。
+<span class="number">4.</span>目测nmon的outsize数据是根据Trans比上发包数算出来的。
+</code></pre></span>
         
       
     </div>
