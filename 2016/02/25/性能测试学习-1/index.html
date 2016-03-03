@@ -57,7 +57,7 @@ iperf -f M -s
 #客户端运行
 iperf.exe -f M -c 192.168.51.145 -t 10 -i 1
 测得公司内网实际传输速度在1">
-<meta property="og:updated_time" content="2016-02-29T09:13:22.672Z">
+<meta property="og:updated_time" content="2016-03-02T01:15:50.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能测试学习-1">
 <meta name="twitter:description" content="近来状态不佳，学的东西杂乱无章，也没能及时有效的总结，先放一放安全，从头开始总结下性能测试
@@ -262,6 +262,7 @@ iperf -f M -s
 iperf<span class="class">.exe</span> -f M -c <span class="number">192.168</span>.<span class="number">51.145</span> -t <span class="number">10</span> -<span class="tag">i</span> <span class="number">1</span>
 </code></pre><p>测得公司内网实际传输速度在11.5Mbytes左右，11.5(实际速度)*8=92(带宽)，推测内网为百兆带宽</p>
 <p>看一下windows机器支持的网卡最大速度：<br>    控制面板–网络连接–本地连接（属性）–配置（常规下面）–高级（找speed&amp;duplex）–右边下拉菜单里看有那些选项（最大为100M）<br>又查了一下树莓派自带网口的网卡速度，结果也是100M…</p>
+<p>又想到网关设</p>
 <p>在这个场景下测出来的是本机-&gt;服务器的带宽</p>
 <h2 id="一次简单的GET请求">一次简单的GET请求</h2><p>编辑网页内容 1234567890 发送一次GET请求 抓包看看大小</p>
 <pre><code>场景A:本机-&gt;服务器  <span class="number">66</span>+<span class="number">54</span>+<span class="number">524</span>+<span class="number">54</span>=<span class="number">698</span>bytes <span class="preprocessor">#<span class="number">3</span>个TCP，<span class="number">1</span>个http请求（上行）</span>
