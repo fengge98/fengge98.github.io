@@ -194,6 +194,92 @@
           
           
             
+              <a class="post-title-link" href="/2016/03/02/DROWN-Cross-protocol-attack/" itemprop="url">
+                DROWN-Cross-protocol-attack
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-02T09:17:10+08:00" content="2016-03-02">
+            2016-03-02
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/03/02/DROWN-Cross-protocol-attack/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/DROWN-Cross-protocol-attack/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>早晨点开社区看到去个<br><a href="http://zone.wooyun.org/content/25629" target="_blank" rel="external">CVE-2016-0800 / THE DROWN ATTACK: 又一个“心脏滴血”漏洞</a><br>感觉是个大新闻研究一下</p>
+<h2 id="概要">概要</h2><p>DROWN（Decrypting RSA using Obsolete and Weakened eNcryption）不知道怎么翻译，是一个通过绕过加密嗅探加密协议敏感信息的漏洞，受影响的包括HTTPS及支持SSL，TLS服务器（网站，邮箱服务）。攻击者可以通过该漏洞获取用户的一些敏感信息。</p>
+<p>查了些资料看了一些讨论，觉得这个漏洞还是被夸大其词了，根心脏滴血不是一个量级的战斗力。</p>
+<p>目前能想到的场景只有<em>中间人劫持</em>，拿到流量了，恰好服务器支持sslv2或者和一个支持sslv2连接的服务器使用了同一个私钥，数据就有可能被破解。<a href="https://drownattack.com/#faq-practical" target="_blank" rel="external">作者提供检测网站</a>，提供的都是之前的扫描数据，poc代码页没有公布，既然说支持sslv2连接的服务器可能被该漏洞威胁，那就用nmap扫下支持sslv2的server。</p>
+<pre><code>nmap <span class="comment">--script=sslv2.nse -v -p 443 112.80.248.89</span>
+Host is up (<span class="operator">0.<span class="number">040</span>s latency).
+PORT    STATE SERVICE
+<span class="number">443</span>/tcp <span class="keyword">open</span>  https
+| sslv2: 
+|   SSLv2 supported
+|_  ciphers: <span class="keyword">none</span>
+
+NSE: Script Post-scanning.
+<span class="keyword">Read</span> <span class="keyword">data</span> files <span class="keyword">from</span>: /usr/<span class="keyword">bin</span>/../<span class="keyword">share</span>/nmap
+Nmap done: <span class="number">1</span> IP address (<span class="number">1</span> host up) scanned <span class="keyword">in</span> <span class="number">1.28</span> seconds
+       <span class="keyword">Raw</span> packets sent: <span class="number">5</span> (<span class="number">196</span>B) | Rcvd: <span class="number">2</span> (<span class="number">88</span>B)
+#这个是之前作者公布的百度的IP，可能被该漏洞威胁</span>
+</code></pre><p>目前没有太好的利用思路，期待大牛们开发新姿势~</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/02/25/性能测试学习-1/" itemprop="url">
                 性能测试学习-1
               </a>
@@ -1277,143 +1363,6 @@ server.listen(<span class="number">5</span>)                    <span class="com
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/15/浅谈DNS协议及使用/" itemprop="url">
-                浅谈DNS协议及使用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-15T14:34:54+08:00" content="2015-12-15">
-            2015-12-15
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/15/浅谈DNS协议及使用/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/浅谈DNS协议及使用/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="什么是DNS">什么是DNS</h2><p>DNS(Domain Name System)，一个分布式提供域名解析服务的系统。<br>在我们进行网络通讯的时候更习惯记住对方的域名而不是IP，但是机器却更喜欢使用IP来找到通讯目标。人们想了一个折中的办法，把域名和IP形成映射关系（DNS记录）找个地方放起来，每当需要的时候让计算机到这个地方查一下记录，从而找到对应的IP。在早期的互联网中并没有那么多主机要进行管理，每个机器的管理员就共同维护一张DNS记录表，也就是现在的host文件，但是在今天每台计算机都要定期维护这样一张表是不现实的，于是就有了今天的DNS。DNS的架构及工作流程将在下文进行分析。</p>
-<h2 id="DNS协议-查询/应答报文">DNS协议-查询/应答报文</h2><p>DNS协议属于应用层的协议，通常通过53端口提供服务，和http一样是基于TCP/UDP进行传输的，DNS大部分的时候是基于UDP进行传输，使用UDP只需要一问一答，而使用TCP的话，要通过三次握手建立连接，四次握手释放连接，增加了开销，但是也有一些情况会使用TCP进行传输（1，应答报文Flags-TC值为1说明报文因UDP长度限制被截断此时会用TCP重新连接2，<a href="http://quanyong.xyz/2015/10/12/DNS%E5%9F%9F%E4%BC%A0%E9%80%81%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" target="_blank" rel="external">域传送</a>的时候会使用TCP连接）。</p>
-<p><img src="http://quanyong.pub/pic/DNS_baowengeshi.png" alt="DNS报文格式"><br>如上图DNS协议中查询和应答的报文格式相同</p>
-<p>Transaction ID : 可以随便写一个，查询和应答报文相同</p>
-<p><img src="http://quanyong.pub/pic/DNS_Flags.jpg" alt="16位Flags"><br>QR：0-查询报文，1-应答报文<br>opcode：定义查询和应答的类型。0表示标准查询，1表示反向查询（由IP地址获得主机域名），2表示请求服务器状态。<br>AA：授权应答标志，仅由应答报文使用。1表示域名服务器是授权服务器。<br>TC：截断标志，仅当DNS报文使用UDP服务时使用。因为UDP数据报有长度限制，所以过长的DNS报文将被截断。1表示DNS报文超过512字节，并被截断。<br>RD：递归查询标志。1表示执行递归查询，即如果目标DNS服务器无法解析某个主机名，则它将向其他DNS服务器继续查询，如此递归，直到获得结果并把该结果返回给客户端。0表示执行迭代查询，即如果目标DNS服务器无法解析某个主机名，则它将自己知道的其他DNS服务器的IP地址返回给客户端，以供客户端参考。<br>RA：允许递归标志。仅由应答报文使用，1表示DNS服务器支持递归查询。<br>zero：这3位未用，必须都设置为0。<br>rcode：4位返回码，表示应答的状态。常用值有0（无错误）和3（域名不存在）。</p>
-<p>接下来的4个字段则分别指出DNS报文的最后4个字段的资源记录数目。对查询报文而言，它一般包含1个查询问题，而应答资源记录数、授权资源记录数和额外资源记录数则为0。应答报文的应答资源记录数则至少为1，而授权资源记录数和额外资源记录数可为0或非0。    </p>
-<h2 id="wireshark抓包分析">wireshark抓包分析</h2><p>在查询报文中我们只需要关注首部（问题区域以上）和问题区域部分，不关注其他数据</p>
-<p>查询包<br><img src="http://quanyong.pub/pic/DNS_chaxun.png" alt="DNS查报文"><br>上图中选中部分是DNS查询报文，依次是</p>
-<pre><code><span class="header">ID：*ec 09*            | 首部信息：*01 00*
-------------------------------------------------</span>
-<span class="header">Questions: *00 01*     | Answer RRS: *00 00*
-------------------------------------------------</span>
-<span class="header">Authority RRS: *00 00* | Additional RRS: *00 00*
-------------------------------------------------</span>
-问题区域：quanyong.xyz
-<span class="strong">*08 7175616e796f6e672e78797a 00*</span>
-<span class="header">#08代表问题长度--&gt;'quanyong'
-------------------------------------------------</span>
-</code></pre><p>应答包<br><img src="http://quanyong.pub/pic/DNS_chaxun.png" alt="DNS应报文"></p>
-<pre><code><span class="code">------------------------------------------------
-ID：*ec 09*            | 首部信息：*81 80*
-------------------------------------------------</span>
-<span class="header">Questions: *00 01*     | Answer RRS: *00 00*
-------------------------------------------------</span>
-<span class="header">Authority RRS: *00 01* | Additional RRS: *00 00*
-------------------------------------------------</span>
-问题区域：quanyong.xyz
-<span class="strong">*08 7175616e796f6e672e78797a 00*</span>
-Type：<span class="strong">*00 01*</span>
-<span class="header">Class:*00 01*
-------------------------------------------------</span>
-回答区域
-NAME: <span class="strong">*c0 0c*</span>
-Type：<span class="strong">*00 01*</span>
-Class:<span class="strong">*00 01*</span>
-Time to live: <span class="strong">*0000 0258*</span>
-Data lenght: <span class="strong">*00 04*</span>
-<span class="header">Address:*67 f5 de 85*
--------------------------------------------------</span>
-</code></pre><p>Name有两种表示方式：<br>1.直接用labal表示<br>2.记录的一个偏移量，解析报文的计算偏移量</p>
-<p>一次A记录的查询，应答过程如上</p>
-<h2 id="为什么全球只有13台根服务器">为什么全球只有13台根服务器</h2><p>写在知乎的回答直接粘回来</p>
-<p>当客户端发送的DNS查询报文，指定的DNS无法完成解析，该DNS会返回一个应答报文告诉客户端：我不知道怎么解析，你去问DNS根服务器吧。在这个应答报文里只能装下13台根服务器的信息。</p>
-<p>在学习DNS过程中恰好看到了这个问题，在这里尽量能讲的明白一点，也记录一下自己的学习过程。讲的不对的地方，欢迎指正~~</p>
-<hr>
-<p>想要弄明白题主的问题，为什么只有13台DNS根服务器？首先要弄明白两件事：<br>1.一次完整的域名解析流程。<br>用完整来形容可能不太恰当，这里完整的意思是包括客户端到根服务器所有交互。<br>2.DNS报文格式<br>既然说一个DNS应答报文只能装下13个服务器的信息，就要弄明白3件事情：DNS报文大小限制、每个服务器信息大小和其他部分信息的大小。</p>
-<p>注：这里讲的13台是指逻辑上的13个IP，并非只有13个物理服务器。</p>
-<p>这里先简单吹一波~对我们来说记住一个域名显然要比记住一个IP地址方便的多，但是计算机在通讯的时候则需要通过IP地址，于是人们整理出了一份域名到IP映射关系的记录，每一次请求就去这个记录中查询一次对应的IP，就像今天windows中的host文件。早期的互联网并没有那么多计算机，只需要管理员们共同维护相同的记录，就解决了域名解析的需求。随着计算机技术的发展，越来越多的记录需要维护，域名解析系统也随之不断发展完善，于是就有了今天的DNS。<br>DNS服务的实现大多是基于UDP来实现的，为什么用UDP上面 @郭无心 同学解释的很清楚，也有少部分情况使用TCP：<br>1.当基于UDP的DNS应答报文中截断位为1时，接收到该报文的一方会使用TCP进行连接，重新发送查询报文。<br>2.域传送的时候，域传送可以简单理解为，请求获得该服务器内关于某个域名<br>的所有记录，一般用于主服务器和备份服务器之间的记录同步。DNS服务器关于域传送配置不当可能出现域名信息泄露的情况–DNS域传送漏洞。</p>
-<p>DNS系统管理维护着网络中所有的域名信息，把这些信息放在一个服务器上，考虑到网络，服务器开销等各种因素显然是不现实的，于是就采用了如今的分布式策略。这里只对什么时候会出现报文中放不下13台以上根服务器的情况进行分析。</p>
-<p>以windows客户端A类型的查询为例。</p>
-<p><img src="http://quanyong.pub/pic/13DNS.png" alt="DNS应报文"><br>上面IP为192.168.51.155向默认的DNS-202.106.0.20发送了一个迭代类型查询报文，报文中说：告诉我<a href="http://zhihutestbyfengge.com这个域名的IP。" target="_blank" rel="external">http://zhihutestbyfengge.com这个域名的IP。</a><br>这个域名并不存在，所以这个DNS中没有相关记录，于是就在应答报文中说：我也不知道你的问题，你问一下这13个根服务器吧。</p>
-<p>继续来看一下应答报文中有什么内容</p>
-<p><img src="http://quanyong.pub/pic/13DNS2.png" alt="DNS应报文"></p>
-<pre><code>Transaction ID----------<span class="number">2</span>byte
-Flags-------------------<span class="number">2</span>byte
-Questinos---------------<span class="number">2</span>byte
-Answer RRs--------------<span class="number">2</span>byte
-Authority RRs-----------<span class="number">2</span>byte
-Additional RRs----------<span class="number">2</span>byte  <span class="preprocessor">#Authority RRs：<span class="number">13</span> &amp;&amp; Additional RRS：<span class="number">14</span> 这两个值代表了Authoritative nameservers 和Additional records 区域记录的条数。</span>
-Queries-----------------<span class="number">27</span>byte
-Authoritative nameservers------<span class="number">224</span>byte
-Additional records-------------<span class="number">248</span>byte
-<span class="preprocessor">#一条Authority和一条Additional记录组成了一条完整的根服务器信息    </span>
-
-<span class="number">6</span>*<span class="number">2</span>+<span class="number">27</span>+<span class="number">224</span>+<span class="number">248</span>=<span class="number">511</span>(byte)
-</code></pre><p>上面有人说到基于udp的dns报文的最大限制为512byte，在这个应答报文中包含13台DNS服务器信息，占用了511byte，没有地方再放第14台记录了，所以究其问题的根本原因是因为协议限制。</p>
-<p>这里我发现Additional区域多了两个AAAA类型的查询没有搞懂是怎么回事<br>关于DNS报文内容的具体含义以及接下来客户端和根服务以及根服务如何解析该域名的过程就不展开了。<br>注：<br>1.实际上返回的这13个服务器的信息是13个包含com和net顶级域名记录的gtld server。就是负责解析com和net域名的DNS，虽然应答报文中不是根服务器信息，但是我认为这种情况完全可以模拟印证开头的结论。<br>2.对于为什么DNS报文的最大限制为512byte，完全可以再开一题进行讨论，这里就不再深入了。</p>
-<p>DNS篇就到这里</p>
-<p><a href="http://blog.csdn.net/hunanchenxingyu/article/details/21488291" target="_blank" rel="external">http://blog.csdn.net/hunanchenxingyu/article/details/21488291</a><br><a href="http://www.lijiejie.com/dns-zone-transfer-python-client-query" target="_blank" rel="external">http://www.lijiejie.com/dns-zone-transfer-python-client-query</a><br><a href="http://lcx.cc/?i=2343" target="_blank" rel="external">http://lcx.cc/?i=2343</a><br><a href="http://network.51cto.com/art/201411/456097.htm" target="_blank" rel="external">http://network.51cto.com/art/201411/456097.htm</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1452,7 +1401,7 @@ Additional records-------------<span class="number">248</span>byte
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1466,7 +1415,7 @@ Additional records-------------<span class="number">248</span>byte
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

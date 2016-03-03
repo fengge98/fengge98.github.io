@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="ubuntu,vim," />
+  <meta name="keywords" content="DROWN," />
 
 
 
@@ -35,25 +35,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。
-编译安装1.下载源码进入src目录
-./configure --enable-pythoninterp | grep python
-#pythoninterp原来默认是no的状态在这里添加进去">
+<meta name="description" content="早晨点开社区看到去个CVE-2016-0800 / THE DROWN ATTACK: 又一个“心脏滴血”漏洞感觉是个大新闻研究一下
+概要DROWN（Decrypting RSA using Obsolete and Weakened eNcryption）不知道怎么翻译，是一个通过绕过加密嗅探加密协议敏感信息的漏洞，受影响的包括HTTPS及支持SSL，TLS服务器（网站，邮箱服务）。攻击者可以通">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VIM配置过程">
-<meta property="og:url" content="http://yoursite.com/2015/12/11/VIM配置过程/index.html">
+<meta property="og:title" content="DROWN-Cross-protocol-attack">
+<meta property="og:url" content="http://yoursite.com/2016/03/02/DROWN-Cross-protocol-attack/index.html">
 <meta property="og:site_name" content="FengGe">
-<meta property="og:description" content="最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。
-编译安装1.下载源码进入src目录
-./configure --enable-pythoninterp | grep python
-#pythoninterp原来默认是no的状态在这里添加进去">
-<meta property="og:updated_time" content="2015-12-11T09:08:26.729Z">
+<meta property="og:description" content="早晨点开社区看到去个CVE-2016-0800 / THE DROWN ATTACK: 又一个“心脏滴血”漏洞感觉是个大新闻研究一下
+概要DROWN（Decrypting RSA using Obsolete and Weakened eNcryption）不知道怎么翻译，是一个通过绕过加密嗅探加密协议敏感信息的漏洞，受影响的包括HTTPS及支持SSL，TLS服务器（网站，邮箱服务）。攻击者可以通">
+<meta property="og:updated_time" content="2016-03-03T02:14:02.123Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VIM配置过程">
-<meta name="twitter:description" content="最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。
-编译安装1.下载源码进入src目录
-./configure --enable-pythoninterp | grep python
-#pythoninterp原来默认是no的状态在这里添加进去">
+<meta name="twitter:title" content="DROWN-Cross-protocol-attack">
+<meta name="twitter:description" content="早晨点开社区看到去个CVE-2016-0800 / THE DROWN ATTACK: 又一个“心脏滴血”漏洞感觉是个大新闻研究一下
+概要DROWN（Decrypting RSA using Obsolete and Weakened eNcryption）不知道怎么翻译，是一个通过绕过加密嗅探加密协议敏感信息的漏洞，受影响的包括HTTPS及支持SSL，TLS服务器（网站，邮箱服务）。攻击者可以通">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -63,7 +57,7 @@
   };
 </script>
 
-  <title> VIM配置过程 | FengGe </title>
+  <title> DROWN-Cross-protocol-attack | FengGe </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -202,7 +196,7 @@
           
           
             
-              VIM配置过程
+              DROWN-Cross-protocol-attack
             
           
         </h1>
@@ -211,8 +205,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-11T15:00:29+08:00" content="2015-12-11">
-            2015-12-11
+          <time itemprop="dateCreated" datetime="2016-03-02T09:17:10+08:00" content="2016-03-02">
+            2016-03-02
           </time>
         </span>
 
@@ -222,8 +216,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/11/VIM配置过程/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/VIM配置过程/" itemprop="commentsCount"></span>
+              <a href="/2016/03/02/DROWN-Cross-protocol-attack/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/DROWN-Cross-protocol-attack/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -237,45 +231,24 @@
       
 
       
-        <span itemprop="articleBody"><p>最近使用命令行进行linux配置的需求越来越多，一直在vim的insert的模式下当成记事本来用，但是鉴于江湖上各种关于vim的传说，觉得实在是暴殄天物，静下心来配置一个用的顺手的vim，在这里记录下过程。</p>
-<h2 id="编译安装">编译安装</h2><p>1.下载源码进入src目录</p>
-<pre><code>./configure --enable-pythoninterp | <span class="keyword">grep</span> <span class="keyword">python</span>
-#pythoninterp原来默认是<span class="keyword">no</span>的状态在这里添加进去
-<span class="keyword">make</span>
-<span class="keyword">make</span> install
-<span class="keyword">vim</span> --<span class="keyword">version</span> | <span class="keyword">grep</span> <span class="keyword">python</span> #看看<span class="keyword">python</span>后面的状态
-</code></pre><h2 id="安装vundle-插件管理工具">安装vundle-插件管理工具</h2><p>自从有了这货-再也不用自己下包再挨个拷到docs和plugin目录了</p>
-<p>地址：<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">https://github.com/VundleVim/Vundle.vim</a></p>
-<p>按教程一步步来就OK</p>
-<p><em>插件安装</em></p>
-<p>安装的时候配置了.vimrc文件，以后需要安什么插件只要在 .vimrc文件中加上</p>
-<pre><code><span class="title">Bundle</span> <span class="string">'pluginname'</span>                <span class="comment">#vim官网插件名称</span>
-Bundle <span class="string">'username/projectname'</span>    <span class="comment">#github地址</span>
-</code></pre><p>然后进入vim执行</p>
-<pre><code><span class="attribute">:BundleInstall</span>
-</code></pre><p><em>插件删除</em></p>
-<p>去掉 .vimrc 文件中想要删除的插件，进入vim执行</p>
-<pre><code><span class="attribute">:BunbleClean</span>
-</code></pre><h2 id="安装插件">安装插件</h2><p>在~/.vimrc 文件中添加以下内容</p>
-<pre><code><span class="type">Bundle</span> <span class="symbol">'taglist</span>.vim'
-<span class="type">Bundle</span> <span class="symbol">'scrooloose</span>/nerdtree'
-<span class="type">Bundle</span> <span class="symbol">'Valloric</span>/<span class="type">YouCompleteMe'</span>
-</code></pre><p> 进入vim执行</p>
-<pre><code><span class="attribute">:BundleInstall</span>
-</code></pre><p> 安装到第三个插件的时候提示需要编译YCM,YCM已经被安装到YouCompleteMe目录下</p>
-<pre><code> mkdri <span class="regexp">/etc/Y</span>CM #建立新文件夹放置编译后的内容
- cd <span class="regexp">/etc/Y</span>CM
+        <span itemprop="articleBody"><p>早晨点开社区看到去个<br><a href="http://zone.wooyun.org/content/25629" target="_blank" rel="external">CVE-2016-0800 / THE DROWN ATTACK: 又一个“心脏滴血”漏洞</a><br>感觉是个大新闻研究一下</p>
+<h2 id="概要">概要</h2><p>DROWN（Decrypting RSA using Obsolete and Weakened eNcryption）不知道怎么翻译，是一个通过绕过加密嗅探加密协议敏感信息的漏洞，受影响的包括HTTPS及支持SSL，TLS服务器（网站，邮箱服务）。攻击者可以通过该漏洞获取用户的一些敏感信息。</p>
+<p>查了些资料看了一些讨论，觉得这个漏洞还是被夸大其词了，根心脏滴血不是一个量级的战斗力。</p>
+<p>目前能想到的场景只有<em>中间人劫持</em>，拿到流量了，恰好服务器支持sslv2或者和一个支持sslv2连接的服务器使用了同一个私钥，数据就有可能被破解。<a href="https://drownattack.com/#faq-practical" target="_blank" rel="external">作者提供检测网站</a>，提供的都是之前的扫描数据，poc代码页没有公布，既然说支持sslv2连接的服务器可能被该漏洞威胁，那就用nmap扫下支持sslv2的server。</p>
+<pre><code>nmap <span class="comment">--script=sslv2.nse -v -p 443 112.80.248.89</span>
+Host is up (<span class="operator">0.<span class="number">040</span>s latency).
+PORT    STATE SERVICE
+<span class="number">443</span>/tcp <span class="keyword">open</span>  https
+| sslv2: 
+|   SSLv2 supported
+|_  ciphers: <span class="keyword">none</span>
 
-cmake -G <span class="string">"Unix Makefiles"</span> . ~<span class="regexp">/.vim/</span>bundle<span class="regexp">/YouCompleteMe/</span>third_party<span class="regexp">/ycmd/</span>cpp
-make ycm_support_libs
-</code></pre><p>编译过程提示cmake版本过低</p>
-<pre><code>apt-<span class="built_in">get</span> --purge autoremove cmake
-下载最新版cmake <span class="keyword">source</span>解压
-./bootstrap
-<span class="keyword">make</span>
-makeinstall
-</code></pre><p>再用cmake执行YCM的编译命令，打开vim发现已经可以实现自动补全了，关于这个插件的详细设置日后再研究。</p>
-<p>./vimrc文件的配置备份至 quanyong.pub/backup/vimrc 有点乱有时间再改</p>
+NSE: Script Post-scanning.
+<span class="keyword">Read</span> <span class="keyword">data</span> files <span class="keyword">from</span>: /usr/<span class="keyword">bin</span>/../<span class="keyword">share</span>/nmap
+Nmap done: <span class="number">1</span> IP address (<span class="number">1</span> host up) scanned <span class="keyword">in</span> <span class="number">1.28</span> seconds
+       <span class="keyword">Raw</span> packets sent: <span class="number">5</span> (<span class="number">196</span>B) | Rcvd: <span class="number">2</span> (<span class="number">88</span>B)
+#这个是之前作者公布的百度的IP，可能被该漏洞威胁</span>
+</code></pre><p>目前没有太好的利用思路，期待大牛们开发新姿势~</p>
 </span>
       
     </div>
@@ -284,9 +257,7 @@ makeinstall
       
         <div class="post-tags">
           
-            <a href="/tags/ubuntu/" rel="tag">#ubuntu</a>
-          
-            <a href="/tags/vim/" rel="tag">#vim</a>
+            <a href="/tags/DROWN/" rel="tag">#DROWN</a>
           
         </div>
       
@@ -295,13 +266,11 @@ makeinstall
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/15/浅谈DNS协议及使用/" rel="prev">浅谈DNS协议及使用</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/04/VPS使用记录-MetaSploit环境搭建/" rel="next">VPS使用记录-MetaSploit环境搭建</a>
+              <a href="/2016/02/25/性能测试学习-1/" rel="next">性能测试学习-1</a>
             
           </div>
         </div>
@@ -326,8 +295,8 @@ makeinstall
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/11/VIM配置过程/"
-                   data-title="VIM配置过程" data-url="http://yoursite.com/2015/12/11/VIM配置过程/">
+              <div class="ds-thread" data-thread-key="2016/03/02/DROWN-Cross-protocol-attack/"
+                   data-title="DROWN-Cross-protocol-attack" data-url="http://yoursite.com/2016/03/02/DROWN-Cross-protocol-attack/">
               </div>
             
           </div>
@@ -438,7 +407,7 @@ makeinstall
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装"><span class="nav-number">1.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装vundle-插件管理工具"><span class="nav-number">2.</span> <span class="nav-text">安装vundle-插件管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">3.</span> <span class="nav-text">安装插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
