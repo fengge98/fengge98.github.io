@@ -194,6 +194,277 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/28/python渗透测试学习-http代理实现/" itemprop="url">
+                python渗透测试学习-http代理实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-28T14:42:28+08:00" content="2015-12-28">
+            2015-12-28
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/28/python渗透测试学习-http代理实现/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/python渗透测试学习-http代理实现/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="简述">简述</h2><p>http是以TCP为基础进行传输的，如果我们在服务端监听端口，处理请求数据并回应给客户端，就实现了http代理。<br>以访问quanyong.xyz为例：</p>
+<p><img src="http://quanyong.pub/pic/HTTP_PROXY.png" alt="HTTP_PROXY"><br>1.VPS监听特定端口=0.0.0.0:9999，将浏览器的代理设置为=IP:9999,向quanyong.xyz发送GET请求。<br>2.VPS接受该请求，并解析请求内容，利用解析结果和quanyong.xyz建立一个socket连接，send步骤1中接受的数据，此时VPS就模拟了浏览器发送http请求<br>3.VPS接受http_response<br>4.将数据传回客户端。</p>
+<p>下面给出代码：</p>
+<pre><code><span class="comment">#coding=utf-8</span>
+<span class="keyword">import</span> socket
+<span class="keyword">import</span> sys
+<span class="keyword">import</span> threading
+<span class="keyword">import</span> urllib2
+
+local_host = <span class="string">'0.0.0.0'</span>
+local_port = <span class="number">9999</span>
+
+<span class="function"><span class="keyword">def</span> <span class="title">get_target</span><span class="params">(request_content)</span>:</span>
+    <span class="comment">#解析从浏览器发送过来的get请求，筛选目标host与port，返回一个元组类型</span>
+    <span class="keyword">try</span>:
+        request_target = request_content[:request_content.find(<span class="string">'\n'</span>)].split(<span class="string">' '</span>)[<span class="number">1</span>]
+        request_target = request_target.replace(<span class="string">'http://'</span>,<span class="string">''</span>)
+        request_target = request_target[:request_target.find(<span class="string">'/'</span>)]
+    <span class="keyword">except</span> Exception, e:
+        <span class="keyword">raise</span> e
+
+    <span class="keyword">if</span> <span class="string">':'</span> <span class="keyword">in</span> request_target:
+        remote_list = request_target.split(<span class="string">':'</span>)
+        remote_host = remote_list[<span class="number">0</span>]
+        remote_port = int(remote_list[<span class="number">1</span>])
+        <span class="keyword">return</span> (remote_host,remote_port)
+    <span class="keyword">else</span>:
+        remote_host = request_target
+        remote_port = <span class="number">80</span>
+        <span class="keyword">return</span> (remote_host,remote_port)
+
+<span class="function"><span class="keyword">def</span> <span class="title">client_handler</span><span class="params">(client_socket,client_addr)</span>:</span>
+    request_content = client_socket.recv(<span class="number">100000</span>)
+    <span class="keyword">print</span> <span class="string">'Recieve %d Bytes info from %s'</span>%(len(request_content),client_addr[<span class="number">0</span>])
+    <span class="keyword">if</span> request_content:
+        response_content = server_handler(request_content)
+        client_socket.send(response_content)
+
+<span class="function"><span class="keyword">def</span> <span class="title">server_handler</span><span class="params">(request_content)</span>:</span>
+    <span class="comment">#接受请求数据，返回一个字符串类型的http_response</span>
+    remote_host,remote_port = get_target(request_content)
+    <span class="keyword">try</span>:
+        server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        server_socket.connect((remote_host,remote_port))
+        server_socket.send(request_content)
+        send_back_content = server_socket.recv(<span class="number">1000000</span>)
+        <span class="keyword">return</span> send_back_content
+    <span class="keyword">except</span> Exception, e:
+        <span class="keyword">raise</span> e
+
+
+<span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>
+    client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    client_socket.bind((local_host,local_port))
+    client_socket.listen(<span class="number">5</span>)
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        client,addr = client_socket.accept()
+        <span class="keyword">print</span> <span class="string">'Accept info from %s %d'</span> % (addr[<span class="number">0</span>],addr[<span class="number">1</span>])
+        client_thread = threading.Thread(target=client_handler,args=(client,addr))
+        client_thread.start()
+
+<span class="keyword">if</span> __name__=<span class="string">'__main__'</span>:
+    main()
+</code></pre><p>存在问题：<br>1.http-request内容解析部分存在问题，筛选host和port。<br>2.线程方面没有做处理，会出现两个线程操作一个变量的情况。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/24/python渗透测试学习-SOCKET基础/" itemprop="url">
+                python渗透测试学习-SOCKET基础
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-24T14:57:44+08:00" content="2015-12-24">
+            2015-12-24
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/24/python渗透测试学习-SOCKET基础/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/24/python渗透测试学习-SOCKET基础/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p><a href="https://docs.python.org/2/library/socket.html" target="_blank" rel="external">socket for python document</a> </p>
+<h2 id="这里用python实现一个简单的端口验证脚本">这里用python实现一个简单的端口验证脚本</h2><pre><code>&gt;&gt;&gt;<span class="keyword">import</span> socket
+&gt;&gt;&gt;s = socket.socket()
+&gt;&gt;&gt;s.connection((<span class="string">'192.168.*.*'</span>,<span class="number">22</span>))<span class="comment">#如果22端口开放则正常否则抛出异常</span>
+
+
+<span class="keyword">import</span> socket,sys
+
+<span class="function"><span class="keyword">def</span> <span class="title">portopen</span><span class="params">(ip,port)</span>:</span>
+    <span class="keyword">try</span>:
+        s=socket.socket()
+        s = s.connect((ip,port))
+        <span class="keyword">return</span> <span class="keyword">True</span>
+    <span class="keyword">except</span> Exception, e:
+        <span class="keyword">return</span> <span class="keyword">False</span>
+
+<span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>
+    ip = sys.argv[<span class="number">1</span>]
+    port = int(sys.argv[<span class="number">2</span>])
+    <span class="keyword">if</span> portopen(ip,port):
+        <span class="keyword">print</span> <span class="string">'%d on %s is open'</span> % (port,ip)
+    <span class="keyword">else</span>:
+        <span class="keyword">print</span> <span class="string">'%d on %s is closed'</span> % (port,ip)
+
+<span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:
+    main()
+</code></pre><p>example</p>
+<pre><code>port<span class="class">.py</span> quanyong<span class="class">.pub</span> <span class="number">9999</span>
+</code></pre><h2 id="端口监控">端口监控</h2><p>就是一段TCP服务端的代码，把监听到的指定端口的信息打印出来</p>
+<pre><code><span class="keyword">import</span> socket
+<span class="keyword">import</span> threading
+<span class="keyword">import</span> urllib
+bind_ip = <span class="string">'0.0.0.0'</span>
+bind_port = <span class="number">9999</span>
+server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server.bind((bind_ip,bind_port))
+server.listen(<span class="number">5</span>)                    <span class="comment">#最多允许5个TCP连接</span>
+<span class="keyword">print</span> <span class="string">'listen on %s:%d'</span>%(bind_ip,bind_port)
+<span class="function"><span class="keyword">def</span> <span class="title">handle_client</span><span class="params">(cliet_socket)</span>:</span>
+    <span class="comment">#线程中run部分的内容</span>
+    revc_from_client=cliet_socket.recv(<span class="number">100000</span>)
+    <span class="keyword">print</span> revc_from_client
+    cliet_socket.send(<span class="string">'hello~shabby'</span>)
+    cliet_socket.close()
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    client,addr = server.accept()<span class="comment">#client is new socket object useble to send and recieve message</span>
+    <span class="keyword">print</span> <span class="string">'[*]address from %s:%d is connected'</span> % (addr[<span class="number">0</span>],addr[<span class="number">1</span>])
+    handler = threading.Thread(target=handle_client,args=(client,))<span class="comment">#args为元组类型指定的参数传给target</span>
+    handler.start()
+</code></pre><h2 id="python发送http请求">python发送http请求</h2><p>python中urllib，urllib2，httplib这三个模块中都提供发送http请求的方法，配合上一节的端口监控脚本，观察一下这三个模块发送GET请求有什么区别。</p>
+<pre><code>&gt;&gt;&gt;import urllib,urllib2,httplib
+&gt;&gt;&gt;<span class="tag">a</span> = urllib.<span class="function"><span class="title">urlopen</span><span class="params">(url)</span></span>
+    GET / HTTP/<span class="number">1.0</span>
+    Host: quanyong<span class="class">.pub</span>:<span class="number">9999</span>
+    User-Agent: Python-urllib/<span class="number">1.17</span>
+
+&gt;&gt;&gt;<span class="tag">b</span> = urllib2.<span class="function"><span class="title">urlopen</span><span class="params">(url)</span></span>
+    GET / HTTP/<span class="number">1.1</span>
+    Accept-Encoding: identity
+    Host: quanyong<span class="class">.pub</span>:<span class="number">9999</span>
+    Connection: close
+    User-Agent: Python-urllib/<span class="number">2.7</span>
+
+&gt;&gt;&gt;c = httplib.<span class="function"><span class="title">HTTPConnection</span><span class="params">(host,port)</span></span>
+&gt;&gt;&gt;c.<span class="function"><span class="title">request</span><span class="params">(method=<span class="string">'GET'</span>)</span></span>
+    GET http:<span class="comment">//quanyong.pub:9999/ HTTP/1.1</span>
+    Host: quanyong<span class="class">.pub</span>:<span class="number">9999</span>
+    Accept-Encoding: identity
+</code></pre><p>1.urllib模块在发起http请求的时候用了http1.0。<br>2.urllib和urllib2设置了User-Agent值，不知道会不会有应用识别这个值，限制大量请求。<br>3.httplib模块中创建httplib.HTTPConnection(host,port)对象的时候并不会创建TCP连接。</p>
+<p>今天到这里，下一节实现一个可以转发http请求功能的脚本。</p>
+<p>Marry Christmas~</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/15/浅谈DNS协议及使用/" itemprop="url">
                 浅谈DNS协议及使用
               </a>
@@ -971,202 +1242,11 @@ tor [<span class="built_in">start</span>|<span class="built_in">stop</span>|rest
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/19/VPS使用记录-BeEF平台/" itemprop="url">
-                VPS使用记录-BeEF平台
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-19T10:38:43+08:00" content="2015-11-19">
-            2015-11-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/11/19/VPS使用记录-BeEF平台/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-BeEF平台/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>BeEF 平台提供的一系列的XSS漏洞的利用方式，这里想自己搭建一个感受一些，记录下搭建过程</p>
-<pre><code>在/etc/apt/sources.list文件中添加软件源
-deb <span class="keyword">http</span>://ubuntu.mirror.cambrium.nl/ubuntu/ precise main universe
-<span class="comment">#这里我把之前的软件源都注视掉了，一定要安装1.9.*的版本</span>
-apt-<span class="built_in">get</span> update <span class="comment">#更新软件源</span>
-
-
-apt-<span class="built_in">get</span> install ruby1<span class="number">.9</span><span class="number">.3</span>                             <span class="comment">#安装ruby 这步坑爹啊，一定要装高版本，换版本太折腾</span>
-apt-<span class="built_in">get</span> install libssl-dev libsqlite3-dev sqlite
-sudo apt-<span class="built_in">get</span> install g++
-git clone <span class="keyword">https</span>://github.com/beefproject/beef        <span class="comment">#安装BeEF</span>
-apt-<span class="built_in">get</span> install rubygems
-sudo gem install bundler
-bundle install                                        <span class="comment">#这一步需要cd到beef目录下进行</span>
-
-
-./beef                                              <span class="comment">#运行</span>
-访问地址 your_ip:<span class="number">3000</span>/ui/authentication
-config.yaml                                          <span class="comment"># 配置文件用来修改密码</span>
-
-nohup ./beef &amp;                                         <span class="comment">#设置为后台运行或使用下一句命令二者选其一</span>
-setsid ./beef 
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/19/VPS使用记录-ShadowSocks配置/" itemprop="url">
-                VPS使用记录-ShadowSocks配置
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-19T09:20:53+08:00" content="2015-11-19">
-            2015-11-19
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/11/19/VPS使用记录-ShadowSocks配置/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/VPS使用记录-ShadowSocks配置/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>前一阵弄了个香港VPS，配合shadowsocks翻墙比较稳定，访问国内网站速度也不错，可惜当时没有把配置过程记录下来。原来用的centos，和搭建BeEF平台死磕了两天，一冲动系统格成Ubuntu了。这里把VPS重头配置的过程记录下来。</p>
-<h2 id="VPS简介">VPS简介</h2><p>通常供应商会提供一个web管理界面，在这里通常可以完成系统重装，备份/还原，升级配置，续费…一些基本操作。<br>根据在这里提供的ip地址和默认密码使用putty进行连接。<br>使用以下命令安装一些基本工具</p>
-<pre><code>passwd             #改密码
-apt-get <span class="operator"><span class="keyword">update</span>  #更新下软件源
-apt-<span class="keyword">get</span> <span class="keyword">install</span> vim
-apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip
-apt-<span class="keyword">get</span> <span class="keyword">install</span> git
-想到再加</span>
-</code></pre><h2 id="ShadowSocks配置">ShadowSocks配置</h2><p>服务端：</p>
-<p>过程</p>
-<pre><code>apt-<span class="keyword">get</span> install python-pip
-pip install shadowsocks
-<span class="comment"># 或者git clone git://github.com/madeye/shadowsocks-libev.git</span>
-find / -<span class="property">name</span> shadowsocks <span class="comment">#看看装在哪里了</span>
-mkdir shadowsocks        <span class="comment">#在etc目录下新建名为shadowsocks的文件夹</span>
-vim config.json          <span class="comment">#新建名为config.json的文件写入一下内容</span>
-
-{
-<span class="string">"server"</span>:<span class="string">"my_server_ip"</span>, <span class="comment">#VPS的IP</span>
-<span class="string">"server_port"</span>:<span class="number">8388</span>,         <span class="comment">#VPS提供该服务的端口</span>
-<span class="string">"local_port"</span>:<span class="number">1080</span>,         <span class="comment">#shadowsocks客户端设置的端口，上网时需要把浏览器代理到这个端口</span>
-<span class="string">"password"</span>:<span class="string">"barfoo!"</span>,     <span class="comment">#VPS密码</span>
-<span class="string">"timeout"</span>:<span class="number">600</span>,
-<span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>     <span class="comment">#加密方式，反正大家都推荐用这个</span>
-}
-
-apt-<span class="keyword">get</span> install python-m2crypto <span class="comment">#为了支持以上加密方式</span>
-vim /etc/rc.<span class="keyword">local</span>               <span class="comment">#设置为开机自启动添加以下信息</span>
-/usr/<span class="keyword">local</span>/bin/ssserver –c /etc/shadowsocks/config.json
-</code></pre><p>在VPS的web管理界面重启VPS。</p>
-<p>客户端：</p>
-<p>1.下载客户端填写config.json文件中对应的信息。<br>2.使用 SwitchySharp（chrome代理管理插件）或FoxyProxy（Firefox代理管理插件）代理设置到对应local_port端口</p>
-<p>以上就是Shadowsocks搭建全过程。</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -1200,7 +1280,7 @@ vim /etc/rc.<span class="keyword">local</span>               <span class="commen
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

