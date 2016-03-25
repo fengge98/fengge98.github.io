@@ -194,6 +194,74 @@
           
           
             
+              <a class="post-title-link" href="/2016/03/20/项目调优记录-WCM-MySql/" itemprop="url">
+                项目调优记录-WCM-MySql
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-20T15:24:15+08:00" content="2016-03-20">
+            2016-03-20
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/03/20/项目调优记录-WCM-MySql/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/20/项目调优记录-WCM-MySql/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/03/11/性能测试心得体会篇后续/" itemprop="url">
                 性能测试心得体会篇
               </a>
@@ -233,7 +301,7 @@
       
         
           <span itemprop="articleBody"><p>最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。</p>
-<h2 id="制定测试指标">制定测试指标</h2><p>用户量：10000<br>测试范围：登录，切换分栏，提交表单，检索<br>对于单个业务的负载测试测试，可以根据以下两种方法预估</p>
+<h2 id="制定测试指标">制定测试指标</h2><p>用户量：10000<br>测试范围：登录，切换分栏，提交表单，检索<br>对于单个业务的负载测试，可以根据以下两种方法预估</p>
 <p>方法一：2/8原则，80%的操作在20%的时间完成<br>以登录为例</p>
 <pre><code>集中登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.8</span>=<span class="number">16000</span> <span class="comment">//10000*2考虑到之后部分业务对外开放</span>
 集中登录时间：<span class="number">8</span>*<span class="number">0.2</span>*<span class="number">3600</span>=<span class="number">5760</span>s
@@ -241,8 +309,10 @@
 </code></pre><p>方法二:根据对应业务模型</p>
 <pre><code>忙时集中系数: <span class="number">4000</span>/<span class="number">8000</span>=<span class="number">0.5</span> <span class="comment">//忙时集中系数=忙时业务量/全天业务量</span>
 扩充系数：<span class="number">2</span>
-峰值每秒登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.5</span>/<span class="number">3600</span>=<span class="number">2.78</span>
+峰值每秒登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.5</span>/<span class="number">3600</span>=<span class="number">2.78</span>说
 </code></pre><p>说明：所以我们可以认为，TPS达到2.78就可以满足需求，当然系统在实际运行中各种不同业务会同时运行，我们应该通过调整并发用户数，定位到单个业务系统最大处理能力即TPS。</p>
+<h2 id="最近踩过的坑">最近踩过的坑</h2><p>问题：服务器响应过快导致客户端TCP连接被占满导致loadrunner can’t connect异常<br>方案：1.增加系统连接数，减少释放等待时间<br>      2.改变加压策略：a.适当增加思考时间<br>                        b.用一个TCP连接发送http数据包（勾选掉create new user every iterate）</p>
+<p>问题：请求异常倒置应用日志打出错误信息<br>解决方法:1.burp截下请求重放，验证能否正常返回。<br>         2.截一下loadrunner请求，对比下步骤1的请求。<br>         3.调整loadrunner请求信息。</p>
 </span>
         
       
@@ -1142,103 +1212,6 @@ apxs2 -<span class="tag">i</span> -<span class="tag">a</span> -n mod_rewrite mod
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/29/浅谈隧道技术及利用姿势/" itemprop="url">
-                浅谈隧道技术及利用姿势
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-29T09:54:05+08:00" content="2015-12-29">
-            2015-12-29
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/29/浅谈隧道技术及利用姿势/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/29/浅谈隧道技术及利用姿势/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="简介">简介</h2><p>写下标题后发现题目起的似乎大了些，缩小下范围，在这里主要讨论基于TCP/IP的应用层协议隧道（SSH DNS）<br>不同的网络环境下，防火墙的限制策略也不尽相同，如何通过不同的隧道绕过通信限制，或者通过跳板机利用不同隧道进行代理转发穿透防火墙，控制流量从自定义的各种通道进行传输，是一件很有意思的事情。</p>
-<h2 id="SSH转发功能">SSH转发功能</h2><p>SSH除了可以当作linux的远程管理工具，它的转发功能也是十分强大的。</p>
-<p>情境：在VPS上已经搭建好了TOR服务，通过ssh的转发功能将http类型的请求转发到VPS上TOR服务运行的端口上，以达到隐藏IP的目的。</p>
-<pre><code>ssh -l loginname -L <span class="string">localhost:</span><span class="string">local_port:</span><span class="string">torhost:</span>torport vpshost
-</code></pre><p><img src="http://quanyong.pub/pic/SSH_Forwarding.png" alt="ssh_Forwarding"></p>
-<p>localhost:local_port—-&gt;ssh监听的端口，浏览器代理设置到此端口<br>torhost:torport—-&gt;tor应用运行的host和port<br>vpshost—-&gt;ssh要连接的IP</p>
-<p>到这产生了一个疑惑其实就是实现了一个代理转发功能，为什么还要称为SSH隧道技术呢？</p>
-<p>我认为原因是ssh在进行数据传输的时候进行了加密处理，一次http请求在客户端和VPS之间 流量通过的一系列设备看来只是进行了一次ssh通信。</p>
-<p>1.当开启转发功能后，Wireshark抓到的包全部被识别为ssh和tcp协议，所以当防火墙策略不对该ssh通信做出限制，我们就可以通过这个通道浏览网页。<br>2.客户端和VPS上ssh为我们完成了加密解密的过程，发送一个http请求，监听torhost:torport发现该端口收到的就是一个明文http请求。</p>
-<h2 id="DNS隧道技术">DNS隧道技术</h2><p>第一次接触DNS隧道技术源于wooyun上一个关于我邮的绕过计费网关的漏洞。<br><a href="http://wooyun.org/bugs/wooyun-2010-099967" target="_blank" rel="external">[DNS tunnel实例]北京某大学网关计费系统可被绕过</a></p>
-<p>ssh隧道建立过程中ssh帮我们完成了数据的加密解密，在DNS隧道建立过程中同样需要类似功能的应用。</p>
-<p>这里使用了iodine</p>
-<p>1.添加两条域名解析记录</p>
-<pre><code><span class="keyword">NS</span>    名称-&gt;记录值
-<span class="keyword">A</span>    记录值-&gt;IP    
-</code></pre><p>2.服务端(ubuntu)</p>
-<pre><code>首先安装对应版本iodine
-iodined -c -f <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span> -P password 记录值
-<span class="preprocessor">#要确保<span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>不是正在使用的内网网段，开始设置的时候用了<span class="number">10</span>网段貌似和公司内网ip冲突，数据包全发到这个机器上。</span>
-</code></pre><p>3.客户端(win7_64)</p>
-<pre><code>安装iodine对应版本，与服务端版本一致
-安装OpenVPN 的 TAP Virtual Ethernet Adapter模块
-iodine <span class="operator">-f</span> -P password server_ip 记录值
-</code></pre><p>4.使用ssh转发</p>
-<pre><code>ping <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>  <span class="preprocessor">#看看能不能通</span>
-ssh -l loginname -L localhost:local_port:torhost:torport <span class="number">172.0</span><span class="number">.0</span><span class="number">.1</span>
-代理设置为-&gt;localhost:local_port
-</code></pre><p>5.验证<br>打开wireshark后发现多了一个网卡:本地连接2</p>
-<p>对本地连接2进行嗅探发现基本都是172.0.0.1到172.0.0.2之间的ssh类型的通信<br>对本地连接进行嗅探发现基本都是本机到vps指点DNS类型的通信，如下图<br><img src="http://quanyong.pub/pic/dns_tunnel.png" alt="dns_tunnel"></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1277,7 +1250,7 @@ ssh -l loginname -L localhost:local_port:torhost:torport <span class="number">17
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

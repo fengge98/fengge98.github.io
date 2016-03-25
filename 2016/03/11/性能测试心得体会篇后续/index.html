@@ -36,24 +36,24 @@
 
 
 <meta name="description" content="最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。
-制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试测试，可以根据以下两种方法预估
+制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试，可以根据以下两种方法预估
 方法一：2/8原则，80%的操作在20%的时间完成以登录为例
-集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务">
+集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务对外">
 <meta property="og:type" content="article">
 <meta property="og:title" content="性能测试心得体会篇">
 <meta property="og:url" content="http://yoursite.com/2016/03/11/性能测试心得体会篇后续/index.html">
 <meta property="og:site_name" content="FengGe">
 <meta property="og:description" content="最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。
-制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试测试，可以根据以下两种方法预估
+制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试，可以根据以下两种方法预估
 方法一：2/8原则，80%的操作在20%的时间完成以登录为例
-集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务">
-<meta property="og:updated_time" content="2016-03-11T13:24:18.890Z">
+集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务对外">
+<meta property="og:updated_time" content="2016-03-25T07:02:47.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能测试心得体会篇">
 <meta name="twitter:description" content="最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。
-制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试测试，可以根据以下两种方法预估
+制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试，可以根据以下两种方法预估
 方法一：2/8原则，80%的操作在20%的时间完成以登录为例
-集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务">
+集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务对外">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -238,7 +238,7 @@
 
       
         <span itemprop="articleBody"><p>最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。</p>
-<h2 id="制定测试指标">制定测试指标</h2><p>用户量：10000<br>测试范围：登录，切换分栏，提交表单，检索<br>对于单个业务的负载测试测试，可以根据以下两种方法预估</p>
+<h2 id="制定测试指标">制定测试指标</h2><p>用户量：10000<br>测试范围：登录，切换分栏，提交表单，检索<br>对于单个业务的负载测试，可以根据以下两种方法预估</p>
 <p>方法一：2/8原则，80%的操作在20%的时间完成<br>以登录为例</p>
 <pre><code>集中登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.8</span>=<span class="number">16000</span> <span class="comment">//10000*2考虑到之后部分业务对外开放</span>
 集中登录时间：<span class="number">8</span>*<span class="number">0.2</span>*<span class="number">3600</span>=<span class="number">5760</span>s
@@ -246,8 +246,10 @@
 </code></pre><p>方法二:根据对应业务模型</p>
 <pre><code>忙时集中系数: <span class="number">4000</span>/<span class="number">8000</span>=<span class="number">0.5</span> <span class="comment">//忙时集中系数=忙时业务量/全天业务量</span>
 扩充系数：<span class="number">2</span>
-峰值每秒登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.5</span>/<span class="number">3600</span>=<span class="number">2.78</span>
+峰值每秒登录数：<span class="number">10000</span>*<span class="number">2</span>*<span class="number">0.5</span>/<span class="number">3600</span>=<span class="number">2.78</span>说
 </code></pre><p>说明：所以我们可以认为，TPS达到2.78就可以满足需求，当然系统在实际运行中各种不同业务会同时运行，我们应该通过调整并发用户数，定位到单个业务系统最大处理能力即TPS。</p>
+<h2 id="最近踩过的坑">最近踩过的坑</h2><p>问题：服务器响应过快导致客户端TCP连接被占满导致loadrunner can’t connect异常<br>方案：1.增加系统连接数，减少释放等待时间<br>      2.改变加压策略：a.适当增加思考时间<br>                        b.用一个TCP连接发送http数据包（勾选掉create new user every iterate）</p>
+<p>问题：请求异常倒置应用日志打出错误信息<br>解决方法:1.burp截下请求重放，验证能否正常返回。<br>         2.截一下loadrunner请求，对比下步骤1的请求。<br>         3.调整loadrunner请求信息。</p>
 </span>
       
     </div>
@@ -266,6 +268,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/20/项目调优记录-WCM-MySql/" rel="prev">项目调优记录-WCM-MySql</a>
             
           </div>
 
@@ -337,7 +341,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -408,7 +412,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#制定测试指标"><span class="nav-number">1.</span> <span class="nav-text">制定测试指标</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#制定测试指标"><span class="nav-number">1.</span> <span class="nav-text">制定测试指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最近踩过的坑"><span class="nav-number">2.</span> <span class="nav-text">最近踩过的坑</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

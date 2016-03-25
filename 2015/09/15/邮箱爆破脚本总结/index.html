@@ -55,7 +55,7 @@ import poplib
 pop = poplib.POP3(host,port,delay)
 print pop.getwelcome()  #如果连接成功打印welcome信息
 pop =">
-<meta property="og:updated_time" content="2016-03-07T08:43:20.747Z">
+<meta property="og:updated_time" content="2016-03-15T06:21:08.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="邮箱爆破脚本总结">
 <meta name="twitter:description" content="前一阵研究了一下wooyun zone里看到的邮箱爆破脚本,自己试着改成了多线程,效果不是很好.在这里记录一下脚本实现思路以及关于邮箱爆破的一些想法.
@@ -306,9 +306,9 @@ python mailbrute.py -h
 </span>-<span class="ruby">l --namedic
 </span>-<span class="ruby">p --passworddic
 </span>-<span class="ruby">s --targetserversdic
-</span>-<span class="ruby">t --threadnums</span>
-</code></pre><p>#不指定则使用指定字典，默认线程为50</p>
-<h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
+</span>-<span class="ruby">t --threadnums
+</span>#不指定则使用指定字典，默认线程为50
+</code></pre><h2 id="总结:">总结:</h2><p>1.企业邮箱是一个很好的入口,没有设置超时的企业邮箱使用人名top500和经典弱密码有很大的概率爆出密码.<br>2.脚本可以使用多任务<strong>提高效率</strong>,多进程,多线程,协程.<br>3.进一步研究邮箱拦截方式,突破超时.</p>
 </span>
       
     </div>
@@ -398,7 +398,7 @@ python mailbrute.py -h
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
