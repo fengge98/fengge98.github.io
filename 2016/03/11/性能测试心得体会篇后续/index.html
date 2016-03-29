@@ -47,7 +47,7 @@
 制定测试指标用户量：10000测试范围：登录，切换分栏，提交表单，检索对于单个业务的负载测试，可以根据以下两种方法预估
 方法一：2/8原则，80%的操作在20%的时间完成以登录为例
 集中登录数：10000*2*0.8=16000 //10000*2考虑到之后部分业务对外">
-<meta property="og:updated_time" content="2016-03-25T07:02:47.588Z">
+<meta property="og:updated_time" content="2016-03-29T09:24:22.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="性能测试心得体会篇">
 <meta name="twitter:description" content="最近被绑在了一个重要项目的性能测试上，客户要求比较高，对网站的用户量也有一个比较准确的数字，又专门配置了两台压力机用于压力测试。
@@ -250,6 +250,9 @@
 </code></pre><p>说明：所以我们可以认为，TPS达到2.78就可以满足需求，当然系统在实际运行中各种不同业务会同时运行，我们应该通过调整并发用户数，定位到单个业务系统最大处理能力即TPS。</p>
 <h2 id="最近踩过的坑">最近踩过的坑</h2><p>问题：服务器响应过快导致客户端TCP连接被占满导致loadrunner can’t connect异常<br>方案：1.增加系统连接数，减少释放等待时间<br>      2.改变加压策略：a.适当增加思考时间<br>                        b.用一个TCP连接发送http数据包（勾选掉create new user every iterate）</p>
 <p>问题：请求异常倒置应用日志打出错误信息<br>解决方法:1.burp截下请求重放，验证能否正常返回。<br>         2.截一下loadrunner请求，对比下步骤1的请求。<br>         3.调整loadrunner请求信息。</p>
+<p>问题：项目网站不支持ie，firefox<br>解决方法：1.抓包,分析请求<br>          2.在loadrunner自己写</p>
+<p>问题：两个线程使用同一套字典做登录操作，wcm后台报错<br>解决方法：1.修改参数化策略<br>          2.每个线程设置为unique<br>          3.每个线程循环读取字典（字典要足够大）</p>
+<p>问题：怎么有效的找检查点<br>解决方法：在runtime-setting里勾选response from server，然后在打出来的日志里找</p>
 </span>
       
     </div>
@@ -268,8 +271,6 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/20/项目调优记录-WCM-MySql/" rel="prev">项目调优记录-WCM-MySql</a>
             
           </div>
 
@@ -341,7 +342,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
